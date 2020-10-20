@@ -3,5 +3,5 @@
 
 **bold text**
 
-`code
-\newline another line of code`
+`code \
+another line of code`
