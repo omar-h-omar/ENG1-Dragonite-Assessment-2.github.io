@@ -3,5 +3,7 @@
 
 **bold text**
 
-`code\
-another line of code`
+```
+code
+another line
+```
