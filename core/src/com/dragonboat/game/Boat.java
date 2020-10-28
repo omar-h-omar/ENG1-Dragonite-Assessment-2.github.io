@@ -29,8 +29,8 @@ public class Boat {
         lane = lane_;
         acceleration = 0.05f;
         maneuverability = 1;
-
-
+        
+        
     }
 
     public void SteerLeft() {
