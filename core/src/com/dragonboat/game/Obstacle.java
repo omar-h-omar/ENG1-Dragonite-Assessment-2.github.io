@@ -15,10 +15,6 @@ public class Obstacle {
 		this.height = height;
 	}
 	
-	/** public Obstacle spawnObstacle(int x, int y, String obstacleType) {
-		
-		I'm not sure that this belongs here?
-	**/
 	
 	public void Move() {
 		yPosition -= 10; // this number is currently a placeholder
