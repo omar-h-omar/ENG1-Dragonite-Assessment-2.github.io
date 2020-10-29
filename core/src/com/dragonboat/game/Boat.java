@@ -14,21 +14,21 @@ public class Boat {
     private Lane lane;
     private Texture texture;
 
-    public Boat(int xPosition_, int yPosition_, int width_, int height_, Lane lane_) {
-        xPosition = xPosition_;
-        yPosition = yPosition_;
-        width = width_;
-        height = height_;
-        currentSpeed = 0f;
-        maxSpeed = 5;
-        penalties = 0;
-        durability = 100;
-        robustness = 10;
-        tiredness = 0;
-        progress = 0f;
-        lane = lane_;
-        acceleration = 0.05f;
-        maneuverability = 1;
+    public Boat(int xPosition, int yPosition, int width, int height, Lane lane) {
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
+        this.width = width;
+        this.height = height;
+        this.currentSpeed = 0f;
+        this.maxSpeed = 5;
+        this.penalties = 0;
+        this.durability = 100;
+        this.robustness = 10;
+        this.tiredness = 0;
+        this.progress = 0f;
+        this.lane = lane;
+        this.acceleration = 0.05f;
+        this.maneuverability = 1;
         
         
     }
