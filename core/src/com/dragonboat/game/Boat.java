@@ -92,8 +92,8 @@ public class Boat {
 
         May need to add check whether 0 < y < finish y position.
          */
-        return this.xPosition > this.lane.getLeftBoundary() &&
-                this.xPosition < this.lane.getRightBoundary();
+        return this.xPosition > this.lane.GetLeftBoundary() &&
+                this.xPosition < this.lane.GetRightBoundary();
     }
 
     public void UpdateFastestTime(long elapsedTime) {
@@ -105,7 +105,7 @@ public class Boat {
         }
     }
 
-    // GETTERS / SETTERS \\
+    // getters and setters
 
     public long GetFastestTime() {
         return this.fastestLegTime;
