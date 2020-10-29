@@ -6,7 +6,7 @@ public class Course {
 	public int startY, finishY, leftBoundary, rightBoundary;
 	public Texture texture;
 	
-	public Course() {
-		
+	public Course(Texture texture) {
+		this.texture = texture;
 	}
 }

@@ -42,18 +42,18 @@ public class Boat {
     }
 
     public void IncreaseSpeed() {
-        currentSpeed = (currentSpeed + acceleration) >= maxSpeed ?
+        this.currentSpeed = (this.currentSpeed + this.acceleration) >= maxSpeed ?
                 maxSpeed : currentSpeed + acceleration;
     }
 
     public void DecreaseSpeed() {
         /*
-         Very basic decceleration function, acting as water friction.
+         Very basic deceleration function, acting as water friction.
          could be updated using functions from
          https://denysalmaral.com/2019/05/boat-sim-notes-1-water-friction.html
          to be more realistic.
          */
-        currentSpeed = (currentSpeed - acceleration) <= 0 ? 0 : currentSpeed - 0.5f;
+        this.currentSpeed = (this.currentSpeed - this.acceleration) <= 0 ? 0 : this.currentSpeed - 0.5f;
     }
 
     public boolean CheckCollisions(Obstacle[] obstacles) {
@@ -61,5 +61,8 @@ public class Boat {
         Iterate through obstacles,
          */
         return false;
+    }
+
+    public void ApplyDamage(int obstacleDamage) {
     }
 }
