@@ -26,5 +26,7 @@ public class Obstacle {
 	
 	public void removeObstacle() {
 		// this removes the Obstacle
+		// obstacle is removed upon either leaving the boundaries of the course or
+		// colliding with an instance of Boat
 	}
 }
