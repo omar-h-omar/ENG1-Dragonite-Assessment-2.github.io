@@ -2,7 +2,9 @@ package com.dragonboat.game;
 
 public class Log extends Obstacle {
 	
-	public Log(int damage, int xPosition, int yPosition, int width, int height, Lane lane) {
-		super(damage, xPosition, yPosition, width, height, lane);
+	public Log(int xPosition, int yPosition) {
+		// Joe: logs will have a set damage value, could increase with difficulty.
+		//      they'll also have a set width and height. just put some placeholders in for now.
+		super(10, xPosition, yPosition, 10, 30);
 	}
 }

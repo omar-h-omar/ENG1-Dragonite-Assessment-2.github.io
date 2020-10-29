@@ -6,15 +6,13 @@ public class Obstacle {
 	private int damage;
 	public int xPosition, yPosition, width, height;
 	public Texture texture;
-	public Lane lane;
 	
-	public Obstacle(int damage, int xPosition, int yPosition, int width, int height, Lane lane) {
+	public Obstacle(int damage, int xPosition, int yPosition, int width, int height) {
 		this.damage = damage;
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
 		this.width = width;
 		this.height = height;
-		this.lane = lane;
 	}
 	
 	
