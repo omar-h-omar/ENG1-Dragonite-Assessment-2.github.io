@@ -10,12 +10,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class DragonBoatGame extends ApplicationAdapter {
 	SpriteBatch batch;
+	Texture courseTexture;
 	private OrthographicCamera camera;
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
+
+		courseTexture = new Texture(Gdx.files.internal("background sprite.png"));
+		Course course = new Course(courseTexture);
 
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, w / 2, h / 2);
@@ -27,6 +31,7 @@ public class DragonBoatGame extends ApplicationAdapter {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
 
+		batch.draw(courseTexture,0,0);
 		batch.end();
 	}
 
