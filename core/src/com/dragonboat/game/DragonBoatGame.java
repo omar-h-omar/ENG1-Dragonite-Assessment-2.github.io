@@ -1,6 +1,7 @@
 package com.dragonboat.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
@@ -8,40 +9,44 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class DragonBoatGame extends ApplicationAdapter {
-	SpriteBatch batch;
+public class DragonBoatGame extends Game {
 	Texture courseTexture;
-	private OrthographicCamera camera;
+	GameScreen gameScreen;
+	Lane[] lanes;
+
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		float w = Gdx.graphics.getWidth();
-		float h = Gdx.graphics.getHeight();
+		gameScreen = new GameScreen();
+		setScreen(gameScreen);
 
 		courseTexture = new Texture(Gdx.files.internal("background sprite.png"));
-		Course course = new Course(courseTexture);
+		int w = Gdx.graphics.getWidth();
+		int h = Gdx.graphics.getHeight();
 
-		camera = new OrthographicCamera();
-		camera.setToOrtho(false, w / 2, h / 2);
+
+		lanes = new Lane[7];
+		for(int x = 0; x < lanes.length; x++) {
+			lanes[x] = new Lane((x/lanes.length) * w, ((x+1)/lanes.length) * w);
+		}
+
+		Course course = new Course(courseTexture, lanes);
+
 	}
+
+	// All drawing is done in the GameScreen class.
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-
-		batch.draw(courseTexture,0,0);
-		batch.end();
+		super.render();
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		camera.setToOrtho(false, width / 2, height / 2);
+		gameScreen.resize(width,height);
 	}
 
 	@Override
 	public void dispose () {
-		batch.dispose();
+		gameScreen.dispose();
 	}
 }
