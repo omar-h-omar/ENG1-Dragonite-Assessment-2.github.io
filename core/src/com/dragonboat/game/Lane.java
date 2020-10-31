@@ -7,8 +7,9 @@ import java.util.ArrayList;
 
 public class Lane {
     private final int LEFTBOUNDARY, RIGHTBOUNDARY;
-    private ArrayList<Obstacle> obstacles;
+    protected ArrayList<Obstacle> obstacles;
     private int obstacleLimit;
+
     public Lane(int leftBoundary, int rightBoundary) {
        this.LEFTBOUNDARY = leftBoundary;
        this.RIGHTBOUNDARY = rightBoundary;

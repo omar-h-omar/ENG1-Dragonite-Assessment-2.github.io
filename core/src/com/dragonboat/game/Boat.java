@@ -15,7 +15,7 @@ public class Boat {
     private long fastestLegTime;
     public int xPosition, yPosition, width, height;
     public float currentSpeed, progress;
-    private Lane lane;
+    protected Lane lane;
     private Texture texture;
 
     public Boat(int xPosition, int yPosition, int width, int height, Lane lane) {

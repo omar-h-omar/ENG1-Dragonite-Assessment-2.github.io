@@ -6,5 +6,5 @@ public class Leaderboard {
     //attributes
     private Boat[] boats;
 
-    public 
+    // public
 }
