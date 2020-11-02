@@ -40,6 +40,13 @@ public class Lane {
             }
         } else System.console().printf("Obstacle limit reached.");
     }
+    
+	public void RemoveObstacle(int index) {
+		/* 
+		 Method for removing an Obstacle from the lane's Obstacle list at given index.
+		 */
+		this.obstacles.remove(index);
+	}
 
     // getters and setters
 
