@@ -22,7 +22,7 @@ public class Opponent extends Boat {
         ArrayList<Obstacle> allIncomingObstacles = this.lane.obstacles;
         ArrayList<Obstacle> sortedIncomingObstacles = new ArrayList<Obstacle>();
 
-        //Sort Obstacles in incomingObstacles from lowest to highest yPosition (proximity to the Boat, even)
+        //Insertion sort Obstacles in incomingObstacles from lowest to highest yPosition (proximity to the Boat, even)
         for(Obstacle obs : allIncomingObstacles) {
             if(sortedIncomingObstacles.size() == 0) {
                 sortedIncomingObstacles.add(obs);
@@ -34,7 +34,7 @@ public class Opponent extends Boat {
                     Obstacle thisObstacle = sortedIncomingObstacles.get(index);
                     if(index < sortedIncomingObstacles.size()) {
                         //If not reached end of sortedIncomingObstacles.
-                        if(thisObstacle.yPosition > obs.yPosition) {
+                        if(thisObstacle.getY() > obs.getY()) {
                             //Keep looking for place to insert.
                             index += 1; 
                         }
@@ -79,9 +79,9 @@ public class Opponent extends Boat {
         }
 
         for(Obstacle obs : sortedIncomingObstacles) {
-            if(obs.yPosition <= visionDistance) {
+            if(obs.getY() <= visionDistance) {
                 //The obstacle is visible from the boat.
-                if(obs.xPosition + obs.width < leftSide) {
+                if(obs.getY() + obs.width < leftSide) {
                     /*
                     The obstacle is far left of the boat.
 
@@ -97,7 +97,7 @@ public class Opponent extends Boat {
                     }
                     */
                 }
-                else if(obs.xPosition + obs.width > rightSide) {
+                else if(obs.getX() + obs.width > rightSide) {
                     /*
                     The obstacle is far right of the boat.
 
@@ -119,8 +119,8 @@ public class Opponent extends Boat {
                     Move in the appropriate direction. Depends on whether the Obstacle is to the left or right, on whether you are close to the Lane boundary, etc.
                     If the obstacle is dead ahead, slow down also.
                     */
-                    int leftMargin = leftSide - obs.xPosition;
-                    int rightMargin = obs.xPosition + obs.width - rightSide;
+                    int leftMargin = leftSide - obs.getX();
+                    int rightMargin = obs.getX() + obs.width - rightSide;
                     
                     //Check to slow down.
                     if((leftMargin <= 0 && rightMargin <= 0) || (leftMargin >= 0 && rightMargin >= 0)){

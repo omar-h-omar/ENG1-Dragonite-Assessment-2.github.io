@@ -1,6 +1,13 @@
 package com.dragonboat.game;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Random;
+
 public class Goose extends Obstacle {
+
+	public String direction = "South"; //Facing south by default.
 	
 	public Goose(int xPosition, int yPosition, Texture texture) {
 		// Joe: geese will have a set damage value, could increase with difficulty.
@@ -11,6 +18,32 @@ public class Goose extends Obstacle {
 	}
 	
 	public void changeDirection() {
-		// changes a random direction
+		/*
+		Changes the direction of the Goose to an appropriate albeit random cardinal direction.
+		*/
+		HashMap<String, ArrayList<String>> cardinals = new HashMap<String, ArrayList<String>>();
+		cardinals.put("North", new ArrayList<String>(Arrays.asList("East", "West")));
+		cardinals.put("East", new ArrayList<String>(Arrays.asList("North", "South")));
+		cardinals.put("South", new ArrayList<String>(Arrays.asList("East", "West")));
+		cardinals.put("West", new ArrayList<String>(Arrays.asList("North", "South")));
+		
+		direction = cardinals.get(direction).get(new Random().nextInt(2));
+	}
+
+	public void Move() {
+		int moveVal = 10;
+		if(direction == "South" || direction == "West") {
+			moveVal = moveVal * -1;
+		}
+		if(direction == "North" || direction == "South") {
+			//this.yPosition += moveVal; //------------------------------------------------------------------------------------------------
+		}
+		else {
+			//this.xPosition += moveVal; //------------------------------------------------------------------------------------------------
+		}
+	}
+
+	public boolean isGoose() {
+		return true;
 	}
 }
