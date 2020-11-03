@@ -10,15 +10,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class DragonBoatGame extends Game {
-	Texture courseTexture;
+	public Texture courseTexture;
 	GameScreen gameScreen;
-	Lane[] lanes;
+	public Lane[] lanes;
+	public Player player;
 
 	@Override
 	public void create () {
-		gameScreen = new GameScreen();
-		setScreen(gameScreen);
-
 		courseTexture = new Texture(Gdx.files.internal("background sprite.png"));
 		int w = Gdx.graphics.getWidth();
 		int h = Gdx.graphics.getHeight();
@@ -30,7 +28,10 @@ public class DragonBoatGame extends Game {
 		}
 
 		Course course = new Course(courseTexture, lanes);
-
+		player = new Player(0,56, 182, lanes[3]);
+		player.setTexture(new Texture(Gdx.files.internal("boatA sprite1.png")));
+		gameScreen = new GameScreen(this);
+		setScreen(gameScreen);
 	}
 
 	// All drawing is done in the GameScreen class.

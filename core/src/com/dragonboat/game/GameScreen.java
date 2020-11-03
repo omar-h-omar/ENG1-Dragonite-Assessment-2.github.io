@@ -1,6 +1,7 @@
 package com.dragonboat.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,6 +11,10 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class GameScreen implements Screen {
     // ENVIRONMENT VARIABLES:
+    // game
+    private DragonBoatGame game;
+    private Player player;
+
     // screen
     private OrthographicCamera camera;
     private Viewport viewport;
@@ -26,11 +31,16 @@ public class GameScreen implements Screen {
     private final int HEIGHT = 720;
 
 
-    GameScreen() {
+    public GameScreen(DragonBoatGame game) {
+        this.game = game;
+
         camera = new OrthographicCamera();
         viewport = new StretchViewport(WIDTH,HEIGHT,camera);
 
-        background = new Texture(Gdx.files.internal("background sprite.png"));
+        // texture setting
+
+        background = this.game.courseTexture;
+        //this.game.player.setTexture(new Texture(Gdx.files.internal("boatA sprite1.png")));
         backgroundOffset = 0;
         batch = new SpriteBatch();
     }
@@ -40,9 +50,14 @@ public class GameScreen implements Screen {
         Main rendering function. backgroundOffset determines which portion of the background is shown.
         this should be set to the player's y position each frame.
          */
-        backgroundOffset++;
+        Gdx.gl.glClearColor(1,0,0,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        this.game.player.GetInput();
+        backgroundOffset = this.game.player.GetY();
         batch.begin();
+
         batch.draw(background,0,0, 0,background.getHeight()-HEIGHT-backgroundOffset, WIDTH, HEIGHT);
+        batch.draw(this.game.player.texture, this.game.player.GetX(), this.game.player.GetY());
 
         batch.end();
     }
@@ -70,7 +85,8 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        background.dispose();
+        player.texture.dispose();
     }
 
     @Override
