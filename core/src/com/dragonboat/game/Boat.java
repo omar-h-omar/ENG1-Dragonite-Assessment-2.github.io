@@ -13,23 +13,23 @@ public class Boat {
 
     private int durability, tiredness, penalties;
     private long fastestLegTime;
-    public int xPosition, yPosition, width, height;
+    protected int xPosition, yPosition, width, height;
     public float currentSpeed, progress;
     protected Lane lane;
-    private Texture texture;
+    public Texture texture;
 
-    public Boat(int xPosition, int yPosition, int width, int height, Lane lane) {
+    public Boat(int yPosition, int width, int height, Lane lane) {
         /*
         These 4 attributes will be unique to each boat. The values used are placeholders for now.
         We will need some function to set these attributes depending on which team the player selects.
         (or whichever team is randomly chosen for the opponents).
          */
         this.ROBUSTNESS = 10;
-        this.MAXSPEED = 5;
+        this.MAXSPEED = 2;
         this.ACCELERATION = 0.05f;
         this.MANEUVERABILITY = 1;
 
-        this.xPosition = xPosition;
+        this.xPosition = lane.GetRightBoundary() - (lane.GetRightBoundary() - lane.GetLeftBoundary())/2;
         this.yPosition = yPosition;
         this.width = width;
         this.height = height;
@@ -52,6 +52,7 @@ public class Boat {
     }
 
     public void IncreaseSpeed() {
+        this.yPosition += this.currentSpeed;
         this.currentSpeed = (this.currentSpeed + this.ACCELERATION) >= this.MAXSPEED ?
                 this.MAXSPEED : this.currentSpeed + this.ACCELERATION;
     }
@@ -63,7 +64,7 @@ public class Boat {
          https://denysalmaral.com/2019/05/boat-sim-notes-1-water-friction.html
          to be more realistic.
          */
-        this.currentSpeed = (this.currentSpeed - this.ACCELERATION) <= 0 ? 0 : this.currentSpeed - 0.5f;
+        this.currentSpeed = (this.currentSpeed - this.ACCELERATION) <= 0 ? 0 : this.currentSpeed - 0.03f;
     }
 
     public boolean CheckCollisions(Obstacle[] obstacles) {
@@ -106,6 +107,10 @@ public class Boat {
     }
 
     // getters and setters
+
+    public void setTexture(Texture t) {
+        this.texture = t;
+    }
 
     public long GetFastestTime() {
         return this.fastestLegTime;
