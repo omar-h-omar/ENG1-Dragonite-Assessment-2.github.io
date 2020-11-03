@@ -1,4 +1,5 @@
 package com.dragonboat.game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Course {
@@ -6,7 +7,10 @@ public class Course {
 	public int startY, finishY, leftBoundary, rightBoundary;
 	public Texture texture;
 	
-	public Course(Texture texture) {
+	public Course(Texture texture, Lane[] lanes) {
 		this.texture = texture;
+		this.leftBoundary = 0;
+		this.rightBoundary = Gdx.graphics.getWidth();
+		this.lanes = lanes;
 	}
 }

@@ -7,22 +7,30 @@ public class Obstacle {
 	public int xPosition, yPosition, width, height;
 	public Texture texture;
 	
-	public Obstacle(int damage, int xPosition, int yPosition, int width, int height) {
+	public Obstacle(int damage, int xPosition, int yPosition, int width, int height, Texture texture) {
 		this.damage = damage;
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
 		this.width = width;
 		this.height = height;
+		this.texture = texture;
 	}
 	
+	//getters and setters
+	
+	public int getDamage() {
+		return this.damage;
+	}
+	
+	public int getX() {
+		return this.xPosition;
+	}
+	
+	public int getY() {
+		return this.yPosition;
+	}
 	
 	public void Move() {
-		yPosition -= 10; // this number is currently a placeholder
-	}
-	
-	public void removeObstacle() {
-		// this removes the Obstacle
-		// obstacle is removed upon either leaving the boundaries of the course or
-		// colliding with an instance of Boat
+		this.yPosition -= 10; // this number is currently a placeholder
 	}
 }

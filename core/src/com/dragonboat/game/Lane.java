@@ -7,8 +7,9 @@ import java.util.ArrayList;
 
 public class Lane {
     private final int LEFTBOUNDARY, RIGHTBOUNDARY;
-    private ArrayList<Obstacle> obstacles;
+    protected ArrayList<Obstacle> obstacles;
     private int obstacleLimit;
+
     public Lane(int leftBoundary, int rightBoundary) {
        this.LEFTBOUNDARY = leftBoundary;
        this.RIGHTBOUNDARY = rightBoundary;
@@ -39,6 +40,15 @@ public class Lane {
             }
         } else System.console().printf("Obstacle limit reached.");
     }
+    
+	public void RemoveObstacle(int index) {
+		/* 
+		 Method for removing an Obstacle from the lane's Obstacle list at given index.
+		 NOT SOLD ON THIS IMPLEMENTATION. 
+		 Obstacle should be removed upon collision with boat or leaving the course area.
+		 */
+		this.obstacles.remove(index);
+	}
 
     // getters and setters
 

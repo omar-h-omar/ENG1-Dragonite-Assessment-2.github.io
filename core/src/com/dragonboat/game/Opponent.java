@@ -1,4 +1,5 @@
 package com.dragonboat.game;
+import java.util.ArrayList;
 
 public class Opponent extends Boat {
 
@@ -18,8 +19,8 @@ public class Opponent extends Boat {
         int fov = 0; //Determine a good field of view for the Opponents to start reacting to incoming obstacles.
         int visionDistance = yPosition + height + fov;
 
-        Obstacle[] incomingObstacles;
-        //Obstacle[] incomingObstacles = this.lane.obstacles; 
+        ArrayList<Obstacle> incomingObstacles;
+        incomingObstacles = this.lane.obstacles;
         //Sort Obstacles in incomingObstacles by proximity to the boat.
 
         boolean noNewPath = true; //Set to false whenever the Opponent has decided on a new path.
