@@ -8,8 +8,10 @@ public class Opponent extends Boat {
     }
 
     public void ai() {
-        //One method to control the AI behaviour of one boat.
-        //Every so often in the game loop, Opponent.ai() gets called and the movement path of the Opponent boats will change.
+        /*
+        One method to control the AI behaviour of one boat.
+        Every so often in the game loop, Opponent.ai() gets called and the movement path of the Opponent boats will change.
+        */
 
         int left = xPosition;
         int right = xPosition + width;
@@ -27,18 +29,26 @@ public class Opponent extends Boat {
             if(obs.yPosition <= visionDistance) {
                 //The obstacle is visible from the boat.
                 if(obs.xPosition + obs.width < left || obs.xPosition + obs.width > right) {
-                    //The obstacle is far left or far right of the boat.
-                    //Do nothing? A moving Obstacle (Goose) might currently be far left but heading right on a collision course.
+                    /*
+                    The obstacle is far left or far right of the boat.
 
-                    //Maybe check type of Obstacle then; if it's a Goose, check the direction. If it's headed your way, do something about that.
-                    //if(A Goose is moving towards me) {
-                    //    noNewPath = false;
-                    //}
+                    Do nothing? A moving Obstacle (Goose) might currently be far left but heading right on a collision course.
+
+                    Maybe check type of Obstacle then; if it's a Goose, check the direction. If it's headed your way, do something about that.
+
+                    if(A Goose is moving towards me) {
+                        noNewPath = false;
+                        break;
+                    }
+                    */
                 }
                 else {
-                    //Part or all of the obstacle is on a collision course with the boat.
-                    //Move in the appropriate direction. Depends on whether the Obstacle is to the left or right, on whether you are close to the Lane boundary, etc.
+                    /*
+                    Part or all of the obstacle is on a collision course with the boat.
+                    Move in the appropriate direction. Depends on whether the Obstacle is to the left or right, on whether you are close to the Lane boundary, etc.
+                    */
                     noNewPath = false;
+                    break;
                 }
             }
         }
