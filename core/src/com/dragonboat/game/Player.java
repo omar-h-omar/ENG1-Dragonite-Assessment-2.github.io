@@ -5,9 +5,14 @@ import com.badlogic.gdx.Gdx;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class Player {
+public class Player extends Boat{
     private int x_coordinate;
     private int y_coordinate;
+
+    public Player(int xPosition, int yPosition, int width, int height, Lane lane) {
+        super(xPosition, yPosition, width, height, lane);
+    }
+
     public  void GetInput() {
         addKeyListener(new KeyListener()
             public void keyPressed(KeyEvent key_press) {
