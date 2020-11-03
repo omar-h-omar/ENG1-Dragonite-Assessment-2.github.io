@@ -3,8 +3,8 @@ import com.badlogic.gdx.graphics.Texture;
 
 
 public class Obstacle {
-	private int damage;
-	public int xPosition, yPosition, width, height;
+	private int xPosition, yPosition, damage;
+	public int  width, height;
 	public Texture texture;
 	
 	public Obstacle(int damage, int xPosition, int yPosition, int width, int height, Texture texture) {

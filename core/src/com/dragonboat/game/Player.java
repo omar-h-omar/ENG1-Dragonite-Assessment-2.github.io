@@ -6,23 +6,29 @@ import com.badlogic.gdx.Input;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class Player {
+public class Player extends Boat{
     private int x_coordinate;
     private int y_coordinate;
 
+    public Player(int xPosition, int yPosition, int width, int height, Lane lane) {
+        super(xPosition, yPosition, width, height, lane);
+    }
+
     public  void GetInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            //Call method assoicated
+            IncreaseSpeed();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            //Call method assoicated
+            //Call method associated
+            DecreaseSpeed();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            //Call method assoicated
-
+            //Call method associated
+            SteerLeft();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            //Call method assoicated
+            //Call method associated
+            SteerRight();
         }
     }
     public int[] ChooseBoat() {
