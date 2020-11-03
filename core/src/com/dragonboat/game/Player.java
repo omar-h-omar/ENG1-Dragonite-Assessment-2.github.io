@@ -6,11 +6,7 @@ import com.badlogic.gdx.Input;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-<<<<<<< HEAD
 public class Player extends Boat{
-=======
-public class Player extends Boat {
->>>>>>> 0f9a9792fcee36c979b9c3ab97730f8e0f34c149
     private int x_coordinate;
     private int y_coordinate;
 
