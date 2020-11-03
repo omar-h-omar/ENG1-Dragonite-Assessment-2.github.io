@@ -44,6 +44,8 @@ public class Lane {
 	public void RemoveObstacle(int index) {
 		/* 
 		 Method for removing an Obstacle from the lane's Obstacle list at given index.
+		 NOT SOLD ON THIS IMPLEMENTATION. 
+		 Obstacle should be removed upon collision with boat or leaving the course area.
 		 */
 		this.obstacles.remove(index);
 	}
