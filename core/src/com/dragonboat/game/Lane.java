@@ -1,5 +1,7 @@
 package com.dragonboat.game;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.sun.corba.se.impl.io.TypeMismatchException;
 
 import java.util.ArrayList;
@@ -28,11 +30,11 @@ public class Lane {
          */
         if(this.obstacles.size() <= this.obstacleLimit) {
             if (obstacleType.equals("Goose")) {
-                Goose goose = new Goose(x, y);
+                Goose goose = new Goose(x, y, new Texture(Gdx.files.internal("gooseNorth sprite.png")));
                 this.obstacles.add(goose);
 
             } else if (obstacleType.equals("Log")) {
-                Log log = new Log(x, y);
+                Log log = new Log(x, y, new Texture(Gdx.files.internal("logBig sprite.png")));
                 this.obstacles.add(log);
 
             } else {

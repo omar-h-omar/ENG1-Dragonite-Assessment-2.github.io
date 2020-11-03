@@ -1,5 +1,7 @@
 package com.dragonboat.game;
 
+import com.badlogic.gdx.graphics.Texture;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -14,7 +16,7 @@ public class Goose extends Obstacle {
 		//      they'll also have a set width and height. just put some placeholders in for now.
 		// Ben: geese can also face N, S, E, W.
 		//      width and height will swap places when  switching between N/S and E/W.
-		super(5, xPosition, yPosition, 10, 10, Texture texture);
+		super(5, xPosition, yPosition, 10, 10, texture);
 	}
 	
 	public void changeDirection() {
@@ -36,10 +38,10 @@ public class Goose extends Obstacle {
 			moveVal = moveVal * -1;
 		}
 		if(direction == "North" || direction == "South") {
-			this.yPosition += moveVal; //------------------------------------------------------------------------------------------------ Need setter method.
+			//this.yPosition += moveVal; //------------------------------------------------------------------------------------------------ Need setter method.
 		}
 		else {
-			this.xPosition += moveVal; //------------------------------------------------------------------------------------------------ Need setter method.
+			//this.xPosition += moveVal; //------------------------------------------------------------------------------------------------ Need setter method.
 		}
 	}
 	
