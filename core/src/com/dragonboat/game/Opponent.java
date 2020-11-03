@@ -3,8 +3,8 @@ import java.util.ArrayList;
 
 public class Opponent extends Boat {
 
-    public Opponent(int xPosition, int yPosition, int width, int height, Lane lane) {
-        super(xPosition, yPosition, width, height, lane);
+    public Opponent(int yPosition, int width, int height, Lane lane) {
+        super(yPosition, width, height, lane);
     }
 
     public void ai() {

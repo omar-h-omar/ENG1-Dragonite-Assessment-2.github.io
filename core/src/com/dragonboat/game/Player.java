@@ -10,25 +10,25 @@ public class Player extends Boat{
     private int x_coordinate;
     private int y_coordinate;
 
-    public Player(int xPosition, int yPosition, int width, int height, Lane lane) {
-        super(xPosition, yPosition, width, height, lane);
+    public Player(int yPosition, int width, int height, Lane lane) {
+        super(yPosition, width, height, lane);
     }
 
     public  void GetInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            IncreaseSpeed();
+            this.IncreaseSpeed();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             //Call method associated
-            DecreaseSpeed();
+            this.DecreaseSpeed();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             //Call method associated
-            SteerLeft();
+            this.SteerLeft();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.D)) {
             //Call method associated
-            SteerRight();
+            this.SteerRight();
         }
     }
     public int[] ChooseBoat() {
