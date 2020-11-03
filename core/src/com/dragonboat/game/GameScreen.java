@@ -51,13 +51,15 @@ public class GameScreen implements Screen {
         this should be set to the player's y position each frame.
          */
         Gdx.gl.glClearColor(1,0,0,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);               //  Clears the screen.
+
         this.game.player.GetInput();
-        backgroundOffset = this.game.player.GetY();
+        backgroundOffset = this.game.player.GetY() > HEIGHT / 2 ? this.game.player.GetY() - HEIGHT/2 : 0;     // Until the boat is above half of the window height, don't move the background.
+
         batch.begin();
 
         batch.draw(background,0,0, 0,background.getHeight()-HEIGHT-backgroundOffset, WIDTH, HEIGHT);
-        batch.draw(this.game.player.texture, this.game.player.GetX(), this.game.player.GetY());
+        batch.draw(this.game.player.texture, this.game.player.GetX(), this.game.player.GetY()-backgroundOffset);
 
         batch.end();
     }
