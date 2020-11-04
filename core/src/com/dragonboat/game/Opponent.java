@@ -18,11 +18,11 @@ public class Opponent extends Boat {
             3) If nothing, speed up.
         */
 
-        int leftSide = xPosition;
-        int rightSide = xPosition + width;
+        int leftSide = Math.round(xPosition);
+        int rightSide = Math.round(xPosition) + width;
 
         int fov = 0; //Determine a good field of view for the Opponents to start reacting to incoming obstacles.
-        int visionDistance = yPosition + height + fov;
+        float visionDistance = yPosition + height + fov;
 
         ArrayList<Obstacle> allIncomingObstacles = this.lane.obstacles;
         ArrayList<Obstacle> sortedIncomingObstacles = new ArrayList<Obstacle>();
