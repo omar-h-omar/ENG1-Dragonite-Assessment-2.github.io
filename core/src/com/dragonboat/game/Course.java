@@ -3,7 +3,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Course {
-	public Lane[] lanes;
+	private Lane[] lanes;
 	public int startY, finishY, leftBoundary, rightBoundary;
 	public Texture texture;
 	
@@ -19,5 +19,13 @@ public class Course {
 
 	public Texture getTexture() {
 		return texture;
+	}
+
+	public int getNoLanes() {
+		return lanes.length;
+	}
+
+	public Lane[] getLanes() {
+		return lanes;
 	}
 }
