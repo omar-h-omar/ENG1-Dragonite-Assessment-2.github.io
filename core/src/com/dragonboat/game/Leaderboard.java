@@ -15,21 +15,13 @@ public class Leaderboard {
         this.sortedBoats = boats;
     }
 
-    private void updateTimes(){
+    //sorts order of boats
+    private void UpdateOrder(){
         Arrays.sort(this.sortedBoats, ascRaceTime);
     }
 
-    public Boat[] GetFinalists(){
-        Boat[] finalists = new Boat[4];
-        for(int i = 0; i < 4; i++){
-            finalists[i] = sortedBoats[i];
-        }
-
-        return finalists;
-    }
-
-    //custom number of places
-    public Boat[] GetFinalists(int places){
+    //gets top boats
+    public Boat[] GetTopBoats(int places){
         Boat[] finalists = new Boat[places];
         for(int i = 0; i < places; i++){
             finalists[i] = sortedBoats[i];
@@ -38,10 +30,12 @@ public class Leaderboard {
         return finalists;
     }
 
+    //gets top 3 places
     public Boat[] GetPodium(){
-        return GetFinalists(3);
+        return GetTopBoats(3);
     }
 
+    //defining comparators
     static{
         //allows boat times to be compared
         ascRaceTime = new Comparator<Boat>(){
@@ -50,5 +44,15 @@ public class Leaderboard {
                 return Long.compare(boat1.GetFastestTime(), boat2.GetFastestTime());
             }
         };
+    }
+
+    //get names and times of top boats
+    public String[] GetTimes(int places){
+        String[] out = new String[places];
+        for(int i = 0; i < places; i++){
+            out[i] = sortedBoats[i].GetName() + sortedBoats[i].GetFastestTime();
+        }
+
+        return out;
     }
 }
