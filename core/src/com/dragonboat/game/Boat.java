@@ -13,7 +13,8 @@ public class Boat {
 
     private int durability, tiredness, penalties;
     private long fastestLegTime;
-    protected int xPosition, yPosition, width, height;
+    protected float yPosition, xPosition;
+    protected int width, height;
     public float currentSpeed, progress;
     protected Lane lane;
     public Texture texture;
@@ -25,11 +26,11 @@ public class Boat {
         (or whichever team is randomly chosen for the opponents).
          */
         this.ROBUSTNESS = 10;
-        this.MAXSPEED = 2;
-        this.ACCELERATION = 0.05f;
+        this.MAXSPEED = 3;
+        this.ACCELERATION = 0.005f;
         this.MANEUVERABILITY = 1;
 
-        this.xPosition = lane.GetRightBoundary() - (lane.GetRightBoundary() - lane.GetLeftBoundary())/2;
+        this.xPosition = lane.GetRightBoundary() - (lane.GetRightBoundary() - lane.GetLeftBoundary())/2 - width/2;
         this.yPosition = yPosition;
         this.width = width;
         this.height = height;
@@ -50,9 +51,13 @@ public class Boat {
     public void SteerRight() {
         this.xPosition += this.MANEUVERABILITY * this.currentSpeed;
     }
+    public void MoveForward() {
+        this.yPosition += this.currentSpeed;
+        this.currentSpeed *= 0.9992;
+    }
 
     public void IncreaseSpeed() {
-        this.yPosition += this.currentSpeed;
+        System.out.println(this.currentSpeed);
         this.currentSpeed = (this.currentSpeed + this.ACCELERATION) >= this.MAXSPEED ?
                 this.MAXSPEED : this.currentSpeed + this.ACCELERATION;
     }
@@ -64,7 +69,7 @@ public class Boat {
          https://denysalmaral.com/2019/05/boat-sim-notes-1-water-friction.html
          to be more realistic.
          */
-        this.currentSpeed = (this.currentSpeed - this.ACCELERATION) <= 0 ? 0 : this.currentSpeed - 0.03f;
+        this.currentSpeed = (this.currentSpeed - this.ACCELERATION) <= 0 ? 0 : this.currentSpeed - 0.001f;
     }
 
     public boolean CheckCollisions(Obstacle[] obstacles) {
@@ -112,16 +117,23 @@ public class Boat {
         this.texture = t;
     }
 
-    public long GetFastestTime() {
+    public long getFastestTime() {
         return this.fastestLegTime;
     }
 
-    public int GetX() {
-        return this.xPosition;
+    public int getX() {
+        return Math.round(this.xPosition);
     }
 
-    public int GetY() {
-        return this.yPosition;
+    public int getY() {
+        return Math.round(this.yPosition);
     }
 
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
 }
