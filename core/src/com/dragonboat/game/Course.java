@@ -13,4 +13,11 @@ public class Course {
 		this.rightBoundary = Gdx.graphics.getWidth();
 		this.lanes = lanes;
 	}
+
+
+	// getters and setters
+
+	public Texture getTexture() {
+		return texture;
+	}
 }
