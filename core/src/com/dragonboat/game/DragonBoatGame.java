@@ -1,33 +1,44 @@
 package com.dragonboat.game;
-
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+import java.util.Random;
 
 public class DragonBoatGame extends Game {
-	public Texture courseTexture;
-	GameScreen gameScreen;
+	private GameScreen gameScreen;
 	public Lane[] lanes;
 	public Player player;
+	public Course course;
+	public int noOfObstacles;
+	public float[][] obstacleTimes;
+	private int noOfLanes;
 
 	@Override
 	public void create () {
-		courseTexture = new Texture(Gdx.files.internal("background sprite.png"));
+		Random rnd = new Random();
 		int w = Gdx.graphics.getWidth();
 		int h = Gdx.graphics.getHeight();
 
+		noOfLanes = 7;
+		noOfObstacles = 10;
 
-		lanes = new Lane[7];
+		lanes = new Lane[noOfLanes];
+		obstacleTimes = new float[noOfLanes][noOfObstacles];
+
+		// Generating random times for each obstacle to spawn.
+
 		for(int x = 0; x < lanes.length; x++) {
-			lanes[x] = new Lane((x/lanes.length) * w, ((x+1)/lanes.length) * w);
+			lanes[x] = new Lane((x * w / lanes.length), (((x + 1) * w) / lanes.length));
+			for (int y = 0; y < obstacleTimes[x].length; y++) {
+				// This will need fine-tuning, basically maps a float from (0,1] to a float from (0,X] to space them out somewhat.
+				obstacleTimes[x][y] = Math.round(80 * rnd.nextFloat());
+			}
 		}
 
-		Course course = new Course(courseTexture, lanes);
+		// Initialising game objects.
+
+		course = new Course(new Texture(Gdx.files.internal("background sprite.png")), lanes);
 		player = new Player(0,56, 182, lanes[3]);
 		player.setTexture(new Texture(Gdx.files.internal("boatA sprite1.png")));
 		gameScreen = new GameScreen(this);
@@ -38,6 +49,7 @@ public class DragonBoatGame extends Game {
 
 	@Override
 	public void render () {
+		player.MoveForward();
 		super.render();
 	}
 
