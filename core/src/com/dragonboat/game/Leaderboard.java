@@ -18,7 +18,7 @@ public class Leaderboard {
     }
 
     //gets top boats
-    public Boat[] GetTopBoats(int places){
+    public Boat[] GetFinalists(int places){
         Boat[] finalists = new Boat[places];
         for(int i = 0; i < places; i++){
             finalists[i] = sortedBoats[i];
@@ -29,7 +29,7 @@ public class Leaderboard {
 
     //gets top 3 places
     public Boat[] GetPodium(){
-        return GetTopBoats(3);
+        return GetFinalists(3);
     }
 
     //defining comparators
