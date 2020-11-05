@@ -10,8 +10,8 @@ public class Player extends Boat{
     private int x_coordinate;
     private int y_coordinate;
 
-    public Player(int yPosition, int width, int height, Lane lane) {
-        super(yPosition, width, height, lane);
+    public Player(int yPosition, int width, int height, Lane lane, String name) {
+        super(yPosition, width, height, lane, name);
     }
 
     public  void GetInput() {
