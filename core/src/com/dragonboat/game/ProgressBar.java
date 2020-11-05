@@ -12,6 +12,8 @@ public class ProgressBar {
 	private float playerProgress;
 	private float[] opponentProgress;
 	private float timeSeconds;
+	private float playerTime;
+	private int finishLine;
 
 	
 	public ProgressBar(Player player, Opponent[] opponents, Course course) {
@@ -27,27 +29,62 @@ public class ProgressBar {
 		}
 	}
 	
-	public void UpdatePositions() {
+	//update progress for all boats
+	public void UpdateProgress() {
 		//update player
-		this.playerProgress = playerBoat.GetY() / this.courseLength;
+		if(this.playerBoat.GetY() < this.finishLine){
+			this.playerProgress = this.playerBoat.GetY() / this.courseLength;
+		}else{
+			this.playerProgress = 1f;
+		}
+		
 		//update opponents
 		for(int i = 0; i < this.opponnentBoats.length; i++){
-			this.opponentProgress[i] = this.opponnentBoats[i].GetY() / this.courseLength;
+			if(this.opponnentBoats[i].GetY() < this.finishLine){
+				this.opponentProgress[i] = this.opponnentBoats[i].GetY() / this.courseLength;
+			}else{
+				this.opponentProgress[i] = 1f;
+			}
+		}
+	}
+
+	//return boat positions
+	//player position, followed by all others
+	public float[] GetProgress(){
+		//make sure positions are up to data
+		UpdateProgress();
+
+		float[] out = new float[opponnentBoats.length + 1];
+		out[0] = playerProgress;
+		for(int i = 0; i < opponnentBoats.length; i++){
+			out[i + 1] = opponentProgress[i];
 		}
 
-		//update time
-		
+		return out;
 	}
 
 	//sets timer to zero
 	public void StartTimer(){
-		this.timeSeconds = 0;
+		this.timeSeconds = 0f;
+		this.playerTime = 0f;
 	}
 
 	//increments time
 	public void IncrementTimer(float timePassed){
 		this.timeSeconds += timePassed;
+		//check player is still racing
+		if(!this.playerBoat.Finished()){
+			this.playerTime = this.timeSeconds;
+		}
 	}
 
-	//need to register when boat passes finish line
+	//get the current game time for player - to be displayed
+	public float GetPlayerTime(){
+		return this.playerTime;
+	}
+
+	//get current game time - goes till race finishes
+	public float GetTime(){
+		return this.timeSeconds;
+	}
 }
