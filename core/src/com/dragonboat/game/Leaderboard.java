@@ -1,5 +1,6 @@
 package com.dragonboat.game;
 
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -38,7 +39,7 @@ public class Leaderboard {
         ascRaceTime = new Comparator<Boat>(){
             @Override
             public int compare(Boat boat1, Boat boat2){
-                return Long.compare(boat1.GetFastestTime(), boat2.GetFastestTime());
+                return Float.compare(boat1.GetFastestTime(), boat2.GetFastestTime());
             }
         };
     }
@@ -46,8 +47,9 @@ public class Leaderboard {
     //get names and times of top boats
     public String[] GetTimes(int places){
         String[] out = new String[places];
+        DecimalFormat df = new DecimalFormat("###.##");
         for(int i = 0; i < places; i++){
-            out[i] = sortedBoats[i].GetName() + sortedBoats[i].GetFastestTime();
+            out[i] = sortedBoats[i].GetName() + df.format(sortedBoats[i].GetFastestTime());
         }
 
         return out;
