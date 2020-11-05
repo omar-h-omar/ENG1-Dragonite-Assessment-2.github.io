@@ -17,7 +17,7 @@ public class DragonBoatGame extends Game {
 
 	@Override
 	public void create () {
-		courseTexture = new Texture(Gdx.files.internal("background sprite.png"));
+		courseTexture = new Texture(Gdx.files.internal("core/assets/background sprite.png"));
 		int w = Gdx.graphics.getWidth();
 		int h = Gdx.graphics.getHeight();
 
@@ -29,7 +29,7 @@ public class DragonBoatGame extends Game {
 
 		Course course = new Course(courseTexture, lanes);
 		player = new Player(0,56, 182, lanes[3], "Player");
-		player.setTexture(new Texture(Gdx.files.internal("boatA sprite1.png")));
+		player.setTexture(new Texture(Gdx.files.internal("core/assets/boatA sprite1.png")));
 		gameScreen = new GameScreen(this);
 		setScreen(gameScreen);
 	}
