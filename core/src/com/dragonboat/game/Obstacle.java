@@ -39,6 +39,6 @@ public class Obstacle {
 	}
 	
 	public void Move(int moveVal) {
-		setyPosition(moveVal)
+		setyPosition(moveVal);
 	}
 }

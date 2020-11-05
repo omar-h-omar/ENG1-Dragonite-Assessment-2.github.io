@@ -38,10 +38,10 @@ public class Goose extends Obstacle {
 			moveVal = moveVal * -1;
 		}
 		if(direction == "North" || direction == "South") {
-			//this.yPosition += moveVal; //------------------------------------------------------------------------------------------------ Need setter method.
+			this.setyPosition(this.getY() + moveVal);
 		}
 		else {
-			//this.xPosition += moveVal; //------------------------------------------------------------------------------------------------ Need setter method.
+			this.setxPosition(this.getX() + moveVal);
 		}
 	}
 	
