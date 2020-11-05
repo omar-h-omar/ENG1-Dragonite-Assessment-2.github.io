@@ -28,7 +28,7 @@ public class DragonBoatGame extends Game {
 		}
 
 		Course course = new Course(courseTexture, lanes);
-		player = new Player(0,56, 182, lanes[3]);
+		player = new Player(0,56, 182, lanes[3], "Player");
 		player.setTexture(new Texture(Gdx.files.internal("boatA sprite1.png")));
 		gameScreen = new GameScreen(this);
 		setScreen(gameScreen);
