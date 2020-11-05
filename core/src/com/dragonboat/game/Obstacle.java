@@ -22,19 +22,19 @@ public class Obstacle {
 		return this.damage;
 	}
 
-	public int getxPosition() {
+	public int getX() {
 		return this.xPosition;
 	}
 
-	public int getyPosition() {
+	public int getY() {
 		return this.yPosition;
 	}
 
-	public void setyPosition(int yPosition) {
+	public void setY(int yPosition) {
 		this.yPosition = yPosition;
 	}
 
-	public void setxPosition(int xPosition) {
+	public void setX(int xPosition) {
 		this.xPosition = xPosition;
 	}
 
