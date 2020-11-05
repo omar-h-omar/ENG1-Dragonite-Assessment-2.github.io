@@ -5,18 +5,15 @@ import java.util.Comparator;
 
 public class Leaderboard {
     //attributes
-    private Boat[] boats;
     private Boat[] sortedBoats;
-    private int[] raceTimes;
     static private Comparator<Boat> ascRaceTime;
 
     public Leaderboard(Boat[] boats){
-        this.boats = boats;
         this.sortedBoats = boats;
     }
 
     //sorts order of boats
-    private void UpdateOrder(){
+    public void UpdateOrder(){
         Arrays.sort(this.sortedBoats, ascRaceTime);
     }
 
