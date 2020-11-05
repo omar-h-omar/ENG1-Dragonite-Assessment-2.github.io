@@ -131,13 +131,17 @@ public class Boat {
         return Math.round(this.yPosition);
     }
     public int getHeight() {
-        return height;
+        return this.height;
     }
 
     public String getName() {
         return this.name;
     }
     public boolean Finished() {
-        return finished;
+        return this.finished;
+    }
+
+    public float getCurrentSpeed() {
+        return this.currentSpeed;
     }
 }
