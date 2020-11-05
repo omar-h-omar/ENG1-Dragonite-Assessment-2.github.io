@@ -3,7 +3,8 @@ import com.badlogic.gdx.graphics.Texture;
 
 
 public class Obstacle {
-	private int xPosition, yPosition, damage;
+	protected float yPosition, xPosition;
+	private int damage;
 	public int width, height;
 	public Texture texture;
 
@@ -22,23 +23,27 @@ public class Obstacle {
 		return this.damage;
 	}
 
-	public int getX() {
+	public float getX() {
 		return this.xPosition;
 	}
 
-	public int getY() {
+	public float getY() {
 		return this.yPosition;
 	}
 
-	public void setY(int yPosition) {
+	public void setY(float yPosition) {
 		this.yPosition = yPosition;
 	}
 
-	public void setX(int xPosition) {
+	public void setX(float xPosition) {
 		this.xPosition = xPosition;
 	}
 
-	public void Move(int moveVal) {
+	public void Move(float moveVal) {
 		setY(getY() - moveVal);
+	}
+
+	public Texture getTexture() {
+		return texture;
 	}
 }

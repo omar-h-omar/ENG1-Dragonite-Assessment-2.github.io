@@ -127,8 +127,8 @@ public class Opponent extends Boat {
                         
                         else {
                             //For objects moving vertically, calculate whether steering left of it or right of it is the easiest course. 
-                            int leftMargin = leftSide - obs.getX();
-                            int rightMargin = obs.getX() + obs.width - rightSide;
+                            int leftMargin = Math.round(leftSide - obs.getX());
+                            int rightMargin = Math.round(obs.getX()) + obs.width - rightSide;
                             
                             //Check to slow down.
                             if((leftMargin <= 0 && rightMargin <= 0) || (leftMargin >= 0 && rightMargin >= 0)){
