@@ -18,8 +18,10 @@ public class Boat {
     public float currentSpeed, progress;
     protected Lane lane;
     public Texture texture;
+    private String name;
+    private boolean finished;
 
-    public Boat(int yPosition, int width, int height, Lane lane) {
+    public Boat(int yPosition, int width, int height, Lane lane, String name) {
         /*
         These 4 attributes will be unique to each boat. The values used are placeholders for now.
         We will need some function to set these attributes depending on which team the player selects.
@@ -27,8 +29,8 @@ public class Boat {
          */
         this.ROBUSTNESS = 10;
         this.MAXSPEED = 2;
-        this.ACCELERATION = 0.05f;
-        this.MANEUVERABILITY = 1;
+        this.ACCELERATION = 0.01f;
+        this.MANEUVERABILITY = 0.5f;
 
         this.xPosition = lane.GetRightBoundary() - (lane.GetRightBoundary() - lane.GetLeftBoundary())/2;
         this.yPosition = yPosition;
@@ -58,7 +60,6 @@ public class Boat {
     }
 
     public void IncreaseSpeed() {
-        this.yPosition += this.currentSpeed;
         this.currentSpeed = (this.currentSpeed + this.ACCELERATION) >= this.MAXSPEED ?
                 this.MAXSPEED : this.currentSpeed + this.ACCELERATION;
     }
@@ -118,22 +119,25 @@ public class Boat {
         this.texture = t;
     }
 
-    public long GetFastestTime() {
+    public long getFastestTime() {
         return this.fastestLegTime;
     }
 
-    public int GetX() {
-        return this.xPosition;
+    public int getX() {
+        return Math.round(this.xPosition);
     }
 
-    public int GetY() {
-        return this.yPosition;
+    public int getY() {
+        return Math.round(this.yPosition);
     }
     public int getHeight() {
         return height;
     }
 
-    public String GetName(){
+    public String getName() {
         return this.name;
+    }
+    public boolean Finished() {
+        return finished;
     }
 }

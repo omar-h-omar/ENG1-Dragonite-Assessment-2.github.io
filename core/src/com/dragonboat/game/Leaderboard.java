@@ -39,7 +39,7 @@ public class Leaderboard {
         ascRaceTime = new Comparator<Boat>(){
             @Override
             public int compare(Boat boat1, Boat boat2){
-                return Float.compare(boat1.GetFastestTime(), boat2.GetFastestTime());
+                return Float.compare(boat1.getFastestTime(), boat2.getFastestTime());
             }
         };
     }
@@ -49,7 +49,7 @@ public class Leaderboard {
         String[] out = new String[places];
         DecimalFormat df = new DecimalFormat("###.##");
         for(int i = 0; i < places; i++){
-            out[i] = sortedBoats[i].GetName() + df.format(sortedBoats[i].GetFastestTime());
+            out[i] = sortedBoats[i].getName() + df.format(sortedBoats[i].getFastestTime());
         }
 
         return out;
