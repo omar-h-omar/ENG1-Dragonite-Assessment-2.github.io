@@ -9,12 +9,17 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Null;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import java.util.Random;
 
 public class GameScreen implements Screen {
     // ENVIRONMENT VARIABLES:
+    private Random rnd;
+
     // game
     private DragonBoatGame game;
     private Player player;
+    private Course course;
+    private Lane[] lanes;
 
     // screen
     private OrthographicCamera camera;
@@ -34,15 +39,20 @@ public class GameScreen implements Screen {
 
 
     public GameScreen(DragonBoatGame game) {
+        rnd = new Random();
+
         this.game = game;
+        player = this.game.player;
+        course = this.game.course;
+        lanes = this.game.lanes;
+
 
         camera = new OrthographicCamera();
         viewport = new StretchViewport(WIDTH,HEIGHT,camera);
 
         // texture setting
 
-        background = this.game.course.getTexture();
-        //this.game.player.setTexture(new Texture(Gdx.files.internal("boatA sprite1.png")));
+        background = course.getTexture();
         backgroundOffset = 0;
         batch = new SpriteBatch();
     }
@@ -56,29 +66,44 @@ public class GameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         totalDeltaTime += deltaTime;
-        for(int i = 0; i < this.game.course.getNoLanes(); i++) {
+        for(int i = 0; i < course.getNoLanes(); i++) {
             for(int j = 0; j < this.game.noOfObstacles; j++) {
                 if(this.game.obstacleTimes[i][j] - totalDeltaTime < 0.00001f) {
                     this.game.obstacleTimes[i][j] = 9999999999f;
+                    String[] obstacleTypes = {"Goose", "Log"};
 
                     // spawn an obstacle in lane i.
-                    System.out.println("obstacle spawn in lane " + i);
+                    int xCoord = lanes[i].GetLeftBoundary() + rnd.nextInt(lanes[i].GetRightBoundary() - lanes[i].GetLeftBoundary());
+                    lanes[i].SpawnObstacle(xCoord, backgroundOffset + HEIGHT, obstacleTypes[rnd.nextInt(obstacleTypes.length)]);
+                    System.out.println("obstacle spawn in lane " + i + " at " + xCoord + ", " + (backgroundOffset + HEIGHT));
                 }
             }
         }
 
-        this.game.player.GetInput();
+        player.GetInput();
+        player.MoveForward();
 
         // Until the player is at half of the window height, don't move the background
         // Then move the background so the player is centered.
 
-        backgroundOffset = this.game.player.getY() + this.game.player.getHeight() / 2 > HEIGHT / 2 ? this.game.player.getY() + this.game.player.getHeight() / 2 - HEIGHT/2 : 0;
+        backgroundOffset = player.getY() + player.getHeight() / 2 > HEIGHT / 2 ? player.getY() + player.getHeight() / 2 - HEIGHT/2 : 0;
 
         batch.begin();
 
+        // display background
         batch.draw(background,0,0, 0,background.getHeight()-HEIGHT-backgroundOffset, WIDTH, HEIGHT);
-        batch.draw(this.game.player.texture, this.game.player.getX(), this.game.player.getY()-backgroundOffset);
 
+        // display player
+        batch.draw(player.texture, player.getX(), player.getY()-backgroundOffset);
+
+        // display and move obstacles
+        for(int i = 0; i < lanes.length; i++) {
+            for(int j = 0; j < lanes[i].obstacles.size(); j++) {
+                Obstacle o = lanes[i].obstacles.get(j);
+                o.Move(0.4f + (backgroundOffset > 0 ?player.getCurrentSpeed() : 0));
+                batch.draw(o.getTexture(),o.getX(),o.getY());
+            }
+        }
         batch.end();
     }
 
@@ -107,6 +132,11 @@ public class GameScreen implements Screen {
     public void dispose() {
         background.dispose();
         player.texture.dispose();
+        for(int i = 0; i < lanes.length; i++) {
+            for(int j = 0; j < lanes[i].obstacles.size(); j++) {
+                lanes[i].obstacles.get(j).getTexture().dispose();
+            }
+        }
     }
 
     @Override
