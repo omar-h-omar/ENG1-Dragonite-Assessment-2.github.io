@@ -41,7 +41,7 @@ public class Leaderboard {
         ascRaceTime = new Comparator<Boat>(){
             @Override
             public int compare(Boat boat1, Boat boat2){
-                return Long.compare(boat1.getFastestTime(), boat2.getFastestTime());
+                return Long.compare(boat1.GetFastestTime(), boat2.GetFastestTime());
             }
         };
     }
