@@ -11,8 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.Random;
 
 public class DragonBoatGame extends Game {
-	public Texture courseTexture;
-	GameScreen gameScreen;
+	private GameScreen gameScreen;
 	public Lane[] lanes;
 	public Player player;
 	public Course course;
@@ -21,24 +20,23 @@ public class DragonBoatGame extends Game {
 
 	@Override
 	public void create () {
-		courseTexture = new Texture(Gdx.files.internal("core/assets/background sprite.png"));
-		int w = Gdx.graphics.getWidth();
+		int w = Gdx.graphics.getWidth() - 80;
 		int h = Gdx.graphics.getHeight();
 		Random rnd = new Random();
 
 
 		lanes = new Lane[7];
-		noOfObstacles = 10;
+		noOfObstacles = 15;
 		obstacleTimes = new float[lanes.length][noOfObstacles];
 
 		for(int x = 0; x < lanes.length; x++) {
-			lanes[x] = new Lane((x*w/lanes.length), (((x+1)*w)/lanes.length));
+			lanes[x] = new Lane((x*w/lanes.length) + 40, (((x+1)*w)/lanes.length));
 			for(int y = 0; y < noOfObstacles; y++) {
-				obstacleTimes[x][y] = 80 * rnd.nextFloat();
+				obstacleTimes[x][y] = 60 * rnd.nextFloat() + 1;
 			}
 		}
 
-		course = new Course(courseTexture, lanes);
+		course = new Course(new Texture(Gdx.files.internal("core/assets/background sprite.png")), lanes);
 		player = new Player(0,56, 182, lanes[3], "Player");
 		player.setTexture(new Texture(Gdx.files.internal("core/assets/boatA sprite1.png")));
 		gameScreen = new GameScreen(this);
@@ -49,7 +47,6 @@ public class DragonBoatGame extends Game {
 
 	@Override
 	public void render () {
-		player.MoveForward();
 		super.render();
 	}
 
