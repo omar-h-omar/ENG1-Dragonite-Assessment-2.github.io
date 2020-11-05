@@ -18,20 +18,19 @@ public class Boat {
     public float currentSpeed, progress;
     protected Lane lane;
     public Texture texture;
-    private String name;
 
-    public Boat(int yPosition, int width, int height, Lane lane, String name) {
+    public Boat(int yPosition, int width, int height, Lane lane) {
         /*
         These 4 attributes will be unique to each boat. The values used are placeholders for now.
         We will need some function to set these attributes depending on which team the player selects.
         (or whichever team is randomly chosen for the opponents).
          */
         this.ROBUSTNESS = 10;
-        this.MAXSPEED = 3;
-        this.ACCELERATION = 0.005f;
+        this.MAXSPEED = 2;
+        this.ACCELERATION = 0.05f;
         this.MANEUVERABILITY = 1;
 
-        this.xPosition = lane.GetRightBoundary() - (lane.GetRightBoundary() - lane.GetLeftBoundary())/2 - width/2;
+        this.xPosition = lane.GetRightBoundary() - (lane.GetRightBoundary() - lane.GetLeftBoundary())/2;
         this.yPosition = yPosition;
         this.width = width;
         this.height = height;
@@ -42,7 +41,6 @@ public class Boat {
         this.progress = 0f;
         this.lane = lane;
         this.fastestLegTime = 0;
-        this.name = name;
         
     }
 
@@ -53,12 +51,14 @@ public class Boat {
     public void SteerRight() {
         this.xPosition += this.MANEUVERABILITY * this.currentSpeed;
     }
+
     public void MoveForward() {
         this.yPosition += this.currentSpeed;
         this.currentSpeed *= 0.9992;
     }
 
     public void IncreaseSpeed() {
+        this.yPosition += this.currentSpeed;
         this.currentSpeed = (this.currentSpeed + this.ACCELERATION) >= this.MAXSPEED ?
                 this.MAXSPEED : this.currentSpeed + this.ACCELERATION;
     }
@@ -118,22 +118,17 @@ public class Boat {
         this.texture = t;
     }
 
-    public long getFastestTime() {
+    public long GetFastestTime() {
         return this.fastestLegTime;
     }
 
-    public int getX() {
-        return Math.round(this.xPosition);
+    public int GetX() {
+        return this.xPosition;
     }
 
-    public int getY() {
-        return Math.round(this.yPosition);
+    public int GetY() {
+        return this.yPosition;
     }
-
-    public int getWidth() {
-        return width;
-    }
-
     public int getHeight() {
         return height;
     }
