@@ -30,7 +30,15 @@ public class Obstacle {
 		return this.yPosition;
 	}
 	
-	public void Move() {
-		this.yPosition -= 10; // this number is currently a placeholder
+	public void setyPosition(int yPosition) {
+		this.yPosition = yPosition;
+	}
+	
+	public void setxPosition(int xPosition) {
+		this.xPosition = xPosition;
+	}
+	
+	public void Move(int moveVal) {
+		setyPosition(moveVal)
 	}
 }
