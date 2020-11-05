@@ -61,7 +61,7 @@ public class GameScreen implements Screen {
                 if(this.game.obstacleTimes[i][j] - totalDeltaTime < 0.00001f) {
                     this.game.obstacleTimes[i][j] = 9999999999f;
 
-                    // spawn an obstacle in lane i.
+                    // spawn an obstacle in lane i
                     System.out.println("obstacle spawn in lane " + i);
                 }
             }

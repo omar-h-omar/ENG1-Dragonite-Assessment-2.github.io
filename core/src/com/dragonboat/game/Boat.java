@@ -57,7 +57,6 @@ public class Boat {
     }
 
     public void IncreaseSpeed() {
-        System.out.println(this.currentSpeed);
         this.currentSpeed = (this.currentSpeed + this.ACCELERATION) >= this.MAXSPEED ?
                 this.MAXSPEED : this.currentSpeed + this.ACCELERATION;
     }
