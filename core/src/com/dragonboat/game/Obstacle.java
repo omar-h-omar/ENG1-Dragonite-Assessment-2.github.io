@@ -30,7 +30,7 @@ public class Obstacle {
 		return this.yPosition;
 	}
 	
-	public void setyPosition(int yPosition) {
+	public void setY(int yPosition) {
 		this.yPosition = yPosition;
 	}
 	
@@ -39,6 +39,6 @@ public class Obstacle {
 	}
 	
 	public void Move(int moveVal) {
-		setyPosition(moveVal)
+		setyPosition(getY() - moveVal)
 	}
 }
