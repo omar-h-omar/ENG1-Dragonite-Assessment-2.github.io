@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Null;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -25,6 +26,7 @@ public class GameScreen implements Screen {
 
     // timing
     private int backgroundOffset;
+    private float totalDeltaTime = 0;
 
     // global parameters
     private final int WIDTH = 1080;
@@ -39,7 +41,7 @@ public class GameScreen implements Screen {
 
         // texture setting
 
-        background = this.game.courseTexture;
+        background = this.game.course.getTexture();
         //this.game.player.setTexture(new Texture(Gdx.files.internal("boatA sprite1.png")));
         backgroundOffset = 0;
         batch = new SpriteBatch();
@@ -51,15 +53,31 @@ public class GameScreen implements Screen {
         this should be set to the player's y position each frame.
          */
         Gdx.gl.glClearColor(1,0,0,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);               //  Clears the screen.
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        totalDeltaTime += deltaTime;
+        for(int i = 0; i < this.game.course.getNoLanes(); i++) {
+            for(int j = 0; j < this.game.noOfObstacles; j++) {
+                if(this.game.obstacleTimes[i][j] - totalDeltaTime < 0.00001f) {
+                    this.game.obstacleTimes[i][j] = 9999999999f;
+
+                    // spawn an obstacle in lane i.
+                    System.out.println("obstacle spawn in lane " + i);
+                }
+            }
+        }
 
         this.game.player.GetInput();
-        backgroundOffset = this.game.player.GetY() > HEIGHT / 2 ? this.game.player.GetY() - HEIGHT/2 : 0;     // Until the boat is above half of the window height, don't move the background.
+
+        // Until the player is at half of the window height, don't move the background
+        // Then move the background so the player is centered.
+
+        backgroundOffset = this.game.player.getY() + this.game.player.getHeight() / 2 > HEIGHT / 2 ? this.game.player.getY() + this.game.player.getHeight() / 2 - HEIGHT/2 : 0;
 
         batch.begin();
 
         batch.draw(background,0,0, 0,background.getHeight()-HEIGHT-backgroundOffset, WIDTH, HEIGHT);
-        batch.draw(this.game.player.texture, this.game.player.GetX(), this.game.player.GetY()-backgroundOffset);
+        batch.draw(this.game.player.texture, this.game.player.getX(), this.game.player.getY()-backgroundOffset);
 
         batch.end();
     }
