@@ -17,8 +17,9 @@ public class Boat {
     public float currentSpeed, progress;
     protected Lane lane;
     public Texture texture;
+    private String name;
 
-    public Boat(int yPosition, int width, int height, Lane lane) {
+    public Boat(int yPosition, int width, int height, Lane lane, String name) {
         /*
         These 4 attributes will be unique to each boat. The values used are placeholders for now.
         We will need some function to set these attributes depending on which team the player selects.
@@ -40,6 +41,7 @@ public class Boat {
         this.progress = 0f;
         this.lane = lane;
         this.fastestLegTime = 0;
+        this.name = name;
         
     }
 
@@ -122,6 +124,10 @@ public class Boat {
 
     public int GetY() {
         return this.yPosition;
+    }
+
+    public String GetName(){
+        return this.name;
     }
 
 }

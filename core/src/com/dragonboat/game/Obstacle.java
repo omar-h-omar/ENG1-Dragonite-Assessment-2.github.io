@@ -4,9 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 
 public class Obstacle {
 	private int xPosition, yPosition, damage;
-	public int  width, height;
+	public int width, height;
 	public Texture texture;
-	
+
 	public Obstacle(int damage, int xPosition, int yPosition, int width, int height, Texture texture) {
 		this.damage = damage;
 		this.xPosition = xPosition;
@@ -15,30 +15,30 @@ public class Obstacle {
 		this.height = height;
 		this.texture = texture;
 	}
-	
+
 	//getters and setters
-	
+
 	public int getDamage() {
 		return this.damage;
 	}
-	
-	public int getX() {
+
+	public int getxPosition() {
 		return this.xPosition;
 	}
-	
-	public int getY() {
+
+	public int getyPosition() {
 		return this.yPosition;
 	}
-	
-	public void setY(int yPosition) {
+
+	public void setyPosition(int yPosition) {
 		this.yPosition = yPosition;
 	}
-	
+
 	public void setxPosition(int xPosition) {
 		this.xPosition = xPosition;
 	}
-	
+
 	public void Move(int moveVal) {
-		setyPosition(getY() - moveVal)
+		setyPosition(getY() - moveVal);
 	}
 }
