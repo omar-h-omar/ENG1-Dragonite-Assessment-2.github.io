@@ -4,6 +4,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Null;
@@ -31,6 +32,7 @@ public class GameScreen implements Screen {
     // graphics
     private SpriteBatch batch;
     private Texture background;
+    private BitmapFont font;
 
     // timing
     private int backgroundOffset;
@@ -43,7 +45,7 @@ public class GameScreen implements Screen {
 
     public GameScreen(DragonBoatGame game) {
         rnd = new Random();
-
+        font = new BitmapFont();
         this.game = game;
         player = this.game.player;
         course = this.game.course;
@@ -89,7 +91,7 @@ public class GameScreen implements Screen {
 
         player.GetInput();
         player.MoveForward();
-        if(player.getCurrentSpeed() > 0)
+        if(player.getCurrentSpeed() > 0 && !started)
         {
             // detect start of game (might change this to a countdown)
             started = true;
@@ -98,8 +100,9 @@ public class GameScreen implements Screen {
 
         // Until the player is at half of the window height, don't move the background
         // Then move the background so the player is centered.
-
-        backgroundOffset = player.getY() + player.getHeight() / 2 > HEIGHT / 2 ? player.getY() + player.getHeight() / 2 - HEIGHT / 2 : 0;
+        if(player.getY() + HEIGHT / 2 + player.getHeight()/2 > course.getTexture().getHeight()) backgroundOffset += 0;
+        else if(player.getY() + player.getHeight() / 2 > HEIGHT / 2) backgroundOffset = player.getY() + player.getHeight() / 2 - HEIGHT / 2;
+        else backgroundOffset += 0;
 
         batch.begin();
 
@@ -126,13 +129,18 @@ public class GameScreen implements Screen {
 
         // display progress bar
         batch.draw(progressBar.getTexture(), WIDTH - progressBar.getTexture().getWidth() - 60, HEIGHT - progressBar.getTexture().getHeight() - 20);
-        // get progress for each boat
+
+        // get progress for each boat, draw player and opponent icons on progress bar with x coordinates respective to their progress.
         float[] progress = progressBar.getProgress(course.getTexture().getHeight());
-        // draw icon for player, respective to the players progress
-        batch.draw(progressBar.getPlayerIcon(),WIDTH - progressBar.getTexture().getWidth() - 50 + progress[0] * (progressBar.getTexture().getWidth() - 190), HEIGHT - progressBar.getTexture().getHeight() / 2 - 10);
-        for(int i = 1; i < progress.length; i++) {  // draw icon for each opponent, respective to their progress
-            batch.draw(progressBar.getOpponentIcon(), WIDTH - progressBar.getTexture().getWidth() - 50 + progress[i] * (progressBar.getTexture().getWidth()-190), HEIGHT - progressBar.getTexture().getHeight() / 2 - 10);
+        batch.draw(progressBar.getPlayerIcon(),WIDTH - progressBar.getTexture().getWidth() - 50 + progress[0] * (progressBar.getTexture().getWidth() - 214), HEIGHT - progressBar.getTexture().getHeight() / 2 - 10);
+        for(int i = 1; i < progress.length; i++) {
+            batch.draw(progressBar.getOpponentIcon(), WIDTH - progressBar.getTexture().getWidth() - 50 + progress[i] * (progressBar.getTexture().getWidth()-214), HEIGHT - progressBar.getTexture().getHeight() / 2 - 10);
         }
+
+        // display player time
+        progressBar.IncrementTimer(deltaTime);
+        font.draw(batch, Float.toString(started ? Math.round(progressBar.getPlayerTime() * 100) / 100.00f : 0.00f), WIDTH-140,HEIGHT-40);
+
         batch.end();
     }
 
