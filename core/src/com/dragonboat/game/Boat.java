@@ -15,7 +15,7 @@ public class Boat {
     private long fastestLegTime;
     protected float yPosition, xPosition;
     protected int width, height;
-    public float currentSpeed, progress;
+    private float currentSpeed, progress;
     protected Lane lane;
     public Texture texture;
     private String name;
@@ -32,7 +32,7 @@ public class Boat {
         this.ACCELERATION = 0.01f;
         this.MANEUVERABILITY = 0.5f;
 
-        this.xPosition = lane.GetRightBoundary() - (lane.GetRightBoundary() - lane.GetLeftBoundary())/2;
+        this.xPosition = lane.GetRightBoundary() - (lane.GetRightBoundary() - lane.GetLeftBoundary())/2 - width/2;
         this.yPosition = yPosition;
         this.width = width;
         this.height = height;
@@ -130,6 +130,7 @@ public class Boat {
     public int getY() {
         return Math.round(this.yPosition);
     }
+
     public int getHeight() {
         return this.height;
     }
@@ -137,11 +138,16 @@ public class Boat {
     public String getName() {
         return this.name;
     }
+
     public boolean Finished() {
         return this.finished;
     }
 
     public float getCurrentSpeed() {
         return this.currentSpeed;
+    }
+
+    public float getProgress(int finishY) {
+        return this.yPosition / finishY;
     }
 }
