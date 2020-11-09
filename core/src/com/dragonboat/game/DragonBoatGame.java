@@ -15,6 +15,8 @@ public class DragonBoatGame extends Game {
 	public Lane[] lanes;
 	public Player player;
 	public Course course;
+	public Opponent[] opponents;
+	public ProgressBar progressBar;
 	public float[][] obstacleTimes;
 	public int noOfObstacles;
 
@@ -26,11 +28,11 @@ public class DragonBoatGame extends Game {
 
 
 		lanes = new Lane[7];
-		noOfObstacles = 15;
+		noOfObstacles = 10;
 		obstacleTimes = new float[lanes.length][noOfObstacles];
 
 		for(int x = 0; x < lanes.length; x++) {
-			lanes[x] = new Lane((x*w/lanes.length) + 40, (((x+1)*w)/lanes.length));
+			lanes[x] = new Lane((x*w/lanes.length) + 40, (((x+1)*w)/lanes.length) + 40);
 			for(int y = 0; y < noOfObstacles; y++) {
 				obstacleTimes[x][y] = 60 * rnd.nextFloat() + 1;
 			}
@@ -38,6 +40,10 @@ public class DragonBoatGame extends Game {
 
 		course = new Course(new Texture(Gdx.files.internal("core/assets/background sprite.png")), lanes);
 		player = new Player(0,56, 182, lanes[3], "Player");
+
+		opponents = new Opponent[0];
+
+		progressBar = new ProgressBar(player, opponents, course);
 		player.setTexture(new Texture(Gdx.files.internal("core/assets/boatA sprite1.png")));
 		gameScreen = new GameScreen(this);
 		setScreen(gameScreen);
