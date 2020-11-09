@@ -1,13 +1,8 @@
 package com.dragonboat.game;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import java.util.Random;
 
 public class DragonBoatGame extends Game {
@@ -28,13 +23,13 @@ public class DragonBoatGame extends Game {
 
 
 		lanes = new Lane[7];
-		noOfObstacles = 10;
+		noOfObstacles = 15;
 		obstacleTimes = new float[lanes.length][noOfObstacles];
 
 		for(int x = 0; x < lanes.length; x++) {
 			lanes[x] = new Lane((x*w/lanes.length) + 40, (((x+1)*w)/lanes.length) + 40);
 			for(int y = 0; y < noOfObstacles; y++) {
-				obstacleTimes[x][y] = 60 * rnd.nextFloat() + 1;
+				obstacleTimes[x][y] = 5 * (rnd.nextFloat() + y);
 			}
 		}
 
