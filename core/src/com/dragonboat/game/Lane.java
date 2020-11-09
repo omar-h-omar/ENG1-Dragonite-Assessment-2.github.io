@@ -16,7 +16,15 @@ public class Lane {
        this.RIGHTBOUNDARY = rightBoundary;
        this.obstacleLimit = 10;
 
-       obstacles = new ArrayList<>();
+        obstacles = new ArrayList<>();
+    }
+
+    public Lane(int leftBoundary, int rightBoundary, int obstacleLimit) {
+        this.LEFTBOUNDARY = leftBoundary;
+        this.RIGHTBOUNDARY = rightBoundary;
+        this.obstacleLimit = obstacleLimit;
+
+        obstacles = new ArrayList<>();
     }
 
     public void SpawnObstacle(int x, int y, String obstacleType) {
@@ -37,16 +45,16 @@ public class Lane {
                 this.obstacles.add(log);
 
             }
-        } else System.console().printf("Obstacle limit reached.");
+        } else System.out.println("Obstacle limit reached.");
     }
     
-	public void RemoveObstacle(int index) {
+	public void RemoveObstacle(Obstacle obstacle) {
 		/* 
 		 Method for removing an Obstacle from the lane's Obstacle list at given index.
 		 NOT SOLD ON THIS IMPLEMENTATION. 
 		 Obstacle should be removed upon collision with boat or leaving the course area.
 		 */
-		this.obstacles.remove(index);
+		this.obstacles.remove(obstacle);
 	}
 
     // getters and setters
