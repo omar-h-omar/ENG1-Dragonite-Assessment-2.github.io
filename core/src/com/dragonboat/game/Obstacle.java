@@ -40,10 +40,14 @@ public class Obstacle {
 	}
 
 	public void Move(float moveVal) {
-		setY(getY() - moveVal);
+		this.setY(this.getY() - moveVal);
 	}
 
 	public Texture getTexture() {
-		return texture;
+		return this.texture;
+	}
+
+	public int getHeight() {
+		return this.height;
 	}
 }
