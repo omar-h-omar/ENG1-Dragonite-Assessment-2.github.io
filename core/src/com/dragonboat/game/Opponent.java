@@ -102,7 +102,7 @@ public class Opponent extends Boat {
             }
 
             for(Obstacle obs : sortedIncomingObstacles) {
-                if(obs.getY() <= visionDistance) {
+                if(obs.getY() <= visionDistance && obs.getY() > this.yPosition) {
                     //The obstacle is visible from the boat.
                     if(obs.getY() + obs.width < leftSide) {
                         /*
