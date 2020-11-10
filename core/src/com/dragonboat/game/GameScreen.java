@@ -155,10 +155,10 @@ public class GameScreen implements Screen {
 
         // get progress for each boat, draw player and opponent icons on progress bar with x coordinates respective to their progress.
         float[] progress = progressBar.getProgress(course.getTexture().getHeight());
-        batch.draw(progressBar.getPlayerIcon(),WIDTH - progressBar.getTexture().getWidth() - 50 + progress[0] * (progressBar.getTexture().getWidth() - 214), HEIGHT - progressBar.getTexture().getHeight() / 2 - 10);
         for(int i = 1; i < progress.length; i++) {
             batch.draw(progressBar.getOpponentIcon(), WIDTH - progressBar.getTexture().getWidth() - 50 + progress[i] * (progressBar.getTexture().getWidth()-214), HEIGHT - progressBar.getTexture().getHeight() / 2 - 10);
         }
+        batch.draw(progressBar.getPlayerIcon(),WIDTH - progressBar.getTexture().getWidth() - 50 + progress[0] * (progressBar.getTexture().getWidth() - 214), HEIGHT - progressBar.getTexture().getHeight() / 2 - 10);
 
         // check if player has finished
         if(progress[0] == 1 && !player.Finished()) {
