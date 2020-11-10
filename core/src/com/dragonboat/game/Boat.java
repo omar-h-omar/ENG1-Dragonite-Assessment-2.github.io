@@ -8,14 +8,15 @@ public class Boat {
      may need to lump data about the object we'll be displaying into a Box2D object.
      */
 
-    private final int ROBUSTNESS, MAXSPEED;
-    private final float ACCELERATION, MANEUVERABILITY;
+    private int ROBUSTNESS, MAXSPEED;
+    private float ACCELERATION, MANEUVERABILITY;
 
     private int durability, tiredness, penalties;
     protected float yPosition, xPosition;
     protected int width, height;
     private float currentSpeed, progress, fastestLegTime;
     protected Lane lane;
+    private Texture[] textureFrames;
     public Texture texture;
     private String name;
     private boolean finished;
@@ -26,11 +27,6 @@ public class Boat {
         We will need some function to set these attributes depending on which team the player selects.
         (or whichever team is randomly chosen for the opponents).
          */
-        this.ROBUSTNESS = 10;
-        this.MAXSPEED = 2;
-        this.ACCELERATION = 0.01f;
-        this.MANEUVERABILITY = 0.5f;
-
         this.xPosition = lane.GetRightBoundary() - (lane.GetRightBoundary() - lane.GetLeftBoundary())/2 - width/2;
         this.yPosition = yPosition;
         this.width = width;
@@ -46,11 +42,13 @@ public class Boat {
     }
 
     public void SteerLeft() {
-        this.xPosition -= this.MANEUVERABILITY * this.currentSpeed;
+        this.xPosition -= this.MANEUVERABILITY * 0.1 * this.currentSpeed;
+        this.currentSpeed *= 0.95;
     }
 
     public void SteerRight() {
-        this.xPosition += this.MANEUVERABILITY * this.currentSpeed;
+        this.xPosition += this.MANEUVERABILITY * 0.1 * this.currentSpeed;
+        this.currentSpeed *= 0.95;
     }
 
     public void MoveForward() {
@@ -118,6 +116,10 @@ public class Boat {
         this.texture = t;
     }
 
+    public void setTextureFrames(Texture[] frames) {
+
+    }
+
     public float getFastestTime() {
         return this.fastestLegTime;
     }
@@ -152,5 +154,12 @@ public class Boat {
 
     public float getProgress(int finishY) {
         return Math.min((this.yPosition) / finishY, 1);
+    }
+
+    public void setStats(int maxspeed, int robustness, float acceleration, float maneuverability) {
+        this.MAXSPEED = maxspeed;
+        this.ROBUSTNESS = robustness;
+        this.ACCELERATION = acceleration;
+        this.MANEUVERABILITY = maneuverability;
     }
 }
