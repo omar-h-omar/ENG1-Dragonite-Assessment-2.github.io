@@ -41,6 +41,9 @@ public class Opponent extends Boat {
             this.steering = "None";
             noNewPath = false;
         }
+        else {
+            noNewPath = true;
+        }
 
         /*
         1) If not in lane, go back to lane.
