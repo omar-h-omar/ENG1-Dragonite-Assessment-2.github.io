@@ -12,10 +12,9 @@ public class Boat {
     private final float ACCELERATION, MANEUVERABILITY;
 
     private int durability, tiredness, penalties;
-    private long fastestLegTime;
     protected float yPosition, xPosition;
     protected int width, height;
-    private float currentSpeed, progress;
+    private float currentSpeed, progress, fastestLegTime;
     protected Lane lane;
     public Texture texture;
     private String name;
@@ -104,7 +103,7 @@ public class Boat {
                 this.xPosition < this.lane.GetRightBoundary();
     }
 
-    public void UpdateFastestTime(long elapsedTime) {
+    public void UpdateFastestTime(float elapsedTime) {
         if(this.fastestLegTime == 0){
             this.fastestLegTime = elapsedTime;
         }
@@ -119,7 +118,7 @@ public class Boat {
         this.texture = t;
     }
 
-    public long getFastestTime() {
+    public float getFastestTime() {
         return this.fastestLegTime;
     }
 
@@ -143,11 +142,15 @@ public class Boat {
         return this.finished;
     }
 
+    public void setFinished(boolean f) {
+        this.finished = f;
+    }
+
     public float getCurrentSpeed() {
         return this.currentSpeed;
     }
 
     public float getProgress(int finishY) {
-        return Math.min(this.yPosition / finishY, 1);
+        return Math.min((this.yPosition + this.height) / finishY, 1);
     }
 }
