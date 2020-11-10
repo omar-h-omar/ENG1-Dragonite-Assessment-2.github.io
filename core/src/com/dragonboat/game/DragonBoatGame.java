@@ -35,13 +35,35 @@ public class DragonBoatGame extends Game {
 
 		course = new Course(new Texture(Gdx.files.internal("core/assets/background sprite.png")), lanes);
 		player = new Player(0,56, 182, lanes[3], "Player");
+		player.setTexture(new Texture(Gdx.files.internal("core/assets/boatA sprite1.png")));
+		player.setStats(5,2,6f,3f);
 
-		opponents = new Opponent[1];
+		opponents = new Opponent[6];
 		opponents[0] = new Opponent(0,56,182,lanes[0], "Opponent1");
 		opponents[0].setTexture(new Texture(Gdx.files.internal("core/assets/boatB sprite1.png")));
+		opponents[0].setStats(3,4,1f,8f);
+
+		opponents[1] = new Opponent(0,56,182,lanes[1], "Opponent2");
+		opponents[1].setTexture(new Texture(Gdx.files.internal("core/assets/boatC sprite1.png")));
+		opponents[1].setStats(4,1,8f,3f);
+
+		opponents[2] = new Opponent(0,56,182,lanes[2], "Opponent3");
+		opponents[2].setTexture(new Texture(Gdx.files.internal("core/assets/boatD sprite1.png")));
+		opponents[2].setStats(4,4,4f,4f);
+
+		opponents[3] = new Opponent(0,56,182,lanes[4], "Opponent4");
+		opponents[3].setTexture(new Texture(Gdx.files.internal("core/assets/boatE sprite1.png")));
+		opponents[3].setStats(3,8,3f,2f);
+
+		opponents[4] = new Opponent(0,56,182,lanes[5], "Opponent5");
+		opponents[4].setTexture(new Texture(Gdx.files.internal("core/assets/boatF sprite1.png")));
+		opponents[4].setStats(8,3,0.5f,1f);
+
+		opponents[5] = new Opponent(0,56,182,lanes[6], "Opponent6");
+		opponents[5].setTexture(new Texture(Gdx.files.internal("core/assets/boatG sprite1.png")));
+		opponents[5].setStats(4,5,2f,5f);
 
 		progressBar = new ProgressBar(player, opponents, course);
-		player.setTexture(new Texture(Gdx.files.internal("core/assets/boatA sprite1.png")));
 		gameScreen = new GameScreen(this);
 		setScreen(gameScreen);
 	}
