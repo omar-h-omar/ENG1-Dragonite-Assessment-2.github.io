@@ -110,8 +110,8 @@ public class GameScreen implements Screen {
             if(!started) break;
             o.IncreaseSpeed();
             o.MoveForward();
-            if(Math.round(totalDeltaTime)%2 == 0) {
-                o.ai();
+            if(Math.round(totalDeltaTime)%1 == 0) {
+                o.ai(backgroundOffset);
             }
         }
 
@@ -146,6 +146,7 @@ public class GameScreen implements Screen {
         // display opponents
         for(Opponent o : opponents) {
             batch.draw(o.texture, o.getX(), o.getY() - backgroundOffset);
+            //font.draw(batch, Float.toString(o.getY()), o.getX() + 20, o.getY() - backgroundOffset);
         }
 
 

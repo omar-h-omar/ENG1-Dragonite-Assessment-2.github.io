@@ -4,12 +4,14 @@ import java.util.ArrayList;
 public class Opponent extends Boat {
 
     public String steering = "None";
+    private ArrayList<Obstacle> sortedIncomingObstacles;
 
     public Opponent(int yPosition, int width, int height, Lane lane, String name) {
         super(yPosition, width, height, lane, name);
+        sortedIncomingObstacles = new ArrayList<Obstacle>();
     }
 
-    public void betterAI() {
+    public void betterAI(int backgroundOffset) {
 
         int leftSide = Math.round(xPosition);
         int rightSide = Math.round(xPosition + width);
@@ -18,7 +20,6 @@ public class Opponent extends Boat {
         int visionDistance = Math.round(yPosition + height) + fov;
 
         ArrayList<Obstacle> allIncomingObstacles = this.lane.obstacles;
-        ArrayList<Obstacle> sortedIncomingObstacles = new ArrayList<Obstacle>();
 
         boolean noNewPath = true; //Set to false whenever the Opponent has decided on a new path.
 
@@ -26,7 +27,8 @@ public class Opponent extends Boat {
 
             //Insertion sort Obstacles in incomingObstacles from lowest to highest yPosition (proximity to the Boat, even)
             for(Obstacle obs : allIncomingObstacles) {
-                if(obs.getY() > this.getY()) {
+                if(obs.getY() + backgroundOffset > this.getY()) {
+                    System.out.println("sees obstacle at " + obs.getY());
                     if(sortedIncomingObstacles.size() == 0) {
                         sortedIncomingObstacles.add(obs);
                     }
@@ -56,20 +58,20 @@ public class Opponent extends Boat {
                     }
                 }
             }
-            Obstacle incoming = sortedIncomingObstacles.get(0);
-            if(incoming.getY() <= visionDistance) {
-                if(incoming.getX() + incoming.width < leftSide) {
+            if(sortedIncomingObstacles.size() > 0) {
+                Obstacle incoming = sortedIncomingObstacles.get(0);
+                if (incoming.getY() <= visionDistance) {
+                    if (incoming.getX() + incoming.width < leftSide) {
 
-                }
-                else if(incoming.getX() + incoming.width < rightSide) {
-    
-                }
-                else {
-                    if(incoming.getX() < leftSide) {
-                        this.SteerRight();
-                    }
-                    else {
-                        this.SteerLeft();
+                    } else if (incoming.getX() + incoming.width < rightSide) {
+
+                    } else {
+                        if (incoming.getX() < leftSide) {
+                            this.SteerRight();
+                        } else {
+                            this.SteerLeft();
+                        }
+                        noNewPath = false;
                     }
                 }
             }
@@ -77,7 +79,7 @@ public class Opponent extends Boat {
         }
     }
 
-    public void ai() {
+    public void ai(int backgroundOffset) {
         /*
         One method to control the AI behaviour of one boat.
         Every so often in the game loop, Opponent.ai() gets called and the movement path of the Opponent boats will change.
@@ -91,11 +93,10 @@ public class Opponent extends Boat {
         int leftSide = Math.round(xPosition);
         int rightSide = Math.round(xPosition + width);
 
-        int fov = 5; //Determine a good field of view for the Opponents to start reacting to incoming obstacles.
+        int fov = 10; //Determine a good field of view for the Opponents to start reacting to incoming obstacles.
         int visionDistance = Math.round(yPosition + height) + fov;
 
         ArrayList<Obstacle> allIncomingObstacles = this.lane.obstacles;
-        ArrayList<Obstacle> sortedIncomingObstacles = new ArrayList<Obstacle>();
 
         boolean noNewPath = true; //Set to false whenever the Opponent has decided on a new path.
 
@@ -131,7 +132,6 @@ public class Opponent extends Boat {
             }
             noNewPath = false;
         }
-
 
         /*
         2) If obstacle ahead, avoid the obstacle. If dead ahead, slow down.
@@ -170,9 +170,11 @@ public class Opponent extends Boat {
             }
 
             for(Obstacle obs : sortedIncomingObstacles) {
-                if(obs.getY() <= visionDistance && obs.getY() > this.yPosition) {
+
+                if(obs.getY() + backgroundOffset <= visionDistance && obs.getY() + backgroundOffset > this.yPosition) {
                     //The obstacle is visible from the boat.
-                    if(obs.getY() + obs.width < leftSide) {
+                    System.out.println("Sees " + obs.getClass() + " at " + obs.getY());
+                    if(obs.getX() + obs.width < leftSide) {
                         /*
                         The obstacle is far left of the boat.
 
@@ -186,7 +188,7 @@ public class Opponent extends Boat {
                         }
                         
                     }
-                    else if(obs.getX() + obs.width > rightSide) {
+                    else if(obs.getX() > rightSide) {
                         /*
                         The obstacle is far right of the boat.
 
@@ -272,6 +274,5 @@ public class Opponent extends Boat {
             this.IncreaseSpeed();
         }
         */
-
     }
 }
