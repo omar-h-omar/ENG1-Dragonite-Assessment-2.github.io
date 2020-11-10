@@ -48,6 +48,7 @@ public class Opponent extends Boat {
         /*
         1) If not in lane, go back to lane.
         */
+        /*
         if(this.CheckIfInLane() == false || !noNewPath) {
             //Commence route back into lane.
             if(leftSide - this.lane.GetLeftBoundary() <= 0) {
@@ -62,6 +63,7 @@ public class Opponent extends Boat {
             }
             noNewPath = false;
         }
+        */
 
         /*
         2) If obstacle ahead, avoid the obstacle. If dead ahead, slow down.
@@ -177,14 +179,31 @@ public class Opponent extends Boat {
                 }
             }
         }
-        
+
+        /*
+        2.5) Move to middle.
+        */
+        int middle = lane.GetLeftBoundary() - (lane.GetRightBoundary() - lane.GetLeftBoundary())/2 - this.width/2;
+        if(leftSide == middle) {
+
+        }
+        else if(leftSide < middle) {
+            this.SteerRight();
+            steering = "Right";
+        }
+        else {
+            this.SteerLeft();
+            steering = "Left";
+        }
         /*
         3) If nothing, speed up.
         */
+        /*
         if(noNewPath) {
             //Still no new path? Just speed up in the forwards direction!
             this.IncreaseSpeed();
         }
+        */
 
     }
 }
