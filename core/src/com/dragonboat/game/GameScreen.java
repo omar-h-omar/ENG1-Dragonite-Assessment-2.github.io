@@ -6,8 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.Null;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import java.util.Random;
@@ -32,6 +31,8 @@ public class GameScreen implements Screen {
     // graphics
     private SpriteBatch batch;
     private Texture background;
+    private FreeTypeFontGenerator generator;
+    private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
     private BitmapFont font;
 
     // timing
@@ -44,8 +45,12 @@ public class GameScreen implements Screen {
 
 
     public GameScreen(DragonBoatGame game) {
+        // grab game objects from DragonBoatGame
         rnd = new Random();
-        font = new BitmapFont();
+        generator = new FreeTypeFontGenerator(Gdx.files.internal("8bitOperatorPlus-Regular.ttf"));
+        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 28;
+        font = generator.generateFont(parameter);
         this.game = game;
         player = this.game.player;
         course = this.game.course;
@@ -53,12 +58,11 @@ public class GameScreen implements Screen {
         progressBar = this.game.progressBar;
         opponents = this.game.opponents;
 
-
+        // setup view
         camera = new OrthographicCamera();
         viewport = new StretchViewport(WIDTH,HEIGHT,camera);
 
         // texture setting
-
         background = course.getTexture();
         backgroundOffset = 0;
         batch = new SpriteBatch();
@@ -103,9 +107,8 @@ public class GameScreen implements Screen {
 
         // Until the player is at half of the window height, don't move the background
         // Then move the background so the player is centered.
-        if(player.getY() + HEIGHT / 2 + player.getHeight()/2 > course.getTexture().getHeight()) backgroundOffset += 0;
+        if(player.getY() + HEIGHT / 2 + player.getHeight()/2 > course.getTexture().getHeight()) {}
         else if(player.getY() + player.getHeight() / 2 > HEIGHT / 2) backgroundOffset = player.getY() + player.getHeight() / 2 - HEIGHT / 2;
-        else backgroundOffset += 0;
 
         batch.begin();
 
@@ -113,15 +116,15 @@ public class GameScreen implements Screen {
         batch.draw(background, 0, 0, 0, background.getHeight() - HEIGHT - backgroundOffset, WIDTH, HEIGHT);
 
         // display and move obstacles
-        for (int i = 0; i < lanes.length; i++) {
-            if(!started) break;
-            for (int j = 0; j < lanes[i].obstacles.size(); j++) {
-                Obstacle o = lanes[i].obstacles.get(j);
+        for (Lane lane : lanes) {
+            if (!started) break;
+            for (int j = 0; j < lane.obstacles.size(); j++) {
+                Obstacle o = lane.obstacles.get(j);
                 // if the background hasn't started moving yet, or if the player has reached the top of the course, move obstacle at set speed.
                 // else add the player speed to the obstacle speed.
-                o.Move(0.4f + (backgroundOffset > 0 && player.getY() + HEIGHT / 2 + player.getHeight()/2 < course.getTexture().getHeight() ? player.getCurrentSpeed() : 0));
+                o.Move(0.4f + (backgroundOffset > 0 && player.getY() + HEIGHT / 2 + player.getHeight() / 2 < course.getTexture().getHeight() ? player.getCurrentSpeed() : 0));
                 if (o.getY() < -o.getHeight()) {
-                    lanes[i].RemoveObstacle(o);
+                    lane.RemoveObstacle(o);
                 }
                 batch.draw(o.getTexture(), o.getX(), o.getY());
             }
@@ -148,7 +151,7 @@ public class GameScreen implements Screen {
 
         // display player time
         progressBar.IncrementTimer(deltaTime);
-        font.draw(batch, Float.toString(started ? Math.round(progressBar.getPlayerTime() * 100) / 100.00f : 0.00f), WIDTH-140,HEIGHT-40);
+        font.draw(batch, Float.toString(started ? Math.round(progressBar.getPlayerTime() * 100) / 100.00f : 0.00f), WIDTH-230, HEIGHT-40);
 
         batch.end();
     }
@@ -178,9 +181,9 @@ public class GameScreen implements Screen {
     public void dispose() {
         background.dispose();
         player.texture.dispose();
-        for(int i = 0; i < lanes.length; i++) {
-            for(int j = 0; j < lanes[i].obstacles.size(); j++) {
-                lanes[i].obstacles.get(j).getTexture().dispose();
+        for (Lane lane : lanes) {
+            for (int j = 0; j < lane.obstacles.size(); j++) {
+                lane.obstacles.get(j).getTexture().dispose();
             }
         }
         progressBar.getTexture().dispose();
