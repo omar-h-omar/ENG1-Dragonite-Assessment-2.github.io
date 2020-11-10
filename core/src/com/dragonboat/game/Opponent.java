@@ -34,19 +34,18 @@ public class Opponent extends Boat {
         if(this.steering == "Left") {
             this.SteerLeft();
             this.steering = "None";
+            noNewPath = false;
         }
         else if(this.steering == "Right") {
             this.SteerRight();
             this.steering = "None";
-        }
-        else {
-            noNewPath = true;
+            noNewPath = false;
         }
 
         /*
         1) If not in lane, go back to lane.
         */
-        if(this.CheckIfInLane() == false) {
+        if(this.CheckIfInLane() == false || noNewPath) {
             //Commence route back into lane.
             if(leftSide - this.lane.GetLeftBoundary() <= 0) {
                 //Will only be negative if the boat is further left than the leftBoundary.
