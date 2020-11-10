@@ -107,6 +107,7 @@ public class GameScreen implements Screen {
 
         // move opponents
         for(Opponent o : opponents) {
+            if(!started) break;
             o.IncreaseSpeed();
             o.MoveForward();
             if(Math.round(totalDeltaTime)%2 == 0) {

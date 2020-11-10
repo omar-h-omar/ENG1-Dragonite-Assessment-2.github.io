@@ -23,7 +23,7 @@ public class Opponent extends Boat {
         int leftSide = Math.round(xPosition);
         int rightSide = Math.round(xPosition + width);
 
-        int fov = 20; //Determine a good field of view for the Opponents to start reacting to incoming obstacles.
+        int fov = 5; //Determine a good field of view for the Opponents to start reacting to incoming obstacles.
         int visionDistance = Math.round(yPosition + height) + fov;
 
         ArrayList<Obstacle> allIncomingObstacles = this.lane.obstacles;
@@ -48,7 +48,7 @@ public class Opponent extends Boat {
         /*
         1) If not in lane, go back to lane.
         */
-        /*
+
         if(this.CheckIfInLane() == false || !noNewPath) {
             //Commence route back into lane.
             if(leftSide - this.lane.GetLeftBoundary() <= 0) {
@@ -63,7 +63,7 @@ public class Opponent extends Boat {
             }
             noNewPath = false;
         }
-        */
+
 
         /*
         2) If obstacle ahead, avoid the obstacle. If dead ahead, slow down.
@@ -183,17 +183,17 @@ public class Opponent extends Boat {
         /*
         2.5) Move to middle.
         */
-        int middle = lane.GetLeftBoundary() - (lane.GetRightBoundary() - lane.GetLeftBoundary())/2 - this.width/2;
-        if(leftSide == middle) {
+        if(noNewPath) {
+            int middle = lane.GetRightBoundary() - (lane.GetRightBoundary() - lane.GetLeftBoundary()) / 2 - this.width / 2;
+            if (leftSide == middle) {
 
-        }
-        else if(leftSide < middle) {
-            this.SteerRight();
-            steering = "Right";
-        }
-        else {
-            this.SteerLeft();
-            steering = "Left";
+            } else if (leftSide < middle) {
+                this.SteerRight();
+                steering = "Right";
+            } else {
+                this.SteerLeft();
+                steering = "Left";
+            }
         }
         /*
         3) If nothing, speed up.
