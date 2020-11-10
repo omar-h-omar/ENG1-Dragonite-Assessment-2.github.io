@@ -29,7 +29,7 @@ public class DragonBoatGame extends Game {
 		for(int x = 0; x < lanes.length; x++) {
 			lanes[x] = new Lane((x*w/lanes.length) + 40, (((x+1)*w)/lanes.length) + 40);
 			for(int y = 0; y < noOfObstacles; y++) {
-				obstacleTimes[x][y] = 5 * (rnd.nextFloat() + y);
+				obstacleTimes[x][y] = 3 * (rnd.nextFloat() + y + 0.5f);
 			}
 		}
 

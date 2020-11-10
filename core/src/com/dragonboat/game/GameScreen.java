@@ -73,7 +73,10 @@ public class GameScreen implements Screen {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        // if the game has started, start incrementing time.
         totalDeltaTime += started ? deltaTime : 0;
+
+        // check whether obstacles need to be spawned.
         for (int i = 0; i < course.getNoLanes(); i++) {
             if(!started) break;
             for (int j = 0; j < this.game.noOfObstacles; j++) {
@@ -81,7 +84,7 @@ public class GameScreen implements Screen {
                     String[] obstacleTypes = {"Goose", "Log"};
                     // spawn an obstacle in lane i.
                     int xCoord = lanes[i].GetLeftBoundary() + rnd.nextInt(lanes[i].GetRightBoundary() - lanes[i].GetLeftBoundary());
-                    lanes[i].SpawnObstacle(xCoord, HEIGHT + 100, obstacleTypes[rnd.nextInt(obstacleTypes.length)]);
+                    lanes[i].SpawnObstacle(xCoord, HEIGHT + 40, obstacleTypes[rnd.nextInt(obstacleTypes.length)]);
                     // make sure obstacle is only spawned once.
                     // might implement this as an ordered list if it impacts the performance.
                     this.game.obstacleTimes[i][j] = 9999999f;
@@ -114,9 +117,9 @@ public class GameScreen implements Screen {
             if(!started) break;
             for (int j = 0; j < lanes[i].obstacles.size(); j++) {
                 Obstacle o = lanes[i].obstacles.get(j);
-                // if the background hasn't started moving yet, move obstacle at set speed.
+                // if the background hasn't started moving yet, or if the player has reached the top of the course, move obstacle at set speed.
                 // else add the player speed to the obstacle speed.
-                o.Move(0.4f + (backgroundOffset > 0 ? player.getCurrentSpeed() : 0));
+                o.Move(0.4f + (backgroundOffset > 0 && player.getY() + HEIGHT / 2 + player.getHeight()/2 < course.getTexture().getHeight() ? player.getCurrentSpeed() : 0));
                 if (o.getY() < -o.getHeight()) {
                     lanes[i].RemoveObstacle(o);
                 }
@@ -135,6 +138,12 @@ public class GameScreen implements Screen {
         batch.draw(progressBar.getPlayerIcon(),WIDTH - progressBar.getTexture().getWidth() - 50 + progress[0] * (progressBar.getTexture().getWidth() - 214), HEIGHT - progressBar.getTexture().getHeight() / 2 - 10);
         for(int i = 1; i < progress.length; i++) {
             batch.draw(progressBar.getOpponentIcon(), WIDTH - progressBar.getTexture().getWidth() - 50 + progress[i] * (progressBar.getTexture().getWidth()-214), HEIGHT - progressBar.getTexture().getHeight() / 2 - 10);
+        }
+
+        // check if player has finished
+        if(progress[0] == 1 && !player.Finished()) {
+            player.setFinished(true);
+            player.UpdateFastestTime(progressBar.getPlayerTime());
         }
 
         // display player time
