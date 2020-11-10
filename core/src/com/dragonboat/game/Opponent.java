@@ -23,7 +23,7 @@ public class Opponent extends Boat {
         int leftSide = Math.round(xPosition);
         int rightSide = Math.round(xPosition + width);
 
-        int fov = 0; //Determine a good field of view for the Opponents to start reacting to incoming obstacles.
+        int fov = 20; //Determine a good field of view for the Opponents to start reacting to incoming obstacles.
         int visionDistance = Math.round(yPosition + height) + fov;
 
         ArrayList<Obstacle> allIncomingObstacles = this.lane.obstacles;
@@ -48,7 +48,7 @@ public class Opponent extends Boat {
         /*
         1) If not in lane, go back to lane.
         */
-        if(this.CheckIfInLane() == false || noNewPath) {
+        if(this.CheckIfInLane() == false || !noNewPath) {
             //Commence route back into lane.
             if(leftSide - this.lane.GetLeftBoundary() <= 0) {
                 //Will only be negative if the boat is further left than the leftBoundary.

@@ -95,7 +95,7 @@ public class GameScreen implements Screen {
                 }
             }
         }
-
+        // move player
         player.GetInput();
         player.MoveForward();
         if(player.getCurrentSpeed() > 0 && !started)
@@ -103,6 +103,15 @@ public class GameScreen implements Screen {
             // detect start of game (might change this to a countdown)
             started = true;
             progressBar.StartTimer();
+        }
+
+        // move opponents
+        for(Opponent o : opponents) {
+            o.IncreaseSpeed();
+            o.MoveForward();
+            if(Math.round(totalDeltaTime)%2 == 0) {
+                o.ai();
+            }
         }
 
         // Until the player is at half of the window height, don't move the background
@@ -132,6 +141,12 @@ public class GameScreen implements Screen {
 
         // display player
         batch.draw(player.texture, player.getX(), player.getY() - backgroundOffset);
+
+        // display opponents
+        for(Opponent o : opponents) {
+            batch.draw(o.texture, o.getX(), o.getY() - backgroundOffset);
+        }
+
 
         // display progress bar
         batch.draw(progressBar.getTexture(), WIDTH - progressBar.getTexture().getWidth() - 60, HEIGHT - progressBar.getTexture().getHeight() - 20);

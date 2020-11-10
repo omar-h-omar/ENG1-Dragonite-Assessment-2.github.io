@@ -36,7 +36,9 @@ public class DragonBoatGame extends Game {
 		course = new Course(new Texture(Gdx.files.internal("core/assets/background sprite.png")), lanes);
 		player = new Player(0,56, 182, lanes[3], "Player");
 
-		opponents = new Opponent[0];
+		opponents = new Opponent[1];
+		opponents[0] = new Opponent(0,56,182,lanes[0], "Opponent1");
+		opponents[0].setTexture(new Texture(Gdx.files.internal("core/assets/boatB sprite1.png")));
 
 		progressBar = new ProgressBar(player, opponents, course);
 		player.setTexture(new Texture(Gdx.files.internal("core/assets/boatA sprite1.png")));

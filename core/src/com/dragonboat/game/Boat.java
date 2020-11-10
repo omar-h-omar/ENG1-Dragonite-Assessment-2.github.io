@@ -151,6 +151,6 @@ public class Boat {
     }
 
     public float getProgress(int finishY) {
-        return Math.min((this.yPosition + this.height) / finishY, 1);
+        return Math.min((this.yPosition) / finishY, 1);
     }
 }
