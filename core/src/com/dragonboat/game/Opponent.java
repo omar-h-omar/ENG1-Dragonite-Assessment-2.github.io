@@ -9,6 +9,74 @@ public class Opponent extends Boat {
         super(yPosition, width, height, lane, name);
     }
 
+    public void betterAI() {
+
+        int leftSide = Math.round(xPosition);
+        int rightSide = Math.round(xPosition + width);
+
+        int fov = 5; //Determine a good field of view for the Opponents to start reacting to incoming obstacles.
+        int visionDistance = Math.round(yPosition + height) + fov;
+
+        ArrayList<Obstacle> allIncomingObstacles = this.lane.obstacles;
+        ArrayList<Obstacle> sortedIncomingObstacles = new ArrayList<Obstacle>();
+
+        boolean noNewPath = true; //Set to false whenever the Opponent has decided on a new path.
+
+        if(noNewPath) { //If still no new path, if there is one, skip all this code for speed's sake.
+
+            //Insertion sort Obstacles in incomingObstacles from lowest to highest yPosition (proximity to the Boat, even)
+            for(Obstacle obs : allIncomingObstacles) {
+                if(obs.getY() > this.getY()) {
+                    if(sortedIncomingObstacles.size() == 0) {
+                        sortedIncomingObstacles.add(obs);
+                    }
+                    else {
+                        boolean inserted = false;
+                        int index = 0;
+                        while(inserted == false) {
+                            Obstacle thisObstacle = sortedIncomingObstacles.get(index);
+                            if(index < sortedIncomingObstacles.size()) {
+                                //If not reached end of sortedIncomingObstacles.
+                                if(thisObstacle.getY() > obs.getY()) {
+                                    //Keep looking for place to insert.
+                                    index += 1; 
+                                }
+                                else {
+                                    //Found place to insert!
+                                    sortedIncomingObstacles.add(index, obs); 
+                                    inserted = true;
+                                }
+                            }
+                            else {
+                                //End of ArrayList reached.
+                                sortedIncomingObstacles.add(obs);
+                                inserted = true;
+                            }  
+                        }
+                    }
+                }
+            }
+            Obstacle incoming = sortedIncomingObstacles.get(0);
+            if(incoming.getY() <= visionDistance) {
+                if(incoming.getX() + incoming.width < leftSide) {
+
+                }
+                else if(incoming.getX() + incoming.width < rightSide) {
+    
+                }
+                else {
+                    if(incoming.getX() < leftSide) {
+                        this.SteerRight();
+                    }
+                    else {
+                        this.SteerLeft();
+                    }
+                }
+            }
+            
+        }
+    }
+
     public void ai() {
         /*
         One method to control the AI behaviour of one boat.
