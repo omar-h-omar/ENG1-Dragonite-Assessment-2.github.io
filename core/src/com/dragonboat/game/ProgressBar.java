@@ -12,7 +12,12 @@ public class ProgressBar {
 	private float timeSeconds;
 	private float playerTime;
 
-	
+	/**
+	 * Creates a progress bar that tracks the player and opponent boats progress along the course
+	 * @param player The player's boat
+	 * @param opponents Array of opponent boats
+	 * @param course The course
+	 */
 	public ProgressBar(Player player, Opponent[] opponents, Course course) {
 		this.playerBoat = player;
 		this.opponentBoats = opponents;
@@ -24,6 +29,12 @@ public class ProgressBar {
 
 	//return boat positions
 	//player position, followed by all others
+
+	/**
+	 * Gets the progress of all boats
+	 * @param finishY Y coordinate of the finish line
+	 * @return Array of floats representing the percentage of the course covered by each boat. First index stores player's progress
+	 */
 	public float[] getProgress(int finishY){
 		float[] out = new float[opponentBoats.length + 1];
 		out[0] = playerBoat.getProgress(finishY);
@@ -34,13 +45,18 @@ public class ProgressBar {
 		return out;
 	}
 
-	//sets timer to zero
+	/**
+	 * Resets the timer to zero
+	 */
 	public void StartTimer(){
 		this.timeSeconds = 0f;
 		this.playerTime = 0f;
 	}
 
-	//increments time
+	/**
+	 * Increments the timer by the time passed
+	 * @param timePassed The time delta from the last frame
+	 */
 	public void IncrementTimer(float timePassed){
 		this.timeSeconds += timePassed;
 		//check player is still racing
@@ -49,12 +65,18 @@ public class ProgressBar {
 		}
 	}
 
-	//get the current game time for player - to be displayed
+	/**
+	 * Gets the time passed for the player in the current race
+	 * @return Returns a float representing the player's current race time
+	 */
 	public float getPlayerTime(){
 		return this.playerTime;
 	}
 
-	//get current game time - goes till race finishes
+	/**
+	 * Gets the time passed for the current race
+	 * @return Returns a float representing the current race time
+	 */
 	public float getTime(){
 		return this.timeSeconds;
 	}
