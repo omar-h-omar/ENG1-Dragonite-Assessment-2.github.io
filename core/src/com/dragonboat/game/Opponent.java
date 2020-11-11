@@ -140,31 +140,33 @@ public class Opponent extends Boat {
 
             //Insertion sort Obstacles in incomingObstacles from lowest to highest yPosition (proximity to the Boat, even)
             for(Obstacle obs : allIncomingObstacles) {
-                if(sortedIncomingObstacles.size() == 0) {
-                    sortedIncomingObstacles.add(obs);
-                }
-                else {
-                    boolean inserted = false;
-                    int index = 0;
-                    while(inserted == false) {
-                        Obstacle thisObstacle = sortedIncomingObstacles.get(index);
-                        if(index < sortedIncomingObstacles.size()) {
-                            //If not reached end of sortedIncomingObstacles.
-                            if(thisObstacle.getY() > obs.getY()) {
-                                //Keep looking for place to insert.
-                                index += 1; 
+                if(obs.getY() + obs.height + backgroundOffset > this.getY()) {
+                    if(sortedIncomingObstacles.size() == 0) {
+                        sortedIncomingObstacles.add(obs);
+                    }
+                    else {
+                        boolean inserted = false;
+                        int index = 0;
+                        while(inserted == false) {
+                            Obstacle thisObstacle = sortedIncomingObstacles.get(index);
+                            if(index < sortedIncomingObstacles.size()) {
+                                //If not reached end of sortedIncomingObstacles.
+                                if(thisObstacle.getY() > obs.getY()) {
+                                    //Keep looking for place to insert.
+                                    index += 1; 
+                                }
+                                else {
+                                    //Found place to insert!
+                                    sortedIncomingObstacles.add(index, obs); 
+                                    inserted = true;
+                                }
                             }
                             else {
-                                //Found place to insert!
-                                sortedIncomingObstacles.add(index, obs); 
+                                //End of ArrayList reached.
+                                sortedIncomingObstacles.add(obs);
                                 inserted = true;
-                            }
+                            }  
                         }
-                        else {
-                            //End of ArrayList reached.
-                            sortedIncomingObstacles.add(obs);
-                            inserted = true;
-                        }  
                     }
                 }
             }
