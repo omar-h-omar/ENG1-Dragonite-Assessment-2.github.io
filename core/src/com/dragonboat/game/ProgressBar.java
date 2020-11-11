@@ -3,6 +3,9 @@ package com.dragonboat.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
+/**
+ * Represents a progress bar
+ */
 public class ProgressBar {
 	
 	public Texture texture, playerIcon, opponentIcon;
