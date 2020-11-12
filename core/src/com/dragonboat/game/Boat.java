@@ -2,6 +2,8 @@ package com.dragonboat.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
+import java.util.ArrayList;
+
 public class Boat {
     /*
      Direct representation based off the UML diagram
@@ -12,10 +14,10 @@ public class Boat {
     private int ROBUSTNESS, MAXSPEED;
     private float ACCELERATION, MANEUVERABILITY;
 
-    private int durability, tiredness, penalties;
+    private int durability, penalties;
     protected float yPosition, xPosition;
     protected int width, height;
-    private float currentSpeed, progress, fastestLegTime;
+    private float currentSpeed, progress, fastestLegTime, tiredness;
     protected Lane lane;
     private Texture[] textureFrames;
     private int frameCounter;
@@ -35,8 +37,8 @@ public class Boat {
         this.height = height;
         this.currentSpeed = 0f;
         this.penalties = 0;
-        this.durability = 100;
-        this.tiredness = 0;
+        this.durability = 50;
+        this.tiredness = 0f;
         this.progress = 0f;
         this.lane = lane;
         this.fastestLegTime = 0;
@@ -61,9 +63,10 @@ public class Boat {
     }
 
     public void IncreaseSpeed() {
-        this.currentSpeed = (this.currentSpeed + this.ACCELERATION) >= this.MAXSPEED ?
-                this.MAXSPEED : this.currentSpeed + this.ACCELERATION;
-        this.IncreaseTiredness();
+        if(this.tiredness <= 75) {
+            this.currentSpeed = (this.currentSpeed + this.ACCELERATION) >= this.MAXSPEED ?
+                    this.MAXSPEED : this.currentSpeed + this.ACCELERATION;
+        }
     }
 
     public void DecreaseSpeed() {
@@ -73,13 +76,26 @@ public class Boat {
          https://denysalmaral.com/2019/05/boat-sim-notes-1-water-friction.html
          to be more realistic.
          */
-        this.currentSpeed = (this.currentSpeed - this.ACCELERATION) <= 0 ? 0 : this.currentSpeed - 0.001f;
+        this.currentSpeed = (this.currentSpeed - this.ACCELERATION) <= 0 ? 0 : this.currentSpeed - 0.015f;
     }
 
-    public boolean CheckCollisions(Obstacle[] obstacles) {
+    public boolean CheckCollisions(int backgroundOffset) {
         /*
         Iterate through obstacles,
          */
+        ArrayList<Obstacle> obstacles = this.lane.obstacles;
+        ArrayList<Integer> obstaclesToRemove = new ArrayList<>();
+        for(Obstacle o : obstacles) {
+            if(o.getX() > this.xPosition && o.getX() < this.xPosition + this.width) {
+                if(o.getY() + backgroundOffset > this.yPosition && o.getY() + backgroundOffset < this.yPosition + this.height) {
+                    this.ApplyDamage(o.getDamage());
+                    obstaclesToRemove.add(obstacles.indexOf(o));
+                }
+            }
+        }
+        for(int i : obstaclesToRemove) {
+            this.lane.RemoveObstacle(obstacles.get(i));
+        }
         return false;
     }
 
@@ -166,31 +182,39 @@ public class Boat {
 
     public void SetStats(int maxspeed, int robustness, float acceleration, float maneuverability) {
         this.MAXSPEED = maxspeed;
-        this.ROBUSTNESS = robustness / 8;
+        this.ROBUSTNESS = robustness;
         this.ACCELERATION = acceleration / 64;
         this.MANEUVERABILITY = maneuverability / 8;
     }
 
     public void IncreaseTiredness() {
-        this.tiredness += 0.5f;
+        this.tiredness += this.tiredness >= 100 ? 0 : 0.75f;
     }
     public void DecreaseTiredness() {
-        this.tiredness -= 0.5f;
+        this.tiredness -= this.tiredness <= 0 ? 0 : 1f;
     }
 
     public float getManeuverability() {
-        return MANEUVERABILITY;
+        return this.MANEUVERABILITY;
     }
 
     public float getAcceleration() {
-        return ACCELERATION;
+        return this.ACCELERATION;
     }
 
     public int getRobustness() {
-        return ROBUSTNESS;
+        return this.ROBUSTNESS;
+    }
+
+    public int getDurability() {
+        return this.durability;
     }
 
     public int getMaxSpeed() {
-        return MAXSPEED;
+        return this.MAXSPEED;
+    }
+
+    public float getTiredness() {
+        return this.tiredness;
     }
 }
