@@ -33,8 +33,8 @@ public class Goose extends Obstacle {
 	}
 
 	public void Move(float moveVal) {
-		//int moveVal = 10;
-		int randomMove = 50;
+		
+		int randomMove = 10;
 		if(new Random().nextInt(randomMove) == randomMove) {
 			changeDirection();
 		}
