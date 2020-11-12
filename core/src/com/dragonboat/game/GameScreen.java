@@ -82,17 +82,15 @@ public class GameScreen implements Screen {
 
         // check whether obstacles need to be spawned.
         for (int i = 0; i < course.getNoLanes(); i++) {
-            if(!started) break;
-            for (int j = 0; j < this.game.noOfObstacles; j++) {
-                if (this.game.obstacleTimes[i][j] - totalDeltaTime < 0.0001f) {
-                    String[] obstacleTypes = {"Goose", "Log"};
-                    // spawn an obstacle in lane i.
-                    int xCoord = lanes[i].GetLeftBoundary() + rnd.nextInt(lanes[i].GetRightBoundary() - lanes[i].GetLeftBoundary());
-                    lanes[i].SpawnObstacle(xCoord, HEIGHT + 40, obstacleTypes[rnd.nextInt(obstacleTypes.length)]);
-                    // make sure obstacle is only spawned once.
-                    // might implement this as an ordered list if it impacts the performance.
-                    this.game.obstacleTimes[i][j] = 9999999f;
-                }
+            if(!started || player.Finished() || this.game.obstacleTimes[i].size() == 0) break;
+            if (this.game.obstacleTimes[i].get(0) - totalDeltaTime < 0.0001f) {
+                String[] obstacleTypes = {"Goose", "Log"};
+                // spawn an obstacle in lane i.
+                int xCoord = lanes[i].GetLeftBoundary() + rnd.nextInt(lanes[i].GetRightBoundary() - lanes[i].GetLeftBoundary());
+                lanes[i].SpawnObstacle(xCoord, HEIGHT + 40, obstacleTypes[rnd.nextInt(obstacleTypes.length)]);
+                // make sure obstacle is only spawned once.
+                // might implement this as an ordered list if it impacts the performance.
+                this.game.obstacleTimes[i].remove(0);
             }
         }
         // move player
@@ -110,6 +108,7 @@ public class GameScreen implements Screen {
             if(!started) break;
             o.IncreaseSpeed();
             o.MoveForward();
+
             if(Math.round(totalDeltaTime)%1 == 0) {
                 o.ai(backgroundOffset);
             }

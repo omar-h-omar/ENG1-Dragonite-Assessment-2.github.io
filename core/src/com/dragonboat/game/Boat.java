@@ -1,4 +1,5 @@
 package com.dragonboat.game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Boat {
@@ -17,6 +18,7 @@ public class Boat {
     private float currentSpeed, progress, fastestLegTime;
     protected Lane lane;
     private Texture[] textureFrames;
+    private int frameCounter;
     public Texture texture;
     private String name;
     private boolean finished;
@@ -38,17 +40,18 @@ public class Boat {
         this.progress = 0f;
         this.lane = lane;
         this.fastestLegTime = 0;
-        
+        this.textureFrames = new Texture[4];
+        frameCounter = 0;
     }
 
     public void SteerLeft() {
-        this.xPosition -= this.MANEUVERABILITY * 0.1 * this.currentSpeed;
-        this.currentSpeed *= 0.95;
+        this.xPosition -= this.MANEUVERABILITY * this.currentSpeed;
+        this.currentSpeed *= 0.97;
     }
 
     public void SteerRight() {
-        this.xPosition += this.MANEUVERABILITY * 0.1 * this.currentSpeed;
-        this.currentSpeed *= 0.95;
+        this.xPosition += this.MANEUVERABILITY * this.currentSpeed;
+        this.currentSpeed *= 0.97;
     }
 
     public void MoveForward() {
@@ -59,6 +62,7 @@ public class Boat {
     public void IncreaseSpeed() {
         this.currentSpeed = (this.currentSpeed + this.ACCELERATION) >= this.MAXSPEED ?
                 this.MAXSPEED : this.currentSpeed + this.ACCELERATION;
+        this.IncreaseTiredness();
     }
 
     public void DecreaseSpeed() {
@@ -116,8 +120,11 @@ public class Boat {
         this.texture = t;
     }
 
-    public void setTextureFrames(Texture[] frames) {
+    public void setTextureFrames(Texture[] frames) {this.textureFrames = frames; }
 
+    public void AdvanceTextureFrame() {
+        this.frameCounter = this.frameCounter == this.textureFrames.length - 1 ? 0 : this.frameCounter + 1;
+        this.setTexture(this.textureFrames[this.frameCounter]);
     }
 
     public float getFastestTime() {
@@ -156,10 +163,17 @@ public class Boat {
         return Math.min((this.yPosition) / finishY, 1);
     }
 
-    public void setStats(int maxspeed, int robustness, float acceleration, float maneuverability) {
+    public void SetStats(int maxspeed, int robustness, float acceleration, float maneuverability) {
         this.MAXSPEED = maxspeed;
-        this.ROBUSTNESS = robustness;
-        this.ACCELERATION = acceleration;
-        this.MANEUVERABILITY = maneuverability;
+        this.ROBUSTNESS = robustness / 8;
+        this.ACCELERATION = acceleration / 64;
+        this.MANEUVERABILITY = maneuverability / 8;
+    }
+
+    public void IncreaseTiredness() {
+        this.tiredness += 0.5f;
+    }
+    public void DecreaseTiredness() {
+        this.tiredness -= 0.5f;
     }
 }
