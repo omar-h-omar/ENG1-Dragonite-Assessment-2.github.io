@@ -32,8 +32,12 @@ public class Goose extends Obstacle {
 		direction = cardinals.get(direction).get(new Random().nextInt(2));
 	}
 
-	public void Move() {
-		int moveVal = 10;
+	public void Move(float moveVal) {
+		
+		int randomMove = 10;
+		if(new Random().nextInt(randomMove) == randomMove) {
+			changeDirection();
+		}
 		if(direction == "South" || direction == "West") {
 			moveVal = moveVal * -1;
 		}
