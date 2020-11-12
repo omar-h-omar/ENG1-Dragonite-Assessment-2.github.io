@@ -30,7 +30,7 @@ public class GameScreen implements Screen {
 
     // graphics
     private SpriteBatch batch;
-    private Texture background;
+    private Texture background, healthBarFull, healthBarEmpty, staminaBarFull, staminaBarEmpty;
     private FreeTypeFontGenerator generator;
     private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
     private BitmapFont font;
@@ -47,10 +47,6 @@ public class GameScreen implements Screen {
     public GameScreen(DragonBoatGame game) {
         // grab game objects from DragonBoatGame
         rnd = new Random();
-        generator = new FreeTypeFontGenerator(Gdx.files.internal("8bitOperatorPlus-Regular.ttf"));
-        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 28;
-        font = generator.generateFont(parameter);
         this.game = game;
         player = this.game.player;
         course = this.game.course;
@@ -66,6 +62,14 @@ public class GameScreen implements Screen {
         background = course.getTexture();
         backgroundOffset = 0;
         batch = new SpriteBatch();
+        generator = new FreeTypeFontGenerator(Gdx.files.internal("core/assets/8bitOperatorPlus-Regular.ttf"));
+        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 28;
+        font = generator.generateFont(parameter);
+        staminaBarFull = new Texture(Gdx.files.internal("core/assets/bar stamina yellow.png"));
+        staminaBarEmpty = new Texture(Gdx.files.internal("core/assets/bar stamina grey.png"));
+        healthBarFull = new Texture(Gdx.files.internal("core/assets/bar health yellow.png"));
+        healthBarEmpty = new Texture(Gdx.files.internal("core/assets/bar health grey.png"));
     }
     @Override
     public void render(float deltaTime) {
@@ -141,13 +145,16 @@ public class GameScreen implements Screen {
 
         // display player
         batch.draw(player.texture, player.getX(), player.getY() - backgroundOffset);
+        batch.draw(staminaBarEmpty, player.lane.GetLeftBoundary(), player.getY() - 20 - backgroundOffset);
+        batch.draw(healthBarEmpty, player.lane.GetLeftBoundary(), player.getY() - 40 - backgroundOffset);
+        batch.draw(staminaBarFull, player.lane.GetLeftBoundary(), player.getY() - 20 - backgroundOffset,0,0,Math.round(staminaBarFull.getWidth() * player.getTiredness() / 100),staminaBarFull.getHeight());
+        batch.draw(healthBarFull, player.lane.GetLeftBoundary(), player.getY() - 40 - backgroundOffset);
 
         // display opponents
         for(Opponent o : opponents) {
             batch.draw(o.texture, o.getX(), o.getY() - backgroundOffset);
             //font.draw(batch, Float.toString(o.getY()), o.getX() + 20, o.getY() - backgroundOffset);
         }
-
 
         // display progress bar
         batch.draw(progressBar.getTexture(), WIDTH - progressBar.getTexture().getWidth() - 60, HEIGHT - progressBar.getTexture().getHeight() - 20);
