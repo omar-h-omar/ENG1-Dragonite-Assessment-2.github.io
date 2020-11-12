@@ -22,8 +22,10 @@ public class GameScreen implements Screen {
     private Course course;
     private Lane[] lanes;
     private ProgressBar progressBar;
+    private Leaderboard leaderboard;
     private Opponent[] opponents;
     private boolean started = false;
+    private String[] times;
 
     // screen
     private OrthographicCamera camera;
@@ -53,6 +55,7 @@ public class GameScreen implements Screen {
         lanes = this.game.lanes;
         progressBar = this.game.progressBar;
         opponents = this.game.opponents;
+        leaderboard = this.game.leaderboard;
 
         // setup view
         camera = new OrthographicCamera();
@@ -167,15 +170,34 @@ public class GameScreen implements Screen {
         }
         batch.draw(progressBar.getPlayerIcon(),WIDTH - progressBar.getTexture().getWidth() - 50 + progress[0] * (progressBar.getTexture().getWidth() - 214), HEIGHT - progressBar.getTexture().getHeight() / 2 - 10);
 
-        // check if player has finished
+        // check if player has finished, if so update the finished boolean
         if(progress[0] == 1 && !player.Finished()) {
             player.setFinished(true);
             player.UpdateFastestTime(progressBar.getPlayerTime());
         }
 
+        //check if opponents have finished, if so update the finished boolean
+        for(int i = 0; i < opponents.length; i++){
+            if(progress[i + 1] == 1 && !opponents[i].Finished()){
+                opponents[i].setFinished(true);
+                opponents[i].UpdateFastestTime(progressBar.getTime());
+            }
+        }
+
         // display player time
         progressBar.IncrementTimer(deltaTime);
         font.draw(batch, Float.toString(started ? Math.round(progressBar.getPlayerTime() * 100) / 100.00f : 0.00f), WIDTH-230, HEIGHT-40);
+
+        //check if all boats have passed the finish line
+        //if so, generate the leaderboard
+        if(progressBar.allFinished(course.getTexture().getHeight())){
+            batch.draw(leaderboard.getTexture(), WIDTH/2 - leaderboard.getTexture().getWidth()/2, HEIGHT/2 - leaderboard.getTexture().getHeight()/2);
+            this.times = leaderboard.GetTimes(opponents.length + 1);
+            for(int i = 0; i < opponents.length + 1; i++){
+                font.draw(batch, this.times[i], WIDTH/2 - leaderboard.getTexture().getWidth()/2,
+                600 - 50 * i);
+            }
+        }
 
         batch.end();
     }

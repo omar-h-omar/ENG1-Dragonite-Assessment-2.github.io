@@ -4,6 +4,9 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+
 /**
  * Represents a leaderboard for after each race.
  */
@@ -11,13 +14,21 @@ public class Leaderboard {
     //attributes
     private Boat[] sortedBoats;
     static private Comparator<Boat> ascRaceTime;
+    public Texture texture;
 
     /**
      * Creates a leaderboard with an array of all boats.
-     * @param boats Array of all boats
+     * @param player Player object
+     * @param opponents Array of opponent boats
      */
-    public Leaderboard(Boat[] boats){
-        this.sortedBoats = boats;
+    public Leaderboard(Player player, Opponent[] opponents){
+        this.sortedBoats = new Boat[opponents.length + 1];
+        this.sortedBoats[0] = player;
+        for(int i = 0; i < opponents.length; i++){
+            this.sortedBoats[i + 1] = opponents[i];
+        }
+
+        this.texture = new Texture(Gdx.files.internal("leaderboard blank.png"));
     }
 
     /**
@@ -68,12 +79,17 @@ public class Leaderboard {
      * @return Array representing boats
      */
     public String[] GetTimes(int places){
+        this.UpdateOrder();
         String[] out = new String[places];
         DecimalFormat df = new DecimalFormat("###.##");
         for(int i = 0; i < places; i++){
-            out[i] = sortedBoats[i].getName() + df.format(sortedBoats[i].getFastestTime());
+            out[i] = sortedBoats[i].getName() + ": " + df.format(sortedBoats[i].getFastestTime());
         }
 
         return out;
+    }
+
+    public Texture getTexture(){
+        return this.texture;
     }
 }

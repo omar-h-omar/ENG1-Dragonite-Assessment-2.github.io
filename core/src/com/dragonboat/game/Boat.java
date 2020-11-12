@@ -44,6 +44,7 @@ public class Boat {
         this.fastestLegTime = 0;
         this.textureFrames = new Texture[4];
         frameCounter = 0;
+        this.name = name;
     }
 
     public void SteerLeft() {

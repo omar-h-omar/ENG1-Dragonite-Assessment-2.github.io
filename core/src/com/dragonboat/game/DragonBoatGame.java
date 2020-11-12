@@ -15,6 +15,7 @@ public class DragonBoatGame extends Game {
 	public Course course;
 	public Opponent[] opponents;
 	public ProgressBar progressBar;
+	public Leaderboard leaderboard;
 	public ArrayList<Float>[] obstacleTimes;
 	public int noOfObstacles;
 	public Music music;
@@ -79,7 +80,8 @@ public class DragonBoatGame extends Game {
 		opponents[5].setTextureFrames(generateTextureFrames('G'));
 		opponents[5].SetStats(4,5,2f,5f);
 
-		progressBar = new ProgressBar(player, opponents, course);
+		progressBar = new ProgressBar(player, opponents);
+		leaderboard = new Leaderboard(player, opponents);
 		gameScreen = new GameScreen(this);
 		setScreen(gameScreen);
 	}
