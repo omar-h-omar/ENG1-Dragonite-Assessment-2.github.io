@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import com.badlogic.gdx.audio.Music;
 
 public class DragonBoatGame extends Game {
 	private GameScreen gameScreen;
@@ -16,13 +17,17 @@ public class DragonBoatGame extends Game {
 	public ProgressBar progressBar;
 	public ArrayList<Float>[] obstacleTimes;
 	public int noOfObstacles;
+	public Music music;
 
 	@Override
 	public void create () {
 		int w = Gdx.graphics.getWidth() - 80;
 		int h = Gdx.graphics.getHeight();
 		Random rnd = new Random();
-
+		
+		music = Gdx.audio.newMusic(Gdx.files.internal("cantgobackwards.mp3"));
+		music.setLooping(true);
+		music.play();
 
 		lanes = new Lane[7];
 		noOfObstacles = 10;
