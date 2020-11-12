@@ -19,9 +19,8 @@ public class ProgressBar {
 	 * Creates a progress bar that tracks the player and opponent boats progress along the course
 	 * @param player The player's boat
 	 * @param opponents Array of opponent boats
-	 * @param course The course
 	 */
-	public ProgressBar(Player player, Opponent[] opponents, Course course) {
+	public ProgressBar(Player player, Opponent[] opponents) {
 		this.playerBoat = player;
 		this.opponentBoats = opponents;
 		this.texture = new Texture(Gdx.files.internal("top bar sprite.png"));
