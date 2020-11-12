@@ -89,6 +89,10 @@ public class Leaderboard {
         return out;
     }
 
+    /**
+     * Gets the leaderboard texture.
+     * @return  A Texture representing the sprite
+     */
     public Texture getTexture(){
         return this.texture;
     }

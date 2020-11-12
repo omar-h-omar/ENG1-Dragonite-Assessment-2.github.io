@@ -98,14 +98,26 @@ public class ProgressBar {
 		return this.timeSeconds;
 	}
 
+	/**
+	 * Gets the progress bar texture.
+	 * @return A Texture representing the sprite
+	 */
 	public Texture getTexture() {
 		return texture;
 	}
 
+	/**
+	 * Gets the player icon texture.
+	 * @return	A Texture representing the sprite
+	 */
 	public Texture getPlayerIcon() {
 		return playerIcon;
 	}
 
+	/**
+	 * Gets the opponent icon texture
+	 * @return A Texture representing the sprite
+	 */
 	public Texture getOpponentIcon() {
 		return opponentIcon;
 	}
