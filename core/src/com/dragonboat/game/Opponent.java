@@ -25,7 +25,8 @@ public class Opponent extends Boat {
         int leftSide = Math.round(xPosition);
         int rightSide = Math.round(xPosition + width);
 
-        int fov = 10; //Determine a good field of view for the Opponents to start reacting to incoming obstacles.
+        int arbitrary = 100; //Balance this!
+        int fov = Math.round(arbitrary * this.getManeuverability()); //Determine a good field of view for the Opponents to start reacting to incoming obstacles.
         int visionDistance = Math.round(yPosition + height) + fov;
 
         ArrayList<Obstacle> allIncomingObstacles = this.lane.obstacles;

@@ -176,4 +176,20 @@ public class Boat {
     public void DecreaseTiredness() {
         this.tiredness -= 0.5f;
     }
+
+    public float getManeuverability() {
+        return MANEUVERABILITY;
+    }
+
+    public float getAcceleration() {
+        return ACCELERATION;
+    }
+
+    public int getRobustness() {
+        return ROBUSTNESS;
+    }
+
+    public int getMaxSpeed() {
+        return MAXSPEED;
+    }
 }
