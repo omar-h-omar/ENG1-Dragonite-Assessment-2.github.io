@@ -3,9 +3,6 @@ package com.dragonboat.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
 public class Player extends Boat{
     private int x_coordinate;
     private int y_coordinate;
@@ -14,10 +11,13 @@ public class Player extends Boat{
         super(yPosition, width, height, lane, name);
     }
 
-    public  void GetInput() {
+    public void GetInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             this.IncreaseSpeed();
+            this.IncreaseTiredness();
         }
+        else this.DecreaseTiredness();
+
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             //Call method associated
             this.DecreaseSpeed();
