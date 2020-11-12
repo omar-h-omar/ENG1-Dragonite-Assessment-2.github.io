@@ -27,15 +27,16 @@ public class DragonBoatGame extends Game {
 		
 		music = Gdx.audio.newMusic(Gdx.files.internal("cantgobackwards.mp3"));
 		music.setLooping(true);
+		music.setVolume(0.1f);
 		music.play();
 
 		lanes = new Lane[7];
 		noOfObstacles = 10;
 		obstacleTimes = new ArrayList[lanes.length];
 		for(int x = 0; x < lanes.length; x++) {
-			obstacleTimes[x] = new ArrayList<Float>();
-			lanes[x] = new Lane((x*w/lanes.length) + 40, (((x+1)*w)/lanes.length) + 40);
-			for(int y = 0; y < noOfObstacles; y++) {
+		obstacleTimes[x] = new ArrayList<Float>();
+		lanes[x] = new Lane((x*w/lanes.length) + 40, (((x+1)*w)/lanes.length) + 40);
+		for(int y = 0; y < noOfObstacles; y++) {
 				obstacleTimes[x].add(3 * (rnd.nextFloat() + y/3 + 0.3f));
 			}
 			Collections.sort(obstacleTimes[x]);

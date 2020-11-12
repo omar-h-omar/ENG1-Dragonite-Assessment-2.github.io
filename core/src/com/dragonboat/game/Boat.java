@@ -12,10 +12,10 @@ public class Boat {
     private int ROBUSTNESS, MAXSPEED;
     private float ACCELERATION, MANEUVERABILITY;
 
-    private int durability, tiredness, penalties;
+    private int durability, penalties;
     protected float yPosition, xPosition;
     protected int width, height;
-    private float currentSpeed, progress, fastestLegTime;
+    private float currentSpeed, progress, fastestLegTime, tiredness;
     protected Lane lane;
     private Texture[] textureFrames;
     private int frameCounter;
@@ -36,7 +36,7 @@ public class Boat {
         this.currentSpeed = 0f;
         this.penalties = 0;
         this.durability = 100;
-        this.tiredness = 0;
+        this.tiredness = 0f;
         this.progress = 0f;
         this.lane = lane;
         this.fastestLegTime = 0;
@@ -60,9 +60,10 @@ public class Boat {
     }
 
     public void IncreaseSpeed() {
-        this.currentSpeed = (this.currentSpeed + this.ACCELERATION) >= this.MAXSPEED ?
-                this.MAXSPEED : this.currentSpeed + this.ACCELERATION;
-        this.IncreaseTiredness();
+        if(this.tiredness <= 75) {
+            this.currentSpeed = (this.currentSpeed + this.ACCELERATION) >= this.MAXSPEED ?
+                    this.MAXSPEED : this.currentSpeed + this.ACCELERATION;
+        }
     }
 
     public void DecreaseSpeed() {
@@ -72,13 +73,14 @@ public class Boat {
          https://denysalmaral.com/2019/05/boat-sim-notes-1-water-friction.html
          to be more realistic.
          */
-        this.currentSpeed = (this.currentSpeed - this.ACCELERATION) <= 0 ? 0 : this.currentSpeed - 0.001f;
+        this.currentSpeed = (this.currentSpeed - this.ACCELERATION) <= 0 ? 0 : this.currentSpeed - 0.015f;
     }
 
     public boolean CheckCollisions(Obstacle[] obstacles) {
         /*
         Iterate through obstacles,
          */
+
         return false;
     }
 
@@ -171,25 +173,29 @@ public class Boat {
     }
 
     public void IncreaseTiredness() {
-        this.tiredness += 0.5f;
+        this.tiredness += this.tiredness >= 100 ? 0 : 0.75f;
     }
     public void DecreaseTiredness() {
-        this.tiredness -= 0.5f;
+        this.tiredness -= this.tiredness <= 0 ? 0 : 1f;
     }
 
     public float getManeuverability() {
-        return MANEUVERABILITY;
+        return this.MANEUVERABILITY;
     }
 
     public float getAcceleration() {
-        return ACCELERATION;
+        return this.ACCELERATION;
     }
 
     public int getRobustness() {
-        return ROBUSTNESS;
+        return this.ROBUSTNESS;
     }
 
     public int getMaxSpeed() {
-        return MAXSPEED;
+        return this.MAXSPEED;
+    }
+
+    public float getTiredness() {
+        return this.tiredness;
     }
 }
