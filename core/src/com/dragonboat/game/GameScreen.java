@@ -82,7 +82,7 @@ public class GameScreen implements Screen {
 
         // check whether obstacles need to be spawned.
         for (int i = 0; i < course.getNoLanes(); i++) {
-            if(!started || player.Finished()) break;
+            if(!started || player.Finished() || this.game.obstacleTimes[i].size() == 0) break;
             if (this.game.obstacleTimes[i].get(0) - totalDeltaTime < 0.0001f) {
                 String[] obstacleTypes = {"Goose", "Log"};
                 // spawn an obstacle in lane i.

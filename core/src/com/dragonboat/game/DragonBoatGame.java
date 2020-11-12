@@ -25,7 +25,7 @@ public class DragonBoatGame extends Game {
 
 
 		lanes = new Lane[7];
-		noOfObstacles = 15;
+		noOfObstacles = 10;
 		obstacleTimes = new ArrayList[lanes.length];
 		for(int x = 0; x < lanes.length; x++) {
 			obstacleTimes[x] = new ArrayList<Float>();
