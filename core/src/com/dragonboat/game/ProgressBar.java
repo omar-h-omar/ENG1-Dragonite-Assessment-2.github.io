@@ -49,6 +49,21 @@ public class ProgressBar {
 	}
 
 	/**
+	 * Returns true if all boats have finished.
+	 * @param finishY Y coordinate of the finish line
+	 * @return Boolean representing if all boats have finished the course
+	 */
+	public boolean allFinished(int finishY){
+		float[] progress = this.getProgress(finishY);
+		for(int i = 0; i < progress.length; i++){
+			if(progress[i] != 1){
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
 	 * Resets the timer to zero
 	 */
 	public void StartTimer(){
