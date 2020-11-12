@@ -37,7 +37,7 @@ public class Lane {
          */
         if(this.obstacles.size() <= this.obstacleLimit) {
             if (obstacleType.equals("Goose")) {
-                Goose goose = new Goose(x, y, new Texture(Gdx.files.internal("gooseSouthsprite.png")));
+                Goose goose = new Goose(x, y, new Texture(Gdx.files.internal("gooseSouthsprite.png")), this);
                 this.obstacles.add(goose);
 
             } else if (obstacleType.equals("Log")) {
