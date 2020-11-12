@@ -14,6 +14,7 @@ import java.util.Random;
 public class GameScreen implements Screen {
     // ENVIRONMENT VARIABLES:
     private Random rnd;
+    private final int MAX_DURABILITY = 50, MAX_TIREDNESS = 100;
 
     // game
     private DragonBoatGame game;
@@ -40,8 +41,7 @@ public class GameScreen implements Screen {
     private float totalDeltaTime = 0;
 
     // global parameters
-    private final int WIDTH = 1080;
-    private final int HEIGHT = 720;
+    private final int WIDTH = 1080, HEIGHT = 720;
 
 
     public GameScreen(DragonBoatGame game) {
@@ -90,7 +90,7 @@ public class GameScreen implements Screen {
             if (this.game.obstacleTimes[i].get(0) - totalDeltaTime < 0.0001f) {
                 String[] obstacleTypes = {"Goose", "Log"};
                 // spawn an obstacle in lane i.
-                int xCoord = lanes[i].GetLeftBoundary() + rnd.nextInt(lanes[i].GetRightBoundary() - lanes[i].GetLeftBoundary());
+                int xCoord = lanes[i].GetLeftBoundary() + rnd.nextInt(lanes[i].GetRightBoundary() - lanes[i].GetLeftBoundary()-15);
                 lanes[i].SpawnObstacle(xCoord, HEIGHT + 40, obstacleTypes[rnd.nextInt(obstacleTypes.length)]);
                 // make sure obstacle is only spawned once.
                 // might implement this as an ordered list if it impacts the performance.
@@ -122,7 +122,7 @@ public class GameScreen implements Screen {
         // Then move the background so the player is centered.
         if(player.getY() + HEIGHT / 2 + player.getHeight()/2 > course.getTexture().getHeight()) {}
         else if(player.getY() + player.getHeight() / 2 > HEIGHT / 2) backgroundOffset = player.getY() + player.getHeight() / 2 - HEIGHT / 2;
-
+        player.CheckCollisions(backgroundOffset);
         batch.begin();
 
         // display background
@@ -148,10 +148,11 @@ public class GameScreen implements Screen {
         batch.draw(staminaBarEmpty, player.lane.GetLeftBoundary(), player.getY() - 20 - backgroundOffset);
         batch.draw(healthBarEmpty, player.lane.GetLeftBoundary(), player.getY() - 40 - backgroundOffset);
         batch.draw(staminaBarFull, player.lane.GetLeftBoundary(), player.getY() - 20 - backgroundOffset,0,0,Math.round(staminaBarFull.getWidth() * player.getTiredness() / 100),staminaBarFull.getHeight());
-        batch.draw(healthBarFull, player.lane.GetLeftBoundary(), player.getY() - 40 - backgroundOffset);
+        batch.draw(healthBarFull, player.lane.GetLeftBoundary(), player.getY() - 40 - backgroundOffset,0,0,Math.round(healthBarFull.getWidth() * player.getDurability()/50),healthBarFull.getHeight());
 
         // display opponents
         for(Opponent o : opponents) {
+            o.CheckCollisions(backgroundOffset);
             batch.draw(o.texture, o.getX(), o.getY() - backgroundOffset);
             //font.draw(batch, Float.toString(o.getY()), o.getX() + 20, o.getY() - backgroundOffset);
         }
