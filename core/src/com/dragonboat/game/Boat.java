@@ -84,9 +84,10 @@ public class Boat {
          */
         ArrayList<Obstacle> obstacles = this.lane.obstacles;
         ArrayList<Integer> obstaclesToRemove = new ArrayList<>();
+        int threshold = 5;
         for(Obstacle o : obstacles) {
-            if(o.getX() > this.xPosition && o.getX() < this.xPosition + this.width) {
-                if(o.getY() + backgroundOffset > this.yPosition && o.getY() + backgroundOffset < this.yPosition + this.height) {
+            if(o.getX() > this.xPosition + threshold && o.getX() < this.xPosition + this.width - threshold) {
+                if(o.getY() + backgroundOffset > this.yPosition + threshold && o.getY() + backgroundOffset < this.yPosition + this.height - threshold) {
                     this.ApplyDamage(o.getDamage());
                     obstaclesToRemove.add(obstacles.indexOf(o));
                 }
@@ -94,6 +95,7 @@ public class Boat {
         }
         for(int i : obstaclesToRemove) {
             this.lane.RemoveObstacle(obstacles.get(i));
+            return true;
         }
         return false;
     }
