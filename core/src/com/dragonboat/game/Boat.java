@@ -1,9 +1,13 @@
 package com.dragonboat.game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a Boat, controlled by either a Player or Opponent.
+ * @see Player
+ * @see Opponent
+ */
 public class Boat {
     /*
      Direct representation based off the UML diagram
@@ -25,7 +29,15 @@ public class Boat {
     private String name;
     private boolean finished;
 
-    public Boat(int yPosition, int width, int height, Lane lane, String name) {
+    /**
+     * Creates a Boat instance in a specified Lane.
+     * @param yPosition y-position of the boat.
+     * @param width width of the boat.
+     * @param height height of the boat.
+     * @param lane Lane object.
+     * @param name string identifier.
+     */
+    public Boat(float yPosition, int width, int height, Lane lane, String name) {
         /*
         These 4 attributes will be unique to each boat. The values used are placeholders for now.
         We will need some function to set these attributes depending on which team the player selects.
@@ -47,21 +59,34 @@ public class Boat {
         this.name = name;
     }
 
+    /**
+     * Decreases the x-position of the boat respective to the boats maneuverability and speed, and decreases the speed by 3%.
+     */
     public void SteerLeft() {
         this.xPosition -= this.MANEUVERABILITY * this.currentSpeed;
         this.currentSpeed *= 0.97;
     }
 
+    /**
+     * Increases the x-position of the boat respective to the boats maneuverability and speed, and decreases the speed by 3%.
+     */
     public void SteerRight() {
         this.xPosition += this.MANEUVERABILITY * this.currentSpeed;
         this.currentSpeed *= 0.97;
     }
 
+    /**
+     * Increases the y-position of the boat respective to the boats speed, and decreases the speed by 0.08%.
+     */
     public void MoveForward() {
         this.yPosition += this.currentSpeed;
         this.currentSpeed *= 0.9992;
     }
 
+    /**
+     * If the boat has enough stamina, increase the speed of the boat by the boat's acceleration,
+     * if not, do nothing.
+     */
     public void IncreaseSpeed() {
         if(this.tiredness <= 75) {
             this.currentSpeed = (this.currentSpeed + this.ACCELERATION) >= this.MAXSPEED ?
@@ -69,6 +94,9 @@ public class Boat {
         }
     }
 
+    /**
+     * Decreases the speed of the boat by 0.015 if the resulting speed is greater than 0.
+     */
     public void DecreaseSpeed() {
         /*
          Very basic deceleration function, acting as water friction.
@@ -76,9 +104,15 @@ public class Boat {
          https://denysalmaral.com/2019/05/boat-sim-notes-1-water-friction.html
          to be more realistic.
          */
-        this.currentSpeed = (this.currentSpeed - this.ACCELERATION) <= 0 ? 0 : this.currentSpeed - 0.015f;
+        this.currentSpeed = (this.currentSpeed - 0.015) <= 0 ? 0 : this.currentSpeed - 0.015f;
     }
 
+
+    /**
+     * Checks each obstacle in the Lane for a collision.
+     * @param backgroundOffset how far up the course the player is.
+     * @return true if a collision occurs, false if not.
+     */
     public boolean CheckCollisions(int backgroundOffset) {
         /*
         Iterate through obstacles,
@@ -101,6 +135,11 @@ public class Boat {
         return false;
     }
 
+    /**
+     * Decreases the durability of the Boat by the obstacle damage divided by the boat's robustness.
+     * @param obstacleDamage the amount of damage an Obstacle inflicts on the boat.
+     * @return Boolean representing whether the durability of the boat is below 0.
+     */
     public boolean ApplyDamage(int obstacleDamage) {
         /*
          Applies damage to boat depending on what kind of obstacle it hits.
@@ -112,6 +151,10 @@ public class Boat {
         return this.durability <= 0;
     }
 
+    /**
+     * Checks if the Boat is between LeftBoundary and RightBoundary of the Lane.
+     * @return Boolean representing whether the Boat is in the Lane.
+     */
     public boolean CheckIfInLane() {
         /*
         Just checks whether this boat is within it's allocated lane's X boundaries
@@ -124,6 +167,10 @@ public class Boat {
                 this.xPosition < this.lane.GetRightBoundary();
     }
 
+    /**
+     * Updates the boat's fastest time which will decide whether it advances to the finals.
+     * @param elapsedTime the time it took the boat to finish the current race.
+     */
     public void UpdateFastestTime(float elapsedTime) {
         if(this.fastestLegTime == 0){
             this.fastestLegTime = elapsedTime;
@@ -133,6 +180,28 @@ public class Boat {
         }
     }
 
+    /**
+     * Increases the tiredness of the boat by 0.75 if the tiredness is less than 100.
+     */
+    public void IncreaseTiredness() {
+        this.tiredness += this.tiredness >= 100 ? 0 : 0.75f;
+    }
+
+    /**
+     * Decreases the tiredness of the boat by 1 if the tiredness is greater than 0.
+     */
+    public void DecreaseTiredness() {
+        this.tiredness -= this.tiredness <= 0 ? 0 : 1f;
+    }
+
+    /**
+     * Keeps track of which frame of the animation the Boat's texture is on, and sets the texture accordingly.
+     */
+    public void AdvanceTextureFrame() {
+        this.frameCounter = this.frameCounter == this.textureFrames.length - 1 ? 0 : this.frameCounter + 1;
+        this.setTexture(this.textureFrames[this.frameCounter]);
+    }
+
     // getters and setters
 
     public void setTexture(Texture t) {
@@ -140,11 +209,6 @@ public class Boat {
     }
 
     public void setTextureFrames(Texture[] frames) {this.textureFrames = frames; }
-
-    public void AdvanceTextureFrame() {
-        this.frameCounter = this.frameCounter == this.textureFrames.length - 1 ? 0 : this.frameCounter + 1;
-        this.setTexture(this.textureFrames[this.frameCounter]);
-    }
 
     public float getFastestTime() {
         return this.fastestLegTime;
@@ -187,13 +251,6 @@ public class Boat {
         this.ROBUSTNESS = robustness;
         this.ACCELERATION = acceleration / 64;
         this.MANEUVERABILITY = maneuverability / 8;
-    }
-
-    public void IncreaseTiredness() {
-        this.tiredness += this.tiredness >= 100 ? 0 : 0.75f;
-    }
-    public void DecreaseTiredness() {
-        this.tiredness -= this.tiredness <= 0 ? 0 : 1f;
     }
 
     public float getManeuverability() {
