@@ -1,5 +1,9 @@
 package com.dragonboat.game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Opponent extends Boat {
 
@@ -50,7 +54,6 @@ public class Opponent extends Boat {
         /*
         1) If not in lane, go back to lane.
         */
-        /*
         if(this.CheckIfInLane() == false || !noNewPath) {
             //Commence route back into lane.
             if(leftSide - this.lane.GetLeftBoundary() <= 0) {
@@ -65,7 +68,6 @@ public class Opponent extends Boat {
             }
             noNewPath = false;
         }
-        */
         /*
         2) If obstacle ahead, avoid the obstacle. If dead ahead, slow down.
         */
@@ -81,8 +83,9 @@ public class Opponent extends Boat {
                         boolean inserted = false;
                         int index = 0;
                         while(inserted == false) {
-                            Obstacle thisObstacle = sortedIncomingObstacles.get(index);
+                            Obstacle thisObstacle;
                             if(index < sortedIncomingObstacles.size()) {
+                                thisObstacle = sortedIncomingObstacles.get(index);
                                 //If not reached end of sortedIncomingObstacles.
                                 if(thisObstacle.getY() > obs.getY()) {
                                     //Keep looking for place to insert.
@@ -209,5 +212,15 @@ public class Opponent extends Boat {
             this.IncreaseSpeed();
         }
         */
+    }
+
+    public int SetRandomBoat(ArrayList<Integer> possibleBoats) {
+        Random rnd = new Random();
+        int randIndex = rnd.nextInt(possibleBoats.size());
+        char boatLabel = (char) (65 + possibleBoats.get(randIndex));
+        this.setTexture(new Texture(Gdx.files.internal("core/assets/boat"+ boatLabel +" sprite1.png")));
+        this.generateTextureFrames(boatLabel);
+        this.SetStats(boatLabel);
+        return randIndex;
     }
 }
