@@ -10,6 +10,7 @@ import com.badlogic.gdx.audio.Music;
 
 public class DragonBoatGame extends Game {
 	private GameScreen gameScreen;
+	private MenuScreen menuScreen;
 	public Lane[] lanes;
 	public Player player;
 	public Course course;
@@ -45,9 +46,6 @@ public class DragonBoatGame extends Game {
 
 		course = new Course(new Texture(Gdx.files.internal("core/assets/background sprite.png")), lanes);
 		player = new Player(0,56, 182, lanes[3], "Player");
-		player.setTexture(new Texture(Gdx.files.internal("core/assets/boatA sprite1.png")));
-		player.setTextureFrames(generateTextureFrames('A'));
-		player.SetStats(5,2,6f,3f);
 
 		opponents = new Opponent[6];
 		opponents[0] = new Opponent(0,56,182,lanes[0], "Opponent1");
@@ -82,8 +80,8 @@ public class DragonBoatGame extends Game {
 
 		progressBar = new ProgressBar(player, opponents);
 		leaderboard = new Leaderboard(player, opponents);
-		gameScreen = new GameScreen(this);
-		setScreen(gameScreen);
+		menuScreen = new  MenuScreen(this);
+		setScreen(menuScreen);
 	}
 
 	// All drawing is done in the GameScreen class.
@@ -102,11 +100,11 @@ public class DragonBoatGame extends Game {
 
 	@Override
 	public void resize(int width, int height) {
-		gameScreen.resize(width,height);
+		this.getScreen().resize(width,height);
 	}
 
 	@Override
 	public void dispose () {
-		gameScreen.dispose();
+		this.getScreen().dispose();
 	}
 }
