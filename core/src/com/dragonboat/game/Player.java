@@ -2,10 +2,9 @@ package com.dragonboat.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
 
 public class Player extends Boat{
-    private int x_coordinate;
-    private int y_coordinate;
 
     public Player(int yPosition, int width, int height, Lane lane, String name) {
         super(yPosition, width, height, lane, name);
@@ -31,14 +30,14 @@ public class Player extends Boat{
             this.SteerRight();
         }
     }
-    public int[] ChooseBoat() {
-        /*  In the game section where boats are picked the method
-            is called and returns an array of current x,y coordiantes.
-
+    public void ChooseBoat(int boatNo) {
+        /*
+         Called in the MenuScreen class, used to set the player's boat to the boat they click on.
+         boatNo is a number 0 <= x <= 6 corresponding to boats A - G
          */
-        x_coordinate = Gdx.input.getX();
-        y_coordinate = Gdx.input.getY();
-
-        return new int[]{x_coordinate, y_coordinate};
+        char boatLabel = (char) (65 + boatNo);
+        this.setTexture(new Texture(Gdx.files.internal("core/assets/boat"+ boatLabel +" sprite1.png")));
+        this.generateTextureFrames(boatLabel);
+        this.SetStats(boatLabel);
     }
 }

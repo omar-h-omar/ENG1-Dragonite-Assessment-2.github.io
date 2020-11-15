@@ -1,4 +1,5 @@
 package com.dragonboat.game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 import java.util.ArrayList;
@@ -202,6 +203,14 @@ public class Boat {
         this.setTexture(this.textureFrames[this.frameCounter]);
     }
 
+    public void generateTextureFrames(char boatName) {
+        Texture[] frames = new Texture[4];
+        for(int i = 1; i <= frames.length; i++) {
+            frames[i-1] = new Texture(Gdx.files.internal("core/assets/boat"+ boatName +" sprite"+ Integer.toString(i) +".png"));
+        }
+        this.setTextureFrames(frames);
+    }
+
     // getters and setters
 
     public void setTexture(Texture t) {
@@ -251,6 +260,17 @@ public class Boat {
         this.ROBUSTNESS = robustness;
         this.ACCELERATION = acceleration / 64;
         this.MANEUVERABILITY = maneuverability / 8;
+    }
+
+    public void SetStats(char boatLabel) {
+        int[] maxspeeds = {5,3,4,4,3,8,4};
+        int[] robustnesses = {2,4,1,4,8,3,5};
+        float[] accelerations = {6f,2f,8f,4f,3f,1f,2f};
+        float[] maneuverabilities = {3f,8f,3f,4f,2f,0.5f,5f};
+
+        int boatNo = (int)(boatLabel-65);
+
+        this.SetStats(maxspeeds[boatNo],robustnesses[boatNo],accelerations[boatNo],maneuverabilities[boatNo]);
     }
 
     public float getManeuverability() {
