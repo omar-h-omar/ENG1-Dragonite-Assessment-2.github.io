@@ -1,4 +1,5 @@
 package com.dragonboat.game;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -9,8 +10,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * Main Game Screen class for Dragon Boat Game.
+ * This is the main game loop, handling all the game logic and rendering.
+ */
 public class GameScreen implements Screen {
     // ENVIRONMENT VARIABLES:
     private Random rnd;
@@ -24,8 +31,8 @@ public class GameScreen implements Screen {
     private ProgressBar progressBar;
     private Leaderboard leaderboard;
     private Opponent[] opponents;
-    private boolean started = false;
     private String[] times;
+    private boolean started = false;
 
     // screen
     private OrthographicCamera camera;
@@ -45,7 +52,6 @@ public class GameScreen implements Screen {
     // global parameters
     private final int WIDTH = 1080, HEIGHT = 720;
 
-
     public GameScreen(DragonBoatGame game) {
         // grab game objects from DragonBoatGame
         rnd = new Random();
@@ -55,6 +61,18 @@ public class GameScreen implements Screen {
         lanes = this.game.lanes;
         progressBar = this.game.progressBar;
         opponents = this.game.opponents;
+
+        ArrayList<Integer> possibleBoats = new ArrayList<Integer>();
+        for(int i = 0; i < lanes.length; i++) {
+            if(i != game.playerChoice) {
+                possibleBoats.add(i);
+            }
+        }
+        for(Opponent o : opponents) {
+            int choice = o.SetRandomBoat(possibleBoats);
+            possibleBoats.remove(choice);
+        }
+
         leaderboard = this.game.leaderboard;
 
         // setup view
@@ -74,20 +92,35 @@ public class GameScreen implements Screen {
         healthBarFull = new Texture(Gdx.files.internal("core/assets/bar health yellow.png"));
         healthBarEmpty = new Texture(Gdx.files.internal("core/assets/bar health grey.png"));
     }
+
+
+    /**
+     * Rendering function for the game loop, handling all game logic and displaying graphics.
+     *
+     *                GAME LOOP
+     *                ---------
+     * - Spawns any Obstacles that need spawning.
+     * - Update Player and Opponent positions.
+     * - Check for collisions with Obstacles.
+     *
+     * - Display Background and Obstacles
+     * - Update Obstacle positions.
+     * - Display Player, Player UI and Opponents.
+     * - Display Progress Bar and checks which boats have finished.
+     * - Display Player timer.
+     * - Checks if all boats have finished, and displays a Leaderboard if so.
+     *
+     * @param deltaTime time between each pass through the render function.
+     */
     @Override
     public void render(float deltaTime) {
-        /*
-        Main rendering function. backgroundOffset determines which portion of the background is shown.
-        this should be set to the player's y position each frame
-        totalDeltaTime is the total time passed.
-         */
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // if the game has started, start incrementing time.
         totalDeltaTime += started ? deltaTime : 0;
 
-        // check whether obstacles need to be spawned.
+        // check whether obstacles need to be spawned, and spawns them if so.
         for (int i = 0; i < course.getNoLanes(); i++) {
             if(!started || player.Finished() || this.game.obstacleTimes[i].size() == 0) break;
             if (this.game.obstacleTimes[i].get(0) - totalDeltaTime < 0.0001f) {
@@ -115,7 +148,7 @@ public class GameScreen implements Screen {
             if(!started) break;
             o.IncreaseSpeed();
             o.MoveForward();
-
+            o.CheckCollisions(backgroundOffset);
             if(Math.round(totalDeltaTime)%1 == 0) {
                 o.ai(backgroundOffset);
             }
@@ -125,7 +158,10 @@ public class GameScreen implements Screen {
         // Then move the background so the player is centered.
         if(player.getY() + HEIGHT / 2 + player.getHeight()/2 > course.getTexture().getHeight()) {}
         else if(player.getY() + player.getHeight() / 2 > HEIGHT / 2) backgroundOffset = player.getY() + player.getHeight() / 2 - HEIGHT / 2;
+
         player.CheckCollisions(backgroundOffset);
+
+
         batch.begin();
 
         // display background
@@ -146,16 +182,15 @@ public class GameScreen implements Screen {
             }
         }
 
-        // display player
+        // display player and player UI
         batch.draw(player.texture, player.getX(), player.getY() - backgroundOffset);
         batch.draw(staminaBarEmpty, player.lane.GetLeftBoundary(), player.getY() - 20 - backgroundOffset);
         batch.draw(healthBarEmpty, player.lane.GetLeftBoundary(), player.getY() - 40 - backgroundOffset);
-        batch.draw(staminaBarFull, player.lane.GetLeftBoundary(), player.getY() - 20 - backgroundOffset,0,0,Math.round(staminaBarFull.getWidth() * player.getTiredness() / 100),staminaBarFull.getHeight());
-        batch.draw(healthBarFull, player.lane.GetLeftBoundary(), player.getY() - 40 - backgroundOffset,0,0,Math.round(healthBarFull.getWidth() * player.getDurability()/50),healthBarFull.getHeight());
+        batch.draw(staminaBarFull, player.lane.GetLeftBoundary(), player.getY() - 20 - backgroundOffset,0,0,Math.round(staminaBarFull.getWidth() * player.getTiredness() / MAX_TIREDNESS),staminaBarFull.getHeight());
+        batch.draw(healthBarFull, player.lane.GetLeftBoundary(), player.getY() - 40 - backgroundOffset,0,0,Math.round(healthBarFull.getWidth() * player.getDurability()/ MAX_DURABILITY),healthBarFull.getHeight());
 
         // display opponents
         for(Opponent o : opponents) {
-            o.CheckCollisions(backgroundOffset);
             batch.draw(o.texture, o.getX(), o.getY() - backgroundOffset);
             //font.draw(batch, Float.toString(o.getY()), o.getX() + 20, o.getY() - backgroundOffset);
         }
@@ -163,7 +198,8 @@ public class GameScreen implements Screen {
         // display progress bar
         batch.draw(progressBar.getTexture(), WIDTH - progressBar.getTexture().getWidth() - 60, HEIGHT - progressBar.getTexture().getHeight() - 20);
 
-        // get progress for each boat, draw player and opponent icons on progress bar with x coordinates respective to their progress.
+        // get progress for each boat
+        // draw player and opponent icons on progress bar with x coordinates respective to their progress.
         float[] progress = progressBar.getProgress(course.getTexture().getHeight());
         for(int i = 1; i < progress.length; i++) {
             batch.draw(progressBar.getOpponentIcon(), WIDTH - progressBar.getTexture().getWidth() - 50 + progress[i] * (progressBar.getTexture().getWidth()-214), HEIGHT - progressBar.getTexture().getHeight() / 2 - 10);
@@ -225,6 +261,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
+        batch.dispose();
         background.dispose();
         player.texture.dispose();
         for (Lane lane : lanes) {
@@ -235,6 +272,12 @@ public class GameScreen implements Screen {
         progressBar.getTexture().dispose();
         progressBar.getOpponentIcon().dispose();
         progressBar.getPlayerIcon().dispose();
+        staminaBarFull.dispose();
+        staminaBarEmpty.dispose();
+        healthBarEmpty.dispose();
+        healthBarFull.dispose();
+        generator.dispose();
+        font.dispose();
     }
 
     @Override
