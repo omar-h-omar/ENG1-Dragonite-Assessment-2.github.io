@@ -6,13 +6,23 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import java.awt.*;
-
+/**
+ * Screen class for the Menu Screen.
+ * Allows the user to select a Boat, and shows the controls of the game.
+ * Once the user clicks within set boundaries, the game starts within GameScreen.
+ * @see GameScreen
+ * @see Screen
+ */
 public class MenuScreen implements Screen {
     Texture startScreen;
     final DragonBoatGame game;
     private SpriteBatch batch;
 
+    /**
+     * Creates an Input Processor to listen for a mouse click within set boundaries.
+     * @param Game represents the initial state of DragonBoatGame.
+     * @see com.badlogic.gdx.InputProcessor
+     */
     public MenuScreen(DragonBoatGame Game) {
         game = Game;
         batch = new SpriteBatch();
@@ -27,14 +37,12 @@ public class MenuScreen implements Screen {
              * @param screenX x position of the cursor.
              * @param screenY y position of the cursor (top left is 0,0).
              * @param pointer pointer object
-             * @param button number representing mouse button clicked (0 = left click, 1 = right click)
+             * @param button number representing mouse button clicked (0 = left click, 1 = right click, 2 = middle mouse button, etc.)
              * @return the output of touchUp(...), a boolean representing whether the input was processed (unused in this scenario).
+             * @see InputAdapter
              */
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                // screenX, screenY = x position of cursor, y position of cursor (top left = 0,0)
-                // button = 0 for left click, 1 for right click etc.
-
                 // first check whether the cursor is in right y-bounds, as these are all the same for all boats
                 if(screenY >= 397 && screenY <= 655) {
                     // then check if the mouse is in each set of x-bounds. if so, set the player boat
