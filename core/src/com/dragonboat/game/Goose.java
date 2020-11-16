@@ -26,57 +26,51 @@ public class Goose extends Obstacle {
 		Changes the direction of the Goose to an appropriate albeit random cardinal direction.
 		*/
 		HashMap<String, ArrayList<String>> cardinals = new HashMap<String, ArrayList<String>>();
-		cardinals.put("North", new ArrayList<String>(Arrays.asList("East", "West")));
-		cardinals.put("East", new ArrayList<String>(Arrays.asList("North", "South")));
-		cardinals.put("South", new ArrayList<String>(Arrays.asList("East", "West")));
-		cardinals.put("West", new ArrayList<String>(Arrays.asList("North", "South")));
 		
-		direction = cardinals.get(direction).get(new Random().nextInt(2));
+		cardinals.put("East", new ArrayList<String>(Arrays.asList("South")));
+		cardinals.put("South", new ArrayList<String>(Arrays.asList("East", "West")));
+		cardinals.put("West", new ArrayList<String>(Arrays.asList("South")));
+		
+		direction = cardinals.get(direction).get(new Random().nextInt(cardinals.get(direction).size()));
 	}
 
 	public void Move(float moveVal) {
-		if(this.getX() > givenLane.GetLeftBoundary() || this.getX() < givenLane.GetRightBoundary()) {
-			if(direction == "South" || direction == "West") {
-				moveVal = moveVal * -1;
-			}
-			if(this.direction == "East" || this.direction == "West") {
-				this.setX(this.getX() + moveVal);
-				this.changeDirection();
-			}
-			if(direction == "North" || direction == "South") {
-				this.setY(this.getY() + moveVal);
-				int randomMove = 100;
-				if(new Random().nextInt(randomMove) == randomMove - 1) {
-					changeDirection();
-				}
-			}
+
+		boolean canGoEast, canGoWest;
+
+		if(this.getX() > givenLane.GetLeftBoundary() && this.getX() < givenLane.GetRightBoundary()) {
+			//Goose is within the lane boundaries.
+			canGoEast = true;
+			canGoWest = true;
+		}
+		else if(this.getX() <= givenLane.GetLeftBoundary()) {
+			//Goose is on left boundary.
+			canGoEast = true;
+			canGoWest = false;
 		}
 		else {
-			this.direction = "South";
-			this.setY(this.getY() - moveVal);
+			//Goose is on right boundary.
+			canGoEast = false;
+			canGoWest = true;
 		}
-		/*
-		boolean edge = false;
-		if(this.getX() == givenLane.GetLeftBoundary() || this.getX() == givenLane.GetRightBoundary()) {
-			edge = true;
-		}
-		
-		int randomMove = 100;
+
+		int randomMove = 20;
 		if(new Random().nextInt(randomMove) == randomMove - 1) {
 			changeDirection();
 		}
-		if(direction == "South" || direction == "West") {
-			moveVal = moveVal * -1;
+
+		if(canGoEast && this.direction == "East") {
+			this.setX(this.getX() + moveVal);
+			//changeDirection();
 		}
-		if(direction == "North" || direction == "South") {
-			this.setY(this.getY() + moveVal/2);
+		else if(canGoWest && this.direction == "West") {
+			this.setX(this.getX() - moveVal);
+			//changeDirection();
 		}
-		else {
-			if(!edge) {
-				this.setX(this.getX() + moveVal/2);
-			}
+		//GEESE MOVING SOUTH NEEDS CHANGING TO TAKE MOVING BACKGROUND OFFSET INTO ACCOUNT. LOOKS WEIRD WHILST BACKGROUND MOVING. 
+		else if(this.direction == "South") {
+			this.setY(this.getY() - moveVal);
 		}
-		*/
 	}
 	
 }
