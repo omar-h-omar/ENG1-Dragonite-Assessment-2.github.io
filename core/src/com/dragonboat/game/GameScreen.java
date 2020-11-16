@@ -191,11 +191,11 @@ public class GameScreen implements Screen {
         //check if all boats have passed the finish line
         //if so, generate the leaderboard
         if(progressBar.allFinished(course.getTexture().getHeight())){
-            batch.draw(leaderboard.getTexture(), WIDTH/2 - leaderboard.getTexture().getWidth()/2, HEIGHT/2 - leaderboard.getTexture().getHeight()/2);
+            batch.draw(leaderboard.getTexture(), 0, 0);
             this.times = leaderboard.GetTimes(opponents.length + 1);
             for(int i = 0; i < opponents.length + 1; i++){
-                font.draw(batch, this.times[i], WIDTH/2 - leaderboard.getTexture().getWidth()/2,
-                600 - 50 * i);
+                font.draw(batch, this.times[i], Math.round(WIDTH * 0.1),
+                HEIGHT - Math.round(HEIGHT * 0.2 * (i + 2)));
             }
         }
 
