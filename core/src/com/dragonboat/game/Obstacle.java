@@ -39,7 +39,7 @@ public class Obstacle {
 		this.xPosition = xPosition;
 	}
 
-	public void Move(float moveVal) {
+	public void Move(float moveVal, int backgroundOffset) {
 		this.setY(this.getY() - moveVal);
 	}
 
