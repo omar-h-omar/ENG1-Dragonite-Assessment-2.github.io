@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import java.util.ArrayList;
 import java.util.Random;
 
+//testing
+
 public class Opponent extends Boat {
 
     public String steering = "None";
