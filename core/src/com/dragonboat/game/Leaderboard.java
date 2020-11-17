@@ -28,7 +28,7 @@ public class Leaderboard {
             this.sortedBoats[i + 1] = opponents[i];
         }
 
-        this.texture = new Texture(Gdx.files.internal("leaderboard nolines.png"));
+        this.texture = new Texture(Gdx.files.internal("core/assets/leaderboard nolines.png"));
     }
 
     /**
