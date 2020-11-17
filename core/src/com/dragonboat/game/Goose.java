@@ -75,7 +75,7 @@ public class Goose extends Obstacle {
 			//changeDirection();
 		}
 		//GEESE MOVING SOUTH NEEDS CHANGING TO TAKE MOVING BACKGROUND OFFSET INTO ACCOUNT. LOOKS WEIRD WHILST BACKGROUND MOVING. 
-		else if(this.direction == "South") {
+		else {
 			this.setY(this.getY() - moveVal*2);
 		}
 		//this.setY(this.getY() + backgroundOffset);
