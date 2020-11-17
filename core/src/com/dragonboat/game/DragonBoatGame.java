@@ -25,6 +25,7 @@ public class DragonBoatGame extends Game {
 	public ArrayList<Float>[] obstacleTimes;
 	public int noOfObstacles;
 	public int playerChoice;
+	public int difficulty = 1;
 	public Music music;
 
 	@Override
@@ -45,7 +46,7 @@ public class DragonBoatGame extends Game {
 			obstacleTimes[x] = new ArrayList<Float>();
 			lanes[x] = new Lane((x*w/lanes.length) + 40, (((x+1)*w)/lanes.length) + 40);
 			for(int y = 0; y < noOfObstacles; y++) {
-				obstacleTimes[x].add(3 * (rnd.nextFloat() + y/3 + 0.3f));
+				obstacleTimes[x].add(3 * (rnd.nextInt(y+1) + rnd.nextFloat()));
 			}
 			Collections.sort(obstacleTimes[x]);
 		}
@@ -63,6 +64,29 @@ public class DragonBoatGame extends Game {
 		leaderboard = new Leaderboard(player, opponents);
 		menuScreen = new  MenuScreen(this);
 		setScreen(menuScreen);
+	}
+
+	public void advanceLeg() {
+		difficulty += 1;
+		int w = Gdx.graphics.getWidth() - 80;
+		int h = Gdx.graphics.getHeight();
+		Random rnd = new Random();
+
+		noOfObstacles = 8 * difficulty;
+		obstacleTimes = new ArrayList[lanes.length];
+		for(int x = 0; x < lanes.length; x++) {
+			obstacleTimes[x] = new ArrayList<Float>();
+			for(int y = 0; y < noOfObstacles; y++) {
+				obstacleTimes[x].add(4 * (rnd.nextFloat() + y/3 + 0.3f));
+			}
+			Collections.sort(obstacleTimes[x]);
+		}
+		player.Reset();
+		for(Opponent o : opponents) {
+			o.Reset();
+		}
+		progressBar = new ProgressBar(player, opponents);
+		setScreen(new GameScreen(this));
 	}
 
 	@Override
