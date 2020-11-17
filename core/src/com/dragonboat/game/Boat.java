@@ -292,16 +292,25 @@ public class Boat {
 
     /**
      * 
-     * @param f
+     * @param f Boolean representing if the boat has finished the race
      */
     public void setFinished(boolean f) {
         this.finished = f;
     }
 
+    /**
+     * 
+     * @return Float representing the current speed of the boat
+     */
     public float getCurrentSpeed() {
         return this.currentSpeed;
     }
 
+    /**
+     * 
+     * @param finishY Y coordinate of the finish line
+     * @return Float representing the progress of the boat from 0 to 1
+     */
     public float getProgress(int finishY) {
         return Math.min((this.yPosition) / finishY, 1);
     }
@@ -335,34 +344,66 @@ public class Boat {
         this.SetStats(maxspeeds[boatNo],robustnesses[boatNo],accelerations[boatNo],maneuverabilities[boatNo]);
     }
 
+    /**
+     * 
+     * @return Float representing the manouverability of the boat
+     */
     public float getManeuverability() {
         return this.MANEUVERABILITY;
     }
 
+    /**
+     * 
+     * @return Float representing the acceleration of the boat
+     */
     public float getAcceleration() {
         return this.ACCELERATION;
     }
 
+    /**
+     * 
+     * @return int representing the robustness of the boat
+     */
     public int getRobustness() {
         return this.ROBUSTNESS;
     }
 
+    /**
+     * 
+     * @return int representing the durability of the boat
+     */
     public int getDurability() {
         return this.durability;
     }
 
+    /**
+     * 
+     * @return int representing the maximum speed of the boat
+     */
     public int getMaxSpeed() {
         return this.MAXSPEED;
     }
 
+    /**
+     * 
+     * @return float representing the tiredness of the boat crew
+     */
     public float getTiredness() {
         return this.tiredness;
     }
 
+    /**
+     * 
+     * @return float representing the time penalty incurred for the current race
+     */
     public float getPenalty() {
         return this.penalties;
     }
 
+    /**
+     * 
+     * @param penalty float value to add to the boat's penalty total for the current race
+     */
     public void applyPenalty(float penalty) {
         this.penalties += penalty;
     }
