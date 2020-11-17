@@ -34,7 +34,7 @@ public class Goose extends Obstacle {
 		direction = cardinals.get(direction).get(new Random().nextInt(cardinals.get(direction).size()));
 	}
 
-	public void Move(float moveVal) {
+	public void Move(float moveVal, int backgroundOffset) {
 
 		boolean canGoEast, canGoWest;
 
@@ -61,16 +61,24 @@ public class Goose extends Obstacle {
 
 		if(canGoEast && this.direction == "East") {
 			this.setX(this.getX() + moveVal);
+			if(backgroundOffset > 0 && backgroundOffset < 2160) {
+				this.setY(this.getY() - moveVal);
+			}
+			
 			//changeDirection();
 		}
 		else if(canGoWest && this.direction == "West") {
 			this.setX(this.getX() - moveVal);
+			if(backgroundOffset > 0 && backgroundOffset < 2160) {
+				this.setY(this.getY() - moveVal);
+			}
 			//changeDirection();
 		}
 		//GEESE MOVING SOUTH NEEDS CHANGING TO TAKE MOVING BACKGROUND OFFSET INTO ACCOUNT. LOOKS WEIRD WHILST BACKGROUND MOVING. 
 		else if(this.direction == "South") {
-			this.setY(this.getY() - moveVal);
+			this.setY(this.getY() - moveVal*2);
 		}
+		//this.setY(this.getY() + backgroundOffset);
 	}
 	
 }
