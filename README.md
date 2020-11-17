@@ -11,6 +11,6 @@
 <br>
 <a href="docs/Impl1.pdf">Implementation</a>
 <br>
-<a href="docs/SelfAss.pdf">Self Assesment Table</a>
+
 ## Executables
 <a href="fileloaction.exe">Dragon Boat Z Game</a>
