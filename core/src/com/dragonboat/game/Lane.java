@@ -5,12 +5,19 @@ import com.badlogic.gdx.graphics.Texture;
 
 import java.util.ArrayList;
 
-
+/**
+ * Represents a lane on the course
+ */
 public class Lane {
     private final int LEFTBOUNDARY, RIGHTBOUNDARY;
     protected ArrayList<Obstacle> obstacles;
     private int obstacleLimit;
 
+    /**
+     * Creates a lane instance
+     * @param leftBoundary X coordinate for the left boundary of the lane
+     * @param rightBoundary X coordinate for the right boundary of the lane
+     */
     public Lane(int leftBoundary, int rightBoundary) {
        this.LEFTBOUNDARY = leftBoundary;
        this.RIGHTBOUNDARY = rightBoundary;
@@ -19,6 +26,12 @@ public class Lane {
         obstacles = new ArrayList<>();
     }
 
+    /**
+     * Creates a lane instance
+     * @param leftBoundary X coordinate for the left boundary of the lane
+     * @param rightBoundary X coordinate for the right boundary of the lane
+     * @param obstacleLimit Limit for the number of obstacles in the lane
+     */
     public Lane(int leftBoundary, int rightBoundary, int obstacleLimit) {
         this.LEFTBOUNDARY = leftBoundary;
         this.RIGHTBOUNDARY = rightBoundary;
@@ -27,14 +40,16 @@ public class Lane {
         obstacles = new ArrayList<>();
     }
 
+    /**
+     * <p>Spawns obstacle in the lane.</p>
+     * <p>Spawns speified obstacle in the lane. Checks that the obstacle limit hasn't been reached,
+     * if not checks the obstacle type for Goose or Log and instantiates it as the corresponding obstacle,
+     * with the correct texture. Then adds it to the Lane's obstacle list</p>
+     * @param x X coordinate for the obstacle spawn location
+     * @param y Y coordinate for the obstacle spawn location
+     * @param obstacleType Obstacle type
+     */
     public void SpawnObstacle(int x, int y, String obstacleType) {
-        /*
-        Method for spawning an Obstacle of specified type in this lane.
-        First we check if we are at the obstacle limit, if we are not then
-        we check to see if the specified type of Obstacle is either Goose or Log,
-        if it is we create a new Obstacle instance of either Goose or Log and add
-        it to this Lane's Obstacle list.
-         */
         if(this.obstacles.size() <= this.obstacleLimit) {
             if (obstacleType.equals("Goose")) {
                 Goose goose = new Goose(x, y, new Texture(Gdx.files.internal("gooseSouthsprite.png")), this);
@@ -48,20 +63,29 @@ public class Lane {
         } else System.out.println("Obstacle limit reached.");
     }
     
+    /**
+     * <p>Removes obstacle from obstacle list.</p>
+     * <p>Obstacle should be removed upon collision with boat or leaving the course area.</p>
+     * @param obstacle Obstacle to be removed
+     */
 	public void RemoveObstacle(Obstacle obstacle) {
-		/* 
-		 Method for removing an Obstacle from the lane's Obstacle list at given index.
-		 NOT SOLD ON THIS IMPLEMENTATION. 
-		 Obstacle should be removed upon collision with boat or leaving the course area.
-		 */
 		this.obstacles.remove(obstacle);
 	}
 
     // getters and setters
 
+    /**
+     * 
+     * @return int representing the x coordinate of the lane's left boundary
+     */
     public int GetLeftBoundary() {
         return this.LEFTBOUNDARY;
     }
+
+    /**
+     * 
+     * @return int representing the x coordinate of the lane's right boundary
+     */
     public int GetRightBoundary() {
         return this.RIGHTBOUNDARY;
     }
