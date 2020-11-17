@@ -38,7 +38,7 @@ public class Goose extends Obstacle {
 
 		boolean canGoEast, canGoWest;
 
-		if(this.getX() > givenLane.GetLeftBoundary() && this.getX() < givenLane.GetRightBoundary()) {
+		if(this.getX() > givenLane.GetLeftBoundary() && this.getX() + this.width < givenLane.GetRightBoundary()) {
 			//Goose is within the lane boundaries.
 			canGoEast = true;
 			canGoWest = true;
