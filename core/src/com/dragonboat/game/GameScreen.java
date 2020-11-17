@@ -229,7 +229,7 @@ public class GameScreen implements Screen {
 
         // display player time
         progressBar.IncrementTimer(deltaTime);
-        font28.draw(batch, Float.toString(started ? Math.round(progressBar.getPlayerTime() * 100) / 100.00f : 0.00f), WIDTH-230, HEIGHT-40);
+        //font28.draw(batch, Float.toString(started ? Math.round(progressBar.getPlayerTime() * 100) / 100.00f : 0.00f), WIDTH-230, HEIGHT-40);
         font28.draw(batch, started ? progressBar.getPlayerTimeString() : "", WIDTH-230, HEIGHT-40);
 
         //check boat lanes

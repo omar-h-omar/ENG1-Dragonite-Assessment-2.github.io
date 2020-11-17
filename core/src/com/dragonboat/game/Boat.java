@@ -19,8 +19,8 @@ public class Boat {
     private int ROBUSTNESS, MAXSPEED;
     private float ACCELERATION, MANEUVERABILITY;
 
-    private int durability, penalties;
-    protected float yPosition, xPosition;
+    private int durability;
+    protected float yPosition, xPosition, penalties;
     protected int width, height;
     private float currentSpeed, progress, fastestLegTime, tiredness;
     protected Lane lane;
@@ -113,7 +113,7 @@ public class Boat {
     /**
      * Checks each obstacle in the Lane for a collision.
      * @param backgroundOffset how far up the course the player is.
-     * @return true if a collision occurs, false if not.
+     * @return Boolean representing if a collision occurs.
      */
     public boolean CheckCollisions(int backgroundOffset) {
         /*
@@ -174,11 +174,8 @@ public class Boat {
      * @param elapsedTime the time it took the boat to finish the current race.
      */
     public void UpdateFastestTime(float elapsedTime) {
-        if(this.fastestLegTime == 0){
-            this.fastestLegTime = elapsedTime;
-        }
-        else if(this.fastestLegTime > elapsedTime) {
-            this.fastestLegTime = elapsedTime;
+        if(this.fastestLegTime > elapsedTime + this.penalties || this.fastestLegTime == 0) {
+            this.fastestLegTime = elapsedTime + this.penalties;
         }
     }
 
@@ -204,6 +201,10 @@ public class Boat {
         this.setTexture(this.textureFrames[this.frameCounter]);
     }
 
+    /**
+     * Generates all frames for animating the boat
+     * @param boatName Boat name, used to get correct asset
+     */
     public void generateTextureFrames(char boatName) {
         Texture[] frames = new Texture[4];
         for(int i = 1; i <= frames.length; i++) {
@@ -227,36 +228,72 @@ public class Boat {
 
     // getters and setters
 
+    /**
+     * 
+     * @param t Texture to use
+     */
     public void setTexture(Texture t) {
         this.texture = t;
     }
 
+    /**
+     * 
+     * @param frames Texture frames for animation
+     */
     public void setTextureFrames(Texture[] frames) {this.textureFrames = frames; }
 
+    /**
+     * 
+     * @return Float representing fastest race/leg time
+     */
     public float getFastestTime() {
         return this.fastestLegTime;
     }
 
+    /**
+     * 
+     * @return int representing x coordinate position of boat
+     */
     public int getX() {
         return Math.round(this.xPosition);
     }
 
+    /**
+     * 
+     * @return int representing y coordinate position of boat
+     */
     public int getY() {
         return Math.round(this.yPosition);
     }
 
+    /**
+     * 
+     * @return int representing the y coordinate range of the boat (length)
+     */
     public int getHeight() {
         return this.height;
     }
 
+    /**
+     * 
+     * @return String representing name of the boat
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * 
+     * @return boolean representing if the boat has finished the current race
+     */
     public boolean Finished() {
         return this.finished;
     }
 
+    /**
+     * 
+     * @param f
+     */
     public void setFinished(boolean f) {
         this.finished = f;
     }
@@ -327,7 +364,7 @@ public class Boat {
     }
 
     public void applyPenalty(float penalty) {
-        this.penalties += penalties;
+        this.penalties += penalty;
     }
 
 }
