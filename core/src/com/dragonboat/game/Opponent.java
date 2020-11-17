@@ -196,7 +196,7 @@ public class Opponent extends Boat {
         if(noNewPath) {
             int middle = lane.GetRightBoundary() - (lane.GetRightBoundary() - lane.GetLeftBoundary()) / 2 - this.width / 2;
             if (leftSide == middle) {
-
+                steering = "None";
             } else if (leftSide < middle) {
                 this.SteerRight();
                 steering = "Right";
@@ -211,9 +211,11 @@ public class Opponent extends Boat {
         /*
         if(noNewPath) {
             //Still no new path? Just speed up in the forwards direction!
-            this.IncreaseSpeed();
+            if(this.getTiredness() < 75) this.IncreaseSpeed();
         }
         */
+        if(this.getTiredness() < 70) this.IncreaseSpeed();
+
     }
 
     public int SetRandomBoat(ArrayList<Integer> possibleBoats) {
