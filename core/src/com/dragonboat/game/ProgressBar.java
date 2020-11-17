@@ -90,6 +90,11 @@ public class ProgressBar {
 		return this.playerTime;
 	}
 
+	public String getPlayerTimeString(){
+		return String.valueOf((float)Math.round(this.playerTime * 10) / 10) + " + "
+		+ String.valueOf((float)Math.round(this.playerBoat.getPenalty() * 10) / 10);
+	}
+
 	/**
 	 * Gets the time passed for the current race
 	 * @return Returns a float representing the current race time
