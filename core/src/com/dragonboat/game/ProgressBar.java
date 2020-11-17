@@ -29,9 +29,6 @@ public class ProgressBar {
 
 	}
 
-	//return boat positions
-	//player position, followed by all others
-
 	/**
 	 * Gets the progress of all boats
 	 * @param finishY Y coordinate of the finish line
@@ -83,13 +80,17 @@ public class ProgressBar {
 	}
 
 	/**
-	 * Gets the time passed for the player in the current race
+	 * Gets the time elapsed for the player in the current race
 	 * @return Returns a float representing the player's current race time
 	 */
 	public float getPlayerTime(){
 		return this.playerTime;
 	}
 
+	/**
+	 * Gets the time elapsed for the player in the current race and total penalty time
+	 * @return String representing player time ":" penalty time
+	 */
 	public String getPlayerTimeString(){
 		return String.valueOf((float)Math.round(this.playerTime * 10) / 10) + " + "
 		+ String.valueOf((float)Math.round(this.playerBoat.getPenalty() * 10) / 10);
