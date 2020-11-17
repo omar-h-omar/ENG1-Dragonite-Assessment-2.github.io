@@ -212,6 +212,19 @@ public class Boat {
         this.setTextureFrames(frames);
     }
 
+    public void Reset() {
+        this.xPosition = lane.GetRightBoundary() - (lane.GetRightBoundary() - lane.GetLeftBoundary())/2 - width/2;
+        this.yPosition = 0;
+        this.currentSpeed = 0f;
+        this.penalties = 0;
+        this.durability = 50;
+        this.tiredness = 0f;
+        this.progress = 0f;
+        this.finished = false;
+
+    }
+
+
     // getters and setters
 
     public void setTexture(Texture t) {
@@ -256,18 +269,29 @@ public class Boat {
         return Math.min((this.yPosition) / finishY, 1);
     }
 
+    /**
+     * Implicitly sets the stats of the boat, given each attribute.
+     * @param maxspeed top speed the boat can reach.
+     * @param robustness how resilient to obstacle damage the boat is.
+     * @param acceleration how much the speed increases each frame.
+     * @param maneuverability how easily the boat can move left or right.
+     */
     public void SetStats(int maxspeed, int robustness, float acceleration, float maneuverability) {
-        this.MAXSPEED = maxspeed;
+        this.MAXSPEED = maxspeed / 2;
         this.ROBUSTNESS = robustness;
         this.ACCELERATION = acceleration / 64;
         this.MANEUVERABILITY = maneuverability / 8;
     }
 
+    /**
+     * Interpolates predetermined stats from a boat label, and sets the stats based on those.
+     * @param boatLabel a character between A-G representing a specific boat.
+     */
     public void SetStats(char boatLabel) {
-        int[] maxspeeds = {5,3,4,4,3,8,4};
-        int[] robustnesses = {2,4,1,4,8,3,5};
-        float[] accelerations = {6f,2f,8f,4f,3f,1f,2f};
-        float[] maneuverabilities = {3f,8f,3f,4f,2f,0.5f,5f};
+        int[] maxspeeds =           {5  , 3  , 4  , 4  , 3  , 8    , 4 };
+        int[] robustnesses =        {2  , 4  , 1  , 4  , 8  , 3    , 5 };
+        float[] accelerations =     {6f , 2f , 8f , 4f , 3f , 1.5f , 2f};
+        float[] maneuverabilities = {3f , 8f , 3f , 4f , 2f , 1f   , 5f};
 
         int boatNo = (int)(boatLabel-65);
 
@@ -297,4 +321,13 @@ public class Boat {
     public float getTiredness() {
         return this.tiredness;
     }
+
+    public float getPenalty() {
+        return this.penalties;
+    }
+
+    public void applyPenalty(float penalty) {
+        this.penalties += penalties;
+    }
+
 }
