@@ -1,6 +1,7 @@
 package com.dragonboat.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -21,7 +22,7 @@ import java.util.Random;
 public class GameScreen implements Screen {
     // ENVIRONMENT VARIABLES:
     private Random rnd;
-    private final int MAX_DURABILITY = 50, MAX_TIREDNESS = 100;
+    private final int MAX_DURABILITY = 40, MAX_TIREDNESS = 100;
 
     // game
     private DragonBoatGame game;
@@ -43,7 +44,7 @@ public class GameScreen implements Screen {
     private Texture background, healthBarFull, healthBarEmpty, staminaBarFull, staminaBarEmpty;
     private FreeTypeFontGenerator generator;
     private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
-    private BitmapFont font;
+    private BitmapFont font28, font44;
 
     // timing
     private int backgroundOffset;
@@ -52,6 +53,10 @@ public class GameScreen implements Screen {
     // global parameters
     private final int WIDTH = 1080, HEIGHT = 720;
 
+    /**
+     *
+     * @param game represents the initial state of DragonBoatGame.
+     */
     public GameScreen(DragonBoatGame game) {
         // grab game objects from DragonBoatGame
         rnd = new Random();
@@ -86,7 +91,9 @@ public class GameScreen implements Screen {
         generator = new FreeTypeFontGenerator(Gdx.files.internal("core/assets/8bitOperatorPlus-Regular.ttf"));
         parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 28;
-        font = generator.generateFont(parameter);
+        font28 = generator.generateFont(parameter);
+        parameter.size = 44;
+        font44 = generator.generateFont(parameter);
         staminaBarFull = new Texture(Gdx.files.internal("core/assets/bar stamina yellow.png"));
         staminaBarEmpty = new Texture(Gdx.files.internal("core/assets/bar stamina grey.png"));
         healthBarFull = new Texture(Gdx.files.internal("core/assets/bar health yellow.png"));
@@ -146,7 +153,6 @@ public class GameScreen implements Screen {
         // move opponents
         for(Opponent o : opponents) {
             if(!started) break;
-            o.IncreaseSpeed();
             o.MoveForward();
             o.CheckCollisions(backgroundOffset);
             if(Math.round(totalDeltaTime)%1 == 0) {
@@ -174,7 +180,7 @@ public class GameScreen implements Screen {
                 Obstacle o = lane.obstacles.get(j);
                 // if the background hasn't started moving yet, or if the player has reached the top of the course, move obstacle at set speed.
                 // else add the player speed to the obstacle speed.
-                o.Move(0.4f + (backgroundOffset > 0 && player.getY() + HEIGHT / 2 + player.getHeight() / 2 < course.getTexture().getHeight() ? player.getCurrentSpeed() : 0));
+                o.Move(0.4f + (backgroundOffset > 0 && player.getY() + HEIGHT / 2 + player.getHeight() / 2 < course.getTexture().getHeight() ? player.getCurrentSpeed() : 0), backgroundOffset);
                 if (o.getY() < -o.getHeight()) {
                     lane.RemoveObstacle(o);
                 }
@@ -222,18 +228,24 @@ public class GameScreen implements Screen {
 
         // display player time
         progressBar.IncrementTimer(deltaTime);
-        font.draw(batch, Float.toString(started ? Math.round(progressBar.getPlayerTime() * 100) / 100.00f : 0.00f), WIDTH-230, HEIGHT-40);
+        font28.draw(batch, Float.toString(started ? Math.round(progressBar.getPlayerTime() * 100) / 100.00f : 0.00f), WIDTH-230, HEIGHT-40);
 
         //check if all boats have passed the finish line
         //if so, generate the leaderboard
         if(progressBar.allFinished(course.getTexture().getHeight())){
-            batch.draw(leaderboard.getTexture(), 0, 0);
+            batch.draw(leaderboard.getTexture(), WIDTH/2 - leaderboard.getTexture().getWidth()/2, HEIGHT/2 - leaderboard.getTexture().getHeight()/2);
             this.times = leaderboard.GetTimes(opponents.length + 1);
-            font.draw(batch, "Results", Math.round(WIDTH * 0.2), HEIGHT - Math.round(HEIGHT * 0.15));
             for(int i = 0; i < opponents.length + 1; i++){
-                font.draw(batch, this.times[i], Math.round(WIDTH * 0.2),
-                HEIGHT - Math.round(HEIGHT * (0.25 + 0.06 * i)));
+                font44.draw(batch, this.times[i], WIDTH/2 - leaderboard.getTexture().getWidth()/3, 620 - (75 * i));
             }
+            font28.draw(batch,"Click anywhere to progress to next leg.",200,40);
+            Gdx.input.setInputProcessor(new InputAdapter() {
+                @Override
+                public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                    game.advanceLeg();
+                    return super.touchUp(screenX, screenY, pointer, button);
+                }
+            });
         }
 
         batch.end();
@@ -278,7 +290,10 @@ public class GameScreen implements Screen {
         healthBarEmpty.dispose();
         healthBarFull.dispose();
         generator.dispose();
-        font.dispose();
+        font28.dispose();
+        font44.dispose();
+        leaderboard.getTexture().dispose();
+
     }
 
     @Override
