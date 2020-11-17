@@ -33,6 +33,7 @@ public class GameScreen implements Screen {
     private Opponent[] opponents;
     private String[] times;
     private boolean started = false;
+    private float penalty = 0.016f;
 
     // screen
     private OrthographicCamera camera;
@@ -222,7 +223,20 @@ public class GameScreen implements Screen {
 
         // display player time
         progressBar.IncrementTimer(deltaTime);
-        font.draw(batch, Float.toString(started ? Math.round(progressBar.getPlayerTime() * 100) / 100.00f : 0.00f), WIDTH-230, HEIGHT-40);
+        font.draw(batch, started ? progressBar.getPlayerTimeString() : "", WIDTH-230, HEIGHT-40);
+
+        //check boat lanes
+        if(!player.CheckIfInLane() && !player.Finished()){
+            player.applyPenalty(penalty);
+            font.draw(batch, "Warning! Penalty applied for leaving lane",
+            Math.round(WIDTH * 0.15),
+            Math.round(HEIGHT * 0.85));
+        }
+        for(int i = 0; i < opponents.length; i++){
+            if(!opponents[i].CheckIfInLane() && opponents[i].Finished()){
+                opponents[i].applyPenalty(penalty);
+            }
+        }
 
         //check if all boats have passed the finish line
         //if so, generate the leaderboard

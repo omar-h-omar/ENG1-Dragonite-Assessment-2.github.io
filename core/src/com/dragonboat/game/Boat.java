@@ -19,8 +19,8 @@ public class Boat {
     private int ROBUSTNESS, MAXSPEED;
     private float ACCELERATION, MANEUVERABILITY;
 
-    private int durability, penalties;
-    protected float yPosition, xPosition;
+    private int durability;
+    protected float yPosition, xPosition, penalties;
     protected int width, height;
     private float currentSpeed, progress, fastestLegTime, tiredness;
     protected Lane lane;
@@ -29,6 +29,7 @@ public class Boat {
     public Texture texture;
     private String name;
     private boolean finished;
+    private int threshold = 5;
 
     /**
      * Creates a Boat instance in a specified Lane.
@@ -120,7 +121,6 @@ public class Boat {
          */
         ArrayList<Obstacle> obstacles = this.lane.obstacles;
         ArrayList<Integer> obstaclesToRemove = new ArrayList<>();
-        int threshold = 5;
         for(Obstacle o : obstacles) {
             if(o.getX() > this.xPosition + threshold && o.getX() < this.xPosition + this.width - threshold) {
                 if(o.getY() + backgroundOffset > this.yPosition + threshold && o.getY() + backgroundOffset < this.yPosition + this.height - threshold) {
@@ -164,8 +164,8 @@ public class Boat {
 
         May need to add check whether 0 < y < finish y position.
          */
-        return this.xPosition > this.lane.GetLeftBoundary() &&
-                this.xPosition < this.lane.GetRightBoundary();
+        return this.xPosition + threshold > this.lane.GetLeftBoundary() &&
+                this.xPosition + this.width - threshold < this.lane.GetRightBoundary();
     }
 
     /**
@@ -173,12 +173,7 @@ public class Boat {
      * @param elapsedTime the time it took the boat to finish the current race.
      */
     public void UpdateFastestTime(float elapsedTime) {
-        if(this.fastestLegTime == 0){
-            this.fastestLegTime = elapsedTime;
-        }
-        else if(this.fastestLegTime > elapsedTime) {
-            this.fastestLegTime = elapsedTime;
-        }
+        this.fastestLegTime = elapsedTime + this.penalties;
     }
 
     /**
@@ -295,5 +290,13 @@ public class Boat {
 
     public float getTiredness() {
         return this.tiredness;
+    }
+
+    public void applyPenalty(float penalty){
+        this.penalties += penalty;
+    }
+
+    public float getPenalty(){
+        return this.penalties;
     }
 }
