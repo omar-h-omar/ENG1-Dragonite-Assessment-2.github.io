@@ -4,12 +4,26 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 
+/**
+ * Represents the player's boat
+ */
 public class Player extends Boat{
 
+    /**
+     * Creates an instance of the player boat
+     * @param yPosition Y coordinate position of the boat
+     * @param width Width of the boat
+     * @param height Height of the boat
+     * @param lane Lane for the boat
+     * @param name Name of the boat
+     */
     public Player(int yPosition, int width, int height, Lane lane, String name) {
         super(yPosition, width, height, lane, name);
     }
 
+    /**
+     * Moves the player based on key pressed (W, A, S, D)
+     */
     public void GetInput() {
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
             this.IncreaseSpeed();
@@ -30,11 +44,13 @@ public class Player extends Boat{
             this.SteerRight();
         }
     }
+
+    /**
+     * <p>Assigns the selected boat template to the boat.</p>
+     * <p>This includes stats and texture.</p>
+     * @param boatNo Number of the boat template selected
+     */
     public void ChooseBoat(int boatNo) {
-        /*
-         Called in the MenuScreen class, used to set the player's boat to the boat they click on.
-         boatNo is a number 0 <= x <= 6 corresponding to boats A - G
-         */
         char boatLabel = (char) (65 + boatNo);
         this.setTexture(new Texture(Gdx.files.internal("core/assets/boat"+ boatLabel +" sprite1.png")));
         this.generateTextureFrames(boatLabel);

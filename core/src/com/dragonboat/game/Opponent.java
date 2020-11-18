@@ -5,28 +5,37 @@ import com.badlogic.gdx.graphics.Texture;
 import java.util.ArrayList;
 import java.util.Random;
 
-//testing
-
+/**
+ * Represents a opponent boat with AI
+ */
 public class Opponent extends Boat {
 
     public String steering = "None";
     private ArrayList<Obstacle> sortedIncomingObstacles;
 
+    /**
+     * Creates a opponent instance
+     * @param yPosition Y coordinate position
+     * @param width Width of the boat
+     * @param height Height of the boat
+     * @param lane Lane for the boat
+     * @param name Name of the opponent
+     */
     public Opponent(int yPosition, int width, int height, Lane lane, String name) {
         super(yPosition, width, height, lane, name);
         sortedIncomingObstacles = new ArrayList<Obstacle>();
     }
 
+    /**
+     * <p>Controls the AI behaviour of the boat</p>
+     * <p>Changes the movement path of the boat.</p>
+     * <p>AI new path selection:</p>
+     * <p>1) If not in lane, go back to lane.</p>
+     * <p>2) If obstacle ahead, avoid the obstacle. If dead ahead, slow down</p>
+     * <p>3) If nothing, speed up.</p>
+     * @param backgroundOffset
+     */
     public void ai(int backgroundOffset) {
-        /*
-        One method to control the AI behaviour of one boat.
-        Every so often in the game loop, Opponent.ai() gets called and the movement path of the Opponent boats will change.
-
-        AI new path selection:
-            1) If not in lane, go back to lane.
-            2) If obstacle ahead, avoid the obstacle. If dead ahead, slow down.
-            3) If nothing, speed up.
-        */
 
         int leftSide = Math.round(xPosition);
         int rightSide = Math.round(xPosition + width);
@@ -70,6 +79,7 @@ public class Opponent extends Boat {
             }
             noNewPath = false;
         }
+
         /*
         2) If obstacle ahead, avoid the obstacle. If dead ahead, slow down.
         */
@@ -218,6 +228,12 @@ public class Opponent extends Boat {
 
     }
 
+    /**
+     * <p>Assigns a random boat template to the boat.</p>
+     * <p>This includes stats and texture.</p>
+     * @param possibleBoats List of remaining boat templates that haven't been assigned yet.
+     * @return int representing the index of the boat template that was assigned.
+     */
     public int SetRandomBoat(ArrayList<Integer> possibleBoats) {
         Random rnd = new Random();
         int randIndex = rnd.nextInt(possibleBoats.size());
