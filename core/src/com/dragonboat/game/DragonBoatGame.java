@@ -28,6 +28,9 @@ public class DragonBoatGame extends Game {
 	public int difficulty = 1;
 	public Music music;
 
+	/**
+	 * Sets up the game with settings and instantiation of objects
+	 */
 	@Override
 	public void create () {
 		int w = Gdx.graphics.getWidth() - 80;
@@ -66,6 +69,9 @@ public class DragonBoatGame extends Game {
 		setScreen(menuScreen);
 	}
 
+	/**
+	 * Changes the screen to a new GameScreen and resets necessary attributes
+	 */
 	public void advanceLeg() {
 		difficulty += 1;
 		int w = Gdx.graphics.getWidth() - 80;
@@ -94,11 +100,19 @@ public class DragonBoatGame extends Game {
 		super.render();
 	}
 
+	/**
+	 * Resizes the game screen
+	 * @param width Width of the screen
+	 * @param height Height of the screen
+	 */
 	@Override
 	public void resize(int width, int height) {
 		this.getScreen().resize(width,height);
 	}
 
+	/**
+	 * Disposes of the current screen when it's no longer needed
+	 */
 	@Override
 	public void dispose () {
 		this.getScreen().dispose();
