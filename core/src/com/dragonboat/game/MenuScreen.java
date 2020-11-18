@@ -95,6 +95,9 @@ public class MenuScreen implements Screen {
         });
     }
 
+    /**
+     * Rendering function for the game loop, handling all menu logic and displaying graphics.
+     */
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0.15f, 0.15f, 0.3f, 1);
@@ -129,6 +132,9 @@ public class MenuScreen implements Screen {
 
     }
 
+    /**
+     * Disposes of the screen when it is no longer needed.
+     */
     @Override
     public void dispose() {
         Gdx.input.setInputProcessor(null);

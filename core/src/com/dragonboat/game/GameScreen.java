@@ -55,7 +55,7 @@ public class GameScreen implements Screen {
     private final int WIDTH = 1080, HEIGHT = 720;
 
     /**
-     *
+     * Sets up everything needed for a race to take place
      * @param game represents the initial state of DragonBoatGame.
      */
     public GameScreen(DragonBoatGame game) {
@@ -103,22 +103,21 @@ public class GameScreen implements Screen {
 
 
     /**
-     * Rendering function for the game loop, handling all game logic and displaying graphics.
+     * <p>Rendering function for the game loop, handling all game logic and displaying graphics.</p>
      *
-     *                GAME LOOP
-     *                ---------
-     * - Spawns any Obstacles that need spawning.
-     * - Update Player and Opponent positions.
-     * - Check for collisions with Obstacles.
+     * <p>GAME LOOP</p>
+     * 
+     * <p>- Spawns any Obstacles that need spawning.</p>
+     * <p>- Update Player and Opponent positions.</p>
+     * <p>- Check for collisions with Obstacles.</p>
+     * <p>- Display Background and Obstacles</p>
+     * <p>- Update Obstacle positions.</p>
+     * <p>- Display Player, Player UI and Opponents.</p>
+     * <p>- Display Progress Bar and checks which boats have finished.</p>
+     * <p>- Display Player timer.</p>
+     * <p>- Checks if all boats have finished, and displays a Leaderboard if so.</p>
      *
-     * - Display Background and Obstacles
-     * - Update Obstacle positions.
-     * - Display Player, Player UI and Opponents.
-     * - Display Progress Bar and checks which boats have finished.
-     * - Display Player timer.
-     * - Checks if all boats have finished, and displays a Leaderboard if so.
-     *
-     * @param deltaTime time between each pass through the render function.
+     * @param deltaTime Time passed since render function was last run.
      */
     @Override
     public void render(float deltaTime) {
@@ -229,31 +228,44 @@ public class GameScreen implements Screen {
 
         // display player time
         progressBar.IncrementTimer(deltaTime);
-        //font28.draw(batch, Float.toString(started ? Math.round(progressBar.getPlayerTime() * 100) / 100.00f : 0.00f), WIDTH-230, HEIGHT-40);
         font28.draw(batch, started ? progressBar.getPlayerTimeString() : "", WIDTH-230, HEIGHT-40);
 
-        //check boat lanes
+        //apply penalties
+        //check player boat is in their lane
         if(!player.CheckIfInLane() && !player.Finished()){
             player.applyPenalty(penalty);
             font28.draw(batch, "Warning! Penalty applied for leaving lane",
             Math.round(WIDTH * 0.15),
             Math.round(HEIGHT * 0.85));
         }
+        //check opponent boats are in their lanes
         for(int i = 0; i < opponents.length; i++){
             if(!opponents[i].CheckIfInLane() && opponents[i].Finished()){
                 opponents[i].applyPenalty(penalty);
             }
         }
 
-        //check if all boats have passed the finish line
-        //if so, generate the leaderboard
+        /**
+         * Check if all boats have passed the finish line
+         * if so, generate the leaderboard
+         */
         if(progressBar.allFinished(course.getTexture().getHeight())){
-            batch.draw(leaderboard.getTexture(), WIDTH/2 - leaderboard.getTexture().getWidth()/2, HEIGHT/2 - leaderboard.getTexture().getHeight()/2);
+            //display leaderboard
+            batch.draw(leaderboard.getTexture(),
+            WIDTH/2 - leaderboard.getTexture().getWidth()/2,
+            HEIGHT/2 - leaderboard.getTexture().getHeight()/2);
+
+            //display fastest times of boats
             this.times = leaderboard.GetTimes(opponents.length + 1);
             for(int i = 0; i < opponents.length + 1; i++){
-                font44.draw(batch, this.times[i], WIDTH/2 - leaderboard.getTexture().getWidth()/3, 620 - (75 * i));
+                font44.draw(batch, this.times[i],
+                WIDTH/2 - leaderboard.getTexture().getWidth()/3, 620 - (75 * i));
             }
             font28.draw(batch,"Click anywhere to progress to next leg.",200,40);
+
+            /**
+             * Defines how to handle keyboard and mouse inputs
+             */
             Gdx.input.setInputProcessor(new InputAdapter() {
                 @Override
                 public boolean touchDown(int screenX, int screenY, int pointer, int button) {
@@ -266,6 +278,11 @@ public class GameScreen implements Screen {
         batch.end();
     }
 
+    /**
+     * Resizes the game screen
+     * @param width Width of the screen
+     * @param height Height of the screen
+     */
     @Override
     public void resize(int width, int height) {
         viewport.update(width,height,true);
@@ -287,6 +304,9 @@ public class GameScreen implements Screen {
 
     }
 
+    /**
+     * Disposes of the screen when it is no longer needed.
+     */
     @Override
     public void dispose() {
         batch.dispose();
