@@ -7,11 +7,21 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
+/**
+ * Represents a goose obstacle on the course
+ */
 public class Goose extends Obstacle {
 
 	public String direction = "South"; //Facing south by default.
 	public Lane givenLane;
 	
+	/**
+	 * Creates a goose instance
+	 * @param xPosition X coordinate position
+	 * @param yPosition Y coordinate position
+	 * @param texture Texture asset for the goose
+	 * @param lane Lane that the goose will spawn in
+	 */
 	public Goose(int xPosition, int yPosition, Texture texture, Lane lane) {
 		// Joe: geese will have a set damage value, could increase with difficulty.
 		//      they'll also have a set width and height. just put some placeholders in for now.
@@ -21,10 +31,10 @@ public class Goose extends Obstacle {
 		this.givenLane = lane;
 	}
 	
+	/**
+	 * Changes the direction of the Goose to an appropriate albeit random cardinal direction.
+	 */
 	public void changeDirection() {
-		/*
-		Changes the direction of the Goose to an appropriate albeit random cardinal direction.
-		*/
 		HashMap<String, ArrayList<String>> cardinals = new HashMap<String, ArrayList<String>>();
 		
 		cardinals.put("East", new ArrayList<String>(Arrays.asList("South")));
@@ -34,6 +44,11 @@ public class Goose extends Obstacle {
 		direction = cardinals.get(direction).get(new Random().nextInt(cardinals.get(direction).size()));
 	}
 
+	/**
+	 * Moves the goose
+	 * @param moveVal Distance to move Goose by
+	 * @param backgroundOffset Offset from screen to course coordinates
+	 */
 	public void Move(float moveVal, int backgroundOffset) {
 
 		boolean canGoEast, canGoWest;
