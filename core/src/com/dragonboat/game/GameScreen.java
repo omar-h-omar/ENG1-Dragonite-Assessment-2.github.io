@@ -130,7 +130,7 @@ public class GameScreen implements Screen {
         // check whether obstacles need to be spawned, and spawns them if so.
         for (int i = 0; i < course.getNoLanes(); i++) {
             if(!started || player.Finished() || this.game.obstacleTimes[i].size() == 0) break;
-            if (this.game.obstacleTimes[i].get(0) - totalDeltaTime < 0.0001f) {
+            if (this.game.obstacleTimes[i].get(0) - player.getY() + player.getHeight() < 1) {
                 String[] obstacleTypes = {"Goose", "Log"};
                 // spawn an obstacle in lane i.
                 int xCoord = lanes[i].GetLeftBoundary() + rnd.nextInt(lanes[i].GetRightBoundary() - lanes[i].GetLeftBoundary()-15);

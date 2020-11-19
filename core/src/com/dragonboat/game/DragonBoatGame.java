@@ -22,7 +22,7 @@ public class DragonBoatGame extends Game {
 	public Opponent[] opponents;
 	public ProgressBar progressBar;
 	public Leaderboard leaderboard;
-	public ArrayList<Float>[] obstacleTimes;
+	public ArrayList<Integer>[] obstacleTimes;
 	public int noOfObstacles;
 	public int playerChoice;
 	public int difficulty = 1;
@@ -44,13 +44,14 @@ public class DragonBoatGame extends Game {
 		music.play();
 
 		lanes = new Lane[7];
-		noOfObstacles = 10;
+		noOfObstacles = 8;
 		obstacleTimes = new ArrayList[lanes.length];
 		for(int x = 0; x < lanes.length; x++) {
-			obstacleTimes[x] = new ArrayList<Float>();
+			obstacleTimes[x] = new ArrayList<Integer>();
 			lanes[x] = new Lane((x*w/lanes.length) + 40, (((x+1)*w)/lanes.length) + 40);
+			int maxY = (2880 - (5 * noOfObstacles))/noOfObstacles;
 			for(int y = 0; y < noOfObstacles; y++) {
-				obstacleTimes[x].add(6 * (rnd.nextFloat() + y/3 + 0.3f));
+				obstacleTimes[x].add(rnd.nextInt(maxY - 5) + 5 + maxY * y);
 			}
 			Collections.sort(obstacleTimes[x]);
 		}
@@ -82,9 +83,10 @@ public class DragonBoatGame extends Game {
 		noOfObstacles = 8 * difficulty;
 		obstacleTimes = new ArrayList[lanes.length];
 		for(int x = 0; x < lanes.length; x++) {
-			obstacleTimes[x] = new ArrayList<Float>();
+			obstacleTimes[x] = new ArrayList<Integer>();
+			int maxY = (2880 - (5 * noOfObstacles))/noOfObstacles;
 			for(int y = 0; y < noOfObstacles; y++) {
-				obstacleTimes[x].add((6/difficulty) * (rnd.nextFloat() + y/3 + 0.3f));
+				obstacleTimes[x].add(rnd.nextInt(maxY - 5) + 5 + maxY * y);
 			}
 			Collections.sort(obstacleTimes[x]);
 		}
