@@ -2,11 +2,13 @@ package com.dragonboat.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 /**
  * Game Class for Dragon Boat Game.
@@ -28,6 +30,8 @@ public class DragonBoatGame extends Game {
 	public int difficulty = 1;
 	public Music music;
 	private boolean ended = false;
+	public FreeTypeFontGenerator generator;
+	public FreeTypeFontGenerator.FreeTypeFontParameter parameter;
 
 	/**
 	 * Sets up the game with settings and instantiation of objects
@@ -40,7 +44,7 @@ public class DragonBoatGame extends Game {
 
 		music = Gdx.audio.newMusic(Gdx.files.internal("cantgobackwards.mp3"));
 		music.setLooping(true);
-		music.setVolume(0.02f);
+		music.setVolume(0.4f);
 		music.play();
 
 		lanes = new Lane[7];
@@ -67,6 +71,10 @@ public class DragonBoatGame extends Game {
 
 		progressBar = new ProgressBar(player, opponents);
 		leaderboard = new Leaderboard(player, opponents);
+
+		generator = new FreeTypeFontGenerator(Gdx.files.internal("core/assets/8bitOperatorPlus-Regular.ttf"));
+		parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+
 		menuScreen = new  MenuScreen(this);
 		setScreen(menuScreen);
 	}
@@ -83,7 +91,8 @@ public class DragonBoatGame extends Game {
 		noOfObstacles = 8 * difficulty;
 		obstacleTimes = new ArrayList[lanes.length];
 		for(int x = 0; x < lanes.length; x++) {
-			obstacleTimes[x] = new ArrayList<Integer>();
+			lanes[x].obstacles = new ArrayList<>();
+			obstacleTimes[x] = new ArrayList<>();
 			int maxY = (2880 - (5 * noOfObstacles))/noOfObstacles;
 			for(int y = 0; y < noOfObstacles; y++) {
 				obstacleTimes[x].add(rnd.nextInt(maxY - 5) + 5 + maxY * y);
@@ -104,6 +113,9 @@ public class DragonBoatGame extends Game {
 			super.render();
 		}
 		else {
+			Gdx.gl.glClearColor(1, 0, 0, 1);
+			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
 			// display end screen.
 		}
 	}
