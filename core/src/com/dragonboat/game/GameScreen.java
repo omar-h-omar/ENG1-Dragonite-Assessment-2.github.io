@@ -206,7 +206,7 @@ public class GameScreen implements Screen {
         // display opponents
         for(Opponent o : opponents) {
             batch.draw(o.texture, o.getX(), o.getY() - backgroundOffset);
-            font28.draw(batch, o.getX() + ", " + o.getCurrentSpeed(), o.getX() + 20, o.getY() - backgroundOffset);
+            //font28.draw(batch, o.getX() + ", " + o.getCurrentSpeed(), o.getX() + 20, o.getY() - backgroundOffset);
         }
 
         // display progress bar
@@ -280,7 +280,6 @@ public class GameScreen implements Screen {
             }
 
             else {
-                leaderboard.setTexture(new Texture(Gdx.files.internal("core/assets/leaderboard yellow3.png")));
                 batch.draw(leaderboard.getTexture(), WIDTH/2 - leaderboard.getTexture().getWidth() / 2, HEIGHT / 2 - leaderboard.getTexture().getHeight() / 2);
                 this.times = leaderboard.GetTimes(opponents.length+1);
                 for (int i = 0; i < opponents.length + 1; i++) {
