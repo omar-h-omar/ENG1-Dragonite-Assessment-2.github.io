@@ -27,7 +27,7 @@ public class Goose extends Obstacle {
 		//      they'll also have a set width and height. just put some placeholders in for now.
 		// Ben: geese can also face N, S, E, W.
 		//      width and height will swap places when  switching between N/S and E/W.
-		super(5, xPosition, yPosition, texture.getWidth(), texture.getHeight(), texture);
+		super(10, xPosition, yPosition, texture.getWidth(), texture.getHeight(), texture);
 		this.givenLane = lane;
 	}
 	
@@ -89,9 +89,9 @@ public class Goose extends Obstacle {
 			}
 			//changeDirection();
 		}
-		//GEESE MOVING SOUTH NEEDS CHANGING TO TAKE MOVING BACKGROUND OFFSET INTO ACCOUNT. LOOKS WEIRD WHILST BACKGROUND MOVING. 
+
 		else {
-			this.setY(this.getY() - moveVal*2);
+			this.setY(this.getY() - moveVal);
 		}
 		//this.setY(this.getY() + backgroundOffset);
 	}
