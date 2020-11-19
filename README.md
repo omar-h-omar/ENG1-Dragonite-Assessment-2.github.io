@@ -7,7 +7,7 @@ Here's our team:
 *   James Wilkinson
 *   Joe Lonsdale
 *   Richard Upton
-*   Will Dalgliesh
+*   Will Dalgleish
 *   Xinyi Zhang
 
 # Assessment Content
