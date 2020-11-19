@@ -106,7 +106,7 @@ public class GameScreen implements Screen {
      * <p>Rendering function for the game loop, handling all game logic and displaying graphics.</p>
      *
      * <p>GAME LOOP</p>
-     * 
+     *
      * <p>- Spawns any Obstacles that need spawning.</p>
      * <p>- Update Player and Opponent positions.</p>
      * <p>- Check for collisions with Obstacles.</p>
@@ -155,15 +155,20 @@ public class GameScreen implements Screen {
             if(!started) break;
             o.MoveForward();
             o.CheckCollisions(backgroundOffset);
-            if(Math.round(totalDeltaTime)%1 == 0) {
+            if(Math.round(totalDeltaTime)%2 == 0) {
                 o.ai(backgroundOffset);
             }
         }
 
-        // Until the player is at half of the window height, don't move the background
-        // Then move the background so the player is centered.
-        if(player.getY() + HEIGHT / 2 + player.getHeight()/2 > course.getTexture().getHeight()) {}
-        else if(player.getY() + player.getHeight() / 2 > HEIGHT / 2) backgroundOffset = player.getY() + player.getHeight() / 2 - HEIGHT / 2;
+        // increase the background offset so the player is centered.
+
+        if(player.getY() + HEIGHT / 2 + player.getHeight()/2 > course.getTexture().getHeight()) {
+            // stop increasing the background offset when the player reaches the end of the course.
+        }
+        else if(player.getY() + player.getHeight() / 2 > HEIGHT / 2) {
+            // start increasing the background offset when the player is above half the window height.
+            backgroundOffset = player.getY() + player.getHeight() / 2 - HEIGHT / 2;
+        }
 
         player.CheckCollisions(backgroundOffset);
 
@@ -234,9 +239,7 @@ public class GameScreen implements Screen {
         //check player boat is in their lane
         if(!player.CheckIfInLane() && !player.Finished()){
             player.applyPenalty(penalty);
-            font28.draw(batch, "Warning! Penalty applied for leaving lane",
-            Math.round(WIDTH * 0.15),
-            Math.round(HEIGHT * 0.85));
+            font28.draw(batch, "Warning! Penalty applied for leaving lane",240,100);
         }
         //check opponent boats are in their lanes
         for(int i = 0; i < opponents.length; i++){
@@ -250,29 +253,50 @@ public class GameScreen implements Screen {
          * if so, generate the leaderboard
          */
         if(progressBar.allFinished(course.getTexture().getHeight())){
-            //display leaderboard
-            batch.draw(leaderboard.getTexture(),
-            WIDTH/2 - leaderboard.getTexture().getWidth()/2,
-            HEIGHT/2 - leaderboard.getTexture().getHeight()/2);
-
-            //display fastest times of boats
-            this.times = leaderboard.GetTimes(opponents.length + 1);
-            for(int i = 0; i < opponents.length + 1; i++){
-                font44.draw(batch, this.times[i],
-                WIDTH/2 - leaderboard.getTexture().getWidth()/3, 620 - (75 * i));
-            }
-            font28.draw(batch,"Click anywhere to progress to next leg.",200,40);
-
-            /**
-             * Defines how to handle keyboard and mouse inputs
-             */
-            Gdx.input.setInputProcessor(new InputAdapter() {
-                @Override
-                public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                    game.advanceLeg();
-                    return super.touchUp(screenX, screenY, pointer, button);
+            // display leaderboard, if on the third leg, display top 3 boats
+            if(game.difficulty < 3) {
+                batch.draw(leaderboard.getTexture(), WIDTH / 2 - leaderboard.getTexture().getWidth() / 2, HEIGHT / 2 - leaderboard.getTexture().getHeight() / 2);
+                this.times = leaderboard.GetTimes(opponents.length + 1);
+                for (int i = 0; i < opponents.length + 1; i++) {
+                    font44.draw(batch, this.times[i], WIDTH / 2 - leaderboard.getTexture().getWidth() / 3, 620 - (75 * i));
                 }
-            });
+                font28.draw(batch, "Click anywhere to progress to next leg.", 200, 40);
+                /**
+                 * Defines how to handle keyboard and mouse inputs
+                 */
+                Gdx.input.setInputProcessor(new InputAdapter() {
+                    @Override
+                    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                        game.advanceLeg();
+                        Gdx.input.setInputProcessor(null);
+                        return super.touchUp(screenX, screenY, pointer, button);
+                    }
+                });
+            }
+
+            else {
+                leaderboard.setTexture(new Texture(Gdx.files.internal("core/assets/leaderboard yellow3.png")));
+                batch.draw(leaderboard.getTexture(), WIDTH/2 - leaderboard.getTexture().getWidth() / 2, HEIGHT / 2 - leaderboard.getTexture().getHeight() / 2);
+                this.times = leaderboard.GetTimes(opponents.length+1);
+                for (int i = 0; i < opponents.length + 1; i++) {
+                    font44.draw(batch, this.times[i], WIDTH / 2 - leaderboard.getTexture().getWidth() / 3, 620 - (75 * i));
+                }
+                if(this.times[0].startsWith("Player") || this.times[1].startsWith("Player") || this.times[2].startsWith("Player")) {
+                    font28.draw(batch, "Click anywhere to progress to the final!", 200, 40);
+                    /**
+                     * Defines how to handle keyboard and mouse inputs
+                     */
+                    Gdx.input.setInputProcessor(new InputAdapter() {
+                        @Override
+                        public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                            game.advanceLeg();
+                            Gdx.input.setInputProcessor(null);
+                            return super.touchUp(screenX, screenY, pointer, button);
+                        }
+                    });
+                }
+                else this.game.endGame();
+            }
         }
 
         batch.end();

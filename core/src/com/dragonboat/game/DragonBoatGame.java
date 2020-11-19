@@ -27,6 +27,7 @@ public class DragonBoatGame extends Game {
 	public int playerChoice;
 	public int difficulty = 1;
 	public Music music;
+	private boolean ended = false;
 
 	/**
 	 * Sets up the game with settings and instantiation of objects
@@ -49,7 +50,7 @@ public class DragonBoatGame extends Game {
 			obstacleTimes[x] = new ArrayList<Float>();
 			lanes[x] = new Lane((x*w/lanes.length) + 40, (((x+1)*w)/lanes.length) + 40);
 			for(int y = 0; y < noOfObstacles; y++) {
-				obstacleTimes[x].add(3 * (rnd.nextInt(y+1) + rnd.nextFloat()));
+				obstacleTimes[x].add(6 * (rnd.nextFloat() + y/3 + 0.3f));
 			}
 			Collections.sort(obstacleTimes[x]);
 		}
@@ -83,7 +84,7 @@ public class DragonBoatGame extends Game {
 		for(int x = 0; x < lanes.length; x++) {
 			obstacleTimes[x] = new ArrayList<Float>();
 			for(int y = 0; y < noOfObstacles; y++) {
-				obstacleTimes[x].add(4 * (rnd.nextFloat() + y/3 + 0.3f));
+				obstacleTimes[x].add((6/difficulty) * (rnd.nextFloat() + y/3 + 0.3f));
 			}
 			Collections.sort(obstacleTimes[x]);
 		}
@@ -97,9 +98,17 @@ public class DragonBoatGame extends Game {
 
 	@Override
 	public void render () {
-		super.render();
+		if(!this.ended) {
+			super.render();
+		}
+		else {
+			// display end screen.
+		}
 	}
 
+	public void endGame() {
+		this.ended = true;
+	}
 	/**
 	 * Resizes the game screen
 	 * @param width Width of the screen
