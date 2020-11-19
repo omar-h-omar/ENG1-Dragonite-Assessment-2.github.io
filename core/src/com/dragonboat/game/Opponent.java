@@ -40,7 +40,7 @@ public class Opponent extends Boat {
         int leftSide = Math.round(xPosition);
         int rightSide = Math.round(xPosition + width);
 
-        int arbitrary = 100; //Balance this!
+        int arbitrary = 50; //Balance this!
         int fov = Math.round(arbitrary * this.getManeuverability()); //Determine a good field of view for the Opponents to start reacting to incoming obstacles.
         int visionDistance = Math.round(yPosition + height) + fov;
 
@@ -205,7 +205,7 @@ public class Opponent extends Boat {
         */
         if(noNewPath) {
             int middle = lane.GetRightBoundary() - (lane.GetRightBoundary() - lane.GetLeftBoundary()) / 2 - this.width / 2;
-            if (leftSide == middle) {
+            if (Math.abs(leftSide - middle) < 0.1) {
                 steering = "None";
             } else if (leftSide < middle) {
                 this.SteerRight();
@@ -225,7 +225,6 @@ public class Opponent extends Boat {
         }
         */
         if(this.getTiredness() < 70) this.IncreaseSpeed();
-
     }
 
     /**
