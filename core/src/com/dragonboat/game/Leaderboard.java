@@ -14,7 +14,7 @@ public class Leaderboard {
     //attributes
     private Boat[] sortedBoats;
     static private Comparator<Boat> ascRaceTime;
-    public Texture texture;
+    private Texture texture;
 
     /**
      * Creates a leaderboard with an array of all boats.
@@ -91,9 +91,15 @@ public class Leaderboard {
 
     /**
      * Gets the leaderboard texture.
-     * @return  A Texture representing the sprite
+     * @return  A Texture representing the sprite.
      */
     public Texture getTexture(){
         return this.texture;
     }
+
+    /**
+     * Sets the leaderboard texture.
+     * @param texture A Texture representing the sprite.
+     */
+    public void setTexture(Texture texture) { this.texture = texture; }
 }
