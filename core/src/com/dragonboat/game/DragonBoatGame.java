@@ -2,12 +2,17 @@ package com.dragonboat.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 /**
@@ -29,9 +34,11 @@ public class DragonBoatGame extends Game {
 	public int playerChoice;
 	public int difficulty = 1;
 	public Music music;
-	private boolean ended = false;
+	public boolean ended = false;
 	public FreeTypeFontGenerator generator;
 	public FreeTypeFontGenerator.FreeTypeFontParameter parameter;
+	private SpriteBatch batch;
+	private BitmapFont font28;
 
 	/**
 	 * Sets up the game with settings and instantiation of objects
@@ -74,7 +81,10 @@ public class DragonBoatGame extends Game {
 
 		generator = new FreeTypeFontGenerator(Gdx.files.internal("core/assets/8bitOperatorPlus-Regular.ttf"));
 		parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+		parameter.size = 28;
+		font28 = generator.generateFont(parameter);
 
+		batch = new SpriteBatch();
 		menuScreen = new  MenuScreen(this);
 		setScreen(menuScreen);
 	}
@@ -83,6 +93,9 @@ public class DragonBoatGame extends Game {
 	 * Changes the screen to a new GameScreen and resets necessary attributes
 	 */
 	public void advanceLeg() {
+		/**
+		 * Increase difficulty and set up next leg.
+		 */
 		difficulty += 1;
 		int w = Gdx.graphics.getWidth() - 80;
 		int h = Gdx.graphics.getHeight();
@@ -100,6 +113,27 @@ public class DragonBoatGame extends Game {
 			Collections.sort(obstacleTimes[x]);
 		}
 		player.Reset();
+
+		/**
+		 * Set up final leg.
+		 */
+		if(difficulty==4) {
+			Boat[] finalists = leaderboard.GetPodium();
+			opponents = new Opponent[2];
+			for(Boat b : finalists) {
+				if(b.getName().startsWith("Opponent")) {
+					if(opponents[0] == null) {
+						opponents[0] = (Opponent) b;
+						b.setLane(lanes[2]);
+					}
+					else {
+						opponents[1] = (Opponent) b;
+						b.setLane(lanes[4]);
+					}
+				}
+				b.ResetFastestLegTime();
+			}
+		}
 		for(Opponent o : opponents) {
 			o.Reset();
 		}
@@ -109,19 +143,50 @@ public class DragonBoatGame extends Game {
 
 	@Override
 	public void render () {
+		final DragonBoatGame game = this;
 		if(!this.ended) {
 			super.render();
 		}
 		else {
-			Gdx.gl.glClearColor(1, 0, 0, 1);
+			Gdx.gl.glClearColor(0, 0, 0, 1);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-			// display end screen.
+			boolean playerWon = false;
+			batch.begin();
+			batch.draw(new Texture(Gdx.files.internal("core/assets/end screen.png")),0,0);
+			Boat[] podium = leaderboard.GetPodium();
+			for(int i = 0; i < podium.length; i++) {
+				if(podium[i].getName().startsWith("Player")) {
+					playerWon = true;
+					batch.draw(player.texture,Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+					switch(i) {
+						case 0:
+							batch.draw(new Texture(Gdx.files.internal("core/assets/medal gold.png")),Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/2);
+						case 1:
+							batch.draw(new Texture(Gdx.files.internal("core/assets/medal silver.png")),Gdx.graphics.getWidth()/3,Gdx.graphics.getHeight()/2);
+						case 2:
+							batch.draw(new Texture(Gdx.files.internal("core/assets/medal bronze.png")),Gdx.graphics.getWidth()/3,Gdx.graphics.getHeight()/2);
+					}
+					font28.draw(batch, "Congratulations! You reached Super Saiyan!", 40, 60);
+				}
+			}
+			if(!playerWon) {
+				font28.draw(batch, "Unlucky, would you like to try again?", 40, 60);
+			}
+			batch.end();
+			Gdx.input.setInputProcessor(new InputAdapter() {
+				@Override
+				public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+					setScreen(new MenuScreen(game));
+					Gdx.input.setInputProcessor(null);
+					return super.touchUp(screenX, screenY, pointer, button);
+				}
+			});
 		}
 	}
 
 	public void endGame() {
 		this.ended = true;
+
 	}
 	/**
 	 * Resizes the game screen
@@ -139,5 +204,7 @@ public class DragonBoatGame extends Game {
 	@Override
 	public void dispose () {
 		this.getScreen().dispose();
+		batch.dispose();
+
 	}
 }
