@@ -22,6 +22,15 @@ Here's our team:
 ### Executables
 *   <a href="fileloaction.exe">Dragon Boat Z Game</a>
 
+### Weekly Snapshots
+*   Sprint 1 - 08/10/2020
+*   Sprint 2 - 15/10/2020
+*   Sprint 3 - 22/10/2020
+*   Sprint 4 - 29/10/2020
+*   Sprint 5 - 05/11/2020
+*   Sprint 6 - 12/11/2020
+*   Sprint 7 - 19/11/2020
+
 # Game Description
 
 <img src="core/assets/example screen for website.png">
