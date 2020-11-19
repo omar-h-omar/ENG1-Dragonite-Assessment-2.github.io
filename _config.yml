@@ -1,3 +1,4 @@
 theme: jekyll-theme-merlot
 title: [DragonBoat Z]
 description: [Welcome to our teams website]
+show_downloads: ["true"]
