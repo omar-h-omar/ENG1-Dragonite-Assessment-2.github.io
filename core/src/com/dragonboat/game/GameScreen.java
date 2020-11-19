@@ -3,6 +3,7 @@ package com.dragonboat.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -89,8 +90,8 @@ public class GameScreen implements Screen {
         background = course.getTexture();
         backgroundOffset = 0;
         batch = new SpriteBatch();
-        generator = new FreeTypeFontGenerator(Gdx.files.internal("core/assets/8bitOperatorPlus-Regular.ttf"));
-        parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        generator = game.generator;
+        parameter = game.parameter;
         parameter.size = 28;
         font28 = generator.generateFont(parameter);
         parameter.size = 44;
@@ -149,6 +150,7 @@ public class GameScreen implements Screen {
             started = true;
             progressBar.StartTimer();
         }
+        if(player.getY() % 5 == 2) player.AdvanceTextureFrame();
 
         // move opponents
         for(Opponent o : opponents) {
@@ -158,6 +160,7 @@ public class GameScreen implements Screen {
             if(Math.round(totalDeltaTime)%2 == 0) {
                 o.ai(backgroundOffset);
             }
+            if(o.getY() % 5 == 2) o.AdvanceTextureFrame();
         }
 
         // increase the background offset so the player is centered.
@@ -203,7 +206,7 @@ public class GameScreen implements Screen {
         // display opponents
         for(Opponent o : opponents) {
             batch.draw(o.texture, o.getX(), o.getY() - backgroundOffset);
-            //font.draw(batch, Float.toString(o.getY()), o.getX() + 20, o.getY() - backgroundOffset);
+            font28.draw(batch, o.getX() + ", " + o.getCurrentSpeed(), o.getX() + 20, o.getY() - backgroundOffset);
         }
 
         // display progress bar
@@ -239,7 +242,9 @@ public class GameScreen implements Screen {
         //check player boat is in their lane
         if(!player.CheckIfInLane() && !player.Finished()){
             player.applyPenalty(penalty);
+            font28.setColor(Color.RED);
             font28.draw(batch, "Warning! Penalty applied for leaving lane",240,100);
+            font28.setColor(Color.WHITE);
         }
         //check opponent boats are in their lanes
         for(int i = 0; i < opponents.length; i++){
