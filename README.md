@@ -1,31 +1,31 @@
+# About Us
+
 <img src="core/assets/dragonboatz Logo.png">
 
-# About Us
 Hey, we are Dragon Boat Z, and we have made a dragon boat racing game.
 Here's our team:
 *   Ben Jenner
 *   James Wilkinson
 *   Joe Lonsdale
 *   Richard Upton
-*   Will Dalgleish
+*   Will Dalgliesh
 *   Xinyi Zhang
 
 # Assessment Content
 ### Deliverables
-<a href="docs/Req1.pdf">Requirements</a>
-<br>
-<a href="docs/Arch1.pdf">Architecture</a>
-<br>
-<a href="docs/Plan1.pdf">Method Selection and Planning</a>
-<br>
-<a href="docs/Risk1.pdf">Risk Assessment and Mitigation</a>
-<br>
-<a href="docs/Impl1.pdf">Implementation</a>
-<br>
+*   <a href="docs/Req1.pdf">Requirements</a>
+*   <a href="docs/Arch1.pdf">Architecture</a>
+*   <a href="docs/Plan1.pdf">Method Selection and Planning</a>
+*   <a href="docs/Risk1.pdf">Risk Assessment and Mitigation</a>
+*   <a href="docs/Impl1.pdf">Implementation</a>
 
 ### Executables
-<a href="fileloaction.exe">Dragon Boat Z Game</a>
+*   <a href="fileloaction.exe">Dragon Boat Z Game</a>
 
 # Game Description
+
+<img src="core/assets/example screen for website.png">
+
+
 
 
