@@ -96,10 +96,4 @@ public class Leaderboard {
     public Texture getTexture(){
         return this.texture;
     }
-
-    /**
-     * Sets the leaderboard texture.
-     * @param texture A Texture representing the sprite.
-     */
-    public void setTexture(Texture texture) { this.texture = texture; }
 }

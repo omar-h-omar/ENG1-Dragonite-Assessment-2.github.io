@@ -66,7 +66,7 @@ public class Boat {
      */
     public void SteerLeft() {
         this.xPosition -= this.MANEUVERABILITY * this.currentSpeed;
-        this.currentSpeed *= 0.9775;
+        this.currentSpeed *= 0.985;
     }
 
     /**
@@ -74,9 +74,8 @@ public class Boat {
      */
     public void SteerRight() {
         this.xPosition += this.MANEUVERABILITY * this.currentSpeed;
-        this.currentSpeed *= 0.9775;
+        this.currentSpeed *= 0.985;
     }
-
     /**
      * Increases the y-position of the boat respective to the boats speed, and decreases the speed by 0.08%.
      */
@@ -121,7 +120,6 @@ public class Boat {
          */
         ArrayList<Obstacle> obstacles = this.lane.obstacles;
         ArrayList<Integer> obstaclesToRemove = new ArrayList<>();
-        threshold = 3;
         for(Obstacle o : obstacles) {
             if(o.getX() > this.xPosition + threshold && o.getX() < this.xPosition + this.width - threshold) {
                 if(o.getY() + backgroundOffset > this.yPosition + threshold && o.getY() + backgroundOffset < this.yPosition + this.height - threshold) {
@@ -150,6 +148,7 @@ public class Boat {
          returns false if the boat is above 0 durability.
          */
         this.durability -= obstacleDamage/this.ROBUSTNESS;
+        this.currentSpeed *= 0.9;
         return this.durability <= 0;
     }
 
@@ -334,9 +333,9 @@ public class Boat {
      * @param boatLabel a character between A-G representing a specific boat.
      */
     public void SetStats(char boatLabel) {
-        int[] maxspeeds =           {5  , 3  , 4  , 4  , 3  , 8    , 4 };
+        int[] maxspeeds =           {5  , 4  , 5  , 5  , 4  , 7    , 5 };
         int[] robustnesses =        {2  , 4  , 1  , 4  , 8  , 3    , 5 };
-        float[] accelerations =     {6f , 2f , 8f , 4f , 3f , 1.5f , 2f};
+        float[] accelerations =     {6f , 2f , 8f , 4f , 3f , 1.4f , 2f};
         float[] maneuverabilities = {3f , 8f , 3f , 4f , 2f , 1f   , 5f};
 
         int boatNo = (int)(boatLabel-65);
@@ -408,4 +407,12 @@ public class Boat {
         this.penalties += penalty;
     }
 
+    public void setLane(Lane lane) {
+        this.lane = lane;
+        this.xPosition = lane.GetRightBoundary() - (lane.GetRightBoundary() - lane.GetLeftBoundary())/2 - width/2;
+    }
+
+    public void ResetFastestLegTime() {
+        this.fastestLegTime = 0;
+    }
 }

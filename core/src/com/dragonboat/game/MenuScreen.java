@@ -96,7 +96,7 @@ public class MenuScreen implements Screen {
     }
 
     /**
-     * Rendering function for the game loop, handling all menu logic and displaying graphics.
+     * Rendering function for the menu screen.
      */
     @Override
     public void render(float delta) {

@@ -122,7 +122,7 @@ public class GameScreen implements Screen {
      */
     @Override
     public void render(float deltaTime) {
-        Gdx.gl.glClearColor(1, 0, 0, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         // if the game has started, start incrementing time.
@@ -130,11 +130,11 @@ public class GameScreen implements Screen {
 
         // check whether obstacles need to be spawned, and spawns them if so.
         for (int i = 0; i < course.getNoLanes(); i++) {
-            if(!started || player.Finished() || this.game.obstacleTimes[i].size() == 0) break;
+            if (!started || player.Finished() || this.game.obstacleTimes[i].size() == 0) break;
             if (this.game.obstacleTimes[i].get(0) - player.getY() + player.getHeight() < 1) {
                 String[] obstacleTypes = {"Goose", "Log"};
                 // spawn an obstacle in lane i.
-                int xCoord = lanes[i].GetLeftBoundary() + rnd.nextInt(lanes[i].GetRightBoundary() - lanes[i].GetLeftBoundary()-15);
+                int xCoord = lanes[i].GetLeftBoundary() + rnd.nextInt(lanes[i].GetRightBoundary() - lanes[i].GetLeftBoundary() - 15);
                 lanes[i].SpawnObstacle(xCoord, HEIGHT + 40, obstacleTypes[rnd.nextInt(obstacleTypes.length)]);
                 // make sure obstacle is only spawned once.
                 // might implement this as an ordered list if it impacts the performance.
@@ -144,31 +144,29 @@ public class GameScreen implements Screen {
         // move player
         player.GetInput();
         player.MoveForward();
-        if(player.getCurrentSpeed() > 0 && !started)
-        {
+        if (player.getCurrentSpeed() > 0 && !started) {
             // detect start of game (might change this to a countdown)
             started = true;
             progressBar.StartTimer();
         }
-        if(player.getY() % 5 == 2) player.AdvanceTextureFrame();
+        if (player.getY() % 5 == 2) player.AdvanceTextureFrame();
 
         // move opponents
-        for(Opponent o : opponents) {
-            if(!started) break;
+        for (Opponent o : opponents) {
+            if (!started) break;
             o.MoveForward();
             o.CheckCollisions(backgroundOffset);
-            if(Math.round(totalDeltaTime)%2 == 0) {
+            if (Math.round(totalDeltaTime) % 2 == 0) {
                 o.ai(backgroundOffset);
             }
-            if(o.getY() % 5 == 2) o.AdvanceTextureFrame();
+            if (o.getY() % 5 == 2) o.AdvanceTextureFrame();
         }
 
         // increase the background offset so the player is centered.
 
-        if(player.getY() + HEIGHT / 2 + player.getHeight()/2 > course.getTexture().getHeight()) {
+        if (player.getY() + HEIGHT / 2 + player.getHeight() / 2 > course.getTexture().getHeight()) {
             // stop increasing the background offset when the player reaches the end of the course.
-        }
-        else if(player.getY() + player.getHeight() / 2 > HEIGHT / 2) {
+        } else if (player.getY() + player.getHeight() / 2 > HEIGHT / 2) {
             // start increasing the background offset when the player is above half the window height.
             backgroundOffset = player.getY() + player.getHeight() / 2 - HEIGHT / 2;
         }
@@ -200,11 +198,11 @@ public class GameScreen implements Screen {
         batch.draw(player.texture, player.getX(), player.getY() - backgroundOffset);
         batch.draw(staminaBarEmpty, player.lane.GetLeftBoundary(), player.getY() - 20 - backgroundOffset);
         batch.draw(healthBarEmpty, player.lane.GetLeftBoundary(), player.getY() - 40 - backgroundOffset);
-        batch.draw(staminaBarFull, player.lane.GetLeftBoundary(), player.getY() - 20 - backgroundOffset,0,0,Math.round(staminaBarFull.getWidth() * player.getTiredness() / MAX_TIREDNESS),staminaBarFull.getHeight());
-        batch.draw(healthBarFull, player.lane.GetLeftBoundary(), player.getY() - 40 - backgroundOffset,0,0,Math.round(healthBarFull.getWidth() * player.getDurability()/ MAX_DURABILITY),healthBarFull.getHeight());
+        batch.draw(staminaBarFull, player.lane.GetLeftBoundary(), player.getY() - 20 - backgroundOffset, 0, 0, Math.round(staminaBarFull.getWidth() * player.getTiredness() / MAX_TIREDNESS), staminaBarFull.getHeight());
+        batch.draw(healthBarFull, player.lane.GetLeftBoundary(), player.getY() - 40 - backgroundOffset, 0, 0, Math.round(healthBarFull.getWidth() * player.getDurability() / MAX_DURABILITY), healthBarFull.getHeight());
 
         // display opponents
-        for(Opponent o : opponents) {
+        for (Opponent o : opponents) {
             batch.draw(o.texture, o.getX(), o.getY() - backgroundOffset);
             //font28.draw(batch, o.getX() + ", " + o.getCurrentSpeed(), o.getX() + 20, o.getY() - backgroundOffset);
         }
@@ -215,20 +213,20 @@ public class GameScreen implements Screen {
         // get progress for each boat
         // draw player and opponent icons on progress bar with x coordinates respective to their progress.
         float[] progress = progressBar.getProgress(course.getTexture().getHeight());
-        for(int i = 1; i < progress.length; i++) {
-            batch.draw(progressBar.getOpponentIcon(), WIDTH - progressBar.getTexture().getWidth() - 50 + progress[i] * (progressBar.getTexture().getWidth()-214), HEIGHT - progressBar.getTexture().getHeight() / 2 - 10);
+        for (int i = 1; i < progress.length; i++) {
+            batch.draw(progressBar.getOpponentIcon(), WIDTH - progressBar.getTexture().getWidth() - 50 + progress[i] * (progressBar.getTexture().getWidth() - 214), HEIGHT - progressBar.getTexture().getHeight() / 2 - 10);
         }
-        batch.draw(progressBar.getPlayerIcon(),WIDTH - progressBar.getTexture().getWidth() - 50 + progress[0] * (progressBar.getTexture().getWidth() - 214), HEIGHT - progressBar.getTexture().getHeight() / 2 - 10);
+        batch.draw(progressBar.getPlayerIcon(), WIDTH - progressBar.getTexture().getWidth() - 50 + progress[0] * (progressBar.getTexture().getWidth() - 214), HEIGHT - progressBar.getTexture().getHeight() / 2 - 10);
 
         // check if player has finished, if so update the finished boolean
-        if(progress[0] == 1 && !player.Finished()) {
+        if (progress[0] == 1 && !player.Finished()) {
             player.setFinished(true);
             player.UpdateFastestTime(progressBar.getPlayerTime());
         }
 
         //check if opponents have finished, if so update the finished boolean
-        for(int i = 0; i < opponents.length; i++){
-            if(progress[i + 1] == 1 && !opponents[i].Finished()){
+        for (int i = 0; i < opponents.length; i++) {
+            if (progress[i + 1] == 1 && !opponents[i].Finished()) {
                 opponents[i].setFinished(true);
                 opponents[i].UpdateFastestTime(progressBar.getTime());
             }
@@ -236,19 +234,19 @@ public class GameScreen implements Screen {
 
         // display player time
         progressBar.IncrementTimer(deltaTime);
-        font28.draw(batch, started ? progressBar.getPlayerTimeString() : "", WIDTH-230, HEIGHT-40);
+        font28.draw(batch, started ? progressBar.getPlayerTimeString() : "", WIDTH - 230, HEIGHT - 40);
 
         //apply penalties
         //check player boat is in their lane
-        if(!player.CheckIfInLane() && !player.Finished()){
+        if (!player.CheckIfInLane() && !player.Finished()) {
             player.applyPenalty(penalty);
             font28.setColor(Color.RED);
-            font28.draw(batch, "Warning! Penalty applied for leaving lane",240,100);
+            font28.draw(batch, "Warning! Penalty applied for leaving lane", 240, 100);
             font28.setColor(Color.WHITE);
         }
         //check opponent boats are in their lanes
-        for(int i = 0; i < opponents.length; i++){
-            if(!opponents[i].CheckIfInLane() && opponents[i].Finished()){
+        for (int i = 0; i < opponents.length; i++) {
+            if (!opponents[i].CheckIfInLane() && !opponents[i].Finished()) {
                 opponents[i].applyPenalty(penalty);
             }
         }
@@ -257,9 +255,9 @@ public class GameScreen implements Screen {
          * Check if all boats have passed the finish line
          * if so, generate the leaderboard
          */
-        if(progressBar.allFinished(course.getTexture().getHeight())){
+        if (progressBar.allFinished(course.getTexture().getHeight()) || (game.difficulty == 4 && player.Finished())) {
             // display leaderboard, if on the third leg, display top 3 boats
-            if(game.difficulty < 3) {
+            if (game.difficulty < 3) {
                 batch.draw(leaderboard.getTexture(), WIDTH / 2 - leaderboard.getTexture().getWidth() / 2, HEIGHT / 2 - leaderboard.getTexture().getHeight() / 2);
                 this.times = leaderboard.GetTimes(opponents.length + 1);
                 for (int i = 0; i < opponents.length + 1; i++) {
@@ -277,15 +275,15 @@ public class GameScreen implements Screen {
                         return super.touchUp(screenX, screenY, pointer, button);
                     }
                 });
-            }
-
-            else {
-                batch.draw(leaderboard.getTexture(), WIDTH/2 - leaderboard.getTexture().getWidth() / 2, HEIGHT / 2 - leaderboard.getTexture().getHeight() / 2);
-                this.times = leaderboard.GetTimes(opponents.length+1);
+            } else if (game.difficulty == 3) {
+                batch.draw(leaderboard.getTexture(), WIDTH / 2 - leaderboard.getTexture().getWidth() / 2, HEIGHT / 2 - leaderboard.getTexture().getHeight() / 2);
+                this.times = leaderboard.GetTimes(opponents.length + 1);
                 for (int i = 0; i < opponents.length + 1; i++) {
+                    if (i < 3) font44.setColor(Color.GOLD);
+                    else font44.setColor(Color.WHITE);
                     font44.draw(batch, this.times[i], WIDTH / 2 - leaderboard.getTexture().getWidth() / 3, 620 - (75 * i));
                 }
-                if(this.times[0].startsWith("Player") || this.times[1].startsWith("Player") || this.times[2].startsWith("Player")) {
+                if (this.times[0].startsWith("Player") || this.times[1].startsWith("Player") || this.times[2].startsWith("Player")) {
                     font28.draw(batch, "Click anywhere to progress to the final!", 200, 40);
                     /**
                      * Defines how to handle keyboard and mouse inputs
@@ -298,11 +296,9 @@ public class GameScreen implements Screen {
                             return super.touchUp(screenX, screenY, pointer, button);
                         }
                     });
-                }
-                else this.game.endGame();
+                } else this.game.endGame();
             }
         }
-
         batch.end();
     }
 
