@@ -1,6 +1,6 @@
 <img src="core/assets/dragonboatz Logo.png">
 
-### About Us
+# About Us
 Hey, we are Dragon Boat Z, and we have made a dragon boat racing game.
 Here's our team:
 *   Ben Jenner
@@ -10,8 +10,7 @@ Here's our team:
 *   Will Dalgliesh
 *   Xinyi Zhang
 
-***
-
+# Assessment Content
 ### Deliverables
 <a href="docs/Req1.pdf">Requirements</a>
 <br>
@@ -24,9 +23,9 @@ Here's our team:
 <a href="docs/Impl1.pdf">Implementation</a>
 <br>
 
-***
-
 ### Executables
 <a href="fileloaction.exe">Dragon Boat Z Game</a>
+
+# Game Description
 
 
