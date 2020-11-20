@@ -65,16 +65,24 @@ public class Boat {
      * Decreases the x-position of the boat respective to the boats maneuverability and speed, and decreases the speed by 3%.
      */
     public void SteerLeft() {
-        this.xPosition -= this.MANEUVERABILITY * this.currentSpeed;
-        this.currentSpeed *= 0.985;
+        if(this.xPosition >= 0)
+        {
+            this.xPosition -= this.MANEUVERABILITY * this.currentSpeed;
+            this.currentSpeed *= 0.985;
+        }
+
     }
 
     /**
      * Increases the x-position of the boat respective to the boats maneuverability and speed, and decreases the speed by 3%.
      */
     public void SteerRight() {
-        this.xPosition += this.MANEUVERABILITY * this.currentSpeed;
-        this.currentSpeed *= 0.985;
+        if(this.xPosition + this.width <= Gdx.graphics.getHeight())
+        {
+            this.xPosition += this.MANEUVERABILITY * this.currentSpeed;
+            this.currentSpeed *= 0.985;
+        }
+
     }
     /**
      * Increases the y-position of the boat respective to the boats speed, and decreases the speed by 0.08%.
@@ -207,7 +215,7 @@ public class Boat {
     public void generateTextureFrames(char boatName) {
         Texture[] frames = new Texture[4];
         for(int i = 1; i <= frames.length; i++) {
-            frames[i-1] = new Texture(Gdx.files.internal("core/assets/boat"+ boatName +" sprite"+ Integer.toString(i) +".png"));
+            frames[i-1] = new Texture(Gdx.files.internal("core/assets/boat"+ boatName +" sprite"+ i +".png"));
         }
         this.setTextureFrames(frames);
     }
@@ -338,7 +346,7 @@ public class Boat {
         float[] accelerations =     {6f , 2f , 8f , 4f , 3f , 1.4f , 2f};
         float[] maneuverabilities = {3f , 8f , 3f , 4f , 2f , 1f   , 5f};
 
-        int boatNo = (int)(boatLabel-65);
+        int boatNo = boatLabel-65;
 
         this.SetStats(maxspeeds[boatNo],robustnesses[boatNo],accelerations[boatNo],maneuverabilities[boatNo]);
     }
