@@ -296,7 +296,12 @@ public class GameScreen implements Screen {
                             return super.touchUp(screenX, screenY, pointer, button);
                         }
                     });
-                } else this.game.endGame();
+                }
+                else {
+                    game.endGame();
+                }
+            } else {
+                game.endGame();
             }
         }
         batch.end();

@@ -32,7 +32,7 @@ public class DragonBoatGame extends Game {
 	public ArrayList<Integer>[] obstacleTimes;
 	public int noOfObstacles;
 	public int playerChoice;
-	public int difficulty = 1;
+	public int difficulty = 3;
 	public Music music;
 	public boolean ended = false;
 	public FreeTypeFontGenerator generator;
@@ -122,6 +122,7 @@ public class DragonBoatGame extends Game {
 			opponents = new Opponent[2];
 			for(Boat b : finalists) {
 				if(b.getName().startsWith("Opponent")) {
+					// set opponents lanes so that only the middle 3 lanes are used.
 					if(opponents[0] == null) {
 						opponents[0] = (Opponent) b;
 						b.setLane(lanes[2]);
@@ -157,30 +158,25 @@ public class DragonBoatGame extends Game {
 			for(int i = 0; i < podium.length; i++) {
 				if(podium[i].getName().startsWith("Player")) {
 					playerWon = true;
-					batch.draw(player.texture,Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/2);
+					batch.draw(player.texture,Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/3);
 					switch(i) {
 						case 0:
-							batch.draw(new Texture(Gdx.files.internal("core/assets/medal gold.png")),Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/2);
+							batch.draw(new Texture(Gdx.files.internal("core/assets/medal gold.png")),Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/3);
+							break;
 						case 1:
-							batch.draw(new Texture(Gdx.files.internal("core/assets/medal silver.png")),Gdx.graphics.getWidth()/3,Gdx.graphics.getHeight()/2);
+							batch.draw(new Texture(Gdx.files.internal("core/assets/medal silver.png")),Gdx.graphics.getWidth()/3,Gdx.graphics.getHeight()/3);
+							break;
 						case 2:
-							batch.draw(new Texture(Gdx.files.internal("core/assets/medal bronze.png")),Gdx.graphics.getWidth()/3,Gdx.graphics.getHeight()/2);
+							batch.draw(new Texture(Gdx.files.internal("core/assets/medal bronze.png")),Gdx.graphics.getWidth()/3,Gdx.graphics.getHeight()/3);
+							break;
 					}
-					font28.draw(batch, "Congratulations! You reached Super Saiyan!", 40, 60);
+					font28.draw(batch, "Congratulations! You reached Super Saiyan!", 140, 140);
 				}
 			}
 			if(!playerWon) {
-				font28.draw(batch, "Unlucky, would you like to try again?", 40, 60);
+				font28.draw(batch, "Unlucky, would you like to try again?", 140, 200);
 			}
 			batch.end();
-			Gdx.input.setInputProcessor(new InputAdapter() {
-				@Override
-				public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-					setScreen(new MenuScreen(game));
-					Gdx.input.setInputProcessor(null);
-					return super.touchUp(screenX, screenY, pointer, button);
-				}
-			});
 		}
 	}
 
@@ -205,6 +201,7 @@ public class DragonBoatGame extends Game {
 	public void dispose () {
 		this.getScreen().dispose();
 		batch.dispose();
+		font28.dispose();
 
 	}
 }
