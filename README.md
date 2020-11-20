@@ -24,12 +24,22 @@ Here's our team:
 
 ### Weekly Snapshots
 *   Sprint 1 - 08/10/2020
+<img src="docs/sprints/Sprint_1.png">
 *   Sprint 2 - 15/10/2020
+<img src="docs/sprints/Sprint_2.png">
 *   Sprint 3 - 22/10/2020
+<img src="docs/sprints/Sprint_3.png">
 *   Sprint 4 - 29/10/2020
+<img src="docs/sprints/Sprint_4_-_Deliverables.png">
+<img src="docs/sprints/Sprint_4_-_Implementation.png">
 *   Sprint 5 - 05/11/2020
+<img src="docs/sprints/Sprint_5_-_Deliverables.png">
+<img src="docs/sprints/Sprint_5_-_Implementation.png">
 *   Sprint 6 - 12/11/2020
+<img src="docs/sprints/Sprint_6_-_Deliverables.png">
+<img src="docs/sprints/Sprint_6_-_Implementation.png">
 *   Sprint 7 - 19/11/2020
+<img src="docs/sprints/Sprint_7.png">
 
 # Game Description
 
