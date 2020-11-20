@@ -32,7 +32,7 @@ public class DragonBoatGame extends Game {
 	public ArrayList<Integer>[] obstacleTimes;
 	public int noOfObstacles;
 	public int playerChoice;
-	public int difficulty = 3;
+	public int difficulty = 1;
 	public Music music;
 	public boolean ended = false;
 	public FreeTypeFontGenerator generator;
