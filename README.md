@@ -22,6 +22,9 @@ Here's our team:
 ### Executables
 *   <a href="fileloaction.exe">Dragon Boat Z Game</a>
 
+### Javadocs
+*   <a href="docs/javadoc/index.html">Javadocs html export</a>
+
 ### Weekly Snapshots
 *   Sprint 1 - 08/10/2020
 <img src="docs/sprints/Sprint_1.png">
