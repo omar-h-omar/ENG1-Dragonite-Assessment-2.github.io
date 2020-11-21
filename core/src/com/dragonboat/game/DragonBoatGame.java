@@ -118,7 +118,7 @@ public class DragonBoatGame extends Game {
 		 * Set up final leg.
 		 */
 		if(difficulty==4) {
-			Boat[] finalists = leaderboard.GetPodium();
+			Boat[] finalists = leaderboard.getPodium();
 			opponents = new Opponent[2];
 			for(Boat b : finalists) {
 				if(b.getName().startsWith("Opponent")) {
@@ -154,7 +154,7 @@ public class DragonBoatGame extends Game {
 			boolean playerWon = false;
 			batch.begin();
 			batch.draw(new Texture(Gdx.files.internal("core/assets/end screen.png")),0,0);
-			Boat[] podium = leaderboard.GetPodium();
+			Boat[] podium = leaderboard.getPodium();
 			for(int i = 0; i < podium.length; i++) {
 				if(podium[i].getName().startsWith("Player")) {
 					playerWon = true;

@@ -1,8 +1,10 @@
 package com.dragonboat.game;
+
 import com.badlogic.gdx.graphics.Texture;
 
 /**
- * Represents an obstacle on the course
+ * Represents an obstacle on the course.
+ * 
  * @see Log
  * @see Goose
  */
@@ -13,13 +15,14 @@ public class Obstacle {
 	public Texture texture;
 
 	/**
-	 * Creates an obstacle instance
-	 * @param damage Damage the obstacle can inflict on a boat
-	 * @param xPosition X coordinate position
-	 * @param yPosition Y coordinte position
-	 * @param width Width of the obstacle
-	 * @param height Height of the obstacle
-	 * @param texture Texture asset for the obstacle
+	 * Creates an obstacle instance.
+	 * 
+	 * @param damage    Damage the obstacle can inflict on a boat.
+	 * @param xPosition X-position.
+	 * @param yPosition Y-position.
+	 * @param width     Width of the obstacle.
+	 * @param height    Height of the obstacle.
+	 * @param texture   Texture asset for the obstacle.
 	 */
 	public Obstacle(int damage, int xPosition, int yPosition, int width, int height, Texture texture) {
 		this.damage = damage;
@@ -30,11 +33,21 @@ public class Obstacle {
 		this.texture = texture;
 	}
 
-	//getters and setters
+	/**
+	 * Moves the obstacle
+	 * 
+	 * @param moveVal          Distance to move the object by.
+	 * @param backgroundOffset Offset from screen to course coordinates.
+	 */
+	public void Move(float moveVal, int backgroundOffset) {
+		this.setY(this.getY() - moveVal);
+	}
+
+	// getters and setters
 
 	/**
 	 * 
-	 * @return int representing damage the obstacle inflicts upon collision
+	 * @return int representing damage the obstacle inflicts upon collision.
 	 */
 	public int getDamage() {
 		return this.damage;
@@ -42,7 +55,7 @@ public class Obstacle {
 
 	/**
 	 * 
-	 * @return Float representing the x coordinate position
+	 * @return Float representing the x-position.
 	 */
 	public float getX() {
 		return this.xPosition;
@@ -50,7 +63,7 @@ public class Obstacle {
 
 	/**
 	 * 
-	 * @return Float representing the y coordinate position
+	 * @return Float representing the y-position.
 	 */
 	public float getY() {
 		return this.yPosition;
@@ -58,7 +71,7 @@ public class Obstacle {
 
 	/**
 	 * 
-	 * @param yPosition Y coordinate position
+	 * @param yPosition Y-position.
 	 */
 	public void setY(float yPosition) {
 		this.yPosition = yPosition;
@@ -66,24 +79,15 @@ public class Obstacle {
 
 	/**
 	 * 
-	 * @param xPosition X coordinate position
+	 * @param xPosition X-position.
 	 */
 	public void setX(float xPosition) {
 		this.xPosition = xPosition;
 	}
 
 	/**
-	 * Moves
-	 * @param moveVal Distance to move the object by
-	 * @param backgroundOffset Offset from screen to course coordinates
-	 */
-	public void Move(float moveVal, int backgroundOffset) {
-		this.setY(this.getY() - moveVal);
-	}
-
-	/**
 	 * 
-	 * @return Texture asset for obstacle
+	 * @return Texture asset for obstacle.
 	 */
 	public Texture getTexture() {
 		return this.texture;
@@ -91,7 +95,7 @@ public class Obstacle {
 
 	/**
 	 * 
-	 * @return int representing the height of the obstacle
+	 * @return int representing the height of the obstacle.
 	 */
 	public int getHeight() {
 		return this.height;

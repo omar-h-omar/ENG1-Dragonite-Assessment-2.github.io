@@ -130,11 +130,11 @@ public class GameScreen implements Screen {
 
         // check whether obstacles need to be spawned, and spawns them if so.
         for (int i = 0; i < course.getNoLanes(); i++) {
-            if (!started || player.Finished() || this.game.obstacleTimes[i].size() == 0) break;
+            if (!started || player.finished() || this.game.obstacleTimes[i].size() == 0) break;
             if (this.game.obstacleTimes[i].get(0) - player.getY() + player.getHeight() < 1) {
                 String[] obstacleTypes = {"Goose", "Log"};
                 // spawn an obstacle in lane i.
-                int xCoord = lanes[i].GetLeftBoundary() + rnd.nextInt(lanes[i].GetRightBoundary() - lanes[i].GetLeftBoundary() - 15);
+                int xCoord = lanes[i].getLeftBoundary() + rnd.nextInt(lanes[i].getRightBoundary() - lanes[i].getLeftBoundary() - 15);
                 lanes[i].SpawnObstacle(xCoord, HEIGHT + 40, obstacleTypes[rnd.nextInt(obstacleTypes.length)]);
                 // make sure obstacle is only spawned once.
                 // might implement this as an ordered list if it impacts the performance.
@@ -196,10 +196,10 @@ public class GameScreen implements Screen {
 
         // display player and player UI
         batch.draw(player.texture, player.getX(), player.getY() - backgroundOffset);
-        batch.draw(staminaBarEmpty, player.lane.GetLeftBoundary(), player.getY() - 20 - backgroundOffset);
-        batch.draw(healthBarEmpty, player.lane.GetLeftBoundary(), player.getY() - 40 - backgroundOffset);
-        batch.draw(staminaBarFull, player.lane.GetLeftBoundary(), player.getY() - 20 - backgroundOffset, 0, 0, Math.round(staminaBarFull.getWidth() * player.getTiredness() / MAX_TIREDNESS), staminaBarFull.getHeight());
-        batch.draw(healthBarFull, player.lane.GetLeftBoundary(), player.getY() - 40 - backgroundOffset, 0, 0, Math.round(healthBarFull.getWidth() * player.getDurability() / MAX_DURABILITY), healthBarFull.getHeight());
+        batch.draw(staminaBarEmpty, player.lane.getLeftBoundary(), player.getY() - 20 - backgroundOffset);
+        batch.draw(healthBarEmpty, player.lane.getLeftBoundary(), player.getY() - 40 - backgroundOffset);
+        batch.draw(staminaBarFull, player.lane.getLeftBoundary(), player.getY() - 20 - backgroundOffset, 0, 0, Math.round(staminaBarFull.getWidth() * player.getTiredness() / MAX_TIREDNESS), staminaBarFull.getHeight());
+        batch.draw(healthBarFull, player.lane.getLeftBoundary(), player.getY() - 40 - backgroundOffset, 0, 0, Math.round(healthBarFull.getWidth() * player.getDurability() / MAX_DURABILITY), healthBarFull.getHeight());
 
         // display opponents
         for (Opponent o : opponents) {
@@ -219,14 +219,14 @@ public class GameScreen implements Screen {
         batch.draw(progressBar.getPlayerIcon(), WIDTH - progressBar.getTexture().getWidth() - 50 + progress[0] * (progressBar.getTexture().getWidth() - 214), HEIGHT - progressBar.getTexture().getHeight() / 2 - 10);
 
         // check if player has finished, if so update the finished boolean
-        if (progress[0] == 1 && !player.Finished()) {
+        if (progress[0] == 1 && !player.finished()) {
             player.setFinished(true);
             player.UpdateFastestTime(progressBar.getPlayerTime());
         }
 
         //check if opponents have finished, if so update the finished boolean
         for (int i = 0; i < opponents.length; i++) {
-            if (progress[i + 1] == 1 && !opponents[i].Finished()) {
+            if (progress[i + 1] == 1 && !opponents[i].finished()) {
                 opponents[i].setFinished(true);
                 opponents[i].UpdateFastestTime(progressBar.getTime());
             }
@@ -238,7 +238,7 @@ public class GameScreen implements Screen {
 
         //apply penalties
         //check player boat is in their lane
-        if (!player.CheckIfInLane() && !player.Finished()) {
+        if (!player.CheckIfInLane() && !player.finished()) {
             player.applyPenalty(penalty);
             font28.setColor(Color.RED);
             font28.draw(batch, "Warning! Penalty applied for leaving lane", 240, 100);
@@ -246,7 +246,7 @@ public class GameScreen implements Screen {
         }
         //check opponent boats are in their lanes
         for (int i = 0; i < opponents.length; i++) {
-            if (!opponents[i].CheckIfInLane() && !opponents[i].Finished()) {
+            if (!opponents[i].CheckIfInLane() && !opponents[i].finished()) {
                 opponents[i].applyPenalty(penalty);
             }
         }
@@ -255,11 +255,11 @@ public class GameScreen implements Screen {
          * Check if all boats have passed the finish line
          * if so, generate the leaderboard
          */
-        if (progressBar.allFinished(course.getTexture().getHeight()) || (game.difficulty == 4 && player.Finished())) {
+        if (progressBar.allFinished(course.getTexture().getHeight()) || (game.difficulty == 4 && player.finished())) {
             // display leaderboard, if on the third leg, display top 3 boats
             if (game.difficulty < 3) {
                 batch.draw(leaderboard.getTexture(), WIDTH / 2 - leaderboard.getTexture().getWidth() / 2, HEIGHT / 2 - leaderboard.getTexture().getHeight() / 2);
-                this.times = leaderboard.GetTimes(opponents.length + 1);
+                this.times = leaderboard.getTimes(opponents.length + 1);
                 for (int i = 0; i < opponents.length + 1; i++) {
                     font44.draw(batch, this.times[i], WIDTH / 2 - leaderboard.getTexture().getWidth() / 3, 620 - (75 * i));
                 }
@@ -277,7 +277,7 @@ public class GameScreen implements Screen {
                 });
             } else if (game.difficulty == 3) {
                 batch.draw(leaderboard.getTexture(), WIDTH / 2 - leaderboard.getTexture().getWidth() / 2, HEIGHT / 2 - leaderboard.getTexture().getHeight() / 2);
-                this.times = leaderboard.GetTimes(opponents.length + 1);
+                this.times = leaderboard.getTimes(opponents.length + 1);
                 for (int i = 0; i < opponents.length + 1; i++) {
                     if (i < 3) font44.setColor(Color.GOLD);
                     else font44.setColor(Color.WHITE);
