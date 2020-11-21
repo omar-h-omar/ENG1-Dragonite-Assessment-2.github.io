@@ -96,10 +96,10 @@ public class GameScreen implements Screen {
         font28 = generator.generateFont(parameter);
         parameter.size = 44;
         font44 = generator.generateFont(parameter);
-        staminaBarFull = new Texture(Gdx.files.internal("core/assets/bar stamina yellow.png"));
-        staminaBarEmpty = new Texture(Gdx.files.internal("core/assets/bar stamina grey.png"));
-        healthBarFull = new Texture(Gdx.files.internal("core/assets/bar health yellow.png"));
-        healthBarEmpty = new Texture(Gdx.files.internal("core/assets/bar health grey.png"));
+        staminaBarFull = new Texture(Gdx.files.internal("bar stamina yellow.png"));
+        staminaBarEmpty = new Texture(Gdx.files.internal("bar stamina grey.png"));
+        healthBarFull = new Texture(Gdx.files.internal("bar health yellow.png"));
+        healthBarEmpty = new Texture(Gdx.files.internal("bar health grey.png"));
     }
 
 

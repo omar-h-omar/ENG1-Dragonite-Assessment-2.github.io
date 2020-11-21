@@ -221,7 +221,7 @@ public class Boat {
     public void GenerateTextureFrames(char boatName) {
         Texture[] frames = new Texture[4];
         for (int i = 1; i <= frames.length; i++) {
-            frames[i - 1] = new Texture(Gdx.files.internal("core/assets/boat" + boatName + " sprite" + i + ".png"));
+            frames[i - 1] = new Texture(Gdx.files.internal("boat" + boatName + " sprite" + i + ".png"));
         }
         this.setTextureFrames(frames);
     }

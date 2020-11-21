@@ -26,7 +26,7 @@ public class MenuScreen implements Screen {
     public MenuScreen(DragonBoatGame Game) {
         game = Game;
         batch = new SpriteBatch();
-        startScreen = new Texture(Gdx.files.internal("core/assets/start screen w fade w controls.png"));
+        startScreen = new Texture(Gdx.files.internal("start screen w fade w controls.png"));
         final MenuScreen menuScreen = this;
 
         // Defines how to handle mouse inputs.

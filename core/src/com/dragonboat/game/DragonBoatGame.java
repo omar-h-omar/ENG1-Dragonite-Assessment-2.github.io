@@ -67,7 +67,7 @@ public class DragonBoatGame extends Game {
 			Collections.sort(obstacleTimes[x]);
 		}
 
-		course = new Course(new Texture(Gdx.files.internal("core/assets/background sprite.png")), lanes);
+		course = new Course(new Texture(Gdx.files.internal("background sprite.png")), lanes);
 		player = new Player(0,56, 182, lanes[3], "Player");
 
 		opponents = new Opponent[6];
@@ -79,7 +79,7 @@ public class DragonBoatGame extends Game {
 		progressBar = new ProgressBar(player, opponents);
 		leaderboard = new Leaderboard(player, opponents);
 
-		generator = new FreeTypeFontGenerator(Gdx.files.internal("core/assets/8bitOperatorPlus-Regular.ttf"));
+		generator = new FreeTypeFontGenerator(Gdx.files.internal("8bitOperatorPlus-Regular.ttf"));
 		parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		parameter.size = 28;
 		font28 = generator.generateFont(parameter);
@@ -153,7 +153,7 @@ public class DragonBoatGame extends Game {
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 			boolean playerWon = false;
 			batch.begin();
-			batch.draw(new Texture(Gdx.files.internal("core/assets/end screen.png")),0,0);
+			batch.draw(new Texture(Gdx.files.internal("end screen.png")),0,0);
 			Boat[] podium = leaderboard.getPodium();
 			for(int i = 0; i < podium.length; i++) {
 				if(podium[i].getName().startsWith("Player")) {
@@ -161,13 +161,13 @@ public class DragonBoatGame extends Game {
 					batch.draw(player.texture,Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/3);
 					switch(i) {
 						case 0:
-							batch.draw(new Texture(Gdx.files.internal("core/assets/medal gold.png")),Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/3);
+							batch.draw(new Texture(Gdx.files.internal("medal gold.png")),Gdx.graphics.getWidth()/3, Gdx.graphics.getHeight()/3);
 							break;
 						case 1:
-							batch.draw(new Texture(Gdx.files.internal("core/assets/medal silver.png")),Gdx.graphics.getWidth()/3,Gdx.graphics.getHeight()/3);
+							batch.draw(new Texture(Gdx.files.internal("medal silver.png")),Gdx.graphics.getWidth()/3,Gdx.graphics.getHeight()/3);
 							break;
 						case 2:
-							batch.draw(new Texture(Gdx.files.internal("core/assets/medal bronze.png")),Gdx.graphics.getWidth()/3,Gdx.graphics.getHeight()/3);
+							batch.draw(new Texture(Gdx.files.internal("medal bronze.png")),Gdx.graphics.getWidth()/3,Gdx.graphics.getHeight()/3);
 							break;
 					}
 					font28.draw(batch, "Congratulations! You reached Super Saiyan!", 140, 140);
