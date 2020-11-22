@@ -35,6 +35,7 @@ of how GitHub Pages works.
 <br>
 <br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint%201.png">Sprint 1 Jira Board</a>
+<br>
 </details>
 
 <details>
@@ -49,7 +50,7 @@ alongside the starting of Sprite Design.
 <br>
 <br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint%202.png">Sprint 2 Jira Board</a>
-
+<br>
 </details>
 
 <details>
@@ -63,6 +64,7 @@ as this was considered an iterative process throughout the course of the project
 <br>
 <br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint%203.png">Sprint 3 Jira Board</a>
+<br>
 </details>
 
 <details>
@@ -75,13 +77,14 @@ two: Deliverables and Implementation. It was decided that second session of the 
 of these tasks and discuss if any would need to be reassigned. 
 <br>
 <br>
-<b> Deliverables Board </b>
+<strong> Deliverables Board </strong>
 <br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint%204%20-%20Deliverables.png">Sprint 4 Delievrables Jira Board</a>
 <br>
-<b> Implementation Board </b>
+<strong> Implementation Board </strong>
 <br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint%204%20-%20Implementation.png">Sprint 4 Implementation Jira Board</a>
+<br>
 </details> 
 
 
@@ -101,6 +104,7 @@ the project.
 <strong> Implementation Board </strong>
 <br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint_5_-_Implementation.png">Sprint 5 Jira Implementation Board</a>
+<br>
 </details>
 
 <details>
@@ -121,6 +125,7 @@ understand each other's code.
 <strong> Implementation Board </strong>
 <br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint%206%20-%20Implementation.png">Sprint 6 Jira Implementation Board</a>
+<br>
 </details>
 
 <details>
@@ -131,6 +136,7 @@ focused on. This was to ensure a successful completion of the entire project.
 <br>
 <br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint%207.png">Sprint 7 Jira Board</a>
+<br>
 </details>
 
 # Game Description
