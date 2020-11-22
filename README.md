@@ -49,6 +49,8 @@ were the Architecture Abstract diagram that will be reviewed at the second meeti
 sprint, as this would allow us to make decisions such as what game library would be used. Deliverables such as 
 Method Selection and Planning, Requirements and Risk Assessment were built up using the now known information 
 alongside the starting of Sprite Design. 
+<img src="docs/sprints/Sprint 2.png">
+
 <br>
 <br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint%202.png">Sprint 2 Jira Board</a>
@@ -63,6 +65,8 @@ it would be ready for when initial classes are constructed, based off the Gantt 
 was made on the library used for this project: LibGDX. Thus, each team member was assigned the task of completing
 the tutorial found in the documentation and further research. Continued deliverable work was assigned a low priority
 as this was considered an iterative process throughout the course of the project. 
+<img src="docs/sprints/Sprint 3.png">
+
 <br>
 <br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint%203.png">Sprint 3 Jira Board</a>
@@ -77,13 +81,16 @@ was a high priority as delays would impact the production of the prototype on ti
 assigned medium/low priority. To maintain a clear separation between work, the initial one board was separated into 
 two: Deliverables and Implementation. It was decided that second session of the Sprint would focus on the progression
 of these tasks and discuss if any would need to be reassigned. 
+
 <br>
 <br>
 <strong> Deliverables Board </strong>
+<img src="docs/sprints/Sprint 4 - Deliverables.png">
 <br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint%204%20-%20Deliverables.png">Sprint 4 Delievrables Jira Board</a>
 <br>
 <strong> Implementation Board </strong>
+<img src="docs/sprints/Sprint 4 - Implementation.png">
 <br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint%204%20-%20Implementation.png">Sprint 4 Implementation Jira Board</a>
 <br>
@@ -100,10 +107,12 @@ the project.
 <br>
 <br>
 <strong> Deliverables Board </strong>
+<img src="docs/sprints/Sprint 5 - Deliverables.png">
 <br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint_5_-_Deliverables.png">Sprint 5 Jira Deliverables Board</a>
 <br>
 <strong> Implementation Board </strong>
+<img src="docs/sprints/Sprint 5 - Implementation.png">
 <br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint_5_-_Implementation.png">Sprint 5 Jira Implementation Board</a>
 <br>
@@ -121,10 +130,12 @@ understand each other's code.
 <br>
 <br>
 <strong> Deliverables Board </strong>
+<img src="docs/sprints/Sprint 6 - Deliverables.png">
 <br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint%206%20-%20Deliverables.png">Sprint 6 Jira Deliverables Board</a>
 <br>
 <strong> Implementation Board </strong>
+<img src="docs/sprints/Sprint 6 - Implementation.png">
 <br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint%206%20-%20Implementation.png">Sprint 6 Jira Implementation Board</a>
 <br>
@@ -135,6 +146,7 @@ understand each other's code.
   
 Having reached the completion of the game, a focus on the game testing and peer review of finalised deliverables was
 focused on. This was to ensure a successful completion of the entire project. 
+<img src="docs/sprints/Sprint 7.png">
 <br>
 <br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint%207.png">Sprint 7 Jira Board</a>
