@@ -26,14 +26,14 @@ Here's our team:
 *   <a href="docs/javadoc/index.html">Javadocs html export</a>
 
 ### Weekly Snapshots
-*   Sprint 1 - 08/10/2020
+#### Sprint 1 - 08/10/2020
 <img src="docs/sprints/Sprint 1.png">
 
 Having completed the task of setting up Jira and other resources the main focus was on preperatory work for the 
 upcoming week. This involved adding to the exisiting set of Customer Questions constructed and begining to develop
 of how GitHub Pages works. 
 
-*   Sprint 2 - 15/10/2020
+#### Sprint 2 - 15/10/2020
 <img src="docs/sprints/Sprint 2.png">
 
 Having had the Customer meeting, this meant that other tasks and deliverables could now be started. The priorities 
@@ -42,10 +42,8 @@ sprint, as this would allow us to make decisions such as what game library would
 Method Selection and Planning, Requirements and Risk Assessment were built up using the now known information 
 alongside the starting of Sprite Design. 
 
-*   Sprint 3 - 22/10/2020
+#### Sprint 3 - 22/10/2020
 <img src="docs/sprints/Sprint 3.png">
-
-Sprint 3 
 
 Having completed the Abstract Architecture Diagram, a focus was put onto the Concrete Architecture Diagram so 
 it would be ready for when initial classes are constructed, based off the Gantt Chart. This also meant a decision
@@ -53,7 +51,7 @@ was made on the library used for this project: LibGDX. Thus each team member was
 the turotial found in the documentation and further research. Continued deliverable work was assigned a low priority
 as this was considered an interative process throughout the course of the project. 
 
-*   Sprint 4 - 29/10/2020
+#### Sprint 4 - 29/10/2020
 <img src="docs/sprints/Sprint 4 - Deliverables.png">
 <img src="docs/sprints/Sprint 4 - Implementation.png">
 
@@ -63,7 +61,7 @@ assigned medium/low priorirty. To maintain a clear spearation between work, the 
 two: Deliverables and Implementation. It was decided that second session of the Sprint would focus on the progression
 of these tasks and discuss if any would need to be reassigned. 
 
-*   Sprint 5 - 05/11/2020
+#### Sprint 5 - 05/11/2020
 <img src="docs/sprints/Sprint_5_-_Deliverables.png">
 <img src="docs/sprints/Sprint_5_-_Implementation.png">
 
@@ -72,7 +70,7 @@ completion. With the aim of reaching the milestone M4 at the end of this Sprint 
 focus. Method Section and Planning were a focus within the delvierables board to continue to add to changes within
 the project.
 
-*   Sprint 6 - 12/11/2020
+#### Sprint 6 - 12/11/2020
 <img src="docs/sprints/Sprint 6 - Deliverables.png">
 <img src="docs/sprints/Sprint 6 - Implementation.png">
 
@@ -83,7 +81,7 @@ to implement additional functionality of the game such as Animations.
 Alongside this, the implmentation document was built up alongside this, allowing us to be more coordinated and 
 understand each other's code. 
 
-*   Sprint 7 - 19/11/2020
+#### Sprint 7 - 19/11/2020
 <img src="docs/sprints/Sprint 7.png">
 
 Having reached the completion of the game, a focus on the game testing and peer review of finalised deliverables was
