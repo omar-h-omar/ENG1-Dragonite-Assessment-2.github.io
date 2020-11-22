@@ -54,24 +54,33 @@ public class DragonBoatGame extends Game {
 		music.setVolume(0.4f);
 		music.play();
 
+		Texture courseTexture = new Texture(Gdx.files.internal("background sprite.png"));
 		lanes = new Lane[7];
 		noOfObstacles = 8;
 		obstacleTimes = new ArrayList[lanes.length];
+
+		/*
+		  Instantiate each lane, and allocate obstacles by creating a
+		  random sequence of Y values for obstacles to spawn at for each lane.
+		 */
 		for(int x = 0; x < lanes.length; x++) {
-			obstacleTimes[x] = new ArrayList<Integer>();
+			obstacleTimes[x] = new ArrayList<>();
 			lanes[x] = new Lane((x*w/lanes.length) + 40, (((x+1)*w)/lanes.length) + 40);
-			int maxY = (2880 - (5 * noOfObstacles))/noOfObstacles;
+			int maxY = (courseTexture.getHeight() - (5 * noOfObstacles))/noOfObstacles;
 			for(int y = 0; y < noOfObstacles; y++) {
 				obstacleTimes[x].add(rnd.nextInt(maxY - 5) + 5 + maxY * y);
 			}
 			Collections.sort(obstacleTimes[x]);
 		}
 
-		course = new Course(new Texture(Gdx.files.internal("background sprite.png")), lanes);
+		course = new Course(courseTexture, lanes);
 		player = new Player(0,56, 182, lanes[3], "Player");
 
 		opponents = new Opponent[6];
 		for(int i = 0; i < opponents.length; i++) {
+			/*
+			  Ensure player is in the middle lane by skipping over lane 4.
+			 */
 			int lane = i >= 3 ? i+1 : i;
 			opponents[i] = new Opponent(0,56,182, lanes[lane], "Opponent" + (i+1));
 		}
@@ -93,8 +102,8 @@ public class DragonBoatGame extends Game {
 	 * Changes the screen to a new GameScreen and resets necessary attributes
 	 */
 	public void advanceLeg() {
-		/**
-		 * Increase difficulty and set up next leg.
+		/*
+		  Increase difficulty and set up next leg.
 		 */
 		difficulty += 1;
 		int w = Gdx.graphics.getWidth() - 80;
@@ -145,10 +154,14 @@ public class DragonBoatGame extends Game {
 	@Override
 	public void render () {
 		final DragonBoatGame game = this;
-		if(!this.ended) {
-			super.render();
-		}
+		/*
+		  If the game hasn't ended, just call the current screen render function.
+		 */
+		if(!this.ended) super.render();
 		else {
+			/*
+			  Else, display an end screen and appropriate text and images.
+			 */
 			Gdx.gl.glClearColor(0, 0, 0, 1);
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 			boolean playerWon = false;
@@ -156,6 +169,9 @@ public class DragonBoatGame extends Game {
 			batch.draw(new Texture(Gdx.files.internal("end screen.png")),0,0);
 			Boat[] podium = leaderboard.getPodium();
 			for(int i = 0; i < podium.length; i++) {
+				/*
+				  If the player is in the top 3 boats, display the player's boat and appropriate medal.
+				 */
 				if(podium[i].getName().startsWith("Player")) {
 					playerWon = true;
 					batch.draw(player.texture,Gdx.graphics.getWidth()/2, Gdx.graphics.getHeight()/3);

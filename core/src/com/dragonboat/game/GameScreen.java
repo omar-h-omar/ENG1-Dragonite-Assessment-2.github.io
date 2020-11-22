@@ -60,7 +60,9 @@ public class GameScreen implements Screen {
      * @param game represents the initial state of DragonBoatGame.
      */
     public GameScreen(DragonBoatGame game) {
-        // grab game objects from DragonBoatGame
+        /**
+         * Grab game objects from DragonBoatGame.
+         */
         rnd = new Random();
         this.game = game;
         player = this.game.player;
@@ -125,10 +127,22 @@ public class GameScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        // if the game has started, start incrementing time.
+        /**
+         * If the game has started, start incrementing time.
+         */
         totalDeltaTime += started ? deltaTime : 0;
 
-        // check whether obstacles need to be spawned, and spawns them if so.
+        /**
+         * Check whether obstacles need to be spawned, and spawns them if so.
+         * Breaks instantly if the game hasn't started, if the player has finished,
+         * or if there are no more obstacles to be spawned.
+         *
+         *                         - IMPORTANT -
+         * It should be noted that the obstacles currently use a coordinate system relative
+         * to the screen, as they are always spawned at HEIGHT + 40 (y = 760).
+         * This means all collision checking methods need to be passed backgroundOffset
+         * to translate the object's y position.
+         */
         for (int i = 0; i < course.getNoLanes(); i++) {
             if (!started || player.finished() || this.game.obstacleTimes[i].size() == 0) break;
             if (this.game.obstacleTimes[i].get(0) - player.getY() + player.getHeight() < 1) {
@@ -137,11 +151,14 @@ public class GameScreen implements Screen {
                 int xCoord = lanes[i].getLeftBoundary() + rnd.nextInt(lanes[i].getRightBoundary() - lanes[i].getLeftBoundary() - 15);
                 lanes[i].SpawnObstacle(xCoord, HEIGHT + 40, obstacleTypes[rnd.nextInt(obstacleTypes.length)]);
                 // make sure obstacle is only spawned once.
-                // might implement this as an ordered list if it impacts the performance.
                 this.game.obstacleTimes[i].remove(0);
             }
         }
-        // move player
+
+        /**
+         * Move player.
+         * Advance animation frame.
+         */
         player.GetInput();
         player.MoveForward();
         if (player.getCurrentSpeed() > 0 && !started) {
@@ -151,7 +168,10 @@ public class GameScreen implements Screen {
         }
         if (player.getY() % 5 == 2) player.AdvanceTextureFrame();
 
-        // move opponents
+        /**
+         * Move opponents.
+         * Advance animation frame.
+         */
         for (Opponent o : opponents) {
             if (!started) break;
             o.MoveForward();
@@ -162,8 +182,9 @@ public class GameScreen implements Screen {
             if (o.getY() % 5 == 2) o.AdvanceTextureFrame();
         }
 
-        // increase the background offset so the player is centered.
-
+        /**
+         * Increase the background offset so the player is centered.
+         */
         if (player.getY() + HEIGHT / 2 + player.getHeight() / 2 > course.getTexture().getHeight()) {
             // stop increasing the background offset when the player reaches the end of the course.
         } else if (player.getY() + player.getHeight() / 2 > HEIGHT / 2) {
@@ -173,13 +194,16 @@ public class GameScreen implements Screen {
 
         player.CheckCollisions(backgroundOffset);
 
-
         batch.begin();
 
-        // display background
+        /**
+         * Display background.
+         */
         batch.draw(background, 0, 0, 0, background.getHeight() - HEIGHT - backgroundOffset, WIDTH, HEIGHT);
 
-        // display and move obstacles
+        /**
+         * Display and move obstacles
+         */
         for (Lane lane : lanes) {
             if (!started) break;
             for (int j = 0; j < lane.obstacles.size(); j++) {
@@ -194,37 +218,45 @@ public class GameScreen implements Screen {
             }
         }
 
-        // display player and player UI
+        /**
+         * Display player and player UI.
+         */
         batch.draw(player.texture, player.getX(), player.getY() - backgroundOffset);
         batch.draw(staminaBarEmpty, player.lane.getLeftBoundary(), player.getY() - 20 - backgroundOffset);
         batch.draw(healthBarEmpty, player.lane.getLeftBoundary(), player.getY() - 40 - backgroundOffset);
         batch.draw(staminaBarFull, player.lane.getLeftBoundary(), player.getY() - 20 - backgroundOffset, 0, 0, Math.round(staminaBarFull.getWidth() * player.getTiredness() / MAX_TIREDNESS), staminaBarFull.getHeight());
         batch.draw(healthBarFull, player.lane.getLeftBoundary(), player.getY() - 40 - backgroundOffset, 0, 0, Math.round(healthBarFull.getWidth() * player.getDurability() / MAX_DURABILITY), healthBarFull.getHeight());
 
-        // display opponents
+        /**
+         * Display opponents.
+         */
         for (Opponent o : opponents) {
             batch.draw(o.texture, o.getX(), o.getY() - backgroundOffset);
             //font28.draw(batch, o.getX() + ", " + o.getCurrentSpeed(), o.getX() + 20, o.getY() - backgroundOffset);
         }
 
-        // display progress bar
+        /**
+         * Display progress bar.
+         */
         batch.draw(progressBar.getTexture(), WIDTH - progressBar.getTexture().getWidth() - 60, HEIGHT - progressBar.getTexture().getHeight() - 20);
 
-        // get progress for each boat
-        // draw player and opponent icons on progress bar with x coordinates respective to their progress.
+        /**
+         * Get progress for each boat.
+         * Draw player and opponent icons on progress bar with x coordinates respective to their progress.
+         */
         float[] progress = progressBar.getProgress(course.getTexture().getHeight());
         for (int i = 1; i < progress.length; i++) {
             batch.draw(progressBar.getOpponentIcon(), WIDTH - progressBar.getTexture().getWidth() - 50 + progress[i] * (progressBar.getTexture().getWidth() - 214), HEIGHT - progressBar.getTexture().getHeight() / 2 - 10);
         }
         batch.draw(progressBar.getPlayerIcon(), WIDTH - progressBar.getTexture().getWidth() - 50 + progress[0] * (progressBar.getTexture().getWidth() - 214), HEIGHT - progressBar.getTexture().getHeight() / 2 - 10);
 
-        // check if player has finished, if so update the finished boolean
+        /**
+         * Check if player and each opponent has finished, and update their finished booleans respectively.
+         */
         if (progress[0] == 1 && !player.finished()) {
             player.setFinished(true);
             player.UpdateFastestTime(progressBar.getPlayerTime());
         }
-
-        //check if opponents have finished, if so update the finished boolean
         for (int i = 0; i < opponents.length; i++) {
             if (progress[i + 1] == 1 && !opponents[i].finished()) {
                 opponents[i].setFinished(true);
@@ -232,19 +264,26 @@ public class GameScreen implements Screen {
             }
         }
 
-        // display player time
+        /**
+         * Display player time.
+         */
         progressBar.IncrementTimer(deltaTime);
         font28.draw(batch, started ? progressBar.getPlayerTimeString() : "", WIDTH - 230, HEIGHT - 40);
 
-        //apply penalties
-        //check player boat is in their lane
+        /**
+         * Check player boat is in their lane,
+         * if not apply penalties.
+         */
         if (!player.CheckIfInLane() && !player.finished()) {
             player.applyPenalty(penalty);
             font28.setColor(Color.RED);
             font28.draw(batch, "Warning! Penalty applied for leaving lane", 240, 100);
             font28.setColor(Color.WHITE);
         }
-        //check opponent boats are in their lanes
+        /**
+         * Check opponent boats are in their lanes,
+         * if not apply penalties.
+         */
         for (int i = 0; i < opponents.length; i++) {
             if (!opponents[i].CheckIfInLane() && !opponents[i].finished()) {
                 opponents[i].applyPenalty(penalty);
@@ -252,7 +291,7 @@ public class GameScreen implements Screen {
         }
 
         /**
-         * Check if all boats have passed the finish line
+         * Check if all boats have passed the finish line,
          * if so, generate the leaderboard
          */
         if (progressBar.allFinished(course.getTexture().getHeight()) || (game.difficulty == 4 && player.finished())) {
