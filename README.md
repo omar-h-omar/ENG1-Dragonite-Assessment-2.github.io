@@ -26,68 +26,72 @@ Here's our team:
 *   <a href="docs/javadoc/index.html">Javadocs html export</a>
 
 ### Weekly Snapshots
-*   Sprint 1 - 08/10/2020
-<img src="docs/sprints/Sprint 1.png">
-
-Having completed the task of setting up Jira and other resources the main focus was on preperatory work for the 
-upcoming week. This involved adding to the exisiting set of Customer Questions constructed and begining to develop
+#### Sprint 1 - 08/10/2020
+Having completed the task of setting up Jira and other resources the main focus was on preparatory work for the 
+upcoming week. This involved adding to the existing set of Customer Questions constructed and beginning to develop
 of how GitHub Pages works. 
 
-*   Sprint 2 - 15/10/2020
-<img src="docs/sprints/Sprint 2.png">
+<img src="docs/sprints/Sprint 1.png">
 
+#### Sprint 2 - 15/10/2020
 Having had the Customer meeting, this meant that other tasks and deliverables could now be started. The priorities 
 were the Architecture Abstract diagram that will be reviewed at the second meeting, halfway through this second 
 sprint, as this would allow us to make decisions such as what game library would be used. Deliverables such as 
 Method Selection and Planning, Requirements and Risk Assessment were built up using the now known information 
 alongside the starting of Sprite Design. 
 
-*   Sprint 3 - 22/10/2020
-<img src="docs/sprints/Sprint 3.png">
+<img src="docs/sprints/Sprint 2.png">
 
-Sprint 3 
-
+#### Sprint 3 - 22/10/2020
 Having completed the Abstract Architecture Diagram, a focus was put onto the Concrete Architecture Diagram so 
 it would be ready for when initial classes are constructed, based off the Gantt Chart. This also meant a decision
-was made on the library used for this project: LibGDX. Thus each team member was assigned the task of completing
-the turotial found in the documentation and further research. Continued deliverable work was assigned a low priority
-as this was considered an interative process throughout the course of the project. 
+was made on the library used for this project: LibGDX. Thus, each team member was assigned the task of completing
+the tutorial found in the documentation and further research. Continued deliverable work was assigned a low priority
+as this was considered an iterative process throughout the course of the project. 
 
-*   Sprint 4 - 29/10/2020
-<img src="docs/sprints/Sprint 4 - Deliverables.png">
-<img src="docs/sprints/Sprint 4 - Implementation.png">
+<img src="docs/sprints/Sprint 3.png">
 
+#### Sprint 4 - 29/10/2020
 In Sprint 3 the Concrete Architecture was created and allowed for critical tasks to begin: the initial classes. This
 was a high priority as delays would impact the production of the prototype on time. Further deliverable work was 
-assigned medium/low priorirty. To maintain a clear spearation between work, the intial one board was separated into 
+assigned medium/low priority. To maintain a clear separation between work, the initial one board was separated into 
 two: Deliverables and Implementation. It was decided that second session of the Sprint would focus on the progression
 of these tasks and discuss if any would need to be reassigned. 
 
-*   Sprint 5 - 05/11/2020
-<img src="docs/sprints/Sprint_5_-_Deliverables.png">
-<img src="docs/sprints/Sprint_5_-_Implementation.png">
+##### Deliverables Board
+<img src="docs/sprints/Sprint 4 - Deliverables.png">
+##### Implementation Board
+<img src="docs/sprints/Sprint 4 - Implementation.png">
 
-The backlog of tasks T14 and T11 were assigned the highest priority, as contnued programming work depended on their
+#### Sprint 5 - 05/11/2020
+The backlog of tasks T14 and T11 were assigned the highest priority, as continued programming work depended on their
 completion. With the aim of reaching the milestone M4 at the end of this Sprint the prototype development was a high
-focus. Method Section and Planning were a focus within the delvierables board to continue to add to changes within
+focus. Method Section and Planning were a focus within the deliverables board to continue to add to changes within
 the project.
 
-*   Sprint 6 - 12/11/2020
-<img src="docs/sprints/Sprint 6 - Deliverables.png">
-<img src="docs/sprints/Sprint 6 - Implementation.png">
+##### Deliverables Board
+<img src="docs/sprints/Sprint_5_-_Deliverables.png">
+##### Implementation Board
+<img src="docs/sprints/Sprint_5_-_Implementation.png">
 
+#### Sprint 6 - 12/11/2020
 Due to some minor issues with the construction of the leg in the prototype, this task was focused on. Once completed,
-we envisiion that the final tasks to have a functioning game would be successful. Having understood this there was
+we envision that the final tasks to have a functioning game would be successful. Having understood this there was
 a focus on the final elements of the programming side. During the second meeting of this sprint, there was extra time
 to implement additional functionality of the game such as Animations. 
-Alongside this, the implmentation document was built up alongside this, allowing us to be more coordinated and 
+Alongside this, the implementation document was built up alongside this, allowing us to be more coordinated and 
 understand each other's code. 
 
-*   Sprint 7 - 19/11/2020
-<img src="docs/sprints/Sprint 7.png">
+##### Deliverables Board
+<img src="docs/sprints/Sprint 6 - Deliverables.png">
+##### Implementation Board
+<img src="docs/sprints/Sprint 6 - Implementation.png">
 
+#### Sprint 7 - 19/11/2020
 Having reached the completion of the game, a focus on the game testing and peer review of finalised deliverables was
 focused on. This was to ensure a successful completion of the entire project. 
+
+<img src="docs/sprints/Sprint 7.png">
 
 # Game Description
 
