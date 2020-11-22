@@ -24,10 +24,10 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 public class DragonBoatGame extends Game {
 
 	// debug booleans
-	protected boolean debug_speed = true;
-	protected boolean debug_positions = true;
-	protected boolean debug_norandom = true;
-	protected boolean debug_verboseoutput = true;
+	protected boolean debug_speed = false;
+	protected boolean debug_positions = false;
+	protected boolean debug_norandom = false;
+	protected boolean debug_verboseoutput = false;
 
 	protected Random rnd;
 	private MenuScreen menuScreen;
