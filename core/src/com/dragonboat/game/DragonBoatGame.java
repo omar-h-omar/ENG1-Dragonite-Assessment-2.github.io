@@ -22,6 +22,14 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
  * @see MenuScreen
  */
 public class DragonBoatGame extends Game {
+
+	// debug booleans
+	protected boolean debug_speed = true;
+	protected boolean debug_positions = true;
+	protected boolean debug_norandom = true;
+	protected boolean debug_verboseoutput = true;
+
+	protected Random rnd;
 	private MenuScreen menuScreen;
 	public Lane[] lanes;
 	public Player player;
@@ -47,7 +55,9 @@ public class DragonBoatGame extends Game {
 	@Override
 	public void create() {
 		int w = Gdx.graphics.getWidth() - 80;
-		Random rnd = new Random();
+
+		if(debug_norandom) rnd = new Random(1);
+		else rnd = new Random();
 
 		music = Gdx.audio.newMusic(Gdx.files.internal("cantgobackwards.mp3"));
 		music.setLooping(true);
@@ -71,6 +81,14 @@ public class DragonBoatGame extends Game {
 				obstacleTimes[x].add(rnd.nextInt(maxY - 5) + 5 + maxY * y);
 			}
 			Collections.sort(obstacleTimes[x]);
+
+			if(debug_verboseoutput) {
+				System.out.println("Lane " + x + " obstacles to spawn: ");
+				for(Integer i : obstacleTimes[x]) {
+					System.out.print(i + ", ");
+				}
+				System.out.println();
+			}
 		}
 
 		course = new Course(courseTexture, lanes);
@@ -106,7 +124,8 @@ public class DragonBoatGame extends Game {
 		 * Increase difficulty and set up next leg.
 		 */
 		difficulty += 1;
-		Random rnd = new Random();
+		if(debug_norandom) rnd = new Random(1);
+		else rnd = new Random();
 
 		noOfObstacles = 8 * difficulty;
 		obstacleTimes = new ArrayList[lanes.length];
@@ -118,6 +137,14 @@ public class DragonBoatGame extends Game {
 				obstacleTimes[x].add(rnd.nextInt(maxY - 5) + 5 + maxY * y);
 			}
 			Collections.sort(obstacleTimes[x]);
+
+			if(debug_verboseoutput) {
+				System.out.println("Lane " + x + " obstacles to spawn: ");
+				for(Integer i : obstacleTimes[x]) {
+					System.out.print(i + ", ");
+				}
+				System.out.println();
+			}
 		}
 		player.Reset();
 

@@ -6,10 +6,7 @@ import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -24,9 +21,12 @@ public class GameScreen implements Screen {
     // ENVIRONMENT VARIABLES:
     private final Random rnd;
     private final int MAX_DURABILITY = 40, MAX_TIREDNESS = 100;
+    private DragonBoatGame game = null;
+
+    // debug booleans
+    private boolean debug_speed,debug_positions,debug_norandom,debug_verboseoutput;
 
     // game
-    private final DragonBoatGame game;
     private final Player player;
     private final Course course;
     private final Lane[] lanes;
@@ -50,8 +50,7 @@ public class GameScreen implements Screen {
     private final Texture staminaBarEmpty;
     private final FreeTypeFontGenerator generator;
     private final FreeTypeFontGenerator.FreeTypeFontParameter parameter;
-    private final BitmapFont font28;
-    private final BitmapFont font44;
+    private final BitmapFont font18,font28,font44;
 
     // timing
     private int backgroundOffset;
@@ -69,13 +68,18 @@ public class GameScreen implements Screen {
         /*
          * Grab game objects from DragonBoatGame.
          */
-        rnd = new Random();
+        debug_speed = game.debug_speed;
+        debug_positions = game.debug_positions;
+        debug_norandom = game.debug_norandom;
+        debug_verboseoutput = game.debug_verboseoutput;
+
         this.game = game;
         player = this.game.player;
         course = this.game.course;
         lanes = this.game.lanes;
         progressBar = this.game.progressBar;
         opponents = this.game.opponents;
+        rnd = this.game.rnd;
 
         ArrayList<Integer> possibleBoats = new ArrayList<Integer>();
         for (int i = 0; i < lanes.length; i++) {
@@ -100,6 +104,8 @@ public class GameScreen implements Screen {
         batch = new SpriteBatch();
         generator = game.generator;
         parameter = game.parameter;
+        parameter.size = 18;
+        font18 = generator.generateFont(parameter);
         parameter.size = 28;
         font28 = generator.generateFont(parameter);
         parameter.size = 44;
@@ -152,9 +158,10 @@ public class GameScreen implements Screen {
      */
     @Override
     public void render(float deltaTime) {
+        String debug = "";
+
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
         /*
          * If the game has started, start incrementing time.
          */
@@ -165,7 +172,8 @@ public class GameScreen implements Screen {
          * instantly if the game hasn't started, if the player has finished, or if there
          * are no more obstacles to be spawned.
          * 
-         * - IMPORTANT - It should be noted that the obstacles currently use a
+         * - IMPORTANT -
+         * It should be noted that the obstacles currently use a
          * coordinate system relative to the screen, as they are always spawned at
          * HEIGHT + 40 (y = 760). This means all collision checking methods need to be
          * passed backgroundOffset to translate the object's y position.
@@ -273,6 +281,9 @@ public class GameScreen implements Screen {
                 healthBarFull.getHeight());
         batch.end();
 
+        if(debug_positions) debug += player.getName() + " pos: (" + player.getX() + "," + player.getY() +")\n";
+        if(debug_speed) debug += player.getName() + " speed: " + player.getCurrentSpeed() + " / " + player.getMaxSpeed() + "\n\n";
+
         /*
          * Display opponents.
          */
@@ -280,6 +291,8 @@ public class GameScreen implements Screen {
             batch.begin();
             batch.draw(o.texture, o.getX(), o.getY() - backgroundOffset);
             batch.end();
+            if(debug_positions) debug += o.getName() + " pos: (" + o.getX() + "," + o.getY() +")\n";
+            if(debug_speed) debug += o.getName() + " speed: " + o.getCurrentSpeed() + " / " + o.getMaxSpeed() + "\n\n";
         }
 
         /*
@@ -353,6 +366,28 @@ public class GameScreen implements Screen {
                 opponent.applyPenalty(penalty);
             }
         }
+
+        /*
+         * Display debug stats.
+         */
+        if(debug_positions || debug_speed) {
+            batch.begin();
+            font18.draw(batch,debug,5,HEIGHT-60);
+            batch.end();
+        }
+
+        if(debug_verboseoutput) {
+            System.out.println("-----------------------");
+            System.out.println("Total time: " + totalDeltaTime + "\nDelta time: " + deltaTime);
+            System.out.println("-----------------------");
+            System.out.println(" -- Variables --\n"
+                    + "backgroundOffset: " + backgroundOffset);
+            for(int i = 0; i < lanes.length; i++) {
+                System.out.println("Lane " + i + " obstacles: " + lanes[i].obstacles.size());
+            }
+            System.out.println("\n\n\n");
+        }
+
 
         /*
          * Check if all boats have passed the finish line, if so, generate the
