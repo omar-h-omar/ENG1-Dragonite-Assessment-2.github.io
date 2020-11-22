@@ -226,12 +226,12 @@ public class GameScreen implements Screen {
 
         player.CheckCollisions(backgroundOffset);
 
-        batch.begin();
-
         /*
          * Display background.
          */
+        batch.begin();
         batch.draw(background, 0, 0, 0, background.getHeight() - HEIGHT - backgroundOffset, WIDTH, HEIGHT);
+        batch.end();
 
         /*
          * Display and move obstacles
@@ -252,13 +252,16 @@ public class GameScreen implements Screen {
                 if (o.getY() < -o.getHeight()) {
                     lane.RemoveObstacle(o);
                 }
+                batch.begin();
                 batch.draw(o.getTexture(), o.getX(), o.getY());
+                batch.end();
             }
         }
 
         /*
          * Display player and player UI.
          */
+        batch.begin();
         batch.draw(player.texture, player.getX(), player.getY() - backgroundOffset);
         batch.draw(staminaBarEmpty, player.lane.getLeftBoundary(), player.getY() - 20 - backgroundOffset);
         batch.draw(healthBarEmpty, player.lane.getLeftBoundary(), player.getY() - 40 - backgroundOffset);
@@ -268,21 +271,24 @@ public class GameScreen implements Screen {
         batch.draw(healthBarFull, player.lane.getLeftBoundary(), player.getY() - 40 - backgroundOffset, 0, 0,
                 Math.round(healthBarFull.getWidth() * player.getDurability() / MAX_DURABILITY),
                 healthBarFull.getHeight());
+        batch.end();
 
         /*
          * Display opponents.
          */
         for (Opponent o : opponents) {
+            batch.begin();
             batch.draw(o.texture, o.getX(), o.getY() - backgroundOffset);
-            // font28.draw(batch, o.getX() + ", " + o.getCurrentSpeed(), o.getX() + 20,
-            // o.getY() - backgroundOffset);
+            batch.end();
         }
 
         /*
          * Display progress bar.
          */
+        batch.begin();
         batch.draw(progressBar.getTexture(), WIDTH - progressBar.getTexture().getWidth() - 60,
                 HEIGHT - progressBar.getTexture().getHeight() - 20);
+        batch.end();
 
         /*
          * Get progress for each boat. Draw player and opponent icons on progress bar
@@ -290,15 +296,20 @@ public class GameScreen implements Screen {
          */
         float[] progress = progressBar.getProgress(course.getTexture().getHeight());
         for (int i = 1; i < progress.length; i++) {
+            batch.begin();
             batch.draw(progressBar.getOpponentIcon(),
                     WIDTH - progressBar.getTexture().getWidth() - 50
                             + progress[i] * (progressBar.getTexture().getWidth() - 214),
                     HEIGHT - progressBar.getTexture().getHeight() / 2 - 10);
+            batch.end();
         }
+
+        batch.begin();
         batch.draw(progressBar.getPlayerIcon(),
                 WIDTH - progressBar.getTexture().getWidth() - 50
                         + progress[0] * (progressBar.getTexture().getWidth() - 214),
                 HEIGHT - progressBar.getTexture().getHeight() / 2 - 10);
+        batch.end();
 
         /*
          * Check if player and each opponent has finished, and update their finished
@@ -319,7 +330,9 @@ public class GameScreen implements Screen {
          * Display player time.
          */
         progressBar.IncrementTimer(deltaTime);
+        batch.begin();
         font28.draw(batch, started ? progressBar.getPlayerTimeString() : "", WIDTH - 230, HEIGHT - 40);
+        batch.end();
 
         /*
          * Check player boat is in their lane, if not apply penalties.
@@ -327,7 +340,9 @@ public class GameScreen implements Screen {
         if (!player.CheckIfInLane() && !player.finished()) {
             player.applyPenalty(penalty);
             font28.setColor(Color.RED);
+            batch.begin();
             font28.draw(batch, "Warning! Penalty applied for leaving lane", 240, 100);
+            batch.end();
             font28.setColor(Color.WHITE);
         }
         /*
@@ -346,14 +361,20 @@ public class GameScreen implements Screen {
         if (progressBar.allFinished(course.getTexture().getHeight()) || (game.difficulty == 4 && player.finished())) {
             // display leaderboard, if on the third leg, display top 3 boats
             if (game.difficulty < 3) {
+                batch.begin();
                 batch.draw(leaderboard.getTexture(), WIDTH / 2 - leaderboard.getTexture().getWidth() / 2,
                         HEIGHT / 2 - leaderboard.getTexture().getHeight() / 2);
+                batch.end();
                 this.times = leaderboard.getTimes(opponents.length + 1);
                 for (int i = 0; i < opponents.length + 1; i++) {
+                    batch.begin();
                     font44.draw(batch, this.times[i], WIDTH / 2 - leaderboard.getTexture().getWidth() / 3,
                             620 - (75 * i));
+                    batch.end();
                 }
+                batch.begin();
                 font28.draw(batch, "Click anywhere to progress to next leg.", 200, 40);
+                batch.end();
                 /*
                  * Defines how to handle keyboard and mouse inputs
                  */
@@ -366,20 +387,27 @@ public class GameScreen implements Screen {
                     }
                 });
             } else if (game.difficulty == 3) {
+                batch.begin();
                 batch.draw(leaderboard.getTexture(), WIDTH / 2 - leaderboard.getTexture().getWidth() / 2,
                         HEIGHT / 2 - leaderboard.getTexture().getHeight() / 2);
+                batch.end();
                 this.times = leaderboard.getTimes(opponents.length + 1);
                 for (int i = 0; i < opponents.length + 1; i++) {
                     if (i < 3)
                         font44.setColor(Color.GOLD);
                     else
                         font44.setColor(Color.WHITE);
+
+                    batch.begin();
                     font44.draw(batch, this.times[i], WIDTH / 2 - leaderboard.getTexture().getWidth() / 3,
                             620 - (75 * i));
+                    batch.end();
                 }
                 if (this.times[0].startsWith("Player") || this.times[1].startsWith("Player")
                         || this.times[2].startsWith("Player")) {
+                    batch.begin();
                     font28.draw(batch, "Click anywhere to progress to the final!", 200, 40);
+                    batch.end();
                     /*
                      * Defines how to handle keyboard and mouse inputs
                      */
@@ -398,7 +426,6 @@ public class GameScreen implements Screen {
                 game.endGame();
             }
         }
-        batch.end();
     }
 
     /**
