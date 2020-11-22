@@ -16,7 +16,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class MenuScreen implements Screen {
     Texture startScreen;
     final DragonBoatGame game;
-    private SpriteBatch batch;
+    private final SpriteBatch batch;
 
     /**
      * Creates an Input Processor to listen for a mouse click within set boundaries.
@@ -29,8 +29,8 @@ public class MenuScreen implements Screen {
         startScreen = new Texture(Gdx.files.internal("start screen w fade w controls.png"));
         final MenuScreen menuScreen = this;
 
-        /**
-         * Defines how to handle mouse inputs.
+        /*
+          Defines how to handle mouse inputs.
          */
         Gdx.input.setInputProcessor(new InputAdapter() {
 
@@ -45,18 +45,18 @@ public class MenuScreen implements Screen {
              */
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                /**
-                 * First check whether the cursor is in right y-bounds, as these are all the same for all boats
+                /*
+                  First check whether the cursor is in right y-bounds, as these are all the same for all boats
                  */
                 if(screenY >= 397 && screenY <= 655) {
-                    /**
-                     * Then check if the mouse is in each set of x-bounds,
-                     * if so, set the player boat to the corresponding boat,
-                     * and initialise the game.
-                     *
-                     *                     - NOTE -
-                     * These values don't work if the window is made to be resizable,
-                     * and is then resized by the user.
+                    /*
+                      Then check if the mouse is in each set of x-bounds,
+                      if so, set the player boat to the corresponding boat,
+                      and initialise the game.
+
+                                          - NOTE -
+                      These values don't work if the window is made to be resizable,
+                      and is then resized by the user.
                      */
                     if(screenX >= 44 && screenX <= 177) {
                         game.player.ChooseBoat(0);
