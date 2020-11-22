@@ -20,7 +20,7 @@ Here's our team:
 *   <a href="docs/Impl1.pdf">Implementation</a>
 
 ### Executables
-*   <a href="fileloaction.exe">Dragon Boat Z Game</a>
+*   <a href="https://github.com/TheWill10m/Dragon-Boat-Z/releases/download/v1.0/DragonBoat.jar">Dragon Boat Z Game</a>
 
 ### Javadocs
 *   <a href="docs/javadoc/index.html">Javadocs html export</a>
