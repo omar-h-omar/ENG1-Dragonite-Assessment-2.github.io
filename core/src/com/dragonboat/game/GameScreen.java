@@ -22,31 +22,36 @@ import java.util.Random;
  */
 public class GameScreen implements Screen {
     // ENVIRONMENT VARIABLES:
-    private Random rnd;
+    private final Random rnd;
     private final int MAX_DURABILITY = 40, MAX_TIREDNESS = 100;
 
     // game
-    private DragonBoatGame game;
-    private Player player;
-    private Course course;
-    private Lane[] lanes;
-    private ProgressBar progressBar;
-    private Leaderboard leaderboard;
-    private Opponent[] opponents;
+    private final DragonBoatGame game;
+    private final Player player;
+    private final Course course;
+    private final Lane[] lanes;
+    private final ProgressBar progressBar;
+    private final Leaderboard leaderboard;
+    private final Opponent[] opponents;
     private String[] times;
     private boolean started = false;
-    private float penalty = 0.016f;
+    private final float penalty = 0.016f;
 
     // screen
-    private OrthographicCamera camera;
-    private Viewport viewport;
+    private final OrthographicCamera camera;
+    private final Viewport viewport;
 
     // graphics
-    private SpriteBatch batch;
-    private Texture background, healthBarFull, healthBarEmpty, staminaBarFull, staminaBarEmpty;
-    private FreeTypeFontGenerator generator;
-    private FreeTypeFontGenerator.FreeTypeFontParameter parameter;
-    private BitmapFont font28, font44;
+    private final SpriteBatch batch;
+    private final Texture background;
+    private final Texture healthBarFull;
+    private final Texture healthBarEmpty;
+    private final Texture staminaBarFull;
+    private final Texture staminaBarEmpty;
+    private final FreeTypeFontGenerator generator;
+    private final FreeTypeFontGenerator.FreeTypeFontParameter parameter;
+    private final BitmapFont font28;
+    private final BitmapFont font44;
 
     // timing
     private int backgroundOffset;
@@ -60,8 +65,8 @@ public class GameScreen implements Screen {
      * @param game represents the initial state of DragonBoatGame.
      */
     public GameScreen(DragonBoatGame game) {
-        /**
-         * Grab game objects from DragonBoatGame.
+        /*
+          Grab game objects from DragonBoatGame.
          */
         rnd = new Random();
         this.game = game;
@@ -127,21 +132,21 @@ public class GameScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        /**
-         * If the game has started, start incrementing time.
+        /*
+          If the game has started, start incrementing time.
          */
         totalDeltaTime += started ? deltaTime : 0;
 
-        /**
-         * Check whether obstacles need to be spawned, and spawns them if so.
-         * Breaks instantly if the game hasn't started, if the player has finished,
-         * or if there are no more obstacles to be spawned.
-         *
-         *                         - IMPORTANT -
-         * It should be noted that the obstacles currently use a coordinate system relative
-         * to the screen, as they are always spawned at HEIGHT + 40 (y = 760).
-         * This means all collision checking methods need to be passed backgroundOffset
-         * to translate the object's y position.
+        /*
+          Check whether obstacles need to be spawned, and spawns them if so.
+          Breaks instantly if the game hasn't started, if the player has finished,
+          or if there are no more obstacles to be spawned.
+
+                                  - IMPORTANT -
+          It should be noted that the obstacles currently use a coordinate system relative
+          to the screen, as they are always spawned at HEIGHT + 40 (y = 760).
+          This means all collision checking methods need to be passed backgroundOffset
+          to translate the object's y position.
          */
         for (int i = 0; i < course.getNoLanes(); i++) {
             if (!started || player.finished() || this.game.obstacleTimes[i].size() == 0) break;
@@ -155,9 +160,9 @@ public class GameScreen implements Screen {
             }
         }
 
-        /**
-         * Move player.
-         * Advance animation frame.
+        /*
+          Move player.
+          Advance animation frame.
          */
         player.GetInput();
         player.MoveForward();
@@ -168,9 +173,9 @@ public class GameScreen implements Screen {
         }
         if (player.getY() % 5 == 2) player.AdvanceTextureFrame();
 
-        /**
-         * Move opponents.
-         * Advance animation frame.
+        /*
+          Move opponents.
+          Advance animation frame.
          */
         for (Opponent o : opponents) {
             if (!started) break;
@@ -182,8 +187,8 @@ public class GameScreen implements Screen {
             if (o.getY() % 5 == 2) o.AdvanceTextureFrame();
         }
 
-        /**
-         * Increase the background offset so the player is centered.
+        /*
+          Increase the background offset so the player is centered.
          */
         if (player.getY() + HEIGHT / 2 + player.getHeight() / 2 > course.getTexture().getHeight()) {
             // stop increasing the background offset when the player reaches the end of the course.
@@ -196,13 +201,13 @@ public class GameScreen implements Screen {
 
         batch.begin();
 
-        /**
-         * Display background.
+        /*
+          Display background.
          */
         batch.draw(background, 0, 0, 0, background.getHeight() - HEIGHT - backgroundOffset, WIDTH, HEIGHT);
 
-        /**
-         * Display and move obstacles
+        /*
+          Display and move obstacles
          */
         for (Lane lane : lanes) {
             if (!started) break;
@@ -218,8 +223,8 @@ public class GameScreen implements Screen {
             }
         }
 
-        /**
-         * Display player and player UI.
+        /*
+          Display player and player UI.
          */
         batch.draw(player.texture, player.getX(), player.getY() - backgroundOffset);
         batch.draw(staminaBarEmpty, player.lane.getLeftBoundary(), player.getY() - 20 - backgroundOffset);
@@ -227,22 +232,22 @@ public class GameScreen implements Screen {
         batch.draw(staminaBarFull, player.lane.getLeftBoundary(), player.getY() - 20 - backgroundOffset, 0, 0, Math.round(staminaBarFull.getWidth() * player.getTiredness() / MAX_TIREDNESS), staminaBarFull.getHeight());
         batch.draw(healthBarFull, player.lane.getLeftBoundary(), player.getY() - 40 - backgroundOffset, 0, 0, Math.round(healthBarFull.getWidth() * player.getDurability() / MAX_DURABILITY), healthBarFull.getHeight());
 
-        /**
-         * Display opponents.
+        /*
+          Display opponents.
          */
         for (Opponent o : opponents) {
             batch.draw(o.texture, o.getX(), o.getY() - backgroundOffset);
             //font28.draw(batch, o.getX() + ", " + o.getCurrentSpeed(), o.getX() + 20, o.getY() - backgroundOffset);
         }
 
-        /**
-         * Display progress bar.
+        /*
+          Display progress bar.
          */
         batch.draw(progressBar.getTexture(), WIDTH - progressBar.getTexture().getWidth() - 60, HEIGHT - progressBar.getTexture().getHeight() - 20);
 
-        /**
-         * Get progress for each boat.
-         * Draw player and opponent icons on progress bar with x coordinates respective to their progress.
+        /*
+          Get progress for each boat.
+          Draw player and opponent icons on progress bar with x coordinates respective to their progress.
          */
         float[] progress = progressBar.getProgress(course.getTexture().getHeight());
         for (int i = 1; i < progress.length; i++) {
@@ -250,8 +255,8 @@ public class GameScreen implements Screen {
         }
         batch.draw(progressBar.getPlayerIcon(), WIDTH - progressBar.getTexture().getWidth() - 50 + progress[0] * (progressBar.getTexture().getWidth() - 214), HEIGHT - progressBar.getTexture().getHeight() / 2 - 10);
 
-        /**
-         * Check if player and each opponent has finished, and update their finished booleans respectively.
+        /*
+          Check if player and each opponent has finished, and update their finished booleans respectively.
          */
         if (progress[0] == 1 && !player.finished()) {
             player.setFinished(true);
@@ -264,15 +269,15 @@ public class GameScreen implements Screen {
             }
         }
 
-        /**
-         * Display player time.
+        /*
+          Display player time.
          */
         progressBar.IncrementTimer(deltaTime);
         font28.draw(batch, started ? progressBar.getPlayerTimeString() : "", WIDTH - 230, HEIGHT - 40);
 
-        /**
-         * Check player boat is in their lane,
-         * if not apply penalties.
+        /*
+          Check player boat is in their lane,
+          if not apply penalties.
          */
         if (!player.CheckIfInLane() && !player.finished()) {
             player.applyPenalty(penalty);
@@ -280,19 +285,19 @@ public class GameScreen implements Screen {
             font28.draw(batch, "Warning! Penalty applied for leaving lane", 240, 100);
             font28.setColor(Color.WHITE);
         }
-        /**
-         * Check opponent boats are in their lanes,
-         * if not apply penalties.
+        /*
+          Check opponent boats are in their lanes,
+          if not apply penalties.
          */
-        for (int i = 0; i < opponents.length; i++) {
-            if (!opponents[i].CheckIfInLane() && !opponents[i].finished()) {
-                opponents[i].applyPenalty(penalty);
+        for (Opponent opponent : opponents) {
+            if (!opponent.CheckIfInLane() && !opponent.finished()) {
+                opponent.applyPenalty(penalty);
             }
         }
 
-        /**
-         * Check if all boats have passed the finish line,
-         * if so, generate the leaderboard
+        /*
+          Check if all boats have passed the finish line,
+          if so, generate the leaderboard
          */
         if (progressBar.allFinished(course.getTexture().getHeight()) || (game.difficulty == 4 && player.finished())) {
             // display leaderboard, if on the third leg, display top 3 boats
@@ -303,8 +308,8 @@ public class GameScreen implements Screen {
                     font44.draw(batch, this.times[i], WIDTH / 2 - leaderboard.getTexture().getWidth() / 3, 620 - (75 * i));
                 }
                 font28.draw(batch, "Click anywhere to progress to next leg.", 200, 40);
-                /**
-                 * Defines how to handle keyboard and mouse inputs
+                /*
+                  Defines how to handle keyboard and mouse inputs
                  */
                 Gdx.input.setInputProcessor(new InputAdapter() {
                     @Override
@@ -324,8 +329,8 @@ public class GameScreen implements Screen {
                 }
                 if (this.times[0].startsWith("Player") || this.times[1].startsWith("Player") || this.times[2].startsWith("Player")) {
                     font28.draw(batch, "Click anywhere to progress to the final!", 200, 40);
-                    /**
-                     * Defines how to handle keyboard and mouse inputs
+                    /*
+                      Defines how to handle keyboard and mouse inputs
                      */
                     Gdx.input.setInputProcessor(new InputAdapter() {
                         @Override

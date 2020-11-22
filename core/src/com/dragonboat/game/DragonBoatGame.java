@@ -123,8 +123,8 @@ public class DragonBoatGame extends Game {
 		}
 		player.Reset();
 
-		/**
-		 * Set up final leg.
+		/*
+		  Set up final leg.
 		 */
 		if(difficulty==4) {
 			Boat[] finalists = leaderboard.getPodium();
