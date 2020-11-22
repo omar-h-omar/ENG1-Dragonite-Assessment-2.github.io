@@ -32,6 +32,8 @@ Here's our team:
 Having completed the task of setting up Jira and other resources the main focus was on preparatory work for the 
 upcoming week. This involved adding to the existing set of Customer Questions constructed and beginning to develop
 of how GitHub Pages works. 
+<img src="docs/sprints/Sprint 1.png">
+
 <br>
 <br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint%201.png">Sprint 1 Jira Board</a>
