@@ -32,7 +32,7 @@ Here's our team:
 Having completed the task of setting up Jira and other resources the main focus was on preparatory work for the 
 upcoming week. This involved adding to the existing set of Customer Questions constructed and beginning to develop
 of how GitHub Pages works. 
-
+<br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint%201.png">Sprint 1 Jira Board</a>
 </details>
 
@@ -45,38 +45,38 @@ were the Architecture Abstract diagram that will be reviewed at the second meeti
 sprint, as this would allow us to make decisions such as what game library would be used. Deliverables such as 
 Method Selection and Planning, Requirements and Risk Assessment were built up using the now known information 
 alongside the starting of Sprite Design. 
-
+<br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint%202.png">Sprint 2 Jira Board</a>
 
 </details>
 
 <details>
 <summary><b> Sprint 3 - 22/10/2020 </b></summary>
-  
+
 Having completed the Abstract Architecture Diagram, a focus was put onto the Concrete Architecture Diagram so 
 it would be ready for when initial classes are constructed, based off the Gantt Chart. This also meant a decision
 was made on the library used for this project: LibGDX. Thus, each team member was assigned the task of completing
 the tutorial found in the documentation and further research. Continued deliverable work was assigned a low priority
 as this was considered an iterative process throughout the course of the project. 
-
+<br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint%203.png">Sprint 1 Jira Board</a>
 </details>
 
 <details>
   <summary><b> Sprint 4 - 29/10/2020 </b></summary>
-  
+ 
 In Sprint 3 the Concrete Architecture was created and allowed for critical tasks to begin: the initial classes. This
 was a high priority as delays would impact the production of the prototype on time. Further deliverable work was 
 assigned medium/low priority. To maintain a clear separation between work, the initial one board was separated into 
 two: Deliverables and Implementation. It was decided that second session of the Sprint would focus on the progression
 of these tasks and discuss if any would need to be reassigned. 
-
+<br>
 <b> Deliverables Board </b>
-
+<br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint%204%20-%20Deliverables.png">Sprint 4 Delievrables Jira Board</a>
-
+<br>
 <b> Implementation Board </b>
-
+<br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint%204%20-%20Implementation.png">Sprint 4 Implementation Jira Board</a>
 </details> 
 
@@ -88,13 +88,13 @@ The backlog of tasks T14 and T11 were assigned the highest priority, as continue
 completion. With the aim of reaching the milestone M4 at the end of this Sprint the prototype development was a high
 focus. Method Section and Planning were a focus within the deliverables board to continue to add to changes within
 the project.
-
+<br>
 <b> Deliverables Board </b>
-
+<br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint_5_-_Deliverables.png">Sprint 5 Jira Deliverables Board</a>
-
+<br>
 <b> Implementation Board </b>
-
+<br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint_5_-_Implementation.png">Sprint 5 Jira Implementation Board</a>
 </details>
 
@@ -107,13 +107,13 @@ a focus on the final elements of the programming side. During the second meeting
 to implement additional functionality of the game such as Animations. 
 Alongside this, the implementation document was built up alongside this, allowing us to be more coordinated and 
 understand each other's code. 
-
+<br>
 <b> Deliverables Board </b>
-
+<br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint%206%20-%20Deliverables.png">Sprint 6 Jira Deliverables Board</a>
-
+<br>
 <b> Implementation Board </b>
-
+<br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint%206%20-%20Implementation.png">Sprint 6 Jira Implementation Board</a>
 </details>
 
@@ -122,7 +122,7 @@ understand each other's code.
   
 Having reached the completion of the game, a focus on the game testing and peer review of finalised deliverables was
 focused on. This was to ensure a successful completion of the entire project. 
-
+<br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint%207.png">Sprint 7 Jira Board</a>
 </details>
 
