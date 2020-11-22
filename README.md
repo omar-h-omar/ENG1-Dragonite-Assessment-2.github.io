@@ -107,12 +107,12 @@ the project.
 <br>
 <br>
 <strong> Deliverables Board </strong>
-<img src="docs/sprints/Sprint 5 - Deliverables.png">
+<img src="docs/sprints/Sprint_5_-_Deliverables.png">
 <br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint_5_-_Deliverables.png">Sprint 5 Jira Deliverables Board</a>
 <br>
 <strong> Implementation Board </strong>
-<img src="docs/sprints/Sprint 5 - Implementation.png">
+<img src="docs/sprints/Sprint_5_-_Implementation.png">
 <br>
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint_5_-_Implementation.png">Sprint 5 Jira Implementation Board</a>
 <br>
