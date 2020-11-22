@@ -2,11 +2,9 @@ package com.dragonboat.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -39,6 +37,7 @@ public class DragonBoatGame extends Game {
 	public FreeTypeFontGenerator.FreeTypeFontParameter parameter;
 	private SpriteBatch batch;
 	private BitmapFont font28;
+	private Texture courseTexture;
 
 	/**
 	 * Sets up the game with settings and instantiation of objects
@@ -46,7 +45,6 @@ public class DragonBoatGame extends Game {
 	@Override
 	public void create () {
 		int w = Gdx.graphics.getWidth() - 80;
-		int h = Gdx.graphics.getHeight();
 		Random rnd = new Random();
 
 		music = Gdx.audio.newMusic(Gdx.files.internal("cantgobackwards.mp3"));
@@ -54,7 +52,7 @@ public class DragonBoatGame extends Game {
 		music.setVolume(0.4f);
 		music.play();
 
-		Texture courseTexture = new Texture(Gdx.files.internal("background sprite.png"));
+		courseTexture = new Texture(Gdx.files.internal("background sprite.png"));
 		lanes = new Lane[7];
 		noOfObstacles = 8;
 		obstacleTimes = new ArrayList[lanes.length];
@@ -106,8 +104,6 @@ public class DragonBoatGame extends Game {
 		  Increase difficulty and set up next leg.
 		 */
 		difficulty += 1;
-		int w = Gdx.graphics.getWidth() - 80;
-		int h = Gdx.graphics.getHeight();
 		Random rnd = new Random();
 
 		noOfObstacles = 8 * difficulty;
@@ -115,7 +111,7 @@ public class DragonBoatGame extends Game {
 		for(int x = 0; x < lanes.length; x++) {
 			lanes[x].obstacles = new ArrayList<>();
 			obstacleTimes[x] = new ArrayList<>();
-			int maxY = (2880 - (5 * noOfObstacles))/noOfObstacles;
+			int maxY = (courseTexture.getHeight() - (5 * noOfObstacles))/noOfObstacles;
 			for(int y = 0; y < noOfObstacles; y++) {
 				obstacleTimes[x].add(rnd.nextInt(maxY - 5) + 5 + maxY * y);
 			}
