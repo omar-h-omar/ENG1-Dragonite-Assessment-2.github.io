@@ -20,18 +20,20 @@ Here's our team:
 *   <a href="docs/Impl1.pdf">Implementation</a>
 
 ### Executables
-*   <a href="https://github.com/TheWill10m/Dragon-Boat-Z/releases/download/v1.0/DragonBoat.jar">Dragon Boat Z Game</a>
+*   <a href="fileloaction.exe">Dragon Boat Z Game</a>
 
 ### Javadocs
 *   <a href="docs/javadoc/index.html">Javadocs html export</a>
 
 ### Weekly Snapshots
-#### Sprint 1 - 08/10/2020
+<details>
+<summary> Sprint 1 - 08/10/2020 </summary>
 Having completed the task of setting up Jira and other resources the main focus was on preparatory work for the 
 upcoming week. This involved adding to the existing set of Customer Questions constructed and beginning to develop
 of how GitHub Pages works. 
 
 <img src="docs/sprints/Sprint 1.png">
+</details>
 
 #### Sprint 2 - 15/10/2020
 Having had the Customer meeting, this meant that other tasks and deliverables could now be started. The priorities 
