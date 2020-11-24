@@ -148,7 +148,7 @@ of these tasks and discuss if any would need to be reassigned.
 <details> 
   <summary><strong> Sprint 5 - 05/11/2020 </strong></summary>
   
-The backlog of tasks T14 and T11, from the previous Sprint, were assigned the highest priority, as continued programming work depended on their completion. With the aim of reaching the milestone M4, at the end of this Sprint, the prototype development was a high focus. Method Section and Planning were a focus within the Deliverables board to continue to append changes that had occurred during the project lifecycle.
+The backlog of tasks T14 and T11, from the previous Sprint, were assigned the highest priority, as continued programming work depended on their completion. With the aim of reaching the milestone M4, at the end of this Sprint, the prototype development was a high focus. The specific tasks related to the prototype were stated within the assignee's task description. Method Section and Planning were a focus within the Deliverables board to continue to append changes that had occurred during the project lifecycle.
 
 <br>
 <br>
