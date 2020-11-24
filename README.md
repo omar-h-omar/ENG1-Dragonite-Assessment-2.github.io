@@ -1,7 +1,7 @@
 # Contents
 - [About Us](#about-us)
 - [Game Description](#game-description)
-- [Assesment Content](#assessment-content)
+- [Assessment Content](#assessment-content)
   - [Deliverables](#deliverables)
   - [Executables](#executables)
   - [Javadocs](#javadocs)
@@ -67,15 +67,16 @@ Upon completing the final race, the player will be awarded a medal, bronze, silv
 *   <a href="docs/Impl1.pdf">Implementation</a>
 
 ### Executables
-*   <a href="fileloaction.exe">Dragon Boat Z Game</a>
+*   <a href="https://github.com/TheWill10m/Dragon-Boat-Z/releases/download/v1.0/DragonBoat.jar">Dragon Boat Z Game</a>
 
 ### Javadocs
 *   <a href="docs/javadoc/index.html">Javadocs HTML Export</a>
 
 ### Weekly Snapshots
-<strong>Project Gantt Chart</strong>
+#### Project Gantt Chart
 <img src="docs/gantt chart/gantt chart.png">
 
+#### Sprint Dropdowns
 <details>
   <summary><strong> Sprint 1 - 08/10/2020 </strong></summary>
 
