@@ -34,7 +34,7 @@ public class Obstacle {
 	}
 
 	/**
-	 * Moves the obstacle
+	 * Moves the obstacle.
 	 * 
 	 * @param moveVal          Distance to move the object by.
 	 * @param backgroundOffset Offset from screen to course coordinates.
@@ -47,7 +47,7 @@ public class Obstacle {
 
 	/**
 	 * 
-	 * @return int representing damage the obstacle inflicts upon collision.
+	 * @return Int representing damage the obstacle inflicts upon collision.
 	 */
 	public int getDamage() {
 		return this.damage;
@@ -95,7 +95,7 @@ public class Obstacle {
 
 	/**
 	 * 
-	 * @return int representing the height of the obstacle.
+	 * @return Int representing the height of the obstacle.
 	 */
 	public int getHeight() {
 		return this.height;

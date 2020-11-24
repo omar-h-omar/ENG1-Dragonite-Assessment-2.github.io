@@ -34,7 +34,7 @@ public class Course {
 
 	/**
 	 * 
-	 * @return int representing the number of lanes in the course.
+	 * @return Int representing the number of lanes in the course.
 	 */
 	public int getNoLanes() {
 		return lanes.length;

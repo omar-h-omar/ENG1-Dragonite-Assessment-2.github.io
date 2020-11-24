@@ -82,11 +82,11 @@ public class Opponent extends Boat {
         if (this.CheckIfInLane() == false || !noNewPath) {
             // Commence route back into lane.
             if (leftSide - this.lane.getLeftBoundary() <= 0) {
-                // Will only be negative if the boat is further left than the leftBoundary.
+                // Will only be negative if the boat is further left than the left boundary of the lane.
                 this.SteerRight();
                 this.steering = "Right";
             } else if (rightSide - this.lane.getRightBoundary() >= 0) {
-                // Will only be positive if the boat is further right than the rightBoundary.
+                // Will only be positive if the boat is further right than the right boundary of the lane.
                 this.SteerLeft();
                 this.steering = "Left";
             }
@@ -99,7 +99,7 @@ public class Opponent extends Boat {
         if (noNewPath) { // If still no new path, if there is one, skip all this code for speed's sake.
 
             // Insertion sort Obstacles in incomingObstacles from lowest to highest
-            // yPosition (proximity to the Boat, even)
+            // y-position (proximity to the Boat, even).
             for (Obstacle obs : allIncomingObstacles) {
                 if (obs.getY() + obs.height + backgroundOffset > this.getY()) {
                     if (sortedIncomingObstacles.size() == 0) {
@@ -134,7 +134,6 @@ public class Opponent extends Boat {
 
                 if (obs.getY() + backgroundOffset <= visionDistance && obs.getY() + backgroundOffset > this.yPosition) {
                     // The obstacle is visible from the boat.
-                    // System.out.println("Sees " + obs.getClass() + " at " + obs.getY());
                     if (obs.getX() + obs.width < leftSide) {
                         // The obstacle is far left of the boat.
 
@@ -240,7 +239,7 @@ public class Opponent extends Boat {
      * 
      * @param possibleBoats List of remaining boat templates that haven't been
      *                      assigned yet.
-     * @return int representing the index of the boat template that was assigned.
+     * @return Int representing the index of the boat template that was assigned.
      */
     public int SetRandomBoat(ArrayList<Integer> possibleBoats) {
         Random rnd = new Random();

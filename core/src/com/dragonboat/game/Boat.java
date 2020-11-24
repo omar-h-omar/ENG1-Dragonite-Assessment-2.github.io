@@ -14,9 +14,7 @@ import com.badlogic.gdx.graphics.Texture;
 public class Boat {
     /*
      * Direct representation based off the UML diagram
-     * https://drive.google.com/file/d/15O95umnJIoApnsj8I9ejEtMxrDGYJWAC/view?usp=
-     * sharing may need to lump data about the object we'll be displaying into a
-     * Box2D object.
+     * https://drive.google.com/file/d/15O95umnJIoApnsj8I9ejEtMxrDGYJWAC/view?usp=sharing
      */
 
     private int ROBUSTNESS, MAXSPEED;
@@ -37,19 +35,13 @@ public class Boat {
     /**
      * Creates a Boat instance in a specified Lane.
      * 
-     * @param yPosition y-position of the boat.
-     * @param width     width of the boat.
-     * @param height    height of the boat.
+     * @param yPosition Y-position of the boat.
+     * @param width     Width of the boat.
+     * @param height    Height of the boat.
      * @param lane      Lane object.
-     * @param name      string identifier.
+     * @param name      String identifier.
      */
     public Boat(float yPosition, int width, int height, Lane lane, String name) {
-        /*
-         * These 4 attributes will be unique to each boat. The values used are
-         * placeholders for now. We will need some function to set these attributes
-         * depending on which team the player selects. (or whichever team is randomly
-         * chosen for the opponents).
-         */
         this.xPosition = lane.getRightBoundary() - (lane.getRightBoundary() - lane.getLeftBoundary()) / 2 - width / 2;
         this.yPosition = yPosition;
         this.width = width;
@@ -66,7 +58,7 @@ public class Boat {
     }
 
     /**
-     * Decreases the x-position of the boat respective to the boats maneuverability
+     * Decreases the x-position of the boat respective to the boat's maneuverability
      * and speed, and decreases the speed by 3%.
      */
     public void SteerLeft() {
@@ -78,7 +70,7 @@ public class Boat {
     }
 
     /**
-     * Increases the x-position of the boat respective to the boats maneuverability
+     * Increases the x-position of the boat respective to the boat's maneuverability
      * and speed, and decreases the speed by 3%.
      */
     public void SteerRight() {
@@ -90,7 +82,7 @@ public class Boat {
     }
 
     /**
-     * Increases the y-position of the boat respective to the boats speed, and
+     * Increases the y-position of the boat respective to the boat's speed, and
      * decreases the speed by 0.08%.
      */
     public void MoveForward() {
@@ -150,26 +142,20 @@ public class Boat {
     }
 
     /**
-     * Decreases the durability of the Boat by the obstacle damage divided by the
+     * Decreases the durability of the boat by the obstacle damage divided by the
      * boat's robustness.
      * 
      * @param obstacleDamage Amount of damage an Obstacle inflicts on the boat.
      * @return Boolean representing whether the durability of the boat is below 0.
      */
     public boolean ApplyDamage(int obstacleDamage) {
-        /*
-         * Applies damage to boat depending on what kind of obstacle it hits.
-         * 
-         * returns true if the boat goes below 0 durability. returns false if the boat
-         * is above 0 durability.
-         */
         this.durability -= obstacleDamage / this.ROBUSTNESS;
         this.currentSpeed *= 0.9;
         return this.durability <= 0;
     }
 
     /**
-     * Checks if the Boat is between LeftBoundary and RightBoundary of the Lane.
+     * Checks if the boat is between the left boundary and the right boundary of the Lane.
      * 
      * @return Boolean representing whether the Boat is in the Lane.
      */
@@ -205,7 +191,7 @@ public class Boat {
     }
 
     /**
-     * Keeps track of which frame of the animation the Boat's texture is on, and
+     * Keeps track of which frame of the animation the boat's texture is on, and
      * sets the texture accordingly.
      */
     public void AdvanceTextureFrame() {
@@ -227,7 +213,7 @@ public class Boat {
     }
 
     /**
-     * Resets necessary stats for next race.
+     * Resets necessary stats for the next race.
      */
     public void Reset() {
         this.xPosition = lane.getRightBoundary() - (lane.getRightBoundary() - lane.getLeftBoundary()) / 2 - width / 2;
@@ -275,7 +261,7 @@ public class Boat {
 
     /**
      * 
-     * @return int representing x-position of boat.
+     * @return Int representing x-position of boat.
      */
     public int getX() {
         return Math.round(this.xPosition);
@@ -283,7 +269,7 @@ public class Boat {
 
     /**
      * 
-     * @return int representing y-position of boat.
+     * @return Int representing y-position of boat.
      */
     public int getY() {
         return Math.round(this.yPosition);
@@ -291,7 +277,7 @@ public class Boat {
 
     /**
      * 
-     * @return int representing the y coordinate range of the boat (length).
+     * @return Int representing the y coordinate range of the boat (length).
      */
     public int getHeight() {
         return this.height;
@@ -331,7 +317,7 @@ public class Boat {
 
     /**
      * 
-     * @param finishY Y coordinate of the finish line.
+     * @param finishY Y-position of the finish line.
      * @return Float representing the progress of the boat from 0 to 1.
      */
     public float getProgress(int finishY) {
@@ -341,10 +327,10 @@ public class Boat {
     /**
      * Implicitly sets the stats of the boat, given each attribute.
      * 
-     * @param maxspeed        top speed the boat can reach.
-     * @param robustness      how resilient to obstacle damage the boat is.
-     * @param acceleration    how much the speed increases each frame.
-     * @param maneuverability how easily the boat can move left or right.
+     * @param maxspeed        Top speed the boat can reach.
+     * @param robustness      How resilient to obstacle damage the boat is.
+     * @param acceleration    How much the speed increases each frame.
+     * @param maneuverability How easily the boat can move left or right.
      */
     public void setStats(int maxspeed, int robustness, float acceleration, float maneuverability) {
         this.MAXSPEED = maxspeed / 2;
@@ -388,7 +374,7 @@ public class Boat {
 
     /**
      * 
-     * @return int representing the robustness of the boat.
+     * @return Int representing the robustness of the boat.
      */
     public int getRobustness() {
         return this.ROBUSTNESS;
@@ -396,7 +382,7 @@ public class Boat {
 
     /**
      * 
-     * @return int representing the durability of the boat.
+     * @return Int representing the durability of the boat.
      */
     public int getDurability() {
         return this.durability;
@@ -404,7 +390,7 @@ public class Boat {
 
     /**
      * 
-     * @return int representing the maximum speed of the boat.
+     * @return Int representing the maximum speed of the boat.
      */
     public int getMaxSpeed() {
         return this.MAXSPEED;
@@ -412,7 +398,7 @@ public class Boat {
 
     /**
      * 
-     * @return float representing the tiredness of the boat crew.
+     * @return Float representing the tiredness of the boat crew.
      */
     public float getTiredness() {
         return this.tiredness;
@@ -420,7 +406,7 @@ public class Boat {
 
     /**
      * 
-     * @return float representing the time penalty incurred for the current race.
+     * @return Float representing the time penalty incurred for the current race.
      */
     public float getPenalty() {
         return this.penalties;
@@ -428,7 +414,7 @@ public class Boat {
 
     /**
      * 
-     * @param penalty float to add to the boat's penalty total for the current race.
+     * @param penalty Float to add to the boat's penalty total for the current race.
      */
     public void applyPenalty(float penalty) {
         this.penalties += penalty;

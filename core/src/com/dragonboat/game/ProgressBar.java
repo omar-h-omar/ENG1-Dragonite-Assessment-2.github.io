@@ -46,7 +46,7 @@ public class ProgressBar {
 	 */
 	public void IncrementTimer(float timePassed) {
 		this.timeSeconds += timePassed;
-		// check player is still racing
+		// Check player is still racing.
 		if (!this.playerBoat.finished()) {
 			this.playerTime = this.timeSeconds;
 		}
