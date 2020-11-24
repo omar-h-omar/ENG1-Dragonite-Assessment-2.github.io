@@ -1,23 +1,27 @@
 package com.dragonboat.game;
 
-import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 /**
- * Game Class for Dragon Boat Game. Initialises all the objects necessary for
- * the game, starts music, creates Lanes, randomises Obstacle spawns,
- * initialises blank Player and Opponents, initialises a Progress Bar and
- * Leaderboard, and instantiates a Menu Screen.
+ * <p>
+ * Game Class for Dragon Boat Game.
+ * </p>
+ * <p>
+ * Initialises all the objects necessary for the game, starts music, creates
+ * Lanes, randomises Obstacle spawns, initialises blank Player and Opponents,
+ * initialises a Progress Bar and Leaderboard, and instantiates a Menu Screen.
+ * </p>
  * 
  * @see MenuScreen
  */
@@ -41,7 +45,7 @@ public class DragonBoatGame extends Game {
 	private BitmapFont font28;
 
 	/**
-	 * Sets up the game with settings and instantiation of objects
+	 * Sets up the game with settings and instantiation of objects.
 	 */
 	@Override
 	public void create() {
@@ -73,6 +77,7 @@ public class DragonBoatGame extends Game {
 			Collections.sort(obstacleTimes[x]);
 		}
 
+		// Instantiate the course and player and opponent boats.
 		course = new Course(courseTexture, lanes);
 		player = new Player(0, 56, 182, lanes[3], "Player");
 
@@ -85,21 +90,25 @@ public class DragonBoatGame extends Game {
 			opponents[i] = new Opponent(0, 56, 182, lanes[lane], "Opponent" + (i + 1));
 		}
 
+		// Instantiate the progress bar and leaderboard.
 		progressBar = new ProgressBar(player, opponents);
 		leaderboard = new Leaderboard(player, opponents);
 
+		// Set up font.
 		generator = new FreeTypeFontGenerator(Gdx.files.internal("8bitOperatorPlus-Regular.ttf"));
 		parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
 		parameter.size = 28;
 		font28 = generator.generateFont(parameter);
 
 		batch = new SpriteBatch();
+
+		// Display the menu screen.
 		menuScreen = new MenuScreen(this);
 		setScreen(menuScreen);
 	}
 
 	/**
-	 * Changes the screen to a new GameScreen and resets necessary attributes
+	 * Changes the screen to a new GameScreen and resets necessary attributes.
 	 */
 	public void advanceLeg() {
 		/*
@@ -218,10 +227,10 @@ public class DragonBoatGame extends Game {
 	}
 
 	/**
-	 * Resizes the game screen
+	 * Resizes the game screen.
 	 * 
-	 * @param width  Width of the screen
-	 * @param height Height of the screen
+	 * @param width  Width of the screen.
+	 * @param height Height of the screen.
 	 */
 	@Override
 	public void resize(int width, int height) {
@@ -229,7 +238,7 @@ public class DragonBoatGame extends Game {
 	}
 
 	/**
-	 * Disposes of the current screen when it's no longer needed
+	 * Disposes of the current screen when it's no longer needed.
 	 */
 	@Override
 	public void dispose() {

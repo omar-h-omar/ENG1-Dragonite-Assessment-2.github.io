@@ -40,12 +40,12 @@ public class MenuScreen implements Screen {
             /**
              * Used to receive input events from the mouse.
              * 
-             * @param screenX x position of the cursor.
-             * @param screenY y position of the cursor (top left is 0,0).
-             * @param pointer pointer object
-             * @param button  number representing mouse button clicked (0 = left click, 1 =
-             *                right click, 2 = middle mouse button, etc.)
-             * @return the output of touchUp(...), a boolean representing whether the input
+             * @param screenX X-position of the cursor.
+             * @param screenY Y-position of the cursor (top left is 0,0).
+             * @param pointer Pointer object.
+             * @param button  Number representing mouse button clicked (0 = left click, 1 =
+             *                right click, 2 = middle mouse button, etc.).
+             * @return The output of touchUp(...), a boolean representing whether the input
              *         was processed (unused in this scenario).
              * @see InputAdapter
              */
@@ -53,7 +53,7 @@ public class MenuScreen implements Screen {
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 /*
                  * First check whether the cursor is in right y-bounds, as these are all the
-                 * same for all boats
+                 * same for all boats.
                  */
                 if (screenY >= 397 && screenY <= 655) {
                     /*

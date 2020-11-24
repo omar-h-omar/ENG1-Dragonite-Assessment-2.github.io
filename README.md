@@ -1,3 +1,12 @@
+# Contents
+- [About Us](#about-us)
+- [Game Description](#game-description)
+- [Assessment Content](#assessment-content)
+  - [Deliverables](#deliverables)
+  - [Executables](#executables)
+  - [Javadocs](#javadocs)
+  - [Weekly Snapshots](#weekly-snapshots)
+
 # About Us
 
 <img src="core/assets/dragonboatz Logo.png">
@@ -14,21 +23,60 @@ Our Team consists of:
 *   Will Dalgleish
 *   Xinyi Zhang
 
+# Game Description
+
+<img src="core/assets/example screen for website.png">
+
+Dragon Boat Z is a single-player Boat Racing game based on the annual Dragon Boat Race held in York along the
+River Ouse.
+
+In Dragon Boat Z, the player competes against 6 AI opponents, racing their dragon boats across 3 legs to achieve the fastest time to cross the finish line.
+
+Upon starting the game, the player selects 1 of 7 boats as their boat that they would like to race with.
+Every boat has 4 statistics with each boat having a different distribution of these statistics.
+
+## Boat Statistics
+- <strong>Robustness</strong>
+  - Determines how much damage a boat can take. 
+  - A boat with higher robustness will lose a smaller percentage damage to the durability upon collision with an obstacle.
+- <strong>Manoeuvrability</strong>
+  - Determines how fast the boat can avoid obstacles. 
+  - A boat with higher manoeuvrability will be able to move side to side better without losing speed.
+- <strong>Max Speed</strong>
+  - Determines how fast a boat can go. 
+  - A boat with higher max speed will be able to go faster than other boats.
+- <strong>Acceleration</strong>
+  - Determines how quickly a boat can achieve its max speed. 
+  - A boat with higher acceleration will achieve its max speed before other boats.
+
+## Obstacles and Penalties
+During the races, there are a series of obstacles that will be floating down the Ouse. The player must avoid these obstacles in order to not damage their boat.
+If the boat's durability is reduced to 0 at any point within the game, the game ends and the player loses. So, watch out for those geese!!
+Whilst navigating the obstacles, the player must make sure to stay in their lane to avoid incurring a time penalty.
+
+## Winning the Game
+If the player manages to achieve one of the 3 fastest times across the 3 legs, they will qualify for the final race where they will compete against the other 2 fastest boats.
+Upon completing the final race, the player will be awarded a medal, bronze, silver, or gold respective to their finishing position.
+
 # Assessment Content
 ### Deliverables
-*   <a href="docs/Req1.pdf">Requirements</a>
-*   <a href="docs/Arch1.pdf">Architecture</a>
-*   <a href="docs/Plan1.pdf">Method Selection and Planning</a>
-*   <a href="docs/Risk1.pdf">Risk Assessment and Mitigation</a>
-*   <a href="docs/Impl1.pdf">Implementation</a>
+*   <a href="docs/deliverables/Req1.pdf">Requirements</a>
+*   <a href="docs/deliverables/Arch1.pdf">Architecture</a>
+*   <a href="docs/deliverables/Plan1.pdf">Method Selection and Planning</a>
+*   <a href="docs/deliverables/Risk1.pdf">Risk Assessment and Mitigation</a>
+*   <a href="docs/deliverables/Impl1.pdf">Implementation</a>
 
 ### Executables
-*   <a href="fileloaction.exe">Dragon Boat Z Game</a>
+*   <a href="https://github.com/TheWill10m/Dragon-Boat-Z/releases/download/v1.0/DragonBoat.jar">Dragon Boat Z Game</a>
 
 ### Javadocs
-*   <a href="docs/javadoc/index.html">Javadocs html export</a>
+*   <a href="docs/javadoc/index.html">Javadocs HTML Export</a>
 
 ### Weekly Snapshots
+#### Project Gantt Chart
+<img src="docs/gantt chart/gantt chart.png">
+
+#### Sprint Dropdowns
 <details>
   <summary><strong> Sprint 1 - 08/10/2020 </strong></summary>
 
@@ -100,7 +148,7 @@ of these tasks and discuss if any would need to be reassigned.
 <details> 
   <summary><strong> Sprint 5 - 05/11/2020 </strong></summary>
   
-The backlog of tasks T14 and T11, from the previous Sprint, were assigned the highest priority, as continued programming work depended on their completion. With the aim of reaching the milestone M4, at the end of this Sprint, the prototype development was a high focus. Method Section and Planning were a focus within the Deliverables board to continue to append changes that had occurred during the project lifecycle.
+The backlog of tasks T14 and T11, from the previous Sprint, were assigned the highest priority, as continued programming work depended on their completion. With the aim of reaching the milestone M4, at the end of this Sprint, the prototype development was a high focus. The specific tasks related to the prototype were stated within the assignee's task description. Method Selection and Planning were a focus within the Deliverables board to continue to append changes that had occurred during the project lifecycle.
 
 <br>
 <br>
@@ -148,37 +196,3 @@ focused on. This was to ensure a successful completion of the entire project.
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint%207.png">Sprint 7 Jira Board</a>
 <br>
 </details>
-
-# Game Description
-
-<img src="core/assets/example screen for website.png">
-
-Dragon Boat Z is a single-player Boat Racing game based on the annual Dragon Boat Race held in York along the
-River Ouse.
-
-In Dragon Boat Z, the player competes against 6 AI opponents, racing their dragon boats across 3 legs to achieve the fastest time to cross the finish line.
-
-Upon starting the game, the player selects 1 of 7 boats as their boat that they would like to race with.
-Every boat has 4 statistics with each boat having a different distribution of these statistics.
-
-## Boat Statistics
-- <strong>Robustness</strong>
-  - Determines how much damage a boat can take. 
-  - A boat with higher robustness will lose a smaller percentage damage to the durability upon collision with an obstacle.
-- <strong>Manoeuvrability</strong>
-  - Determines how fast the boat can avoid obstacles. 
-  - A boat with higher manoeuvrability will be able to move side to side better without losing speed.
-- <strong>Max Speed</strong>
-  - Determines how fast a boat can go. 
-  - A boat with higher max speed will be able to go faster than other boats.
-- <strong>Acceleration</strong>
-  - Determines how quickly a boat can achieve its max speed. 
-  - A boat with higher acceleration will achieve its max speed before other boats.
-
-## Racing
-During the races, there are a series of obstacles that will be floating down the Ouse. The player must avoid these obstacles in order to not damage their boat.
-If the boat's durability is reduced to 0 at any point within the game, the game ends and the player loses. So, watch out for those geese!!
-Whilst navigating the obstacles, the player must make sure to stay in their lane to avoid incurring a time penalty.
-
-If the player manages to achieve one of the 3 fastest times across the 3 legs, they will qualify for the final race where they will compete against the other 2 fastest boats.
-Upon completing the final race, the player will be awarded a medal, bronze, silver, or gold respective to their finishing position.

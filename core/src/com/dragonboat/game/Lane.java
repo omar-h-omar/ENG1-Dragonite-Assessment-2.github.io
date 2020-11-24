@@ -47,7 +47,7 @@ public class Lane {
      * Spawns obstacle in the lane.
      * </p>
      * <p>
-     * Spawns speified obstacle in the lane. Checks that the obstacle limit hasn't
+     * Spawns specified obstacle in the lane. Checks that the obstacle limit hasn't
      * been reached, if not checks the obstacle type for Goose or Log and
      * instantiates it as the corresponding obstacle, with the correct texture. Then
      * adds it to the Lane's obstacle list.
@@ -77,7 +77,7 @@ public class Lane {
      * Removes obstacle from obstacle list.
      * </p>
      * <p>
-     * Obstacle should be removed upon collision with boat or leaving the course
+     * Obstacle should be removed upon collision with boat or leaving the course.
      * area.
      * </p>
      * 
@@ -91,7 +91,7 @@ public class Lane {
 
     /**
      * 
-     * @return int representing the x coordinate of the lane's left boundary.
+     * @return Int representing the x-position of the lane's left boundary.
      */
     public int getLeftBoundary() {
         return this.LEFTBOUNDARY;
@@ -99,7 +99,7 @@ public class Lane {
 
     /**
      * 
-     * @return int representing the x coordinate of the lane's right boundary.
+     * @return Int representing the x-position of the lane's right boundary.
      */
     public int getRightBoundary() {
         return this.RIGHTBOUNDARY;
