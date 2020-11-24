@@ -73,9 +73,10 @@ Upon completing the final race, the player will be awarded a medal, bronze, silv
 *   <a href="docs/javadoc/index.html">Javadocs HTML Export</a>
 
 ### Weekly Snapshots
-<strong>Project Gantt Chart</strong>
+#### Project Gantt Chart
 <img src="docs/gantt chart/gantt chart.png">
 
+#### Sprint Dropdowns
 <details>
   <summary><strong> Sprint 1 - 08/10/2020 </strong></summary>
 
