@@ -60,11 +60,11 @@ Upon completing the final race, the player will be awarded a medal, bronze, silv
 
 # Assessment Content
 ### Deliverables
-*   <a href="docs/Req1.pdf">Requirements</a>
-*   <a href="docs/Arch1.pdf">Architecture</a>
-*   <a href="docs/Plan1.pdf">Method Selection and Planning</a>
-*   <a href="docs/Risk1.pdf">Risk Assessment and Mitigation</a>
-*   <a href="docs/Impl1.pdf">Implementation</a>
+*   <a href="docs/deliverables/Req1.pdf">Requirements</a>
+*   <a href="docs/deliverables/Arch1.pdf">Architecture</a>
+*   <a href="docs/deliverables/Plan1.pdf">Method Selection and Planning</a>
+*   <a href="docs/deliverables/Risk1.pdf">Risk Assessment and Mitigation</a>
+*   <a href="docs/deliverables/Impl1.pdf">Implementation</a>
 
 ### Executables
 *   <a href="https://github.com/TheWill10m/Dragon-Boat-Z/releases/download/v1.0/DragonBoat.jar">Dragon Boat Z Game</a>
