@@ -1,7 +1,7 @@
 # Contents
 - [About Us](#about-us)
 - [Game Description](#game-description)
-- [Assesment Content](#assessment-content)
+- [Assessment Content](#assessment-content)
   - [Deliverables](#deliverables)
   - [Executables](#executables)
   - [Javadocs](#javadocs)
