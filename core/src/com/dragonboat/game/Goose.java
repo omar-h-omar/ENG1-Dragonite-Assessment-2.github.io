@@ -20,7 +20,7 @@ public class Goose extends Obstacle {
 	 * Creates a goose instance.
 	 * </p>
 	 * <p>
-	 * Geese can ace North, East, South or West. Width and height switch when
+	 * Geese can face North, East, South or West. Width and height switch when
 	 * changing between North or South and East or West.
 	 * </p>
 	 * 

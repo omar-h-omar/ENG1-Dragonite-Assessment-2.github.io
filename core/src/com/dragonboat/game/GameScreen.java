@@ -60,9 +60,9 @@ public class GameScreen implements Screen {
     private final int WIDTH = 1080, HEIGHT = 720;
 
     /**
-     * Sets up everything needed for a race to take place
+     * Sets up everything needed for a race to take place.
      * 
-     * @param game represents the initial state of DragonBoatGame.
+     * @param game Represents the initial state of DragonBoatGame.
      */
     public GameScreen(DragonBoatGame game) {
         /*
@@ -224,10 +224,10 @@ public class GameScreen implements Screen {
          * Increase the background offset so the player is centered.
          */
         if (player.getY() + HEIGHT / 2 + player.getHeight() / 2 > course.getTexture().getHeight()) {
-            // stop increasing the background offset when the player reaches the end of the
+            // Stop increasing the background offset when the player reaches the end of the
             // course.
         } else if (player.getY() + player.getHeight() / 2 > HEIGHT / 2) {
-            // start increasing the background offset when the player is above half the
+            // Start increasing the background offset when the player is above half the
             // window height.
             backgroundOffset = player.getY() + player.getHeight() / 2 - HEIGHT / 2;
         }
@@ -242,16 +242,16 @@ public class GameScreen implements Screen {
         batch.end();
 
         /*
-         * Display and move obstacles
+         * Display and move obstacles.
          */
         for (Lane lane : lanes) {
             if (!started)
                 break;
             for (int j = 0; j < lane.obstacles.size(); j++) {
                 Obstacle o = lane.obstacles.get(j);
-                // if the background hasn't started moving yet, or if the player has reached the
+                // If the background hasn't started moving yet, or if the player has reached the
                 // top of the course, move obstacle at set speed.
-                // else add the player speed to the obstacle speed.
+                // Else add the player speed to the obstacle speed.
                 o.Move(0.4f + (backgroundOffset > 0
                         && player.getY() + HEIGHT / 2 + player.getHeight() / 2 < course.getTexture().getHeight()
                                 ? player.getCurrentSpeed()
@@ -391,10 +391,10 @@ public class GameScreen implements Screen {
 
         /*
          * Check if all boats have passed the finish line, if so, generate the
-         * leaderboard
+         * leaderboard.
          */
         if (progressBar.allFinished(course.getTexture().getHeight()) || (game.difficulty == 4 && player.finished())) {
-            // display leaderboard, if on the third leg, display top 3 boats
+            // Display leaderboard, if on the third leg, display top 3 boats.
             if (game.difficulty < 3) {
                 batch.begin();
                 batch.draw(leaderboard.getTexture(), WIDTH / 2 - leaderboard.getTexture().getWidth() / 2,
@@ -411,7 +411,7 @@ public class GameScreen implements Screen {
                 font28.draw(batch, "Click anywhere to progress to next leg.", 200, 40);
                 batch.end();
                 /*
-                 * Defines how to handle keyboard and mouse inputs
+                 * Defines how to handle keyboard and mouse inputs.
                  */
                 Gdx.input.setInputProcessor(new InputAdapter() {
                     @Override
@@ -444,7 +444,7 @@ public class GameScreen implements Screen {
                     font28.draw(batch, "Click anywhere to progress to the final!", 200, 40);
                     batch.end();
                     /*
-                     * Defines how to handle keyboard and mouse inputs
+                     * Defines how to handle keyboard and mouse inputs.
                      */
                     Gdx.input.setInputProcessor(new InputAdapter() {
                         @Override
@@ -464,10 +464,10 @@ public class GameScreen implements Screen {
     }
 
     /**
-     * Resizes the game screen
+     * Resizes the game screen.
      * 
-     * @param width  Width of the screen
-     * @param height Height of the screen
+     * @param width  Width of the screen.
+     * @param height Height of the screen.
      */
     @Override
     public void resize(int width, int height) {
