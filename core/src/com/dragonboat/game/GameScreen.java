@@ -20,7 +20,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class GameScreen implements Screen {
     // ENVIRONMENT VARIABLES:
     private final Random rnd;
-    private final int MAX_DURABILITY = 40, MAX_TIREDNESS = 100;
+    private final int MAX_DURABILITY = 50, MAX_TIREDNESS = 100;
     private DragonBoatGame game = null;
 
     // debug booleans
@@ -182,7 +182,9 @@ public class GameScreen implements Screen {
             if (!started || player.finished() || this.game.obstacleTimes[i].size() == 0)
                 break;
             if (this.game.obstacleTimes[i].get(0) - player.getY() + player.getHeight() < 1) {
-                String[] obstacleTypes = { "Goose", "Log" };
+                // new added rock
+                String[] obstacleTypes = { "Goose", "LogBig", "LogSmall", "Rock"};
+
                 // spawn an obstacle in lane i.
                 int xCoord = lanes[i].getLeftBoundary()
                         + rnd.nextInt(lanes[i].getRightBoundary() - lanes[i].getLeftBoundary() - 15);
@@ -209,10 +211,12 @@ public class GameScreen implements Screen {
          * Move opponents. Advance animation frame.
          */
         for (Opponent o : opponents) {
-            if (!started)
+            if (!started) {
                 break;
+            }
             o.MoveForward();
             o.CheckCollisions(backgroundOffset);
+
             if (Math.round(totalDeltaTime) % 2 == 0) {
                 o.ai(backgroundOffset);
             }
@@ -233,6 +237,11 @@ public class GameScreen implements Screen {
         }
 
         player.CheckCollisions(backgroundOffset);
+
+        //new
+        if (player.getDurability() <= 0){
+            game.endGame();
+        }
 
         /*
          * Display background.
@@ -477,6 +486,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void pause() {
+        //game.setScreen(new PauseScreen(game));
 
     }
 

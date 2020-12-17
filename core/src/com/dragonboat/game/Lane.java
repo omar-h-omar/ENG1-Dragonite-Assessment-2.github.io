@@ -63,10 +63,17 @@ public class Lane {
                 Goose goose = new Goose(x, y, new Texture(Gdx.files.internal("gooseSouthsprite.png")), this);
                 this.obstacles.add(goose);
 
-            } else if (obstacleType.equals("Log")) {
+            } else if (obstacleType.equals("LogBig")) {
                 Log log = new Log(x, y, new Texture(Gdx.files.internal("logBig sprite.png")));
                 this.obstacles.add(log);
 
+            } else if (obstacleType.equals("LogSmall")) {
+                Log log = new Log(x, y, new Texture(Gdx.files.internal("logSmall sprite.png")));
+                this.obstacles.add(log);
+
+            } else if(obstacleType.equals("Rock")){
+                Rock rock = new Rock(x, y, new Texture(Gdx.files.internal("rock.png")));
+                this.obstacles.add(rock);
             }
         } else
             System.out.println("Obstacle limit reached.");

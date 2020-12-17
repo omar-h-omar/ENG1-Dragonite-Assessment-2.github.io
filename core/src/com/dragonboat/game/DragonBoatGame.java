@@ -51,6 +51,7 @@ public class DragonBoatGame extends Game {
 	public FreeTypeFontGenerator generator;
 	public FreeTypeFontGenerator.FreeTypeFontParameter parameter;
 	private SpriteBatch batch;
+	///***maybe set to public? so it is less memory intensive
 	private BitmapFont font28;
 	private Texture courseTexture;
 
@@ -60,6 +61,9 @@ public class DragonBoatGame extends Game {
 	@Override
 	public void create() {
 		int w = Gdx.graphics.getWidth() - 80;
+		//moved from MenuScreen render method as is does not need to put in the background every time
+		Gdx.gl.glClearColor(0.15f, 0.15f, 0.3f, 1);
+
 
 		if(debug_norandom) rnd = new Random(1);
 		else rnd = new Random();
@@ -80,6 +84,7 @@ public class DragonBoatGame extends Game {
 		 */
 		for (int x = 0; x < lanes.length; x++) {
 			obstacleTimes[x] = new ArrayList<>();
+			//new 40 is the offset
 			lanes[x] = new Lane((x * w / lanes.length) + 40, (((x + 1) * w) / lanes.length) + 40);
 			int maxY = (courseTexture.getHeight() - (5 * noOfObstacles)) / noOfObstacles;
 			for (int y = 0; y < noOfObstacles; y++) {
@@ -209,6 +214,14 @@ public class DragonBoatGame extends Game {
 				 * If the player is in the top 3 boats, display the player's boat and
 				 * appropriate medal.
 				 */
+
+				// new for if the boat broke
+				if (player.getDurability() <= 0){
+					batch.begin();
+					font28.draw(batch, "Sorry your boat is destroyed", 140, 250);
+					batch.end();
+					break;
+				}
 				if (podium[i].getName().startsWith("Player")) {
 					playerWon = true;
 					batch.begin();

@@ -6,6 +6,11 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
  * Screen class for the Menu Screen. Allows the user to select a Boat, and shows
@@ -16,7 +21,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * @see Screen
  */
 public class MenuScreen implements Screen {
-    Texture startScreen;
+    //made this texture private for encapsulation
+    private Texture startScreen;
     final DragonBoatGame game;
     private final SpriteBatch batch;
 
@@ -111,12 +117,15 @@ public class MenuScreen implements Screen {
         });
     }
 
+    private void btnLoginClicked() {
+        game.setScreen(new GameScreen(game));
+    }
+
     /**
      * Rendering function for the menu screen.
      */
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0.15f, 0.15f, 0.3f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         batch.draw(startScreen, 0, 0);
@@ -157,4 +166,6 @@ public class MenuScreen implements Screen {
         startScreen.dispose();
         batch.dispose();
     }
+
+
 }

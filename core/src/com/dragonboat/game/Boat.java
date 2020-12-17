@@ -25,6 +25,7 @@ public class Boat {
     protected int width, height;
     private float currentSpeed, fastestLegTime, tiredness;
     protected Lane lane;
+
     private Texture[] textureFrames;
     private int frameCounter;
     public Texture texture;
@@ -126,9 +127,12 @@ public class Boat {
         ArrayList<Obstacle> obstacles = this.lane.obstacles;
         ArrayList<Integer> obstaclesToRemove = new ArrayList<>();
         for (Obstacle o : obstacles) {
-            if (o.getX() > this.xPosition + threshold && o.getX() < this.xPosition + this.width - threshold) {
-                if (o.getY() + backgroundOffset > this.yPosition + threshold
-                        && o.getY() + backgroundOffset < this.yPosition + this.height - threshold) {
+            // new changed so that it accommodates for obstacles with different width
+            if (o.getX() < this.xPosition + this.width && this.xPosition < o.getX() + o.getTexture().getWidth()){
+                // new changed for detection of y as it would not collide on the side of boats
+                if(this.yPosition + this.height > o.getY() + backgroundOffset
+                        && this.yPosition < o.getY() + o.texture.getHeight() + backgroundOffset){
+
                     this.ApplyDamage(o.getDamage());
                     obstaclesToRemove.add(obstacles.indexOf(o));
                 }
