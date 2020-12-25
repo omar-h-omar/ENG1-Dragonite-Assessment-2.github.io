@@ -97,7 +97,16 @@ nbactions.xml
 nb-configuration.xml
 
 ## Gradle
-
+/local.properties
+.gradle/
+gradle-app.setting
+/build/
+/android/build/
+/core/build/
+/desktop/build/
+/html/build/
+/ios/build/
+/ios-moe/build/
 
 ## OS Specific
 .DS_Store
