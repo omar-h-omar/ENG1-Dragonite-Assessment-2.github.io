@@ -4,6 +4,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.dragonboat.game.DragonBoatGame;
 
+
 /**
  * Launches the game window with specified graphics settings.
  */
