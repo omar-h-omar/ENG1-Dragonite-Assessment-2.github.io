@@ -1,10 +1,8 @@
 package com.dragonboat.game;
 
 import com.badlogic.gdx.graphics.Texture;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.*;
 
-public class Rock extends Obstacle{
+public class Rock extends Obstacle {
 
     /**
      * Creates a rock instance.
@@ -16,8 +14,6 @@ public class Rock extends Obstacle{
     public Rock(int xPosition, int yPosition, Texture texture) {
         super(20, xPosition, yPosition, texture.getWidth(), texture.getHeight(), texture);
     }
-
-
 }
 
 

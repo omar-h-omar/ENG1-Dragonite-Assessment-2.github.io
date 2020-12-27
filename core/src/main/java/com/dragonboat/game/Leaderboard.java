@@ -17,7 +17,7 @@ public class Leaderboard {
 
     /**
      * Creates a leaderboard with an array of all boats.
-     * 
+     *
      * @param player    Player object.
      * @param opponents Array of opponent boats.
      */
@@ -55,7 +55,7 @@ public class Leaderboard {
     /**
      * Gets the names of the boats and their fastest times, in order of fastest
      * time.
-     * 
+     *
      * @param places Number of boats to get.
      * @return Array representing boats.
      */
@@ -72,7 +72,7 @@ public class Leaderboard {
 
     /**
      * Gets the leaderboard texture.
-     * 
+     *
      * @return A Texture representing the sprite.
      */
     public Texture getTexture() {
@@ -81,7 +81,7 @@ public class Leaderboard {
 
     /**
      * Gets top boats, in order of fastest race time.
-     * 
+     *
      * @param places Number of boats to get.
      * @return Array representing the boats.
      */
@@ -96,7 +96,7 @@ public class Leaderboard {
 
     /**
      * Gets the top 3 boats, in order of fastest times.
-     * 
+     *
      * @return Array representing boats.
      */
     public Boat[] getPodium() {

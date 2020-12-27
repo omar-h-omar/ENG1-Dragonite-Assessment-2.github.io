@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 /**
  * Represents a Boat, controlled by either a Player or Opponent.
- * 
+ *
  * @see Player
  * @see Opponent
  */
@@ -35,7 +35,7 @@ public class Boat {
 
     /**
      * Creates a Boat instance in a specified Lane.
-     * 
+     *
      * @param yPosition Y-position of the boat.
      * @param width     Width of the boat.
      * @param height    Height of the boat.
@@ -118,7 +118,7 @@ public class Boat {
 
     /**
      * Checks each obstacle in the Lane for a collision.
-     * 
+     *
      * @param backgroundOffset How far up the course the player is.
      * @return Boolean representing if a collision occurs.
      */
@@ -128,10 +128,10 @@ public class Boat {
         ArrayList<Integer> obstaclesToRemove = new ArrayList<>();
         for (Obstacle o : obstacles) {
             // new changed so that it accommodates for obstacles with different width
-            if (o.getX() < this.xPosition + this.width && this.xPosition < o.getX() + o.getTexture().getWidth()){
+            if (o.getX() < this.xPosition + this.width && this.xPosition < o.getX() + o.getTexture().getWidth()) {
                 // new changed for detection of y as it would not collide on the side of boats
-                if(this.yPosition + this.height > o.getY() + backgroundOffset
-                        && this.yPosition < o.getY() + o.texture.getHeight() + backgroundOffset){
+                if (this.yPosition + this.height > o.getY() + backgroundOffset
+                        && this.yPosition < o.getY() + o.texture.getHeight() + backgroundOffset) {
 
                     this.ApplyDamage(o.getDamage());
                     obstaclesToRemove.add(obstacles.indexOf(o));
@@ -148,7 +148,7 @@ public class Boat {
     /**
      * Decreases the durability of the boat by the obstacle damage divided by the
      * boat's robustness.
-     * 
+     *
      * @param obstacleDamage Amount of damage an Obstacle inflicts on the boat.
      * @return Boolean representing whether the durability of the boat is below 0.
      */
@@ -160,7 +160,7 @@ public class Boat {
 
     /**
      * Checks if the boat is between the left boundary and the right boundary of the Lane.
-     * 
+     *
      * @return Boolean representing whether the Boat is in the Lane.
      */
     public boolean CheckIfInLane() {
@@ -170,7 +170,7 @@ public class Boat {
 
     /**
      * Updates the boat's fastest time.
-     * 
+     *
      * @param elapsedTime Time it took the boat to finish the current race.
      */
     public void UpdateFastestTime(float elapsedTime) {
@@ -205,7 +205,7 @@ public class Boat {
 
     /**
      * Generates all frames for animating the boat.
-     * 
+     *
      * @param boatName Boat name, used to get correct asset.
      */
     public void GenerateTextureFrames(char boatName) {
@@ -240,7 +240,6 @@ public class Boat {
     // getters and setters
 
     /**
-     * 
      * @param t Texture to use.
      */
     public void setTexture(Texture t) {
@@ -248,7 +247,6 @@ public class Boat {
     }
 
     /**
-     * 
      * @param frames Texture frames for animation.
      */
     public void setTextureFrames(Texture[] frames) {
@@ -256,7 +254,6 @@ public class Boat {
     }
 
     /**
-     * 
      * @return Float representing fastest race/leg time.
      */
     public float getFastestTime() {
@@ -264,7 +261,6 @@ public class Boat {
     }
 
     /**
-     * 
      * @return Int representing x-position of boat.
      */
     public int getX() {
@@ -272,7 +268,6 @@ public class Boat {
     }
 
     /**
-     * 
      * @return Int representing y-position of boat.
      */
     public int getY() {
@@ -280,7 +275,6 @@ public class Boat {
     }
 
     /**
-     * 
      * @return Int representing the y coordinate range of the boat (length).
      */
     public int getHeight() {
@@ -288,7 +282,6 @@ public class Boat {
     }
 
     /**
-     * 
      * @return String representing name of the boat.
      */
     public String getName() {
@@ -296,7 +289,6 @@ public class Boat {
     }
 
     /**
-     * 
      * @return Boolean representing if the boat has finished the current race.
      */
     public boolean finished() {
@@ -304,7 +296,6 @@ public class Boat {
     }
 
     /**
-     * 
      * @param f Boolean representing if the boat has finished the race.
      */
     public void setFinished(boolean f) {
@@ -312,7 +303,6 @@ public class Boat {
     }
 
     /**
-     * 
      * @return Float representing the current speed of the boat.
      */
     public float getCurrentSpeed() {
@@ -320,7 +310,6 @@ public class Boat {
     }
 
     /**
-     * 
      * @param finishY Y-position of the finish line.
      * @return Float representing the progress of the boat from 0 to 1.
      */
@@ -330,7 +319,7 @@ public class Boat {
 
     /**
      * Implicitly sets the stats of the boat, given each attribute.
-     * 
+     *
      * @param maxspeed        Top speed the boat can reach.
      * @param robustness      How resilient to obstacle damage the boat is.
      * @param acceleration    How much the speed increases each frame.
@@ -346,14 +335,14 @@ public class Boat {
     /**
      * Interpolates predetermined stats from a boat label, and sets the stats based
      * on those.
-     * 
+     *
      * @param boatLabel A character between A-G representing a specific boat.
      */
     public void setStats(char boatLabel) {
-        int[] maxspeeds = { 5, 4, 5, 5, 4, 7, 5 };
-        int[] robustnesses = { 2, 4, 1, 4, 8, 3, 5 };
-        float[] accelerations = { 6f, 2f, 8f, 4f, 3f, 1.4f, 2f };
-        float[] maneuverabilities = { 3f, 8f, 3f, 4f, 2f, 1f, 5f };
+        int[] maxspeeds = {5, 4, 5, 5, 4, 7, 5};
+        int[] robustnesses = {2, 4, 1, 4, 8, 3, 5};
+        float[] accelerations = {6f, 2f, 8f, 4f, 3f, 1.4f, 2f};
+        float[] maneuverabilities = {3f, 8f, 3f, 4f, 2f, 1f, 5f};
 
         int boatNo = boatLabel - 65;
 
@@ -361,7 +350,6 @@ public class Boat {
     }
 
     /**
-     * 
      * @return Float representing the manouverability of the boat.
      */
     public float getManeuverability() {
@@ -369,7 +357,6 @@ public class Boat {
     }
 
     /**
-     * 
      * @return Float representing the acceleration of the boat.
      */
     public float getAcceleration() {
@@ -377,7 +364,6 @@ public class Boat {
     }
 
     /**
-     * 
      * @return Int representing the robustness of the boat.
      */
     public int getRobustness() {
@@ -385,7 +371,6 @@ public class Boat {
     }
 
     /**
-     * 
      * @return Int representing the durability of the boat.
      */
     public int getDurability() {
@@ -393,7 +378,6 @@ public class Boat {
     }
 
     /**
-     * 
      * @return Int representing the maximum speed of the boat.
      */
     public int getMaxSpeed() {
@@ -401,7 +385,6 @@ public class Boat {
     }
 
     /**
-     * 
      * @return Float representing the tiredness of the boat crew.
      */
     public float getTiredness() {
@@ -409,7 +392,6 @@ public class Boat {
     }
 
     /**
-     * 
      * @return Float representing the time penalty incurred for the current race.
      */
     public float getPenalty() {
@@ -417,7 +399,6 @@ public class Boat {
     }
 
     /**
-     * 
      * @param penalty Float to add to the boat's penalty total for the current race.
      */
     public void applyPenalty(float penalty) {
@@ -425,7 +406,6 @@ public class Boat {
     }
 
     /**
-     * 
      * @param lane Lane object for the boat.
      */
     public void setLane(Lane lane) {

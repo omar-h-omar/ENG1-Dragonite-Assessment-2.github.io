@@ -24,7 +24,7 @@ public class GameScreen implements Screen {
     private DragonBoatGame game = null;
 
     // debug booleans
-    private boolean debug_speed,debug_positions,debug_norandom,debug_verboseoutput;
+    private boolean debug_speed, debug_positions, debug_norandom, debug_verboseoutput;
 
     // game
     private final Player player;
@@ -50,7 +50,7 @@ public class GameScreen implements Screen {
     private final Texture staminaBarEmpty;
     private final FreeTypeFontGenerator generator;
     private final FreeTypeFontGenerator.FreeTypeFontParameter parameter;
-    private final BitmapFont font18,font28,font44;
+    private final BitmapFont font18, font28, font44;
 
     // timing
     private int backgroundOffset;
@@ -61,7 +61,7 @@ public class GameScreen implements Screen {
 
     /**
      * Sets up everything needed for a race to take place.
-     * 
+     *
      * @param game Represents the initial state of DragonBoatGame.
      */
     public GameScreen(DragonBoatGame game) {
@@ -171,7 +171,7 @@ public class GameScreen implements Screen {
          * Check whether obstacles need to be spawned, and spawns them if so. Breaks
          * instantly if the game hasn't started, if the player has finished, or if there
          * are no more obstacles to be spawned.
-         * 
+         *
          * - IMPORTANT -
          * It should be noted that the obstacles currently use a
          * coordinate system relative to the screen, as they are always spawned at
@@ -183,7 +183,7 @@ public class GameScreen implements Screen {
                 break;
             if (this.game.obstacleTimes[i].get(0) - player.getY() + player.getHeight() < 1) {
                 // new added rock
-                String[] obstacleTypes = { "Goose", "LogBig", "LogSmall", "Rock"};
+                String[] obstacleTypes = {"Goose", "LogBig", "LogSmall", "Rock"};
 
                 // spawn an obstacle in lane i.
                 int xCoord = lanes[i].getLeftBoundary()
@@ -239,7 +239,7 @@ public class GameScreen implements Screen {
         player.CheckCollisions(backgroundOffset);
 
         //new
-        if (player.getDurability() <= 0){
+        if (player.getDurability() <= 0) {
             game.endGame();
         }
 
@@ -262,7 +262,7 @@ public class GameScreen implements Screen {
                 // top of the course, move obstacle at set speed.
                 // Else add the player speed to the obstacle speed.
                 o.Move(0.4f + (backgroundOffset > 0
-                        && player.getY() + HEIGHT / 2 + player.getHeight() / 2 < course.getTexture().getHeight()
+                                && player.getY() + HEIGHT / 2 + player.getHeight() / 2 < course.getTexture().getHeight()
                                 ? player.getCurrentSpeed()
                                 : 0),
                         backgroundOffset);
@@ -290,8 +290,9 @@ public class GameScreen implements Screen {
                 healthBarFull.getHeight());
         batch.end();
 
-        if(debug_positions) debug += player.getName() + " pos: (" + player.getX() + "," + player.getY() +")\n";
-        if(debug_speed) debug += player.getName() + " speed: " + player.getCurrentSpeed() + " / " + player.getMaxSpeed() + "\n\n";
+        if (debug_positions) debug += player.getName() + " pos: (" + player.getX() + "," + player.getY() + ")\n";
+        if (debug_speed)
+            debug += player.getName() + " speed: " + player.getCurrentSpeed() + " / " + player.getMaxSpeed() + "\n\n";
 
         /*
          * Display opponents.
@@ -300,8 +301,8 @@ public class GameScreen implements Screen {
             batch.begin();
             batch.draw(o.texture, o.getX(), o.getY() - backgroundOffset);
             batch.end();
-            if(debug_positions) debug += o.getName() + " pos: (" + o.getX() + "," + o.getY() +")\n";
-            if(debug_speed) debug += o.getName() + " speed: " + o.getCurrentSpeed() + " / " + o.getMaxSpeed() + "\n\n";
+            if (debug_positions) debug += o.getName() + " pos: (" + o.getX() + "," + o.getY() + ")\n";
+            if (debug_speed) debug += o.getName() + " speed: " + o.getCurrentSpeed() + " / " + o.getMaxSpeed() + "\n\n";
         }
 
         /*
@@ -379,19 +380,19 @@ public class GameScreen implements Screen {
         /*
          * Display debug stats.
          */
-        if(debug_positions || debug_speed) {
+        if (debug_positions || debug_speed) {
             batch.begin();
-            font18.draw(batch,debug,5,HEIGHT-60);
+            font18.draw(batch, debug, 5, HEIGHT - 60);
             batch.end();
         }
 
-        if(debug_verboseoutput) {
+        if (debug_verboseoutput) {
             System.out.println("-----------------------");
             System.out.println("Total time: " + totalDeltaTime + "\nDelta time: " + deltaTime);
             System.out.println("-----------------------");
             System.out.println(" -- Variables --\n"
                     + "backgroundOffset: " + backgroundOffset);
-            for(int i = 0; i < lanes.length; i++) {
+            for (int i = 0; i < lanes.length; i++) {
                 System.out.println("Lane " + i + " obstacles: " + lanes[i].obstacles.size());
             }
             System.out.println("\n\n\n");
@@ -474,7 +475,7 @@ public class GameScreen implements Screen {
 
     /**
      * Resizes the game screen.
-     * 
+     *
      * @param width  Width of the screen.
      * @param height Height of the screen.
      */

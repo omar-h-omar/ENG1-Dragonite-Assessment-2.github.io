@@ -16,7 +16,7 @@ public class PauseScreen implements Screen {
         batch = new SpriteBatch();
         Texture resume = new Texture("resume.png");
 
-        if (Gdx.input.justTouched()){
+        if (Gdx.input.justTouched()) {
             //need to dispose PauseScreen
             game.setScreen(new GameScreen(game));
         }
@@ -32,7 +32,7 @@ public class PauseScreen implements Screen {
     public void render(float delta) {
         batch.begin();
         //draws resume in the middle of the screen
-        batch.draw(resume, (Gdx.graphics.getWidth() - resume.getWidth())/2, (Gdx.graphics.getHeight() - resume.getHeight())/2);
+        batch.draw(resume, (Gdx.graphics.getWidth() - resume.getWidth()) / 2, (Gdx.graphics.getHeight() - resume.getHeight()) / 2);
         batch.end();
     }
 

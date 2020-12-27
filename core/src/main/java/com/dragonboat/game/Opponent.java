@@ -16,7 +16,7 @@ public class Opponent extends Boat {
 
     /**
      * Creates a opponent instance.
-     * 
+     *
      * @param yPosition Y-position.
      * @param width     Width of the boat.
      * @param height    Height of the boat.
@@ -47,7 +47,7 @@ public class Opponent extends Boat {
      * <p>
      * 3) If nothing, speed up.
      * </p>
-     * 
+     *
      * @param backgroundOffset
      */
     public void ai(int backgroundOffset) {
@@ -57,7 +57,7 @@ public class Opponent extends Boat {
 
         int arbitrary = 50;
         int fov = Math.round(arbitrary * this.getManeuverability()); // Determine a good field of view for the Opponents
-                                                                     // to start reacting to incoming obstacles.
+        // to start reacting to incoming obstacles.
         int visionDistance = Math.round(yPosition + height) + fov;
 
         ArrayList<Obstacle> allIncomingObstacles = this.lane.obstacles;
@@ -145,7 +145,7 @@ public class Opponent extends Boat {
                     } else if (obs.getX() > rightSide) {
                         /*
                          * The obstacle is far right of the boat.
-                         * 
+                         *
                          * Do nothing? A moving Obstacle (Goose) might currently be far right but
                          * heading left on a collision course. Maybe check type of Obstacle then; if
                          * it's a Goose, check the direction. If it's headed your way, do something
@@ -168,14 +168,10 @@ public class Opponent extends Boat {
                         if ((obs.getClass() == Goose.class) && ((Goose) obs).direction == "East") {
                             this.SteerLeft();
                             this.steering = "Left";
-                        }
-
-                        else if ((obs.getClass() == Goose.class) && ((Goose) obs).direction == "West") {
+                        } else if ((obs.getClass() == Goose.class) && ((Goose) obs).direction == "West") {
                             this.SteerRight();
                             this.steering = "Right";
-                        }
-
-                        else {
+                        } else {
                             // For objects moving vertically, calculate whether steering left of it or right
                             // of it is the easiest course.
                             int leftMargin = Math.round(leftSide - obs.getX());
@@ -236,7 +232,7 @@ public class Opponent extends Boat {
      * <p>
      * This includes stats and texture.
      * </p>
-     * 
+     *
      * @param possibleBoats List of remaining boat templates that haven't been
      *                      assigned yet.
      * @return Int representing the index of the boat template that was assigned.

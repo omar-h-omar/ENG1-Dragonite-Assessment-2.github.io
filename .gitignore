@@ -107,10 +107,11 @@ gradle-app.setting
 /html/build/
 /ios/build/
 /ios-moe/build/
+radle-version
 
 ## OS Specific
 .DS_Store
-Thumbs.dbN
+Thumbs.db
 
 ## iOS
 /ios/xcode/*.xcodeproj/*

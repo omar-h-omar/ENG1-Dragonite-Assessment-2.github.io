@@ -6,12 +6,17 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
  * Screen class for the Menu Screen. Allows the user to select a Boat, and shows
  * the controls of the game. Once the user clicks within set boundaries, the
  * game starts within GameScreen.
- * 
+ *
  * @see GameScreen
  * @see Screen
  */
@@ -23,7 +28,7 @@ public class MenuScreen implements Screen {
 
     /**
      * Creates an Input Processor to listen for a mouse click within set boundaries.
-     * 
+     *
      * @param Game represents the initial state of DragonBoatGame.
      * @see com.badlogic.gdx.InputProcessor
      */
@@ -40,7 +45,7 @@ public class MenuScreen implements Screen {
 
             /**
              * Used to receive input events from the mouse.
-             * 
+             *
              * @param screenX X-position of the cursor.
              * @param screenY Y-position of the cursor (top left is 0,0).
              * @param pointer Pointer object.
@@ -60,7 +65,7 @@ public class MenuScreen implements Screen {
                     /*
                      * Then check if the mouse is in each set of x-bounds, if so, set the player
                      * boat to the corresponding boat, and initialise the game.
-                     * 
+                     *
                      * - NOTE - These values don't work if the window is made to be resizable, and
                      * is then resized by the user.
                      */
