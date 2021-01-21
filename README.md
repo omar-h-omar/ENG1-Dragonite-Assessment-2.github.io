@@ -219,18 +219,18 @@ focused on. This was to ensure a successful completion of the entire project.
 
 # Assessment 2 Content
 ### Deliverables
-*   <a href="#">Requirements</a>
-*   <a href="#">Architecture</a>
-*   <a href="#">Method Selection and Planning</a>
-*   <a href="#">Risk Assessment and Mitigation</a>
-*   <a href="#">Implementation</a>
-
-### Assessment 1 Edited Documents
 *   <a href="#">Change Report</a>
 *   <a href="#">Implementation</a>
 *   <a href="#">Testing</a>
 *   <a href="#">Continous Integration</a>
 *   <a href="#">Self Assessment</a>
+
+### Assessment 1 Edited Documents
+*   <a href="#">Requirements</a>
+*   <a href="#">Architecture</a>
+*   <a href="#">Method Selection and Planning</a>
+*   <a href="#">Risk Assessment and Mitigation</a>
+*   <a href="#">Implementation</a>
 
 ### Executables
 *   <a href="#">Dragon Boat Z Game</a>
