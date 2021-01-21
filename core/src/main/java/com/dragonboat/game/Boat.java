@@ -137,6 +137,20 @@ public class Boat {
                         if (o instanceof Maneuverability){
                             MANEUVERABILITY *= 2;
                         }
+                        else if (o instanceof Invincibility){
+
+                        }
+                        else if (o instanceof TimeReduction){
+
+                        }
+                        else if (o instanceof  SpeedBoost){
+                            for (int i = 0; i < 5; i++){
+                                IncreaseSpeed();
+                            }
+                        }
+                        else if (o instanceof Repair){
+                            durability = 50;
+                        }
                         break;
                     }
 
