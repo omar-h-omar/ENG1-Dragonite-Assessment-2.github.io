@@ -1,8 +1,14 @@
 # Contents
 - [About Us](#about-us)
 - [Game Description](#game-description)
-- [Assessment Content](#assessment-content)
+- [Assessment 1 Content](#assessment-1-content)
+  - [Original Deliverables](#original-deliverables)
+  - [Original Executables](#original-executables)
+  - [Original Javadocs](#original-javadocs)
+  - [Original Weekly Snapshots](#original-weekly-snapshots)
+- [Assessment 2 Content](#assessment-2-content)
   - [Deliverables](#deliverables)
+  - [Assessment 1 Edited Documents](#assessment-1-edited-documents)
   - [Executables](#executables)
   - [Javadocs](#javadocs)
   - [Weekly Snapshots](#weekly-snapshots)
@@ -16,12 +22,12 @@ Of course, the answer is yes and we have just the game for you.
 DragonBoat Z!
 
 Our Team consists of:
-*   Ben Jenner
-*   James Wilkinson
-*   Joe Lonsdale
-*   Richard Upton
-*   Will Dalgleish
-*   Xinyi Zhang
+*   Omar Omar
+*   Rhianna Edwards
+*   Okan Deniz
+*   Omar Galvao Da Silva
+*   Joel Wallis
+*   Craig Smith
 
 # Game Description
 
@@ -32,7 +38,8 @@ River Ouse.
 
 In Dragon Boat Z, the player competes against 6 AI opponents, racing their dragon boats across 3 legs to achieve the fastest time to cross the finish line.
 
-Upon starting the game, the player selects 1 of 7 boats as their boat that they would like to race with.
+Upon starting the game, The player can choose to start a new game or load a previous one.
+When starting a new game, players can set the difficulty. After which, the player selects 1 of 7 boats as their boat that they would like to race with. 
 Every boat has 4 statistics with each boat having a different distribution of these statistics.
 
 ## Boat Statistics
@@ -54,25 +61,38 @@ During the races, there are a series of obstacles that will be floating down the
 If the boat's durability is reduced to 0 at any point within the game, the game ends and the player loses. So, watch out for those geese!!
 Whilst navigating the obstacles, the player must make sure to stay in their lane to avoid incurring a time penalty.
 
+## Powerups
+During the races, Boats can pick up 5 different power ups. 
+- <strong>Golden Feather</strong>
+  - Makes the boats invincible for a limited time.
+- <strong>Hammer</strong>
+  - Repaires the boat.
+- <strong>Speed Boost</strong>
+  - Gives increased speed for a limited time.
+- <strong>Move Boost</strong>
+  - Increases the maneuvrability of the boat for a limited time.
+- <strong>Watch</strong>
+  - Decreases the lap time for the boat.
+
 ## Winning the Game
 If the player manages to achieve one of the 3 fastest times across the 3 legs, they will qualify for the final race where they will compete against the other 2 fastest boats.
 Upon completing the final race, the player will be awarded a medal, bronze, silver, or gold respective to their finishing position.
 
-# Assessment Content
-### Deliverables
+# Assessment 1 Content
+### Original Deliverables
 *   <a href="docs/deliverables/Req1.pdf">Requirements</a>
 *   <a href="docs/deliverables/Arch1.pdf">Architecture</a>
 *   <a href="docs/deliverables/Plan1.pdf">Method Selection and Planning</a>
 *   <a href="docs/deliverables/Risk1.pdf">Risk Assessment and Mitigation</a>
 *   <a href="docs/deliverables/Impl1.pdf">Implementation</a>
 
-### Executables
+### Original Executables
 *   <a href="https://github.com/TheWill10m/Dragon-Boat-Z/releases/download/v1.0/DragonBoat.jar">Dragon Boat Z Game</a>
 
-### Javadocs
+### Original Javadocs
 *   <a href="docs/javadoc/index.html">Javadocs HTML Export</a>
 
-### Weekly Snapshots
+### Original Weekly Snapshots
 #### Project Gantt Chart
 <img src="docs/gantt chart/gantt chart.png">
 
@@ -196,3 +216,26 @@ focused on. This was to ensure a successful completion of the entire project.
 <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/sprints/Sprint%207.png">Sprint 7 Jira Board</a>
 <br>
 </details>
+
+# Assessment 2 Content
+### Deliverables
+*   <a href="#">Requirements</a>
+*   <a href="#">Architecture</a>
+*   <a href="#">Method Selection and Planning</a>
+*   <a href="#">Risk Assessment and Mitigation</a>
+*   <a href="#">Implementation</a>
+
+### Assessment 1 Edited Documents
+*   <a href="#">Requirements</a>
+*   <a href="#">Architecture</a>
+*   <a href="#">Method Selection and Planning</a>
+*   <a href="#">Risk Assessment and Mitigation</a>
+*   <a href="#">Implementation</a>
+
+### Executables
+*   <a href="#">Dragon Boat Z Game</a>
+
+### Javadocs
+*   <a href="#">Javadocs HTML Export</a>
+
+### Weekly Snapshots
