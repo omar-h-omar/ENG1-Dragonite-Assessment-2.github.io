@@ -126,12 +126,19 @@ public class Boat {
         // Iterate through obstacles.
         ArrayList<Obstacle> obstacles = this.lane.obstacles;
         ArrayList<Integer> obstaclesToRemove = new ArrayList<>();
+        ArrayList<Integer> powerUpsToRemove = new ArrayList<>();
         for (Obstacle o : obstacles) {
             // new changed so that it accommodates for obstacles with different width
             if (o.getX() < this.xPosition + this.width && this.xPosition < o.getX() + o.getTexture().getWidth()) {
                 // new changed for detection of y as it would not collide on the side of boats
                 if (this.yPosition + this.height > o.getY() + backgroundOffset
                         && this.yPosition < o.getY() + o.texture.getHeight() + backgroundOffset) {
+                    if (o instanceof PowerUp){
+                        if (o instanceof Maneuverability){
+                            MANEUVERABILITY *= 2;
+                        }
+                        break;
+                    }
 
                     this.ApplyDamage(o.getDamage());
                     obstaclesToRemove.add(obstacles.indexOf(o));

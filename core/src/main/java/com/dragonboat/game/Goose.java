@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
@@ -80,11 +81,14 @@ public class Goose extends Obstacle {
 
         if (canGoEast && this.direction == "East") {
             this.setX(this.getX() + moveVal);
+            texture = new Texture(Gdx.files.internal("gooseEast sprite.png"));
+
             if (backgroundOffset > 0 && backgroundOffset < 2160) {
                 this.setY(this.getY() - moveVal);
             }
         } else if (canGoWest && this.direction == "West") {
             this.setX(this.getX() - moveVal);
+            texture = new Texture(Gdx.files.internal("gooseWest sprite.png"));
             if (backgroundOffset > 0 && backgroundOffset < 2160) {
                 this.setY(this.getY() - moveVal);
             }

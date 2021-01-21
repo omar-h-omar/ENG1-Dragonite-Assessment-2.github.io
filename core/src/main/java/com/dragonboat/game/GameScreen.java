@@ -79,6 +79,7 @@ public class GameScreen implements Screen {
         lanes = this.game.lanes;
         progressBar = this.game.progressBar;
         opponents = this.game.opponents;
+        //powerups = this.game.powerups;
         rnd = this.game.rnd;
 
         ArrayList<Integer> possibleBoats = new ArrayList<Integer>();
@@ -184,13 +185,16 @@ public class GameScreen implements Screen {
             if (this.game.obstacleTimes[i].get(0) - player.getY() + player.getHeight() < 1) {
                 // new added rock
                 String[] obstacleTypes = {"Goose", "LogBig", "LogSmall", "Rock"};
+                String[] powerUpTypes = {"Invincibility", "Maneuverability", "Repair", "SpeedBoost", "TimeReduction"};
 
                 // spawn an obstacle in lane i.
                 int xCoord = lanes[i].getLeftBoundary()
                         + rnd.nextInt(lanes[i].getRightBoundary() - lanes[i].getLeftBoundary() - 15);
                 lanes[i].SpawnObstacle(xCoord, HEIGHT + 40, obstacleTypes[rnd.nextInt(obstacleTypes.length)]);
+                lanes[i].SpawnPowerUp(xCoord, HEIGHT + 40, powerUpTypes[rnd.nextInt(powerUpTypes.length)]);
                 // make sure obstacle is only spawned once.
                 this.game.obstacleTimes[i].remove(0);
+                this.game.powerUpTimes[i].remove(0);
             }
         }
 
@@ -223,6 +227,16 @@ public class GameScreen implements Screen {
             if (o.getY() % 5 == 2)
                 o.AdvanceTextureFrame();
         }
+
+        // new
+//        for (PowerUp p : powerups) {
+//            if (!started) {
+//                break;
+//            }
+//            else{
+//                p.AdvanceTextureFrame();
+//            }
+//        }
 
         /*
          * Increase the background offset so the player is centered.
@@ -271,6 +285,24 @@ public class GameScreen implements Screen {
                 }
                 batch.begin();
                 batch.draw(o.getTexture(), o.getX(), o.getY());
+                batch.end();
+            }
+
+            for (int j = 0; j < lane.powerUps.size(); j++) {
+                PowerUp p = lane.powerUps.get(j);
+                // If the background hasn't started moving yet, or if the player has reached the
+                // top of the course, move power-up at set speed.
+                // Else add the player speed to the power-up speed.
+                p.Move(0.4f + (backgroundOffset > 0
+                                && player.getY() + HEIGHT / 2 + player.getHeight() / 2 < course.getTexture().getHeight()
+                                ? player.getCurrentSpeed()
+                                : 0),
+                        backgroundOffset);
+                if (p.getY() < - p.getHeight()) {
+                    lane.RemovePowerUp(p);
+                }
+                batch.begin();
+                batch.draw(p.getTexture(), p.getX(), p.getY());
                 batch.end();
             }
         }
@@ -512,6 +544,10 @@ public class GameScreen implements Screen {
         for (Lane lane : lanes) {
             for (int j = 0; j < lane.obstacles.size(); j++) {
                 lane.obstacles.get(j).getTexture().dispose();
+            }
+            // new
+            for (int j = 0; j < lane.powerUps.size(); j++) {
+                lane.powerUps.get(j).getTexture().dispose();
             }
         }
         progressBar.getTexture().dispose();

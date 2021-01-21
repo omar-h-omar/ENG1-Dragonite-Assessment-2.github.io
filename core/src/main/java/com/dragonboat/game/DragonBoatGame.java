@@ -43,7 +43,9 @@ public class DragonBoatGame extends Game {
     public ProgressBar progressBar;
     public Leaderboard leaderboard;
     public ArrayList<Integer>[] obstacleTimes;
+    public ArrayList<Integer>[] powerUpTimes;
     public int noOfObstacles;
+    public int noOfPowerUps;
     public int playerChoice;
     public int difficulty = 1;
     public Music music;
@@ -54,6 +56,7 @@ public class DragonBoatGame extends Game {
     ///***maybe set to public? so it is less memory intensive
     private BitmapFont font28;
     private Texture courseTexture;
+
 
     /**
      * Sets up the game with settings and instantiation of objects.
@@ -76,21 +79,30 @@ public class DragonBoatGame extends Game {
         courseTexture = new Texture(Gdx.files.internal("background sprite.png"));
         lanes = new Lane[7];
         noOfObstacles = 8;
+        noOfPowerUps = 5;
         obstacleTimes = new ArrayList[lanes.length];
+        powerUpTimes = new ArrayList[lanes.length];
 
         /*
-         * Instantiate each lane, and allocate obstacles by creating a random sequence
-         * of Y values for obstacles to spawn at for each lane.
+         * Instantiate each lane, and allocate obstacles and power-ups by creating a random sequence
+         * of Y values for obstacles and power-ups to spawn at for each lane.
          */
         for (int x = 0; x < lanes.length; x++) {
             obstacleTimes[x] = new ArrayList<>();
-            //new 40 is the offset
+            powerUpTimes[x] = new ArrayList<>();
+            // new 40 is the offset
             lanes[x] = new Lane((x * w / lanes.length) + 40, (((x + 1) * w) / lanes.length) + 40);
             int maxY = (courseTexture.getHeight() - (5 * noOfObstacles)) / noOfObstacles;
             for (int y = 0; y < noOfObstacles; y++) {
                 obstacleTimes[x].add(rnd.nextInt(maxY - 5) + 5 + maxY * y);
             }
             Collections.sort(obstacleTimes[x]);
+
+            // new
+            for (int z = 0; z < noOfPowerUps; z++) {
+                powerUpTimes[x].add(rnd.nextInt(maxY - 5) + 5 + maxY * z);
+            }
+            Collections.sort(powerUpTimes[x]);
 
             if (debug_verboseoutput) {
                 System.out.println("Lane " + x + " obstacles to spawn: ");
@@ -161,6 +173,19 @@ public class DragonBoatGame extends Game {
                 System.out.println();
             }
         }
+
+        noOfPowerUps = 5;
+        powerUpTimes = new ArrayList[lanes.length];
+        for (int x = 0; x < lanes.length; x++) {
+            lanes[x].powerUps = new ArrayList<>();
+            powerUpTimes[x] = new ArrayList<>();
+            int maxY = (courseTexture.getHeight() - (5 * noOfPowerUps)) / noOfPowerUps;
+            for (int y = 0; y < noOfPowerUps; y++) {
+                powerUpTimes[x].add(rnd.nextInt(maxY - 5) + 5 + maxY * y);
+            }
+            Collections.sort(powerUpTimes[x]);
+        }
+
         player.Reset();
 
         /*

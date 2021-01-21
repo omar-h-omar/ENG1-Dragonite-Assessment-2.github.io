@@ -5,6 +5,8 @@ import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 /**
  * Represents a opponent boat with AI.
@@ -13,6 +15,11 @@ public class Opponent extends Boat {
 
     public String steering = "None";
     private ArrayList<Obstacle> sortedIncomingObstacles;
+    public Rectangle rightBox; // a rectangle on the far right in front of the boat.
+    public Rectangle midBox; // a rectangle on the middle in front of the boat.
+    public Rectangle leftBox; // a rectangle on the far left in front of the boat.
+    public Rectangle rightSideBox; // a rectangle on the right of the boat.
+    public Rectangle leftSideBox; // a rectangle on the left of the boat.
 
     /**
      * Creates a opponent instance.
@@ -26,7 +33,7 @@ public class Opponent extends Boat {
     public Opponent(int yPosition, int width, int height, Lane lane, String name) {
         super(yPosition, width, height, lane, name);
         sortedIncomingObstacles = new ArrayList<Obstacle>();
-    }
+     }
 
     /**
      * <p>
@@ -50,6 +57,155 @@ public class Opponent extends Boat {
      *
      * @param backgroundOffset
      */
+
+    // new
+    public boolean collides(int backgroundOffset, Rectangle box) {
+        // Iterate through obstacles.
+        ArrayList<Obstacle> obstacles = this.lane.obstacles;
+        for (Obstacle o : obstacles) {
+            // new changed so that it accommodates for obstacles with different width
+            if (o.getX() < box.getX() + box.width && box.getX() < o.getX() + o.getTexture().getWidth()) {
+                // new changed for detection of y as it would not collide on the side of boats
+                if (box.getY() + box.height > o.getY() + backgroundOffset
+                        && this.yPosition < o.getY() + o.texture.getHeight() + backgroundOffset) {
+
+                    this.ApplyDamage(o.getDamage());
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void aiNew(int backgroundOffset) {
+
+        rightBox = new Rectangle(xPosition + width, yPosition + getHeight(), width, getHeight());
+        midBox = new Rectangle( xPosition, yPosition + getHeight(), width, getHeight());
+        leftBox = new Rectangle(xPosition - width, yPosition + getHeight() + backgroundOffset, width, getHeight());
+        rightSideBox = new Rectangle(xPosition + width, yPosition, width, getHeight());
+        leftSideBox = new Rectangle(xPosition - width, yPosition, width, getHeight());
+
+        int leftSide = Math.round(xPosition);
+        int rightSide = Math.round(xPosition + width);
+
+        if (this.steering == "Left") {
+            this.SteerLeft();
+            this.steering = "None";
+        } else if (this.steering == "Right") {
+            this.SteerRight();
+            this.steering = "None";
+        }
+
+
+        if (this.CheckIfInLane() == false) {
+            // Commence route back into lane.
+            if (leftSide - this.lane.getLeftBoundary() <= 0) {
+                // Will only be negative if the boat is further left than the left boundary of the lane.
+                this.SteerRight();
+                this.steering = "Right";
+            } else if (rightSide - this.lane.getRightBoundary() >= 0) {
+                // Will only be positive if the boat is further right than the right boundary of the lane.
+                this.SteerLeft();
+                this.steering = "Left";
+            }
+
+        }
+
+        boolean forward = true, right = true, left = true;
+
+        for (Obstacle obstacle : this.lane.obstacles) {
+
+            Rectangle obstacleBox = new Rectangle(obstacle.getX(), obstacle.getY(), obstacle.width, obstacle.getHeight());
+
+            if (this.collides(backgroundOffset, midBox)) {
+            //if (midBox.overlaps(obstacleBox)){
+                forward = false;
+            } else {
+                if ((this.collides(backgroundOffset, rightBox) || (this.collides(backgroundOffset, rightSideBox)))) {
+                //if (rightBox.overlaps(obstacleBox) || rightSideBox.overlaps(obstacleBox)){
+                    right = false;
+                }
+                if ((this.collides(backgroundOffset, leftBox) || (this.collides(backgroundOffset, leftSideBox)))) {
+                //if (leftBox.overlaps(obstacleBox) || leftSideBox.overlaps(obstacleBox)){
+                    left = false;
+                }
+            }
+        }
+
+        if (forward || !(right||left)){
+            steering = "None";
+        }
+        else if (right){
+            this.SteerRight();
+            steering = "Right";
+        }
+        else{
+            this.SteerLeft();
+            steering = "Left";
+        }
+
+        if (this.getTiredness() < 70) {
+            this.IncreaseSpeed();
+        }
+
+        /*
+        ShapeRenderer shapeRenderer= new ShapeRenderer();
+        //camera.update();
+        //shapeRenderer.setProjectionMatrix(camera.combined);
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setColor(1, 1, 0, 1);
+        shapeRenderer.rect(xPosition + width, yPosition + getHeight(), width, 20);
+
+        shapeRenderer.rect(xPosition, yPosition + getHeight(), width, 20);
+        shapeRenderer.rect(xPosition - width, yPosition + getHeight(), width, 20);
+        shapeRenderer.rect(xPosition + width, yPosition, width, getHeight());
+        shapeRenderer.rect(xPosition - width, yPosition, width, getHeight());
+        shapeRenderer.circle(1, 1, 1);
+
+
+        shapeRenderer.end();
+
+        */
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public void ai(int backgroundOffset) {
 
         int leftSide = Math.round(xPosition);
@@ -79,6 +235,7 @@ public class Opponent extends Boat {
         /*
          * 1) If not in lane, go back to lane.
          */
+
         if (this.CheckIfInLane() == false || !noNewPath) {
             // Commence route back into lane.
             if (leftSide - this.lane.getLeftBoundary() <= 0) {
@@ -92,6 +249,8 @@ public class Opponent extends Boat {
             }
             noNewPath = false;
         }
+
+
 
         /*
          * 2) If obstacle ahead, avoid the obstacle. If dead ahead, slow down.
@@ -177,11 +336,15 @@ public class Opponent extends Boat {
                             int leftMargin = Math.round(leftSide - obs.getX());
                             int rightMargin = Math.round(obs.getX()) + obs.width - rightSide;
 
+                            /*
+                            // new removed the slow down
                             // Check to slow down.
                             if ((leftMargin <= 0 && rightMargin <= 0) || (leftMargin >= 0 && rightMargin >= 0)) {
                                 // Obstacle is dead ahead. Slow down.
                                 this.DecreaseSpeed();
                             }
+
+                             */
 
                             // Check to go left or right.
                             if (leftMargin <= rightMargin) {

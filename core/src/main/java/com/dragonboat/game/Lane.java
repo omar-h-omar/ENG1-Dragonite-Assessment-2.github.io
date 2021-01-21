@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.Texture;
 public class Lane {
     private final int LEFTBOUNDARY, RIGHTBOUNDARY;
     protected ArrayList<Obstacle> obstacles;
+    protected ArrayList<PowerUp> powerUps;
     private int obstacleLimit;
 
     /**
@@ -25,6 +26,7 @@ public class Lane {
         this.obstacleLimit = 10;
 
         obstacles = new ArrayList<>();
+        powerUps = new ArrayList<>();
     }
 
     /**
@@ -81,6 +83,48 @@ public class Lane {
 
     /**
      * <p>
+     * Spawns power-ups in the lane.
+     * </p>
+     * <p>
+     * Spawns specified power-up in the lane. Checks that the obstacle limit hasn't
+     * been reached, if not checks the obstacle type for Invincibility, repair, TimeReduction,
+     * Maneuverability or Acceleration and instantiates it as the corresponding power-up,
+     * with the correct texture. Then adds it to the Lane's power-ups list.
+     * </p>
+     *
+     * @param x            X-position for the obstacle spawn location.
+     * @param y            Y-position for the obstacle spawn location.
+     * @param powerUpType  Power-up type.
+     */
+    public void SpawnPowerUp(int x, int y, String powerUpType) {
+        if (this.powerUps.size() <= this.obstacleLimit) {
+            if (powerUpType.equals("Invincibility")) {
+                Invincibility invincibility = new Invincibility(x, y, new Texture(Gdx.files.internal("Invincibility/sprite_0.png")), this);
+                this.powerUps.add(invincibility);
+            }
+            else if (powerUpType.equals("Maneuverability")) {
+                Maneuverability maneuverability = new Maneuverability(x, y, new Texture(Gdx.files.internal("Maneuverability/sprite_0.png")), this);
+                this.powerUps.add(maneuverability);
+            }
+            else if (powerUpType.equals("Repair")) {
+                Repair repair = new Repair(x, y, new Texture(Gdx.files.internal("Repair/sprite_0.png")), this);
+                this.powerUps.add(repair);
+            }
+            else if (powerUpType.equals("SpeedBoost")) {
+                SpeedBoost speedBoost = new SpeedBoost(x, y, new Texture(Gdx.files.internal("SpeedBoost/sprite_0.png")), this);
+                this.powerUps.add(speedBoost);
+            }
+            else if (powerUpType.equals("TimeReduction")) {
+                TimeReduction timeReduction = new TimeReduction(x, y, new Texture(Gdx.files.internal("TimeReduction/sprite_00.png")), this);
+                this.powerUps.add(timeReduction);
+            }
+        } else
+            System.out.println("Power-up limit reached.");
+    }
+
+
+    /**
+     * <p>
      * Removes obstacle from obstacle list.
      * </p>
      * <p>
@@ -92,6 +136,21 @@ public class Lane {
      */
     public void RemoveObstacle(Obstacle obstacle) {
         this.obstacles.remove(obstacle);
+    }
+
+    /**
+     * <p>
+     * Removes power-up from powerUps list.
+     * </p>
+     * <p>
+     * PowerUps should be removed upon collision with boat or leaving the course.
+     * area.
+     * </p>
+     *
+     * @param powerUp PowerUp to be removed.
+     */
+    public void RemovePowerUp(PowerUp powerUp) {
+        this.obstacles.remove(powerUp);
     }
 
     // getters and setters
