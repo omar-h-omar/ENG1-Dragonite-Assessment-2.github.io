@@ -79,7 +79,7 @@ public class DragonBoatGame extends Game {
         courseTexture = new Texture(Gdx.files.internal("background sprite.png"));
         lanes = new Lane[7];
         noOfObstacles = 8;
-        noOfPowerUps = 5;
+        noOfPowerUps = 4;
         obstacleTimes = new ArrayList[lanes.length];
         powerUpTimes = new ArrayList[lanes.length];
 
@@ -174,7 +174,7 @@ public class DragonBoatGame extends Game {
             }
         }
 
-        noOfPowerUps = 5;
+        noOfPowerUps = 4;
         powerUpTimes = new ArrayList[lanes.length];
         for (int x = 0; x < lanes.length; x++) {
             lanes[x].powerUps = new ArrayList<>();

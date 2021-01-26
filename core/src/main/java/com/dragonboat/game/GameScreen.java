@@ -46,6 +46,7 @@ public class GameScreen implements Screen {
     private final Texture background;
     private final Texture healthBarFull;
     private final Texture healthBarEmpty;
+    private final Texture powerUpEmpty;
     private final Texture staminaBarFull;
     private final Texture staminaBarEmpty;
     private final FreeTypeFontGenerator generator;
@@ -79,7 +80,6 @@ public class GameScreen implements Screen {
         lanes = this.game.lanes;
         progressBar = this.game.progressBar;
         opponents = this.game.opponents;
-        //powerups = this.game.powerups;
         rnd = this.game.rnd;
 
         ArrayList<Integer> possibleBoats = new ArrayList<Integer>();
@@ -115,6 +115,7 @@ public class GameScreen implements Screen {
         staminaBarEmpty = new Texture(Gdx.files.internal("bar stamina grey.png"));
         healthBarFull = new Texture(Gdx.files.internal("bar health yellow.png"));
         healthBarEmpty = new Texture(Gdx.files.internal("bar health grey.png"));
+        powerUpEmpty = new Texture(Gdx.files.internal("powerUpEmpty.png"));
     }
 
     /**
@@ -180,20 +181,24 @@ public class GameScreen implements Screen {
          * passed backgroundOffset to translate the object's y position.
          */
         for (int i = 0; i < course.getNoLanes(); i++) {
-            if (!started || player.finished() || this.game.obstacleTimes[i].size() == 0)
+            if (!started || player.finished() || this.game.obstacleTimes[i].size() == 0 || this.game.powerUpTimes[i].size() == 0)
                 break;
             if (this.game.obstacleTimes[i].get(0) - player.getY() + player.getHeight() < 1) {
                 // new added rock
                 String[] obstacleTypes = {"Goose", "LogBig", "LogSmall", "Rock"};
-                String[] powerUpTypes = {"Invincibility", "Maneuverability", "Repair", "SpeedBoost", "TimeReduction"};
 
                 // spawn an obstacle in lane i.
                 int xCoord = lanes[i].getLeftBoundary()
                         + rnd.nextInt(lanes[i].getRightBoundary() - lanes[i].getLeftBoundary() - 15);
                 lanes[i].SpawnObstacle(xCoord, HEIGHT + 40, obstacleTypes[rnd.nextInt(obstacleTypes.length)]);
-                lanes[i].SpawnPowerUp(xCoord, HEIGHT + 40, powerUpTypes[rnd.nextInt(powerUpTypes.length)]);
                 // make sure obstacle is only spawned once.
                 this.game.obstacleTimes[i].remove(0);
+            }
+            if (this.game.powerUpTimes[i].get(0) - player.getY() + player.getHeight() < 1) {
+                String[] powerUpTypes = {"Invincibility", "Maneuverability", "Repair", "SpeedBoost", "TimeReduction"};
+                int xCoord = lanes[i].getLeftBoundary()
+                        + rnd.nextInt(lanes[i].getRightBoundary() - lanes[i].getLeftBoundary() - 15);
+                lanes[i].SpawnPowerUp(xCoord, HEIGHT + 40, powerUpTypes[rnd.nextInt(powerUpTypes.length)]);
                 this.game.powerUpTimes[i].remove(0);
             }
         }
@@ -343,6 +348,10 @@ public class GameScreen implements Screen {
         batch.begin();
         batch.draw(progressBar.getTexture(), WIDTH - progressBar.getTexture().getWidth() - 60,
                 HEIGHT - progressBar.getTexture().getHeight() - 20);
+        batch.draw(powerUpEmpty, WIDTH - powerUpEmpty.getWidth() - 60,
+                HEIGHT - powerUpEmpty.getHeight() - 85);
+        batch.draw(powerUpEmpty, WIDTH - powerUpEmpty.getWidth() - 100,
+                HEIGHT - powerUpEmpty.getHeight() - 85);
         batch.end();
 
         /*
@@ -546,8 +555,8 @@ public class GameScreen implements Screen {
                 lane.obstacles.get(j).getTexture().dispose();
             }
             // new
-            for (int j = 0; j < lane.powerUps.size(); j++) {
-                lane.powerUps.get(j).getTexture().dispose();
+            for (int k = 0; k < lane.powerUps.size(); k++) {
+                lane.powerUps.get(k).getTexture().dispose();
             }
         }
         progressBar.getTexture().dispose();

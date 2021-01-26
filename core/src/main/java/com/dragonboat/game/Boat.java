@@ -33,6 +33,8 @@ public class Boat {
     private boolean finished;
     private int threshold = 5;
 
+    public String[] boatPowerUps;
+
     /**
      * Creates a Boat instance in a specified Lane.
      *
@@ -56,6 +58,7 @@ public class Boat {
         this.textureFrames = new Texture[4];
         frameCounter = 0;
         this.name = name;
+        this.boatPowerUps = new String[2];
     }
 
     /**
@@ -125,6 +128,7 @@ public class Boat {
     public boolean CheckCollisions(int backgroundOffset) {
         // Iterate through obstacles.
         ArrayList<Obstacle> obstacles = this.lane.obstacles;
+        ArrayList<PowerUp> powerUps = this.lane.powerUps;
         ArrayList<Integer> obstaclesToRemove = new ArrayList<>();
         ArrayList<Integer> powerUpsToRemove = new ArrayList<>();
         for (Obstacle o : obstacles) {
@@ -133,29 +137,14 @@ public class Boat {
                 // new changed for detection of y as it would not collide on the side of boats
                 if (this.yPosition + this.height > o.getY() + backgroundOffset
                         && this.yPosition < o.getY() + o.texture.getHeight() + backgroundOffset) {
-                    if (o instanceof PowerUp){
-                        if (o instanceof Maneuverability){
-                            MANEUVERABILITY *= 2;
-                        }
-                        else if (o instanceof Invincibility){
-
-                        }
-                        else if (o instanceof TimeReduction){
-
-                        }
-                        else if (o instanceof  SpeedBoost){
-                            for (int i = 0; i < 5; i++){
-                                IncreaseSpeed();
-                            }
-                        }
-                        else if (o instanceof Repair){
-                            durability = 50;
-                        }
-                        break;
+                    if (o instanceof PowerUp) {
+                        this.AddPowerUp(((PowerUp) o).getType());
+                        powerUpsToRemove.add(powerUps.indexOf(o));
                     }
-
-                    this.ApplyDamage(o.getDamage());
-                    obstaclesToRemove.add(obstacles.indexOf(o));
+                    else {
+                        this.ApplyDamage(o.getDamage());
+                        obstaclesToRemove.add(obstacles.indexOf(o));
+                    }
                 }
             }
         }
@@ -163,8 +152,13 @@ public class Boat {
             this.lane.RemoveObstacle(obstacles.get(i));
             return true;
         }
+        for (int j : powerUpsToRemove) {
+            this.lane.RemovePowerUp(powerUps.get(j));
+            return true;
+        }
         return false;
     }
+
 
     /**
      * Decreases the durability of the boat by the obstacle damage divided by the
@@ -177,6 +171,15 @@ public class Boat {
         this.durability -= obstacleDamage / this.ROBUSTNESS;
         this.currentSpeed *= 0.9;
         return this.durability <= 0;
+    }
+
+    public void AddPowerUp(String type) {
+        if (boatPowerUps[0] == null){
+            boatPowerUps[0] = type;
+        }
+        else if (boatPowerUps[1] == null){
+            boatPowerUps[1] = type;
+        }
     }
 
     /**

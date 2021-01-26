@@ -13,6 +13,7 @@ public class Lane {
     protected ArrayList<Obstacle> obstacles;
     protected ArrayList<PowerUp> powerUps;
     private int obstacleLimit;
+    private int powerUpLimit;
 
     /**
      * Creates a lane instance.
@@ -24,6 +25,7 @@ public class Lane {
         this.LEFTBOUNDARY = leftBoundary;
         this.RIGHTBOUNDARY = rightBoundary;
         this.obstacleLimit = 10;
+        this.powerUpLimit = 4;
 
         obstacles = new ArrayList<>();
         powerUps = new ArrayList<>();
@@ -40,8 +42,10 @@ public class Lane {
         this.LEFTBOUNDARY = leftBoundary;
         this.RIGHTBOUNDARY = rightBoundary;
         this.obstacleLimit = obstacleLimit;
+        this.powerUpLimit = 4;
 
         obstacles = new ArrayList<>();
+        powerUps = new ArrayList<>();
     }
 
     /**
@@ -97,25 +101,25 @@ public class Lane {
      * @param powerUpType  Power-up type.
      */
     public void SpawnPowerUp(int x, int y, String powerUpType) {
-        if (this.powerUps.size() <= this.obstacleLimit) {
+        if (this.powerUps.size() <= this.powerUpLimit) {
             if (powerUpType.equals("Invincibility")) {
-                Invincibility invincibility = new Invincibility(x, y, new Texture(Gdx.files.internal("Invincibility/sprite_0.png")), this);
+                Invincibility invincibility = new Invincibility(x, y, new Texture(Gdx.files.internal("itemBox.png")), this);
                 this.powerUps.add(invincibility);
             }
             else if (powerUpType.equals("Maneuverability")) {
-                Maneuverability maneuverability = new Maneuverability(x, y, new Texture(Gdx.files.internal("Maneuverability/sprite_0.png")), this);
+                Maneuverability maneuverability = new Maneuverability(x, y, new Texture(Gdx.files.internal("itemBox.png")), this);
                 this.powerUps.add(maneuverability);
             }
             else if (powerUpType.equals("Repair")) {
-                Repair repair = new Repair(x, y, new Texture(Gdx.files.internal("Repair/sprite_0.png")), this);
+                Repair repair = new Repair(x, y, new Texture(Gdx.files.internal("itemBox.png")), this);
                 this.powerUps.add(repair);
             }
             else if (powerUpType.equals("SpeedBoost")) {
-                SpeedBoost speedBoost = new SpeedBoost(x, y, new Texture(Gdx.files.internal("SpeedBoost/sprite_0.png")), this);
+                SpeedBoost speedBoost = new SpeedBoost(x, y, new Texture(Gdx.files.internal("itemBox.png")), this);
                 this.powerUps.add(speedBoost);
             }
             else if (powerUpType.equals("TimeReduction")) {
-                TimeReduction timeReduction = new TimeReduction(x, y, new Texture(Gdx.files.internal("TimeReduction/sprite_00.png")), this);
+                TimeReduction timeReduction = new TimeReduction(x, y, new Texture(Gdx.files.internal("itemBox.png")), this);
                 this.powerUps.add(timeReduction);
             }
         } else
@@ -150,7 +154,7 @@ public class Lane {
      * @param powerUp PowerUp to be removed.
      */
     public void RemovePowerUp(PowerUp powerUp) {
-        this.obstacles.remove(powerUp);
+        this.powerUps.remove(powerUp);
     }
 
     // getters and setters
