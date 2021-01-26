@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -11,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
  * Screen class for the Menu Screen. Allows the user to select a Boat, and shows
@@ -25,7 +28,9 @@ public class MenuScreen implements Screen {
     private Texture startScreen;
     final DragonBoatGame game;
     private final SpriteBatch batch;
-
+    // used for setting boundaries for mouse clicks
+    private final OrthographicCamera camera;
+    private final Viewport viewport;
     /**
      * Creates an Input Processor to listen for a mouse click within set boundaries.
      *
@@ -37,7 +42,8 @@ public class MenuScreen implements Screen {
         batch = new SpriteBatch();
         startScreen = new Texture(Gdx.files.internal("start screen w fade w controls.png"));
         final MenuScreen menuScreen = this;
-
+        camera = new OrthographicCamera();
+        viewport = new StretchViewport(1080, 720, camera);
         /*
          * Defines how to handle mouse inputs.
          */
@@ -61,7 +67,9 @@ public class MenuScreen implements Screen {
                  * First check whether the cursor is in right y-bounds, as these are all the
                  * same for all boats.
                  */
-                if (screenY >= 397 && screenY <= 655) {
+                int screenHeight = viewport.getScreenHeight();
+                int screenWidth = viewport.getScreenWidth();
+                if (screenY >= (0.551 * screenHeight) && screenY <= (0.91 * screenHeight)) {
                     /*
                      * Then check if the mouse is in each set of x-bounds, if so, set the player
                      * boat to the corresponding boat, and initialise the game.
@@ -69,43 +77,43 @@ public class MenuScreen implements Screen {
                      * - NOTE - These values don't work if the window is made to be resizable, and
                      * is then resized by the user.
                      */
-                    if (screenX >= 44 && screenX <= 177) {
+                    if (screenX >= (0.041 * screenWidth) && screenX <= (0.1638 * screenWidth)) {
                         game.player.ChooseBoat(0);
                         game.playerChoice = 0;
                         menuScreen.dispose();
                         game.setScreen(new GameScreen(game));
                     }
-                    if (screenX >= 187 && screenX <= 320) {
+                    if (screenX >= (0.173 * screenWidth) && screenX <= (0.296 * screenWidth)) {
                         game.player.ChooseBoat(1);
                         game.playerChoice = 1;
                         menuScreen.dispose();
                         game.setScreen(new GameScreen(game));
                     }
-                    if (screenX >= 330 && screenX <= 463) {
+                    if (screenX >= (0.305 * screenWidth) && screenX <= (0.423 * screenWidth)) {
                         game.player.ChooseBoat(2);
                         game.playerChoice = 2;
                         menuScreen.dispose();
                         game.setScreen(new GameScreen(game));
                     }
-                    if (screenX >= 473 && screenX <= 606) {
+                    if (screenX >= (0.438 * screenWidth) && screenX <= (0.561 * screenWidth)) {
                         game.player.ChooseBoat(3);
                         game.playerChoice = 3;
                         menuScreen.dispose();
                         game.setScreen(new GameScreen(game));
                     }
-                    if (screenX >= 616 && screenX <= 749) {
+                    if (screenX >= (0.5703 * screenWidth) && screenX <= (0.694 * screenWidth)) {
                         game.player.ChooseBoat(4);
                         game.playerChoice = 4;
                         menuScreen.dispose();
                         game.setScreen(new GameScreen(game));
                     }
-                    if (screenX >= 759 && screenX <= 892) {
+                    if (screenX >= (0.703 * screenWidth) && screenX <= (0.826 * screenWidth)) {
                         game.player.ChooseBoat(5);
                         game.playerChoice = 5;
                         menuScreen.dispose();
                         game.setScreen(new GameScreen(game));
                     }
-                    if (screenX >= 902 && screenX <= 1035) {
+                    if (screenX >= (0.835 * screenWidth) && screenX <= (0.958 * screenWidth)) {
                         game.player.ChooseBoat(6);
                         game.playerChoice = 6;
                         menuScreen.dispose();
@@ -134,7 +142,8 @@ public class MenuScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        viewport.update(width, height, true);
+        batch.setProjectionMatrix(camera.combined);
     }
 
     @Override
