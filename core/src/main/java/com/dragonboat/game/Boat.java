@@ -33,7 +33,10 @@ public class Boat {
     private boolean finished;
     private int threshold = 5;
 
-    public String[] boatPowerUps;
+    public PowerUp[] boatPowerUps;
+    private boolean isInvincible;
+    private int invCounter;
+    private float reductions;
 
     /**
      * Creates a Boat instance in a specified Lane.
@@ -58,7 +61,10 @@ public class Boat {
         this.textureFrames = new Texture[4];
         frameCounter = 0;
         this.name = name;
-        this.boatPowerUps = new String[2];
+        this.boatPowerUps = new PowerUp[2];
+        this.isInvincible = false;
+        this.invCounter = 3;
+        this.reductions = 0;
     }
 
     /**
@@ -127,35 +133,53 @@ public class Boat {
      */
     public boolean CheckCollisions(int backgroundOffset) {
         // Iterate through obstacles.
+
         ArrayList<Obstacle> obstacles = this.lane.obstacles;
         ArrayList<PowerUp> powerUps = this.lane.powerUps;
         ArrayList<Integer> obstaclesToRemove = new ArrayList<>();
         ArrayList<Integer> powerUpsToRemove = new ArrayList<>();
+
+        for (PowerUp p : powerUps) {
+            // new changed so that it accommodates for obstacles with different width
+            if (p.getX() < this.xPosition + this.width && this.xPosition < p.getX() + p.getTexture().getWidth()) {
+                // new changed for detection of y as it would not collide on the side of boats
+                if (this.yPosition + this.height > p.getY() + backgroundOffset
+                        && this.yPosition < p.getY() + p.texture.getHeight() + backgroundOffset) {
+                    this.AddPowerUp(p);
+                    powerUpsToRemove.add(powerUps.indexOf(p));
+                }
+            }
+        }
+        for (int j : powerUpsToRemove) {
+            this.lane.RemovePowerUp(powerUps.get(j));
+        }
+
+        if (isInvincible == true) {
+            invCounter -= 1;
+            if (invCounter <= 0){
+                isInvincible = false;
+            }
+            return false;
+        }
+
         for (Obstacle o : obstacles) {
             // new changed so that it accommodates for obstacles with different width
             if (o.getX() < this.xPosition + this.width && this.xPosition < o.getX() + o.getTexture().getWidth()) {
                 // new changed for detection of y as it would not collide on the side of boats
                 if (this.yPosition + this.height > o.getY() + backgroundOffset
                         && this.yPosition < o.getY() + o.texture.getHeight() + backgroundOffset) {
-                    if (o instanceof PowerUp) {
-                        this.AddPowerUp(((PowerUp) o).getType());
-                        powerUpsToRemove.add(powerUps.indexOf(o));
-                    }
-                    else {
-                        this.ApplyDamage(o.getDamage());
-                        obstaclesToRemove.add(obstacles.indexOf(o));
-                    }
+                    this.ApplyDamage(o.getDamage());
+                    obstaclesToRemove.add(obstacles.indexOf(o));
+
                 }
             }
         }
+
         for (int i : obstaclesToRemove) {
             this.lane.RemoveObstacle(obstacles.get(i));
             return true;
         }
-        for (int j : powerUpsToRemove) {
-            this.lane.RemovePowerUp(powerUps.get(j));
-            return true;
-        }
+
         return false;
     }
 
@@ -173,12 +197,31 @@ public class Boat {
         return this.durability <= 0;
     }
 
-    public void AddPowerUp(String type) {
+    public void AddPowerUp(PowerUp p) {
         if (boatPowerUps[0] == null){
-            boatPowerUps[0] = type;
+            boatPowerUps[0] = p;
         }
         else if (boatPowerUps[1] == null){
-            boatPowerUps[1] = type;
+            boatPowerUps[1] = p;
+        }
+    }
+
+    public void ApplyPowerUp(PowerUp p){
+        if (p.type == "Maneuverability"){
+            MANEUVERABILITY += 1;
+        }
+        else if (p.type == "Repair"){
+            durability = 50;
+        }
+        else if (p.type == "SpeedBoost"){
+            currentSpeed *= 2;
+        }
+        else if (p.type == "TimeReduction"){
+            reductions += 5;
+        }
+        else if (p.type == "Invincibility"){
+            isInvincible = true;
+            invCounter = 3;
         }
     }
 
@@ -199,7 +242,7 @@ public class Boat {
      */
     public void UpdateFastestTime(float elapsedTime) {
         if (this.fastestLegTime > elapsedTime + this.penalties || this.fastestLegTime == 0) {
-            this.fastestLegTime = elapsedTime + this.penalties;
+            this.fastestLegTime = elapsedTime + this.penalties - this.reductions;
         }
     }
 

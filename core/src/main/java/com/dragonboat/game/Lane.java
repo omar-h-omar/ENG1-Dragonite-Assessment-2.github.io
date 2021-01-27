@@ -24,7 +24,7 @@ public class Lane {
     public Lane(int leftBoundary, int rightBoundary) {
         this.LEFTBOUNDARY = leftBoundary;
         this.RIGHTBOUNDARY = rightBoundary;
-        this.obstacleLimit = 10;
+        this.obstacleLimit = 20;
         this.powerUpLimit = 4;
 
         obstacles = new ArrayList<>();

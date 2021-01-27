@@ -26,23 +26,31 @@ public class Player extends Boat {
      * Moves the player based on key pressed (W, A, S, D).
      */
     public void GetInput() {
-        if (Gdx.input.isKeyPressed(Input.Keys.W)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.W)|| Gdx.input.isKeyPressed(Input.Keys.UP)) {
             this.IncreaseSpeed();
             this.IncreaseTiredness();
         } else
             this.DecreaseTiredness();
 
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             // Call method associated
             this.DecreaseSpeed();
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             // Call method associated
             this.SteerLeft();
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             // Call method associated
             this.SteerRight();
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+            // Call method associated
+            if (!(this.boatPowerUps[0] == null)) {
+                this.ApplyPowerUp(this.boatPowerUps[0]);
+                boatPowerUps[0] = boatPowerUps[1];
+                boatPowerUps[1] = null;
+            }
         }
     }
 

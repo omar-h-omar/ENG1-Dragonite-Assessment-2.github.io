@@ -56,6 +56,9 @@ public class PowerUp extends Obstacle{
         return this.type;
     }
 
+    public Texture getMysteryTexture(){
+        return new Texture(Gdx.files.internal("itemBox.png"));
+    }
     /**
      * @return Float representing the x-position.
      */
