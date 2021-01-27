@@ -142,4 +142,22 @@ public class ProgressBar {
     public Texture getOpponentIcon() {
         return opponentIcon;
     }
+
+    /**
+     * Sets the current timer
+     *
+     * @param timeSeconds A float representing the timer.
+     */
+    public void setTimeSeconds(float timeSeconds) {
+        this.timeSeconds = timeSeconds;
+    }
+
+    /**
+     * Sets the player's current race time.
+     *
+     * @param playerTime A float representing the player's current race time.
+     */
+    public void setPlayerTime(float playerTime) {
+        this.playerTime = playerTime;
+    }
 }

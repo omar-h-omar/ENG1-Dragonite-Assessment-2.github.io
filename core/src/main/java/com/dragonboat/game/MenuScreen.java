@@ -31,6 +31,7 @@ public class MenuScreen implements Screen {
     // used for setting boundaries for mouse clicks
     private final OrthographicCamera camera;
     private final Viewport viewport;
+
     /**
      * Creates an Input Processor to listen for a mouse click within set boundaries.
      *
@@ -74,8 +75,6 @@ public class MenuScreen implements Screen {
                      * Then check if the mouse is in each set of x-bounds, if so, set the player
                      * boat to the corresponding boat, and initialise the game.
                      *
-                     * - NOTE - These values don't work if the window is made to be resizable, and
-                     * is then resized by the user.
                      */
                     if (screenX >= (0.041 * screenWidth) && screenX <= (0.1638 * screenWidth)) {
                         game.player.ChooseBoat(0);

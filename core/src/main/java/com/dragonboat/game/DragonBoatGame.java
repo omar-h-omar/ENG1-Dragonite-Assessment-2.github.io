@@ -56,6 +56,8 @@ public class DragonBoatGame extends Game {
     ///***maybe set to public? so it is less memory intensive
     private BitmapFont font28;
     private Texture courseTexture;
+    //used for loading a save
+    public boolean save = false;
 
 
     /**
@@ -138,9 +140,9 @@ public class DragonBoatGame extends Game {
 
         batch = new SpriteBatch();
 
-        // Display the menu screen.
-        menuScreen = new MenuScreen(this);
-        setScreen(menuScreen);
+        // Display the welcome screen.
+        WelcomeScreen welcomeScreen = new WelcomeScreen(this);
+        setScreen(welcomeScreen);
     }
 
     /**
