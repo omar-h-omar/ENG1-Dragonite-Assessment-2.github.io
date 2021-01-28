@@ -12,8 +12,11 @@ public class PowerUp extends Obstacle{
     public Texture texture;
     private final float maxFrameTime; // The maximum time allowed allowed for a frame.
     private float currentFrameTime; // The current time for a frame.
-    private int frame; // a integer representing which boat texture would be loaded.
+    private Texture[] frames; // a integer representing which boat texture would be loaded.
     public Lane givenLane;
+    private int frameCount;
+    private int noOfFrames;
+
 
 
     /**
@@ -33,9 +36,55 @@ public class PowerUp extends Obstacle{
         this.height = height;
         this.texture = texture;
 
-        frameCounter = 0;
-        maxFrameTime = 0.5f/2;
+        currentFrameTime = 0;
+        maxFrameTime = 0.05f;
+        frameCount = 0;
+
+        switch (type){
+            case "Invincibility":
+                noOfFrames = 20;
+                break;
+            case "Maneuverability":
+                noOfFrames = 33;
+                break;
+            case "SpeedBoost":
+                noOfFrames = 13;
+                break;
+            case "TimeReduction":
+                noOfFrames = 21;
+                break;
+            case "Repair":
+                noOfFrames = 29;
+                break;
+        }
+
+        frames = new Texture[noOfFrames];
+        for (int i = 0; i < frames.length; i++) {
+            frames[i] = new Texture(Gdx.files.internal(type + "\\sprite_" + i + ".png"));
+        }
     }
+
+    /**
+     * @return Texture asset for obstacle.
+     */
+
+    public Texture getTexture() {
+        return frames[frameCount];
+    }
+
+    /**
+     * Generates all frames for animating the power-up.
+     *
+     */
+
+    public void update(float dt) {
+        currentFrameTime += dt;
+        if (currentFrameTime > maxFrameTime) {
+            frameCount = (frameCount + 1)%noOfFrames;
+            currentFrameTime = 0;
+        }
+    }
+
 
     /**
      * Moves the power-up.
@@ -88,69 +137,10 @@ public class PowerUp extends Obstacle{
     }
 
     /**
-     * @return Texture asset for obstacle.
-     */
-    public Texture getTexture() {
-        return this.texture;
-    }
-
-    /**
      * @return Int representing the height of the obstacle.
      */
     public int getHeight() {
         return this.height;
-    }
-
-    /**
-     * Keeps track of which frame of the animation the boat's texture is on, and
-     * sets the texture accordingly.
-     */
-    public void AdvanceTextureFrame() {
-        this.frameCounter = this.frameCounter == this.textureFrames.length - 1 ? 0 : this.frameCounter + 1;
-        this.setTexture(this.textureFrames[this.frameCounter]);
-    }
-
-    /**
-     * Generates all frames for animating the boat.
-     *
-     * @param type for type of power-up, used to get correct asset.
-     */
-    public void GenerateTextureFrames(String type) {
-        Texture[] frames = new Texture[textureFrames.length];
-        for (int i = 1; i <= frames.length; i++) {
-            frames[i - 1] = new Texture(Gdx.files.internal(type + "/sprite_" + i + ".png"));
-        }
-        this.setTextureFrames(frames);
-    }
-
-    /**
-     * @param t Texture to use.
-     */
-    public void setTexture(Texture t) {
-        this.texture = t;
-    }
-
-    /**
-     * @param frames Texture frames for animation.
-     */
-    public void setTextureFrames(Texture[] frames) {
-        this.textureFrames = frames;
-    }
-
-
-    public void update(float dt) {
-        currentFrameTime += dt;
-        if (currentFrameTime > maxFrameTime) {
-            frame ++;
-            currentFrameTime = 0;
-        }
-        if (frame >= 2) {
-            frame = 0;
-        }
-    }
-
-    public int getFrame() {
-        return frame;
     }
 
 }

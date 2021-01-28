@@ -397,7 +397,7 @@ public class GameScreen implements Screen {
                         HEIGHT - powerUpEmpty.getHeight() - 85);
 
                 if (!(player.boatPowerUps[0] == null)) {
-                    batch.draw(player.boatPowerUps[0].getTexture(), WIDTH - powerUpEmpty.getWidth() - 100,
+                    player.boatPowerUps[0].update(deltaTime);batch.draw(player.boatPowerUps[0].getTexture(), WIDTH - powerUpEmpty.getWidth() - 100,
                             HEIGHT - powerUpEmpty.getHeight() - 85);
                 }
 
@@ -406,7 +406,7 @@ public class GameScreen implements Screen {
                         HEIGHT - powerUpEmpty.getHeight() - 85);
 
                 if (!(player.boatPowerUps[1] == null)) {
-                    batch.draw(player.boatPowerUps[1].getTexture(), WIDTH - powerUpEmpty.getWidth() - 60,
+                    player.boatPowerUps[1].update(deltaTime);batch.draw(player.boatPowerUps[1].getTexture(), WIDTH - powerUpEmpty.getWidth() - 60,
                             HEIGHT - powerUpEmpty.getHeight() - 85);
                 }
 
