@@ -214,7 +214,7 @@ public class Boat {
             durability = 50;
         }
         else if (p.type == "SpeedBoost"){
-            currentSpeed *= 2;
+            currentSpeed *= 4;
         }
         else if (p.type == "TimeReduction"){
             reductions += 5;

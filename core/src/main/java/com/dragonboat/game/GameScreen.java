@@ -348,6 +348,7 @@ public class GameScreen implements Screen {
         /*
          * Display progress bar.
          */
+
         batch.begin();
         batch.draw(progressBar.getTexture(), WIDTH - progressBar.getTexture().getWidth() - 60,
                 HEIGHT - progressBar.getTexture().getHeight() - 20);
@@ -356,6 +357,7 @@ public class GameScreen implements Screen {
                 HEIGHT - powerUpEmpty.getHeight() - 85);
 
         if (!(player.boatPowerUps[0] == null)){
+            player.boatPowerUps[0].update(deltaTime);
             batch.draw(player.boatPowerUps[0].getTexture(), WIDTH - powerUpEmpty.getWidth() - 100,
                     HEIGHT - powerUpEmpty.getHeight() - 85);
         }
@@ -365,6 +367,7 @@ public class GameScreen implements Screen {
                 HEIGHT - powerUpEmpty.getHeight() - 85);
 
         if (!(player.boatPowerUps[1] == null)) {
+            player.boatPowerUps[1].update(deltaTime);
             batch.draw(player.boatPowerUps[1].getTexture(), WIDTH - powerUpEmpty.getWidth() - 60,
                     HEIGHT - powerUpEmpty.getHeight() - 85);
         }
