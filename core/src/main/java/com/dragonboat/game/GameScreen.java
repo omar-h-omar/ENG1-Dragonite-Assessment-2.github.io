@@ -178,7 +178,7 @@ public class GameScreen implements Screen {
                 Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
                 shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
                 shapeRenderer.setColor(new Color(0, 0, 0, 0.25f));
-                shapeRenderer.rect(0, 0, WIDTH, HEIGHT);
+                shapeRenderer.rect(0, 0, viewport.getScreenWidth(), viewport.getScreenHeight());
                 shapeRenderer.end();
                 Gdx.gl.glDisable(GL20.GL_BLEND);
 
@@ -671,7 +671,7 @@ public class GameScreen implements Screen {
 //                        String rnd = new Json().toJson(game.rnd);
 //                        String obstacleTimes = new Json().toJson(game.obstacleTimes);
 //                        String noOfObstacles = new Json().toJson(game.noOfObstacles);
-//                        String noOfPowerUps = new Json().toJson(game.noOfPowerUps);
+//                        String j' = new Json().toJson(game.noOfPowerUps);
 //                        String powerUpTimes = new Json().toJson(game.powerUpTimes);
 
                         // Game Parameters
@@ -683,6 +683,12 @@ public class GameScreen implements Screen {
                         prefs.putFloat("playerYPos",player.yPosition);
                         prefs.putFloat("playerPenalties",player.penalties);
                         prefs.putFloat("playerFastestTime",player.getFastestTime());
+                        prefs.putInteger("playerDurability",player.getDurability());
+                        prefs.putInteger("playerRobustness",player.getRobustness());
+                        prefs.putFloat("playerCurrentSpeed",player.getCurrentSpeed());
+                        prefs.putFloat("playerAcceleration",player.getAcceleration());
+                        prefs.putFloat("playerManeuverability",player.getManeuverability());
+                        prefs.putFloat("playerTiredness",player.getTiredness());
 
                         //Progress Bar Data
                         prefs.putFloat("PlayerTime", progressBar.getPlayerTime());
@@ -695,6 +701,12 @@ public class GameScreen implements Screen {
                             prefs.putFloat("opponent" + i +"YPos",opponents[i].yPosition);
                             prefs.putFloat("opponent" + i +"Penalties",opponents[i].penalties);
                             prefs.putFloat("opponent" + i + "FastestTime",opponents[i].getFastestTime());
+                            prefs.putInteger("opponent" + i +"Durability",opponents[i].getDurability());
+                            prefs.putInteger("opponent" + i +"Robustness",opponents[i].getRobustness());
+                            prefs.putFloat("opponent" + i +"CurrentSpeed",opponents[i].getCurrentSpeed());
+                            prefs.putFloat("opponent" + i +"Acceleration",opponents[i].getAcceleration());
+                            prefs.putFloat("opponent" + i +"Maneuverability",opponents[i].getManeuverability());
+                            prefs.putFloat("opponent" + i +"Tiredness",opponents[i].getTiredness());
                         }
 
                         prefs.flush();

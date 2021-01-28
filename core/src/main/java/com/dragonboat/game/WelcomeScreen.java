@@ -197,13 +197,19 @@ public class WelcomeScreen implements Screen {
         Float playerTime = prefs.getFloat("PlayerTime");
         Float timeSeconds = prefs.getFloat("timeSeconds");
 
-        // Loads Opponent Data
+        // Loads and Sets Opponent Data
         Integer opponentCount = prefs.getInteger("numberOfOpponents");
         for (int i = 0; i < opponentCount; i++) {
             game.opponents[i].xPosition = prefs.getFloat("opponent" + i +"XPos");
             game.opponents[i].yPosition = prefs.getFloat("opponent" + i +"YPos");
             game.opponents[i].penalties = prefs.getFloat("opponent" + i +"Penalties");
             game.opponents[i].UpdateFastestTime(prefs.getFloat("opponent" + i +"FastestTime"));
+            game.opponents[i].setDurability(prefs.getInteger("opponent" + i +"Durability"));
+            game.opponents[i].setROBUSTNESS(prefs.getInteger("opponent" + i +"Robustness"));
+            game.opponents[i].setCurrentSpeed(prefs.getFloat("opponent" + i +"CurrentSpeed"));
+            game.opponents[i].setACCELERATION(prefs.getFloat("opponent" + i +"Acceleration"));
+            game.opponents[i].setMANEUVERABILITY(prefs.getFloat("opponent" + i +"Maneuverability"));
+            game.opponents[i].setTiredness(prefs.getFloat("opponent" + i +"Tiredness"));
         }
 
         /*
@@ -229,6 +235,12 @@ public class WelcomeScreen implements Screen {
         game.player.yPosition = playerYPos;
         game.player.penalties = playerPenalties;
         game.player.UpdateFastestTime(prefs.getFloat("playerFastestTime"));
+        game.player.setDurability(prefs.getInteger("playerDurability"));
+        game.player.setROBUSTNESS(prefs.getInteger("playerRobustness"));
+        game.player.setCurrentSpeed(prefs.getFloat("playerCurrentSpeed"));
+        game.player.setACCELERATION(prefs.getFloat("playerAcceleration"));
+        game.player.setMANEUVERABILITY(prefs.getFloat("playerManeuverability"));
+        game.player.setTiredness(prefs.getFloat("playerTiredness"));
 
         // Sets Progress Bar Data
         game.progressBar.setTimeSeconds(timeSeconds);

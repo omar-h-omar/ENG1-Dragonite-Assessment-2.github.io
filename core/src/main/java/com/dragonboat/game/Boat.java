@@ -480,4 +480,51 @@ public class Boat {
         this.xPosition = lane.getRightBoundary() - (lane.getRightBoundary() - lane.getLeftBoundary()) / 2 - width / 2;
     }
 
+    /**
+     *
+     * @param ROBUSTNESS an integer representing how resilient to obstacle damage the boat is.
+     */
+    public void setROBUSTNESS(int ROBUSTNESS) {
+        this.ROBUSTNESS = ROBUSTNESS;
+    }
+
+    /**
+     *
+     * @param ACCELERATION A float representing how much the speed increases each frame.
+     */
+    public void setACCELERATION(float ACCELERATION) {
+        this.ACCELERATION = ACCELERATION;
+    }
+
+    /**
+     *
+     * @param MANEUVERABILITY A float representing how easily the boat can move left or right.
+     */
+    public void setMANEUVERABILITY(float MANEUVERABILITY) {
+        this.MANEUVERABILITY = MANEUVERABILITY;
+    }
+
+    /**
+     *
+     * @param durability an integer representing the current health of the boat.
+     */
+    public void setDurability(int durability) {
+        this.durability = durability;
+    }
+
+    /**
+     *
+     * @param currentSpeed A float representing the current speed of the boat.
+     */
+    public void setCurrentSpeed(float currentSpeed) {
+        this.currentSpeed = currentSpeed;
+    }
+
+    /**
+     *
+     * @param tiredness A float representing the tiredness of the boat crew.
+     */
+    public void setTiredness(float tiredness) {
+        this.tiredness = tiredness;
+    }
 }
