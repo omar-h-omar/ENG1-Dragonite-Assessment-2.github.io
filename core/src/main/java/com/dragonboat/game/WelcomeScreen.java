@@ -20,6 +20,8 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Screen class for the Menu Screen. Allows the user to select a Boat, and shows
@@ -107,7 +109,6 @@ public class WelcomeScreen implements Screen {
                         game.setScreen(menuScreen);
                     }
                     if (screenY >= (0.58 * screenHeight) && screenY <= (0.64 * screenHeight)){
-                        System.out.println("Pressed");
                         loadSave();
                     }
                 }
@@ -210,10 +211,36 @@ public class WelcomeScreen implements Screen {
             game.opponents[i].setACCELERATION(prefs.getFloat("opponent" + i +"Acceleration"));
             game.opponents[i].setMANEUVERABILITY(prefs.getFloat("opponent" + i +"Maneuverability"));
             game.opponents[i].setTiredness(prefs.getFloat("opponent" + i +"Tiredness"));
+            // Opponent PowerUp Data
+            for (int x = 0; x < 2; x++) {
+                String powerUpType = prefs.getString(i + "." + x + "opponentPowerUpObstacleType");
+                Float powerUpXPos = prefs.getFloat(i + "." + x + "opponentPowerUpXPos");
+                Float powerUpYPos = prefs.getFloat(i + "." + x +"opponentPowerUpYPos");
+                if (powerUpType.equals("Invincibility")) {
+                    Invincibility invincibility = new Invincibility(Math.round(powerUpXPos), Math.round(powerUpYPos), new Texture(Gdx.files.internal("itemBox.png")), game.lanes[i]);
+                    game.opponents[i].boatPowerUps[x] = invincibility;
+                }
+                else if (powerUpType.equals("Maneuverability")) {
+                    Maneuverability maneuverability = new Maneuverability(Math.round(powerUpXPos), Math.round(powerUpYPos), new Texture(Gdx.files.internal("itemBox.png")), game.lanes[i]);
+                    game.opponents[i].boatPowerUps[x] = maneuverability;
+                }
+                else if (powerUpType.equals("Repair")) {
+                    Repair repair = new Repair(Math.round(powerUpXPos), Math.round(powerUpYPos), new Texture(Gdx.files.internal("itemBox.png")), game.lanes[i]);
+                    game.opponents[i].boatPowerUps[x] = repair;
+                }
+                else if (powerUpType.equals("SpeedBoost")) {
+                    SpeedBoost speedBoost = new SpeedBoost(Math.round(powerUpXPos), Math.round(powerUpYPos), new Texture(Gdx.files.internal("itemBox.png")), game.lanes[i]);
+                    game.opponents[i].boatPowerUps[x] = speedBoost;
+                }
+                else if (powerUpType.equals("TimeReduction")) {
+                    TimeReduction timeReduction = new TimeReduction(Math.round(powerUpXPos), Math.round(powerUpYPos), new Texture(Gdx.files.internal("itemBox.png")), game.lanes[i]);
+                    game.opponents[i].boatPowerUps[x] = timeReduction;
+                }
+            }
         }
 
         /*
-         * Checks if only opponents are left and
+         * Checks if only 2 opponents are left and
          * assigns the correct lanes to them.
          */
         if (opponentCount == 2) {
@@ -241,21 +268,89 @@ public class WelcomeScreen implements Screen {
         game.player.setACCELERATION(prefs.getFloat("playerAcceleration"));
         game.player.setMANEUVERABILITY(prefs.getFloat("playerManeuverability"));
         game.player.setTiredness(prefs.getFloat("playerTiredness"));
+        // Player PowerUp Data
+        for (int i = 0; i < 2; i++) {
+            String powerUpType = prefs.getString(i+"playerPowerUpObstacleType");
+            Float powerUpXPos = prefs.getFloat(i + "playerPowerUpXPos");
+            Float powerUpYPos = prefs.getFloat(i + "playerPowerUpYPos");
+            if (powerUpType.equals("Invincibility")) {
+                Invincibility invincibility = new Invincibility(Math.round(powerUpXPos), Math.round(powerUpYPos), new Texture(Gdx.files.internal("itemBox.png")), game.player.lane);
+                game.player.boatPowerUps[i] = invincibility;
+            }
+            else if (powerUpType.equals("Maneuverability")) {
+                Maneuverability maneuverability = new Maneuverability(Math.round(powerUpXPos), Math.round(powerUpYPos), new Texture(Gdx.files.internal("itemBox.png")), game.player.lane);
+                game.player.boatPowerUps[i] = maneuverability;
+            }
+            else if (powerUpType.equals("Repair")) {
+                Repair repair = new Repair(Math.round(powerUpXPos), Math.round(powerUpYPos), new Texture(Gdx.files.internal("itemBox.png")), game.player.lane);
+                game.player.boatPowerUps[i] = repair;
+            }
+            else if (powerUpType.equals("SpeedBoost")) {
+                SpeedBoost speedBoost = new SpeedBoost(Math.round(powerUpXPos), Math.round(powerUpYPos), new Texture(Gdx.files.internal("itemBox.png")), game.player.lane);
+                game.player.boatPowerUps[i] = speedBoost;
+            }
+            else if (powerUpType.equals("TimeReduction")) {
+                TimeReduction timeReduction = new TimeReduction(Math.round(powerUpXPos), Math.round(powerUpYPos), new Texture(Gdx.files.internal("itemBox.png")), game.player.lane);
+                game.player.boatPowerUps[i] = timeReduction;
+            }
+        }
 
         // Sets Progress Bar Data
         game.progressBar.setTimeSeconds(timeSeconds);
         game.progressBar.setPlayerTime(playerTime);
 
+        // Loads and Sets Obstacles and PowerUps on Lanes
+        for (int i = 0; i < 7; i++){
+            Integer numberOfObstacles = prefs.getInteger(i +"numberOfObstacles");
+            Lane lane = game.lanes[i];
+            for (int x = 0; x < numberOfObstacles; x++){
+                String obstacleType = prefs.getString(i + "." + x + "ObstacleType");
+                Float xPosition = prefs.getFloat(i + "." + x + "ObstacleXPosition");
+                Float yPosition = prefs.getFloat(i + "." + x + "ObstacleYPosition");
+                if (obstacleType.equals("Goose")){
+                    lane.SpawnObstacle(Math.round(xPosition),Math.round(yPosition),"Goose");
+                }
+                if (obstacleType.equals("LogBig")){
+                    lane.SpawnObstacle(Math.round(xPosition),Math.round(yPosition),"LogBig");
+                }
+                if (obstacleType.equals("LogSmall")){
+                    lane.SpawnObstacle(Math.round(xPosition),Math.round(yPosition),"LogSmall");
+                }
+                if (obstacleType.equals("Rock")){
+                    lane.SpawnObstacle(Math.round(xPosition),Math.round(yPosition),"Rock");
+                }
+            }
 
-        // Sets Opponent Data
+            Integer numberOfPowerUps = prefs.getInteger(i +"numberOfPowerUps");
+            for (int x = 0; x < numberOfPowerUps; x++){
+                String PowerUpType = prefs.getString(i + "." + x + "PowerUpType");
+                Float xPosition = prefs.getFloat(i + "." + x + "PowerUpXPosition");
+                Float yPosition = prefs.getFloat(i + "." + x + "PowerUpYPosition");
+                if (PowerUpType.equals("Invincibility")){
+                    lane.SpawnPowerUp(Math.round(xPosition),Math.round(yPosition),"Invincibility");
+                }
+                if (PowerUpType.equals("Maneuverability")){
+                    lane.SpawnPowerUp(Math.round(xPosition),Math.round(yPosition),"Maneuverability");
+                }
+                if (PowerUpType.equals("Repair")){
+                    lane.SpawnPowerUp(Math.round(xPosition),Math.round(yPosition),"Repair");
+                }
+                if (PowerUpType.equals("SpeedBoost")){
+                    lane.SpawnPowerUp(Math.round(xPosition),Math.round(yPosition),"SpeedBoost");
+                }
+                if (PowerUpType.equals("TimeReduction")){
+                    lane.SpawnPowerUp(Math.round(xPosition),Math.round(yPosition),"TimeReduction");
+                }
+            }
+        }
+
+        String obstacleTimes = prefs.getString("obstacleTimes");
+        Json json = new Json();
+        game.obstacleTimes = json.fromJson(game.obstacleTimes.getClass(),obstacleTimes);
+        String powerUpTimes = prefs.getString("powerUpTimes");
+        game.powerUpTimes = json.fromJson(game.powerUpTimes.getClass(),powerUpTimes);
 
 
-
-//        game.course = ;
-//        game.lanes = ;
-//        game.progressBar = ;
-//        game.opponents = ;
-//        game.rnd = ;
         this.dispose();
         game.setScreen(new GameScreen(game));
     }

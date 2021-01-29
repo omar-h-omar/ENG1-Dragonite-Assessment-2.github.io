@@ -12,7 +12,7 @@ public class Rock extends Obstacle {
      * @param texture   Texture asset for the rock.
      */
     public Rock(int xPosition, int yPosition, Texture texture) {
-        super(20, xPosition, yPosition, texture.getWidth(), texture.getHeight(), texture);
+        super(20, xPosition, yPosition, texture.getWidth(), texture.getHeight(), texture, "Rock");
     }
 }
 

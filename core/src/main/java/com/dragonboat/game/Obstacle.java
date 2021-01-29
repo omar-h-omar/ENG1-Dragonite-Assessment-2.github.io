@@ -13,6 +13,7 @@ public class Obstacle {
     private int damage;
     public int width, height;
     public Texture texture;
+    public String obstacleType;
 
     /**
      * Creates an obstacle instance.
@@ -24,13 +25,14 @@ public class Obstacle {
      * @param height    Height of the obstacle.
      * @param texture   Texture asset for the obstacle.
      */
-    public Obstacle(int damage, int xPosition, int yPosition, int width, int height, Texture texture) {
+    public Obstacle(int damage, int xPosition, int yPosition, int width, int height, Texture texture, String obstacleType) {
         this.damage = damage;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         this.width = width;
         this.height = height;
         this.texture = texture;
+        this.obstacleType = obstacleType;
     }
 
     /**

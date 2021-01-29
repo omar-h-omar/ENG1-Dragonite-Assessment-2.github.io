@@ -27,7 +27,7 @@ public class PowerUp extends Obstacle{
      * @param texture   Texture asset for the obstacle.
      */
     public PowerUp(String type, int xPosition, int yPosition, Texture texture, Lane lane) {
-        super(0, xPosition, yPosition, texture.getWidth(), texture.getHeight(), texture);
+        super(0, xPosition, yPosition, texture.getWidth(), texture.getHeight(), texture, type);
         this.givenLane = lane;
         this.type = type;
         this.xPosition = xPosition;

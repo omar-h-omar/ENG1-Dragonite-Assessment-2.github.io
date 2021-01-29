@@ -1,6 +1,7 @@
 package com.dragonboat.game;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import com.badlogic.gdx.*;
@@ -665,14 +666,8 @@ public class GameScreen implements Screen {
                     }
                     if (screenY >= (0.55 * screenHeight) && screenY <= (0.59 * screenHeight)){
                         Preferences prefs = Gdx.app.getPreferences("GameSave");
+//                        Preferences save2 = Gdx.app.getPreferences("GameSave1");
                         prefs.clear();
-//                        String lanes = new Json().toJson(game.lanes);
-//                        String opponents = new Json().toJson(game.opponents);
-//                        String rnd = new Json().toJson(game.rnd);
-//                        String obstacleTimes = new Json().toJson(game.obstacleTimes);
-//                        String noOfObstacles = new Json().toJson(game.noOfObstacles);
-//                        String j' = new Json().toJson(game.noOfPowerUps);
-//                        String powerUpTimes = new Json().toJson(game.powerUpTimes);
 
                         // Game Parameters
                         prefs.putInteger("difficulty",game.difficulty);
@@ -689,6 +684,14 @@ public class GameScreen implements Screen {
                         prefs.putFloat("playerAcceleration",player.getAcceleration());
                         prefs.putFloat("playerManeuverability",player.getManeuverability());
                         prefs.putFloat("playerTiredness",player.getTiredness());
+                        // Player PowerUp Data
+                        for (int i = 0; i < player.boatPowerUps.length; i++) {
+                            if (player.boatPowerUps[i] != null){
+                                prefs.putString(i + "playerPowerUpObstacleType", player.boatPowerUps[i].obstacleType);
+                                prefs.putFloat(i + "playerPowerUpXPos", player.boatPowerUps[i].xPosition);
+                                prefs.putFloat(i + "playerPowerUpYPos", player.boatPowerUps[i].yPosition);
+                            }
+                        }
 
                         //Progress Bar Data
                         prefs.putFloat("PlayerTime", progressBar.getPlayerTime());
@@ -707,6 +710,36 @@ public class GameScreen implements Screen {
                             prefs.putFloat("opponent" + i +"Acceleration",opponents[i].getAcceleration());
                             prefs.putFloat("opponent" + i +"Maneuverability",opponents[i].getManeuverability());
                             prefs.putFloat("opponent" + i +"Tiredness",opponents[i].getTiredness());
+                            // Opponent PowerUp Data
+                            for (int x = 0; x < opponents[i].boatPowerUps.length; x++) {
+                                if (opponents[i].boatPowerUps[x] != null){
+                                    prefs.putString(i + "." + x + "opponentPowerUpObstacleType", opponents[i].boatPowerUps[x].obstacleType);
+                                    prefs.putFloat(i + "." + x + "opponentPowerUpXPos", opponents[i].boatPowerUps[x].xPosition);
+                                    prefs.putFloat(i + "." + x +"opponentPowerUpYPos", opponents[i].boatPowerUps[x].yPosition);
+                                }
+                            }
+                        }
+
+                        // Obstacles on Lane Data
+                        Json json = new Json();
+                        prefs.putString("obstacleTimes",json.toJson(game.obstacleTimes,game.obstacleTimes.getClass()));
+                        prefs.putString("powerUpTimes",json.toJson(game.powerUpTimes,game.powerUpTimes.getClass()));
+                        for (int i = 0; i < lanes.length; i++){
+                            prefs.putInteger(i + "numberOfObstacles",lanes[i].obstacles.size());
+                            for (int x = 0; x < lanes[i].obstacles.size(); x++){
+                                Obstacle obstacle = lanes[i].obstacles.get(x);
+                                prefs.putString(i + "." + x + "ObstacleType",obstacle.obstacleType);
+                                prefs.putFloat(i + "." + x + "ObstacleXPosition",obstacle.xPosition);
+                                prefs.putFloat(i + "." + x + "ObstacleYPosition",obstacle.yPosition);
+                            }
+                            // PowerUp on Lane Data
+                            prefs.putInteger(i + "numberOfPowerUps",lanes[i].powerUps.size());
+                            for (int x = 0; x < lanes[i].powerUps.size(); x++){
+                                Obstacle powerUp = lanes[i].powerUps.get(x);
+                                prefs.putString(i + "." + x + "PowerUpType",powerUp.obstacleType);
+                                prefs.putFloat(i + "." + x + "PowerUpXPosition",powerUp.xPosition);
+                                prefs.putFloat(i + "." + x + "PowerUpYPosition",powerUp.getY());
+                            }
                         }
 
                         prefs.flush();

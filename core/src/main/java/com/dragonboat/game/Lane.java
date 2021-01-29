@@ -70,11 +70,11 @@ public class Lane {
                 this.obstacles.add(goose);
 
             } else if (obstacleType.equals("LogBig")) {
-                Log log = new Log(x, y, new Texture(Gdx.files.internal("logBig sprite.png")));
+                Log log = new Log(x, y, new Texture(Gdx.files.internal("logBig sprite.png")),"LogBig");
                 this.obstacles.add(log);
 
             } else if (obstacleType.equals("LogSmall")) {
-                Log log = new Log(x, y, new Texture(Gdx.files.internal("logSmall sprite.png")));
+                Log log = new Log(x, y, new Texture(Gdx.files.internal("logSmall sprite.png")),"LogSmall");
                 this.obstacles.add(log);
 
             } else if (obstacleType.equals("Rock")) {
