@@ -76,7 +76,7 @@ public class DragonBoatGame extends Game {
         music = Gdx.audio.newMusic(Gdx.files.internal("cantgobackwards.mp3"));
         music.setLooping(true);
         music.setVolume(0.4f);
-//        music.play();
+        music.play();
 
         courseTexture = new Texture(Gdx.files.internal("background sprite.png"));
         lanes = new Lane[7];
