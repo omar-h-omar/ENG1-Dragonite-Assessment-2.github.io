@@ -23,6 +23,8 @@ public class GameScreen implements Screen {
     private final Random rnd;
     private final int MAX_DURABILITY = 50, MAX_TIREDNESS = 100;
     private DragonBoatGame game = null;
+    private boolean showWhereSaved = false;
+    private Integer CurrentSaveNum;
 
     // debug booleans
     private boolean debug_speed, debug_positions, debug_norandom, debug_verboseoutput;
@@ -63,7 +65,7 @@ public class GameScreen implements Screen {
     // global parameters
     private final int WIDTH = 1080, HEIGHT = 720;
     private enum State {
-        Paused,Running
+        Paused,Running,Saving
     }
     private State state;
 
@@ -169,12 +171,43 @@ public class GameScreen implements Screen {
      */
     @Override
     public void render(float deltaTime) {
+        /*
+         * Checks the current game state and shows
+         * content accordingly.
+         */
         switch (state) {
             case Paused:
+                // Returns to the game
                 if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
                     state = State.Running;
                 }
+                // Sets a black background
+                Gdx.gl.glEnable(GL20.GL_BLEND);
+                Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+                shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+                shapeRenderer.setColor(new Color(0, 0, 0, 0.25f));
+                shapeRenderer.rect(0, 0, viewport.getScreenWidth(), viewport.getScreenHeight());
+                shapeRenderer.end();
+                Gdx.gl.glDisable(GL20.GL_BLEND);
+                // Displays Menu Options
+                batch.begin();
+                font44.draw(batch,"Game Paused",WIDTH/2 - 135,HEIGHT/2 + 50);
+                font28.draw(batch,"Resume",WIDTH/2 - 40,HEIGHT/2);
+                font28.draw(batch,"Save",WIDTH/2 - 40,HEIGHT/2 - 40);
+                font28.draw(batch,"Exit",WIDTH/2 - 40,HEIGHT/2 - 80);
+                batch.end();
 
+                // Handles user input on the pause menu
+                pauseMenuInput();
+                break;
+            case Saving:
+                // Returns to the pause menu
+                if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+                    state = State.Paused;
+                    showWhereSaved = false;
+                }
+
+                // Sets a black background
                 Gdx.gl.glEnable(GL20.GL_BLEND);
                 Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
                 shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -183,14 +216,58 @@ public class GameScreen implements Screen {
                 shapeRenderer.end();
                 Gdx.gl.glDisable(GL20.GL_BLEND);
 
+                /*
+                 * Displays Menu Options
+                 * Shows the current game saves.
+                 * If all slots are full, then tells the player to overwrite an old save or cancel save.
+                 * When a player saves, shows the player which save slot was used.
+                  */
                 batch.begin();
-                font44.draw(batch,"Game Paused",WIDTH/2 - 135,HEIGHT/2 + 50);
-                font28.draw(batch,"Resume",WIDTH/2 - 40,HEIGHT/2);
-                font28.draw(batch,"Save",WIDTH/2 - 40,HEIGHT/2 - 40);
-                font28.draw(batch,"Exit",WIDTH/2 - 40,HEIGHT/2 - 80);
+
+                // Used to access the save files
+                Preferences prefs = Gdx.app.getPreferences("GameSave1");
+                Preferences prefs2 = Gdx.app.getPreferences("GameSave2");
+                Preferences prefs3 = Gdx.app.getPreferences("GameSave3");
+
+                // Gets a unique string to tell if the file is empty or not
+                String save1 = prefs.getString("Save");
+                String save2 = prefs2.getString("Save");
+                String save3 = prefs3.getString("Save");
+
+                // Indicates if the new save button is centered
+                boolean buttonCentered = false;
+
+                font44.draw(batch,"Current Saves:",WIDTH/4 + 110,HEIGHT/2 + 100);
+                if (save1.equals("Saved")){
+                    font44.draw(batch,"Save 1",WIDTH/2 - 63,HEIGHT/2 + 50);
+                }
+
+                if (save2.equals("Saved")){
+                    font44.draw(batch,"Save 2",WIDTH/2 - 63,HEIGHT/2);
+                }
+
+                if (save3.equals("Saved")){
+                    font44.draw(batch,"Save 3",WIDTH/2 - 63,HEIGHT/2 - 50);
+                }
+
+                if (save1.equals("") && save2.equals("") && save3.equals("")) {
+                    font44.draw(batch,"New Save",WIDTH/2 - 100,HEIGHT/2);
+                    buttonCentered = true;
+                }else {
+                    font44.draw(batch,"New Save",WIDTH/2 - 100,HEIGHT/2 - 100);
+                }
+
+                if (save1.equals("Saved") && save2.equals("Saved") && save3.equals("Saved")) {
+                    font28.draw(batch,"By Saving, You'll be overwriting the oldest save you have.",WIDTH/4 - 120,HEIGHT/2 - 160);
+                }
+
+                if (showWhereSaved){
+                    font28.draw(batch,"Game Saved to Save " + CurrentSaveNum ,WIDTH/2 - 140,HEIGHT/2 - 200);
+                }
                 batch.end();
 
-                pauseMenuInput();
+                // Handles user input on the save menu
+                saveMenuInput(prefs,prefs2,prefs3,buttonCentered);
                 break;
             case Running:
                 if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
@@ -639,7 +716,7 @@ public class GameScreen implements Screen {
     }
 
     /**
-     * Defines how to handle mouse inputs.
+     * Defines how to handle mouse inputs for the pause menu.
      */
     public void pauseMenuInput() {
         Gdx.input.setInputProcessor(new InputAdapter(){
@@ -665,88 +742,182 @@ public class GameScreen implements Screen {
                         state = State.Running;
                     }
                     if (screenY >= (0.55 * screenHeight) && screenY <= (0.59 * screenHeight)){
-                        Preferences prefs = Gdx.app.getPreferences("GameSave");
-//                        Preferences save2 = Gdx.app.getPreferences("GameSave1");
-                        prefs.clear();
-
-                        // Game Parameters
-                        prefs.putInteger("difficulty",game.difficulty);
-
-                        //Player Data
-                        prefs.putInteger("playerChoice",game.playerChoice);
-                        prefs.putFloat("playerXPos",player.xPosition);
-                        prefs.putFloat("playerYPos",player.yPosition);
-                        prefs.putFloat("playerPenalties",player.penalties);
-                        prefs.putFloat("playerFastestTime",player.getFastestTime());
-                        prefs.putInteger("playerDurability",player.getDurability());
-                        prefs.putInteger("playerRobustness",player.getRobustness());
-                        prefs.putFloat("playerCurrentSpeed",player.getCurrentSpeed());
-                        prefs.putFloat("playerAcceleration",player.getAcceleration());
-                        prefs.putFloat("playerManeuverability",player.getManeuverability());
-                        prefs.putFloat("playerTiredness",player.getTiredness());
-                        // Player PowerUp Data
-                        for (int i = 0; i < player.boatPowerUps.length; i++) {
-                            if (player.boatPowerUps[i] != null){
-                                prefs.putString(i + "playerPowerUpObstacleType", player.boatPowerUps[i].obstacleType);
-                                prefs.putFloat(i + "playerPowerUpXPos", player.boatPowerUps[i].xPosition);
-                                prefs.putFloat(i + "playerPowerUpYPos", player.boatPowerUps[i].yPosition);
-                            }
-                        }
-
-                        //Progress Bar Data
-                        prefs.putFloat("PlayerTime", progressBar.getPlayerTime());
-                        prefs.putFloat("timeSeconds", progressBar.getTime());
-
-                        // Opponent Data
-                        prefs.putInteger("numberOfOpponents",opponents.length);
-                        for (int i = 0; i< opponents.length; i++){
-                            prefs.putFloat("opponent" + i +"XPos",opponents[i].xPosition);
-                            prefs.putFloat("opponent" + i +"YPos",opponents[i].yPosition);
-                            prefs.putFloat("opponent" + i +"Penalties",opponents[i].penalties);
-                            prefs.putFloat("opponent" + i + "FastestTime",opponents[i].getFastestTime());
-                            prefs.putInteger("opponent" + i +"Durability",opponents[i].getDurability());
-                            prefs.putInteger("opponent" + i +"Robustness",opponents[i].getRobustness());
-                            prefs.putFloat("opponent" + i +"CurrentSpeed",opponents[i].getCurrentSpeed());
-                            prefs.putFloat("opponent" + i +"Acceleration",opponents[i].getAcceleration());
-                            prefs.putFloat("opponent" + i +"Maneuverability",opponents[i].getManeuverability());
-                            prefs.putFloat("opponent" + i +"Tiredness",opponents[i].getTiredness());
-                            // Opponent PowerUp Data
-                            for (int x = 0; x < opponents[i].boatPowerUps.length; x++) {
-                                if (opponents[i].boatPowerUps[x] != null){
-                                    prefs.putString(i + "." + x + "opponentPowerUpObstacleType", opponents[i].boatPowerUps[x].obstacleType);
-                                    prefs.putFloat(i + "." + x + "opponentPowerUpXPos", opponents[i].boatPowerUps[x].xPosition);
-                                    prefs.putFloat(i + "." + x +"opponentPowerUpYPos", opponents[i].boatPowerUps[x].yPosition);
-                                }
-                            }
-                        }
-
-                        // Obstacles on Lane Data
-                        Json json = new Json();
-                        prefs.putString("obstacleTimes",json.toJson(game.obstacleTimes,game.obstacleTimes.getClass()));
-                        prefs.putString("powerUpTimes",json.toJson(game.powerUpTimes,game.powerUpTimes.getClass()));
-                        for (int i = 0; i < lanes.length; i++){
-                            prefs.putInteger(i + "numberOfObstacles",lanes[i].obstacles.size());
-                            for (int x = 0; x < lanes[i].obstacles.size(); x++){
-                                Obstacle obstacle = lanes[i].obstacles.get(x);
-                                prefs.putString(i + "." + x + "ObstacleType",obstacle.obstacleType);
-                                prefs.putFloat(i + "." + x + "ObstacleXPosition",obstacle.xPosition);
-                                prefs.putFloat(i + "." + x + "ObstacleYPosition",obstacle.yPosition);
-                            }
-                            // PowerUp on Lane Data
-                            prefs.putInteger(i + "numberOfPowerUps",lanes[i].powerUps.size());
-                            for (int x = 0; x < lanes[i].powerUps.size(); x++){
-                                Obstacle powerUp = lanes[i].powerUps.get(x);
-                                prefs.putString(i + "." + x + "PowerUpType",powerUp.obstacleType);
-                                prefs.putFloat(i + "." + x + "PowerUpXPosition",powerUp.xPosition);
-                                prefs.putFloat(i + "." + x + "PowerUpYPosition",powerUp.getY());
-                            }
-                        }
-
-                        prefs.flush();
+                        state = State.Saving;
                     }
                     if (screenY >= (0.61 * screenHeight) && screenY <= (0.64 * screenHeight)){
                         Gdx.app.exit();
                     }
+                }
+                return super.touchUp(screenX, screenY, pointer, button);
+            }
+        });
+    }
+
+    /**
+     * Defines how to handle mouse inputs for the save menu.
+     * @param prefs A Preferences instance that connects to the first save slot
+     * @param prefs2 A Preferences instance that connects to the second save slot
+     * @param prefs3 A Preferences instance that connects to the third save slot
+     * @param buttonCentered A boolean that indicates if the save button is centered.
+     */
+    public void saveMenuInput(final Preferences prefs, final Preferences prefs2,final Preferences prefs3, final boolean buttonCentered) {
+        final boolean[] saveButtonPressed = {false};
+        Gdx.input.setInputProcessor(new InputAdapter() {
+            /**
+             * Used to receive input events from the mouse.
+             *
+             * @param screenX X-position of the cursor.
+             * @param screenY Y-position of the cursor (top left is 0,0).
+             * @param pointer Pointer object.
+             * @param button  Number representing mouse button clicked (0 = left click, 1 =
+             *                right click, 2 = middle mouse button, etc.).
+             * @return The output of touchUp(...), a boolean representing whether the input
+             * was processed (unused in this scenario).
+             * @see InputAdapter
+             */
+            @Override
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                int screenHeight = viewport.getScreenHeight();
+                int screenWidth = viewport.getScreenWidth();
+                System.out.println(screenX);
+                System.out.println(screenY);
+                if (screenX >= (0.4 * screenWidth) && screenX <= (0.6 * screenWidth)) {
+                    if (screenY >= (0.63 * screenHeight) && screenY <= (0.69 * screenHeight) && !buttonCentered){
+                        saveButtonPressed[0] = true;
+                    }
+                    if (screenY >= (0.49 * screenHeight) && screenY <= (0.55 * screenHeight) && buttonCentered){
+                        saveButtonPressed[0] = true;
+                    }
+                }
+                /*
+                 * Checks which slot is free and uses it.
+                 * If no slots are available, then overwrites
+                 * the oldest slot.
+                 */
+                if (saveButtonPressed[0]){
+                    // The file where the current save will be
+                    Preferences SaveFile;
+
+                    // A save log which tells us what the oldest file is
+                    Preferences SaveLog = Gdx.app.getPreferences("SaveLog");
+                    // The current number of oldest file as stored in SaveLog
+                    Integer SaveLogNum = SaveLog.getInteger("OldestFile",1);
+
+                    // A tracker used to save the number of the oldest file in the save log
+                    Integer oldestFile;
+
+                    if (prefs.getString("Save").equals("")){
+                        SaveFile = prefs;
+                        oldestFile = 1;
+                        CurrentSaveNum = 1;
+                    }else if (prefs2.getString("Save").equals("")){
+                        SaveFile = prefs2;
+                        oldestFile = 1;
+                        CurrentSaveNum = 2;
+                    }else if (prefs3.getString("Save").equals("")){
+                        SaveFile = prefs3;
+                        oldestFile = 1;
+                        CurrentSaveNum = 3;
+                    }else {
+
+                        if (SaveLogNum == 1){
+                            SaveFile = prefs;
+                            oldestFile = 2;
+                            CurrentSaveNum = 1;
+                        }else if (SaveLogNum == 2){
+                            oldestFile = 3;
+                            SaveFile = prefs2;
+                            CurrentSaveNum = 2;
+                        }else{
+                            SaveFile = prefs3;
+                            oldestFile = 1;
+                            CurrentSaveNum = 3;
+                        }
+                    }
+
+                    // Clears any old data
+                    SaveFile.clear();
+
+                    // Indicates that the file is a game save
+                    SaveFile.putString("Save","Saved");
+                    // Game Parameters
+                    SaveFile.putInteger("difficulty",game.difficulty);
+
+                    //Player Data
+                    SaveFile.putInteger("playerChoice",game.playerChoice);
+                    SaveFile.putFloat("playerXPos",player.xPosition);
+                    SaveFile.putFloat("playerYPos",player.yPosition);
+                    SaveFile.putFloat("playerPenalties",player.penalties);
+                    SaveFile.putFloat("playerFastestTime",player.getFastestTime());
+                    SaveFile.putInteger("playerDurability",player.getDurability());
+                    SaveFile.putInteger("playerRobustness",player.getRobustness());
+                    SaveFile.putFloat("playerCurrentSpeed",player.getCurrentSpeed());
+                    SaveFile.putFloat("playerAcceleration",player.getAcceleration());
+                    SaveFile.putFloat("playerManeuverability",player.getManeuverability());
+                    SaveFile.putFloat("playerTiredness",player.getTiredness());
+                    // Player PowerUp Data
+                    for (int i = 0; i < player.boatPowerUps.length; i++) {
+                        if (player.boatPowerUps[i] != null){
+                            SaveFile.putString(i + "playerPowerUpObstacleType", player.boatPowerUps[i].obstacleType);
+                            SaveFile.putFloat(i + "playerPowerUpXPos", player.boatPowerUps[i].xPosition);
+                            SaveFile.putFloat(i + "playerPowerUpYPos", player.boatPowerUps[i].yPosition);
+                        }
+                    }
+
+                    //Progress Bar Data
+                    SaveFile.putFloat("PlayerTime", progressBar.getPlayerTime());
+                    SaveFile.putFloat("timeSeconds", progressBar.getTime());
+
+                    // Opponent Data
+                    SaveFile.putInteger("numberOfOpponents",opponents.length);
+                    for (int i = 0; i< opponents.length; i++){
+                        SaveFile.putFloat("opponent" + i +"XPos",opponents[i].xPosition);
+                        SaveFile.putFloat("opponent" + i +"YPos",opponents[i].yPosition);
+                        SaveFile.putFloat("opponent" + i +"Penalties",opponents[i].penalties);
+                        SaveFile.putFloat("opponent" + i + "FastestTime",opponents[i].getFastestTime());
+                        SaveFile.putInteger("opponent" + i +"Durability",opponents[i].getDurability());
+                        SaveFile.putInteger("opponent" + i +"Robustness",opponents[i].getRobustness());
+                        SaveFile.putFloat("opponent" + i +"CurrentSpeed",opponents[i].getCurrentSpeed());
+                        SaveFile.putFloat("opponent" + i +"Acceleration",opponents[i].getAcceleration());
+                        SaveFile.putFloat("opponent" + i +"Maneuverability",opponents[i].getManeuverability());
+                        SaveFile.putFloat("opponent" + i +"Tiredness",opponents[i].getTiredness());
+                        // Opponent PowerUp Data
+                        for (int x = 0; x < opponents[i].boatPowerUps.length; x++) {
+                            if (opponents[i].boatPowerUps[x] != null){
+                                SaveFile.putString(i + "." + x + "opponentPowerUpObstacleType", opponents[i].boatPowerUps[x].obstacleType);
+                                SaveFile.putFloat(i + "." + x + "opponentPowerUpXPos", opponents[i].boatPowerUps[x].xPosition);
+                                SaveFile.putFloat(i + "." + x +"opponentPowerUpYPos", opponents[i].boatPowerUps[x].yPosition);
+                            }
+                        }
+                    }
+
+                    // Obstacles on Lane Data
+                    Json json = new Json();
+                    SaveFile.putString("obstacleTimes",json.toJson(game.obstacleTimes,game.obstacleTimes.getClass()));
+                    SaveFile.putString("powerUpTimes",json.toJson(game.powerUpTimes,game.powerUpTimes.getClass()));
+                    for (int i = 0; i < lanes.length; i++){
+                        SaveFile.putInteger(i + "numberOfObstacles",lanes[i].obstacles.size());
+                        for (int x = 0; x < lanes[i].obstacles.size(); x++){
+                            Obstacle obstacle = lanes[i].obstacles.get(x);
+                            SaveFile.putString(i + "." + x + "ObstacleType",obstacle.obstacleType);
+                            SaveFile.putFloat(i + "." + x + "ObstacleXPosition",obstacle.xPosition);
+                            SaveFile.putFloat(i + "." + x + "ObstacleYPosition",obstacle.yPosition);
+                        }
+                        // PowerUp on Lane Data
+                        SaveFile.putInteger(i + "numberOfPowerUps",lanes[i].powerUps.size());
+                        for (int x = 0; x < lanes[i].powerUps.size(); x++){
+                            Obstacle powerUp = lanes[i].powerUps.get(x);
+                            SaveFile.putString(i + "." + x + "PowerUpType",powerUp.obstacleType);
+                            SaveFile.putFloat(i + "." + x + "PowerUpXPosition",powerUp.xPosition);
+                            SaveFile.putFloat(i + "." + x + "PowerUpYPosition",powerUp.getY());
+                        }
+                    }
+
+                    SaveFile.flush();
+
+                    SaveLog.putInteger("OldestFile",oldestFile);
+                    System.out.println(oldestFile);
+                    showWhereSaved = true;
                 }
                 return super.touchUp(screenX, screenY, pointer, button);
             }

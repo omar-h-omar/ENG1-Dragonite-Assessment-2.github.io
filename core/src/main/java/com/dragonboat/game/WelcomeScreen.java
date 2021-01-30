@@ -1,15 +1,14 @@
 package com.dragonboat.game;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.Preferences;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -42,6 +41,11 @@ public class WelcomeScreen implements Screen {
     // global parameters
     private final int WIDTH = 1080, HEIGHT = 720;
     final DragonBoatGame game;
+    private enum State {
+        Welcome,Loading
+    }
+    private State state;
+    private final WelcomeScreen welcomeScreen;
 
     // used for setting boundaries for mouse clicks
     private final OrthographicCamera camera;
@@ -56,6 +60,8 @@ public class WelcomeScreen implements Screen {
      */
     public WelcomeScreen(DragonBoatGame Game) {
         game = Game;
+        state = State.Welcome;
+        welcomeScreen = this;
 
         batch = new SpriteBatch();
         background = new Texture(Gdx.files.internal("end screen.png"));
@@ -67,63 +73,8 @@ public class WelcomeScreen implements Screen {
         font28 = generator.generateFont(parameter);
         parameter.size = 44;
         font44 = generator.generateFont(parameter);
-
-        final WelcomeScreen welcomeScreen = this;
         camera = new OrthographicCamera();
         viewport = new StretchViewport(1080, 720, camera);
-
-        /*
-         * Defines how to handle mouse inputs.
-         */
-        Gdx.input.setInputProcessor(new InputAdapter() {
-
-            /**
-             * Used to receive input events from the mouse.
-             *
-             * @param screenX X-position of the cursor.
-             * @param screenY Y-position of the cursor (top left is 0,0).
-             * @param pointer Pointer object.
-             * @param button  Number representing mouse button clicked (0 = left click, 1 =
-             *                right click, 2 = middle mouse button, etc.).
-             * @return The output of touchUp(...), a boolean representing whether the input
-             *         was processed (unused in this scenario).
-             * @see InputAdapter
-             */
-            @Override
-            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                /*
-                 * First check whether the cursor is in right x-bounds, as these are all the
-                 * same for all boats.
-                 */
-                int screenHeight = viewport.getScreenHeight();
-                int screenWidth = viewport.getScreenWidth();
-                if (screenX >= (0.386 * screenWidth) && screenX <= (0.60 * screenWidth)) {
-                    /*
-                     * Then check if the mouse is in each set of y-bounds, if so, start
-                     * a new game or load the previous game.
-                     *
-                     */
-                    if (screenY >= (0.5 * screenHeight) && screenY <= (0.55 * screenHeight)){
-                        MenuScreen menuScreen = new MenuScreen(game);
-//                        welcomeScreen.dispose();
-                        game.setScreen(menuScreen);
-                    }
-                    if (screenY >= (0.58 * screenHeight) && screenY <= (0.64 * screenHeight)){
-                        loadSave();
-                    }
-                }
-                if (screenY >= (0.551 * screenHeight) && screenY <= (0.91 * screenHeight)) {
-
-                    if (screenX >= (0.041 * screenWidth) && screenX <= (0.1638 * screenWidth)) {
-                        game.player.ChooseBoat(0);
-                        game.playerChoice = 0;
-                        welcomeScreen.dispose();
-                        game.setScreen(new GameScreen(game));
-                    }
-                }
-                return super.touchUp(screenX, screenY, pointer, button);
-            }
-        });
     }
 
     /**
@@ -134,8 +85,42 @@ public class WelcomeScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         batch.draw(background, 0, 0);
-        font44.draw(batch,"New Game",WIDTH/2 - 120,HEIGHT/2);
-        font44.draw(batch,"Load Game",WIDTH/2 - 120,HEIGHT/2 - 60);
+        switch (state){
+            case Welcome:
+                font44.draw(batch,"New Game",WIDTH/2 - 120,HEIGHT/2);
+                font44.draw(batch,"Load Game",WIDTH/2 - 120,HEIGHT/2 - 60);
+                WelcomeMenuInput();
+                break;
+            case Loading:
+                // Returns to the welcome menu
+                if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+                    state = State.Welcome;
+                }
+
+                // Used to access the save files
+                Preferences prefs = Gdx.app.getPreferences("GameSave1");
+                Preferences prefs2 = Gdx.app.getPreferences("GameSave2");
+                Preferences prefs3 = Gdx.app.getPreferences("GameSave3");
+
+                // Gets a unique string to tell if the file is empty or not
+                String save1 = prefs.getString("Save");
+                String save2 = prefs2.getString("Save");
+                String save3 = prefs3.getString("Save");
+
+                font44.draw(batch,"Current Saves:",WIDTH/4 + 110,HEIGHT/2 + 80);
+                if (save1.equals("Saved")){
+                    font44.draw(batch,"Save 1",WIDTH/2 - 63,HEIGHT/2 + 30);
+                }
+
+                if (save2.equals("Saved")){
+                    font44.draw(batch,"Save 2",WIDTH/2 - 63,HEIGHT/2 - 20);
+                }
+
+                if (save3.equals("Saved")){
+                    font44.draw(batch,"Save 3",WIDTH/2 - 63,HEIGHT/2 - 70);
+                }
+                LoadMenuInput();
+        }
         batch.end();
     }
 
@@ -179,11 +164,110 @@ public class WelcomeScreen implements Screen {
     }
 
     /**
-     * Loads the old game save and starts the game.
+     * Defines how to handle mouse inputs on the welcome menu.
      */
-    public void loadSave() {
+    public void WelcomeMenuInput() {
+        Gdx.input.setInputProcessor(new InputAdapter() {
+
+            /**
+             * Used to receive input events from the mouse.
+             *
+             * @param screenX X-position of the cursor.
+             * @param screenY Y-position of the cursor (top left is 0,0).
+             * @param pointer Pointer object.
+             * @param button  Number representing mouse button clicked (0 = left click, 1 =
+             *                right click, 2 = middle mouse button, etc.).
+             * @return The output of touchUp(...), a boolean representing whether the input
+             *         was processed (unused in this scenario).
+             * @see InputAdapter
+             */
+            @Override
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                /*
+                 * First check whether the cursor is in right x-bounds, as these are all the
+                 * same for all boats.
+                 */
+                int screenHeight = viewport.getScreenHeight();
+                int screenWidth = viewport.getScreenWidth();
+                if (screenX >= (0.386 * screenWidth) && screenX <= (0.60 * screenWidth)) {
+                    /*
+                     * Then check if the mouse is in each set of y-bounds, if so, start
+                     * a new game or load the previous game.
+                     *
+                     */
+                    if (screenY >= (0.5 * screenHeight) && screenY <= (0.55 * screenHeight)){
+                        MenuScreen menuScreen = new MenuScreen(game);
+                        game.setScreen(menuScreen);
+                    }
+                    if (screenY >= (0.58 * screenHeight) && screenY <= (0.64 * screenHeight)){
+                        state = State.Loading;
+                    }
+                }
+                return super.touchUp(screenX, screenY, pointer, button);
+            }
+        });
+    }
+
+    /**
+     * Defines how to handle mouse inputs on the load menu.
+     */
+    public void LoadMenuInput() {
+        Gdx.input.setInputProcessor(new InputAdapter() {
+
+            /**
+             * Used to receive input events from the mouse.
+             *
+             * @param screenX X-position of the cursor.
+             * @param screenY Y-position of the cursor (top left is 0,0).
+             * @param pointer Pointer object.
+             * @param button  Number representing mouse button clicked (0 = left click, 1 =
+             *                right click, 2 = middle mouse button, etc.).
+             * @return The output of touchUp(...), a boolean representing whether the input
+             *         was processed (unused in this scenario).
+             * @see InputAdapter
+             */
+            @Override
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                /*
+                 * First check whether the cursor is in right x-bounds, as these are all the
+                 * same for all boats.
+                 */
+                int screenHeight = viewport.getScreenHeight();
+                int screenWidth = viewport.getScreenWidth();
+                Preferences prefs;
+                if (screenX >= (0.442 * screenWidth) && screenX <= (0.57 * screenWidth)) {
+                    /*
+                     * Then check if the mouse is in each set of y-bounds, if so, start
+                     * a new game or load the previous game.
+                     *
+                     */
+                    if (screenY >= (0.45 * screenHeight) && screenY <= (0.507 * screenHeight)){
+                        prefs = Gdx.app.getPreferences("GameSave1");
+                        loadSave(prefs);
+                    }
+                    if (screenY >= (0.52 * screenHeight) && screenY <= (0.579 * screenHeight)){
+                        prefs = Gdx.app.getPreferences("GameSave2");
+                        loadSave(prefs);
+                    }
+                    if (screenY >= (0.598 * screenHeight) && screenY <= (0.677 * screenHeight)){
+                        prefs = Gdx.app.getPreferences("GameSave3");
+                        loadSave(prefs);
+                    }
+                }
+                return super.touchUp(screenX, screenY, pointer, button);
+            }
+        });
+    }
+
+    /**
+     * Loads the old game save and starts the game.
+     * @param prefs A Preferences instance that connects to the save file
+     */
+    public void loadSave(Preferences prefs) {
+        if (prefs.getString("Save").equals("")){
+            return;
+        }
         game.save = true;
-        Preferences prefs = Gdx.app.getPreferences("GameSave");
 
         // Loads Game Parameters
         Integer difficulty = prefs.getInteger("difficulty");
