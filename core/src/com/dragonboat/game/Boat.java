@@ -433,4 +433,18 @@ public class Boat {
         this.xPosition = lane.getRightBoundary() - (lane.getRightBoundary() - lane.getLeftBoundary()) / 2 - width / 2;
     }
 
+    public void setACCELERATION(float value) { this.ACCELERATION = value;}
+    public void setMANEUVERABILITY(float value) { this.MANEUVERABILITY = value;}
+    public void setCurrentSpeed(float value) {this.currentSpeed = value;}
+    public void setXPosition(float value) {this.xPosition = value;}
+
+
+    public void SteerRightTest() {
+        if (true) {
+            this.xPosition += this.MANEUVERABILITY * this.currentSpeed;
+            this.currentSpeed *= 0.985;
+        }
+
+    }
+
 }

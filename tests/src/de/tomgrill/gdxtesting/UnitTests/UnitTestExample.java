@@ -14,7 +14,7 @@
  * limitations under the License.
  ******************************************************************************/
 
-package de.tomgrill.gdxtesting.examples;
+package de.tomgrill.gdxtesting.UnitTests;
 
 import static org.junit.Assert.assertEquals;
 
