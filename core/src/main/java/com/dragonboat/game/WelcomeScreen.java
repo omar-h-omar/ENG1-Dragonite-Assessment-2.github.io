@@ -89,6 +89,7 @@ public class WelcomeScreen implements Screen {
             case Welcome:
                 font44.draw(batch,"New Game",WIDTH/2 - 120,HEIGHT/2);
                 font44.draw(batch,"Load Game",WIDTH/2 - 120,HEIGHT/2 - 60);
+                font28.draw(batch,"TIP: Use ESC to navigate between menus and to pause the game.",WIDTH/4 - 170,HEIGHT/2 - 120);
                 WelcomeMenuInput();
                 break;
             case Loading:
