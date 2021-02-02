@@ -123,8 +123,13 @@ public class WelcomeScreen implements Screen {
                     font44.draw(batch,"Save 3",WIDTH/2 - 63,HEIGHT/2 - 70);
                 }
                 LoadMenuInput();
-
+                break;
             case Level:
+                // Returns to the welcome menu
+                if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
+                    state = State.Welcome;
+                }
+                // Shows the different difficulty settings
                 font44.draw(batch,"Easy",WIDTH/2 - 63,HEIGHT/2 + 30);
                 font44.draw(batch,"Medium",WIDTH/2 - 63,HEIGHT/2 - 20);
                 font44.draw(batch,"Hard",WIDTH/2 - 63,HEIGHT/2 - 70);
@@ -133,6 +138,11 @@ public class WelcomeScreen implements Screen {
         batch.end();
     }
 
+    /**
+     *
+     * @param width An integer representing the width
+     * @param height An integer representing the height
+     */
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height, true);
@@ -245,8 +255,7 @@ public class WelcomeScreen implements Screen {
                 Preferences prefs;
                 if (screenX >= (0.442 * screenWidth) && screenX <= (0.57 * screenWidth)) {
                     /*
-                     * Then check if the mouse is in each set of y-bounds, if so, start
-                     * a new game or load the previous game.
+                     * Then check if the mouse is in each set of y-bounds, if so,  loads the chosen game.
                      *
                      */
                     if (screenY >= (0.45 * screenHeight) && screenY <= (0.507 * screenHeight)){
@@ -272,6 +281,7 @@ public class WelcomeScreen implements Screen {
      * @param prefs A Preferences instance that connects to the save file
      */
     public void loadSave(Preferences prefs) {
+        // Checks if there are any current saves
         if (prefs.getString("Save").equals("")){
             return;
         }
@@ -279,6 +289,7 @@ public class WelcomeScreen implements Screen {
 
         // Loads Game Parameters
         Integer difficulty = prefs.getInteger("difficulty");
+        String level = prefs.getString("level");
 
         // Loads Player Data
         Integer playerChoice = prefs.getInteger("playerChoice");
@@ -346,6 +357,7 @@ public class WelcomeScreen implements Screen {
 
         // Sets Game Parameters
         game.difficulty = difficulty;
+        game.level = level;
 
         // Sets Player Data
         game.player.ChooseBoat(playerChoice);
@@ -447,6 +459,9 @@ public class WelcomeScreen implements Screen {
         game.setScreen(new GameScreen(game));
     }
 
+    /**
+     * Defines how to handle mouse inputs on the level menu.
+     */
     public void LevelMenuInput() {
         Gdx.input.setInputProcessor(new InputAdapter() {
 
@@ -474,7 +489,7 @@ public class WelcomeScreen implements Screen {
                 if (screenX >= (0.442 * screenWidth) && screenX <= (0.57 * screenWidth)) {
                     /*
                      * Then check if the mouse is in each set of y-bounds, if so, start
-                     * a new game or load the previous game.
+                     * sets the chosen the difficulty level and starts the game.
                      *
                      */
                     if (screenY >= (0.45 * screenHeight) && screenY <= (0.507 * screenHeight)) {

@@ -845,6 +845,7 @@ public class GameScreen implements Screen {
                     SaveFile.putString("Save","Saved");
                     // Game Parameters
                     SaveFile.putInteger("difficulty",game.difficulty);
+                    SaveFile.putString("level",game.level);
 
                     //Player Data
                     SaveFile.putInteger("playerChoice",game.playerChoice);
