@@ -206,7 +206,7 @@ public class Opponent extends Boat {
 
 
 
-    public void ai(int backgroundOffset) {
+    public void ai(int backgroundOffset, String level) {
 
         int leftSide = Math.round(xPosition);
         int rightSide = Math.round(xPosition + width);
@@ -386,6 +386,12 @@ public class Opponent extends Boat {
         // 3) If nothing, speed up.
         if (this.getTiredness() < 70)
             this.IncreaseSpeed();
+
+        if (level == "Easy") {
+            setCurrentSpeed(getCurrentSpeed()-0.02f);
+        }else if (level == "Hard"){
+            setCurrentSpeed(getCurrentSpeed() + 0.02f);
+        }
     }
 
     /**

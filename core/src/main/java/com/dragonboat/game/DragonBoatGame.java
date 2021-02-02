@@ -58,6 +58,7 @@ public class DragonBoatGame extends Game {
     private Texture courseTexture;
     //used for loading a save
     public boolean save = false;
+    public String level;
 
 
     /**
@@ -82,6 +83,7 @@ public class DragonBoatGame extends Game {
         lanes = new Lane[7];
         noOfObstacles = 8;
         noOfPowerUps = 4;
+
         obstacleTimes = new ArrayList[lanes.length];
         powerUpTimes = new ArrayList[lanes.length];
 
@@ -156,7 +158,20 @@ public class DragonBoatGame extends Game {
         if (debug_norandom) rnd = new Random(1);
         else rnd = new Random();
 
-        noOfObstacles = 8 * difficulty;
+        switch (level) {
+            case "Easy":
+                noOfObstacles = 5;
+                break;
+            case "Medium":
+                noOfObstacles = 10;
+                break;
+            case "Hard":
+                noOfObstacles = 15;
+            default:
+                noOfObstacles = 10;
+        }
+
+        noOfObstacles = noOfObstacles * difficulty;
         obstacleTimes = new ArrayList[lanes.length];
         for (int x = 0; x < lanes.length; x++) {
             lanes[x].obstacles = new ArrayList<>();

@@ -347,21 +347,11 @@ public class GameScreen implements Screen {
                     o.CheckCollisions(backgroundOffset);
 
                     if (Math.round(totalDeltaTime) % 2 == 0) {
-                        o.ai(backgroundOffset);
+                        o.ai(backgroundOffset, game.level);
                     }
                     if (o.getY() % 5 == 2)
                         o.AdvanceTextureFrame();
                 }
-
-                // new
-                //        for (PowerUp p : powerups) {
-                //            if (!started) {
-                //                break;
-                //            }
-                //            else{
-                //                p.AdvanceTextureFrame();
-                //            }
-                //        }
 
                 /*
                  * Increase the background offset so the player is centered.
@@ -400,11 +390,24 @@ public class GameScreen implements Screen {
                         // If the background hasn't started moving yet, or if the player has reached the
                         // top of the course, move obstacle at set speed.
                         // Else add the player speed to the obstacle speed.
-                        o.Move(0.4f + (backgroundOffset > 0
-                                        && player.getY() + HEIGHT / 2 + player.getHeight() / 2 < course.getTexture().getHeight()
-                                        ? player.getCurrentSpeed()
-                                        : 0),
-                                backgroundOffset);
+                        if (o instanceof Goose) {
+                            Goose g = (Goose) o;
+                            g.Move(0.4f + (backgroundOffset > 0
+                                            && player.getY() + HEIGHT / 2 + player.getHeight() / 2 < course.getTexture().getHeight()
+                                            ? player.getCurrentSpeed()
+                                            : 0),
+                                    backgroundOffset,
+                                    game.level);
+                        }
+                        else {
+                            o.Move(0.4f + (backgroundOffset > 0
+                                            && player.getY() + HEIGHT / 2 + player.getHeight() / 2 < course.getTexture().getHeight()
+                                            ? player.getCurrentSpeed()
+                                            : 0),
+                                    backgroundOffset);
+                        }
+
+
                         if (o.getY() < -o.getHeight()) {
                             lane.RemoveObstacle(o);
                         }

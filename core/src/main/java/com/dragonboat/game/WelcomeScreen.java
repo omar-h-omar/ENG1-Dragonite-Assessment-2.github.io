@@ -42,7 +42,7 @@ public class WelcomeScreen implements Screen {
     private final int WIDTH = 1080, HEIGHT = 720;
     final DragonBoatGame game;
     private enum State {
-        Welcome,Loading
+        Welcome,Loading, Level
     }
     private State state;
     private final WelcomeScreen welcomeScreen;
@@ -91,7 +91,9 @@ public class WelcomeScreen implements Screen {
                 font44.draw(batch,"Load Game",WIDTH/2 - 120,HEIGHT/2 - 60);
                 font28.draw(batch,"TIP: Use ESC to navigate between menus and to pause the game.",WIDTH/4 - 170,HEIGHT/2 - 120);
                 WelcomeMenuInput();
+
                 break;
+
             case Loading:
                 // Returns to the welcome menu
                 if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
@@ -121,6 +123,12 @@ public class WelcomeScreen implements Screen {
                     font44.draw(batch,"Save 3",WIDTH/2 - 63,HEIGHT/2 - 70);
                 }
                 LoadMenuInput();
+
+            case Level:
+                font44.draw(batch,"Easy",WIDTH/2 - 63,HEIGHT/2 + 30);
+                font44.draw(batch,"Medium",WIDTH/2 - 63,HEIGHT/2 - 20);
+                font44.draw(batch,"Hard",WIDTH/2 - 63,HEIGHT/2 - 70);
+                LevelMenuInput();
         }
         batch.end();
     }
@@ -197,8 +205,7 @@ public class WelcomeScreen implements Screen {
                      *
                      */
                     if (screenY >= (0.5 * screenHeight) && screenY <= (0.55 * screenHeight)){
-                        MenuScreen menuScreen = new MenuScreen(game);
-                        game.setScreen(menuScreen);
+                        state = state.Level;
                     }
                     if (screenY >= (0.58 * screenHeight) && screenY <= (0.64 * screenHeight)){
                         state = State.Loading;
@@ -438,6 +445,57 @@ public class WelcomeScreen implements Screen {
 
         this.dispose();
         game.setScreen(new GameScreen(game));
+    }
+
+    public void LevelMenuInput() {
+        Gdx.input.setInputProcessor(new InputAdapter() {
+
+            /**
+             * Used to receive input events from the mouse.
+             *
+             * @param screenX X-position of the cursor.
+             * @param screenY Y-position of the cursor (top left is 0,0).
+             * @param pointer Pointer object.
+             * @param button  Number representing mouse button clicked (0 = left click, 1 =
+             *                right click, 2 = middle mouse button, etc.).
+             * @return The output of touchUp(...), a boolean representing whether the input
+             *         was processed (unused in this scenario).
+             * @see InputAdapter
+             */
+            @Override
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                /*
+                 * First check whether the cursor is in right x-bounds, as these are all the
+                 * same for all boats.
+                 */
+                int screenHeight = viewport.getScreenHeight();
+                int screenWidth = viewport.getScreenWidth();
+
+                if (screenX >= (0.442 * screenWidth) && screenX <= (0.57 * screenWidth)) {
+                    /*
+                     * Then check if the mouse is in each set of y-bounds, if so, start
+                     * a new game or load the previous game.
+                     *
+                     */
+                    if (screenY >= (0.45 * screenHeight) && screenY <= (0.507 * screenHeight)) {
+                        game.level = "Easy";
+                        MenuScreen menuScreen = new MenuScreen(game);
+                        game.setScreen(menuScreen);
+                    }
+                    if (screenY >= (0.52 * screenHeight) && screenY <= (0.579 * screenHeight)){
+                        game.level = "Medium";
+                        MenuScreen menuScreen = new MenuScreen(game);
+                        game.setScreen(menuScreen);
+                    }
+                    if (screenY >= (0.598 * screenHeight) && screenY <= (0.677 * screenHeight)){
+                        game.level = "Hard";
+                        MenuScreen menuScreen = new MenuScreen(game);
+                        game.setScreen(menuScreen);
+                    }
+                }
+                return super.touchUp(screenX, screenY, pointer, button);
+            }
+        });
     }
 
 }

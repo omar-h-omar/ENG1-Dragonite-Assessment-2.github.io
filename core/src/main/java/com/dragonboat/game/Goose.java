@@ -55,7 +55,7 @@ public class Goose extends Obstacle {
      * @param moveVal          Distance to move Goose by.
      * @param backgroundOffset Offset from screen to course coordinates.
      */
-    public void Move(float moveVal, int backgroundOffset) {
+    public void Move(float moveVal, int backgroundOffset, String level) {
 
         boolean canGoEast, canGoWest;
 
@@ -72,12 +72,22 @@ public class Goose extends Obstacle {
             canGoEast = false;
             canGoWest = true;
         }
-
+        
+        int randomMove;
         // Chance of goose changing direction.
-        int randomMove = 20;
+
+        if (level == "Medium") {
+            randomMove = 30;
+        }else if (level == "Hard"){
+            randomMove = 10;
+        }else{
+            randomMove = 50;
+        }
+
         if (new Random().nextInt(randomMove) == randomMove - 1) {
             changeDirection();
         }
+
 
         if (canGoEast && this.direction == "East") {
             this.setX(this.getX() + moveVal);
