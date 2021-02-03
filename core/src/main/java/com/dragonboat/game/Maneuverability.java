@@ -1,3 +1,4 @@
+//"ASSESSMENT2:START"
 package com.dragonboat.game;
 
 import com.badlogic.gdx.Gdx;
@@ -12,3 +13,4 @@ public class Maneuverability extends PowerUp{
     }
 
 }
+//"ASSESSMENT2:END"

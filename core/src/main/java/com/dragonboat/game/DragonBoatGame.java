@@ -43,9 +43,13 @@ public class DragonBoatGame extends Game {
     public ProgressBar progressBar;
     public Leaderboard leaderboard;
     public ArrayList<Integer>[] obstacleTimes;
+  //"ASSESSMENT2:START"
     public ArrayList<Integer>[] powerUpTimes;
+  //"ASSESSMENT2:END"
     public int noOfObstacles;
+  //"ASSESSMENT2:START"
     public int noOfPowerUps;
+  //"ASSESSMENT2:END"
     public int playerChoice;
     public int difficulty = 1;
     public Music music;
@@ -56,10 +60,11 @@ public class DragonBoatGame extends Game {
     ///***maybe set to public? so it is less memory intensive
     private BitmapFont font28;
     private Texture courseTexture;
+  //"ASSESSMENT2:START"
     //used for loading a save
     public boolean save = false;
     public String level;
-
+  //"ASSESSMENT2:END"
 
     /**
      * Sets up the game with settings and instantiation of objects.
@@ -82,18 +87,24 @@ public class DragonBoatGame extends Game {
         courseTexture = new Texture(Gdx.files.internal("background sprite.png"));
         lanes = new Lane[7];
         noOfObstacles = 8;
+      //"ASSESSMENT2:START"
         noOfPowerUps = 4;
+      //"ASSESSMENT2:END"
 
         obstacleTimes = new ArrayList[lanes.length];
+      //"ASSESSMENT2:START"
         powerUpTimes = new ArrayList[lanes.length];
-
+      //"ASSESSMENT2:END"
+        
         /*
          * Instantiate each lane, and allocate obstacles and power-ups by creating a random sequence
          * of Y values for obstacles and power-ups to spawn at for each lane.
          */
         for (int x = 0; x < lanes.length; x++) {
             obstacleTimes[x] = new ArrayList<>();
+          //"ASSESSMENT2:START"
             powerUpTimes[x] = new ArrayList<>();
+          //"ASSESSMENT2:END"
             // new 40 is the offset
             lanes[x] = new Lane((x * w / lanes.length) + 40, (((x + 1) * w) / lanes.length) + 40);
             int maxY = (courseTexture.getHeight() - (5 * noOfObstacles)) / noOfObstacles;
@@ -102,11 +113,12 @@ public class DragonBoatGame extends Game {
             }
             Collections.sort(obstacleTimes[x]);
 
-            // new
+          //"ASSESSMENT2:START"
             for (int z = 0; z < noOfPowerUps; z++) {
                 powerUpTimes[x].add(rnd.nextInt(maxY - 5) + 5 + maxY * z);
             }
             Collections.sort(powerUpTimes[x]);
+          //"ASSESSMENT2:END"
 
             if (debug_verboseoutput) {
                 System.out.println("Lane " + x + " obstacles to spawn: ");
@@ -141,12 +153,14 @@ public class DragonBoatGame extends Game {
         font28 = generator.generateFont(parameter);
 
         batch = new SpriteBatch();
-
+        
+        //"ASSESSMENT2:START"
+        
         // Display the welcome screen.
         WelcomeScreen welcomeScreen = new WelcomeScreen(this);
         setScreen(welcomeScreen);
     }
-
+    	//"ASSESSMENT2:END"
     /**
      * Changes the screen to a new GameScreen and resets necessary attributes.
      */
@@ -157,6 +171,8 @@ public class DragonBoatGame extends Game {
         difficulty += 1;
         if (debug_norandom) rnd = new Random(1);
         else rnd = new Random();
+
+      //"ASSESSMENT2:START"
 
         switch (level) {
             case "Easy":
@@ -170,8 +186,9 @@ public class DragonBoatGame extends Game {
             default:
                 noOfObstacles = 10;
         }
-
+        
         noOfObstacles = noOfObstacles * difficulty;
+      //"ASSESSMENT2:END"
         obstacleTimes = new ArrayList[lanes.length];
         for (int x = 0; x < lanes.length; x++) {
             lanes[x].obstacles = new ArrayList<>();
@@ -190,6 +207,8 @@ public class DragonBoatGame extends Game {
                 System.out.println();
             }
         }
+        
+      //"ASSESSMENT2:START"
 
         noOfPowerUps = 4;
         powerUpTimes = new ArrayList[lanes.length];
@@ -202,7 +221,7 @@ public class DragonBoatGame extends Game {
             }
             Collections.sort(powerUpTimes[x]);
         }
-
+      //"ASSESSMENT2:END"
         player.Reset();
 
         /*

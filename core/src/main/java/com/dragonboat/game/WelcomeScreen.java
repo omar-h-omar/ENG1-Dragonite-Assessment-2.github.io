@@ -1,3 +1,4 @@
+//"ASSESSMENT2:START"
 package com.dragonboat.game;
 
 import com.badlogic.gdx.*;
@@ -514,3 +515,4 @@ public class WelcomeScreen implements Screen {
     }
 
 }
+//"ASSESSMENT2:END"

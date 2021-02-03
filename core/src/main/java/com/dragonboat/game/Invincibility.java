@@ -1,3 +1,4 @@
+//"ASSESSMENT2:START"
 package com.dragonboat.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,3 +12,4 @@ public class Invincibility extends PowerUp{
         this.givenLane = lane;
     }
 }
+//"ASSESSMENT2:END"

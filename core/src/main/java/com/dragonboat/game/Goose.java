@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
+//"ASSESSMENT2:START"
 import com.badlogic.gdx.Gdx;
+//"ASSESSMENT2:END"
 import com.badlogic.gdx.graphics.Texture;
 
 /**
@@ -73,6 +75,8 @@ public class Goose extends Obstacle {
             canGoWest = true;
         }
         
+        
+      //"ASSESSMENT2:START"
         int randomMove;
         // Chance of goose changing direction.
 
@@ -87,7 +91,7 @@ public class Goose extends Obstacle {
         if (new Random().nextInt(randomMove) == randomMove - 1) {
             changeDirection();
         }
-
+      //"ASSESSMENT2:END"
 
         if (canGoEast && this.direction == "East") {
             this.setX(this.getX() + moveVal);

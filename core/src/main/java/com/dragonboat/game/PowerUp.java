@@ -1,3 +1,4 @@
+//"ASSESSMENT2:START"
 package com.dragonboat.game;
 
 import com.badlogic.gdx.Gdx;
@@ -144,3 +145,4 @@ public class PowerUp extends Obstacle{
     }
 
 }
+//"ASSESSMENT2:END"

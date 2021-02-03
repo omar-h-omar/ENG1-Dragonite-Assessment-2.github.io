@@ -13,7 +13,9 @@ public class Obstacle {
     private int damage;
     public int width, height;
     public Texture texture;
+  //"ASSESSMENT2:START"
     public String obstacleType;
+  //"ASSESSMENT2:END"
 
     /**
      * Creates an obstacle instance.
@@ -32,7 +34,9 @@ public class Obstacle {
         this.width = width;
         this.height = height;
         this.texture = texture;
+      //"ASSESSMENT2:START"
         this.obstacleType = obstacleType;
+      //"ASSESSMENT2:END"
     }
 
     /**
