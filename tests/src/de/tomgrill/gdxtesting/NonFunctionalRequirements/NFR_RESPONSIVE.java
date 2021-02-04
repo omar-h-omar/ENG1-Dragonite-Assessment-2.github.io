@@ -4,5 +4,5 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 
 public class NFR_RESPONSIVE {
-    Gdx.input.isKeyPressed
+//    Gdx.input.isKeyPressed
 }
