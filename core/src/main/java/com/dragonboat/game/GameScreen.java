@@ -785,8 +785,6 @@ public class GameScreen implements Screen {
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 int screenHeight = viewport.getScreenHeight();
                 int screenWidth = viewport.getScreenWidth();
-                System.out.println(screenX);
-                System.out.println(screenY);
                 if (screenX >= (0.4 * screenWidth) && screenX <= (0.6 * screenWidth)) {
                     if (screenY >= (0.63 * screenHeight) && screenY <= (0.69 * screenHeight) && !buttonCentered){
                         saveButtonPressed[0] = true;
@@ -923,7 +921,6 @@ public class GameScreen implements Screen {
                     SaveFile.flush();
 
                     SaveLog.putInteger("OldestFile",oldestFile);
-                    System.out.println(oldestFile);
                     showWhereSaved = true;
                 }
                 return super.touchUp(screenX, screenY, pointer, button);

@@ -79,31 +79,31 @@ public class Lane {
                 this.obstacles.add(goose);
 
             } else if (obstacleType.equals("OakLog")) {
-                Log log = new Log(x, y, new Texture(Gdx.files.internal("OakLog.png")));
+                Log log = new Log(x, y, new Texture(Gdx.files.internal("OakLog.png")),"OakLog");
                 this.obstacles.add(log);
 
             } else if (obstacleType.equals("OakLogShort")) {
-                Log log = new Log(x, y, new Texture(Gdx.files.internal("OakLogShort.png")));
+                Log log = new Log(x, y, new Texture(Gdx.files.internal("OakLogShort.png")),"OakLogShort");
                 this.obstacles.add(log);
 
             } else if (obstacleType.equals("BirchLog")) {
-                Log log = new Log(x, y, new Texture(Gdx.files.internal("BirchLog.png")));
+                Log log = new Log(x, y, new Texture(Gdx.files.internal("BirchLog.png")),"BirchLog");
                 this.obstacles.add(log);
 
             } else if (obstacleType.equals("BirchLogShort")) {
-                Log log = new Log(x, y, new Texture(Gdx.files.internal("BirchLogShort.png")));
+                Log log = new Log(x, y, new Texture(Gdx.files.internal("BirchLogShort.png")),"BirchLogShort");
                 this.obstacles.add(log);
 
             } else if (obstacleType.equals("Rock1")) {
-                Rock rock = new Rock(x, y, new Texture(Gdx.files.internal("Rock1.png")));
+                Rock rock = new Rock(x, y, new Texture(Gdx.files.internal("Rock1.png")),"Rock1");
                 this.obstacles.add(rock);
 
             } else if (obstacleType.equals("Rock2")) {
-            Rock rock = new Rock(x, y, new Texture(Gdx.files.internal("Rock2.png")));
+            Rock rock = new Rock(x, y, new Texture(Gdx.files.internal("Rock2.png")),"Rock2");
             this.obstacles.add(rock);
 
             } else if (obstacleType.equals("Rock3")) {
-                Rock rock = new Rock(x, y, new Texture(Gdx.files.internal("Rock3.png")));
+                Rock rock = new Rock(x, y, new Texture(Gdx.files.internal("Rock3.png")),"Rock3");
                 this.obstacles.add(rock);
             }
         } else
