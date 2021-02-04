@@ -415,14 +415,26 @@ public class WelcomeScreen implements Screen {
                 if (obstacleType.equals("Goose")){
                     lane.SpawnObstacle(Math.round(xPosition),Math.round(yPosition),"Goose");
                 }
-                if (obstacleType.equals("LogBig")){
-                    lane.SpawnObstacle(Math.round(xPosition),Math.round(yPosition),"LogBig");
+                if (obstacleType.equals("OakLog")){
+                    lane.SpawnObstacle(Math.round(xPosition),Math.round(yPosition),"OakLog");
                 }
-                if (obstacleType.equals("LogSmall")){
-                    lane.SpawnObstacle(Math.round(xPosition),Math.round(yPosition),"LogSmall");
+                if (obstacleType.equals("OakLogShort")){
+                    lane.SpawnObstacle(Math.round(xPosition),Math.round(yPosition),"OakLogShort");
                 }
-                if (obstacleType.equals("Rock")){
-                    lane.SpawnObstacle(Math.round(xPosition),Math.round(yPosition),"Rock");
+                if (obstacleType.equals("BirchLog")){
+                    lane.SpawnObstacle(Math.round(xPosition),Math.round(yPosition),"BirchLog");
+                }
+                if (obstacleType.equals("BirchLogShort")){
+                    lane.SpawnObstacle(Math.round(xPosition),Math.round(yPosition),"BirchLogShort");
+                }
+                if (obstacleType.equals("Rock1")){
+                    lane.SpawnObstacle(Math.round(xPosition),Math.round(yPosition),"Rock1");
+                }
+                if (obstacleType.equals("Rock2")){
+                    lane.SpawnObstacle(Math.round(xPosition),Math.round(yPosition),"Rock2");
+                }
+                if (obstacleType.equals("Rock3")){
+                    lane.SpawnObstacle(Math.round(xPosition),Math.round(yPosition),"Rock3");
                 }
             }
 
