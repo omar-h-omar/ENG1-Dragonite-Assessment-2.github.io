@@ -69,16 +69,32 @@ public class Lane {
                 Goose goose = new Goose(x, y, new Texture(Gdx.files.internal("gooseSouthsprite.png")), this);
                 this.obstacles.add(goose);
 
-            } else if (obstacleType.equals("LogBig")) {
-                Log log = new Log(x, y, new Texture(Gdx.files.internal("logBig sprite.png")),"LogBig");
+            } else if (obstacleType.equals("OakLog")) {
+                Log log = new Log(x, y, new Texture(Gdx.files.internal("OakLog.png")));
                 this.obstacles.add(log);
 
-            } else if (obstacleType.equals("LogSmall")) {
-                Log log = new Log(x, y, new Texture(Gdx.files.internal("logSmall sprite.png")),"LogSmall");
+            } else if (obstacleType.equals("OakLogShort")) {
+                Log log = new Log(x, y, new Texture(Gdx.files.internal("OakLogShort.png")));
                 this.obstacles.add(log);
 
-            } else if (obstacleType.equals("Rock")) {
-                Rock rock = new Rock(x, y, new Texture(Gdx.files.internal("rock.png")));
+            } else if (obstacleType.equals("BirchLog")) {
+                Log log = new Log(x, y, new Texture(Gdx.files.internal("BirchLog.png")));
+                this.obstacles.add(log);
+
+            } else if (obstacleType.equals("BirchLogShort")) {
+                Log log = new Log(x, y, new Texture(Gdx.files.internal("BirchLogShort.png")));
+                this.obstacles.add(log);
+
+            } else if (obstacleType.equals("Rock1")) {
+                Rock rock = new Rock(x, y, new Texture(Gdx.files.internal("Rock1.png")));
+                this.obstacles.add(rock);
+
+            } else if (obstacleType.equals("Rock2")) {
+            Rock rock = new Rock(x, y, new Texture(Gdx.files.internal("Rock2.png")));
+            this.obstacles.add(rock);
+
+            } else if (obstacleType.equals("Rock3")) {
+                Rock rock = new Rock(x, y, new Texture(Gdx.files.internal("Rock3.png")));
                 this.obstacles.add(rock);
             }
         } else

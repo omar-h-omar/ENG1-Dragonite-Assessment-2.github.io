@@ -299,7 +299,7 @@ public class GameScreen implements Screen {
                         break;
                     if (this.game.obstacleTimes[i].get(0) - player.getY() + player.getHeight() < 1) {
                         // new added rock
-                        String[] obstacleTypes = {"Goose", "LogBig", "LogSmall", "Rock"};
+                        String[] obstacleTypes = {"Goose", "OakLog", "OakLogShort", "BirchLog", "BirchLogShort", "Rock1", "Rock2", "Rock3"};
 
                         // spawn an obstacle in lane i.
                         int xCoord = lanes[i].getLeftBoundary()

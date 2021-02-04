@@ -32,7 +32,6 @@ public class Obstacle {
         this.width = width;
         this.height = height;
         this.texture = texture;
-        this.obstacleType = obstacleType;
     }
 
     /**

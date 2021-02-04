@@ -34,6 +34,7 @@ public class Boat {
     private int threshold = 5;
 
     public PowerUp[] boatPowerUps;
+    public float powerUpTimer;
     private boolean isInvincible;
     private int invCounter;
     private float reductions;

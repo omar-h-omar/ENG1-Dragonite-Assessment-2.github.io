@@ -81,7 +81,7 @@ public class DragonBoatGame extends Game {
 
         courseTexture = new Texture(Gdx.files.internal("background sprite.png"));
         lanes = new Lane[7];
-        noOfObstacles = 8;
+        noOfObstacles = 6;
         noOfPowerUps = 4;
 
         obstacleTimes = new ArrayList[lanes.length];
@@ -160,18 +160,17 @@ public class DragonBoatGame extends Game {
 
         switch (level) {
             case "Easy":
-                noOfObstacles = 5;
+                noOfObstacles += difficulty;
                 break;
             case "Medium":
-                noOfObstacles = 10;
+                noOfObstacles += 2*difficulty;
                 break;
             case "Hard":
-                noOfObstacles = 15;
+                noOfObstacles = 3*difficulty;
             default:
                 noOfObstacles = 10;
         }
 
-        noOfObstacles = noOfObstacles * difficulty;
         obstacleTimes = new ArrayList[lanes.length];
         for (int x = 0; x < lanes.length; x++) {
             lanes[x].obstacles = new ArrayList<>();
