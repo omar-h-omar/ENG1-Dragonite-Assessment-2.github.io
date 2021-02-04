@@ -108,7 +108,7 @@ gradle-app.setting
 /ios/build/
 /ios-moe/build/
 radle-version
-/tests/build
+/tests/build/
 
 ## OS Specific
 .DS_Store
