@@ -1,4 +1,4 @@
-package de.tomgrill.gdxtesting.UnitTests;
+package de.tomgrill.gdxtesting.FunctionalRequirements;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.dragonboat.game.Obstacle;
