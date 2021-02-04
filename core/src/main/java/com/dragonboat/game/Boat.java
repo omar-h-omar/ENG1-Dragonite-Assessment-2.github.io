@@ -32,13 +32,16 @@ public class Boat {
     private String name;
     private boolean finished;
     private int threshold = 5;
+    
+ // "ASSESSMENT2:START"
 
     public PowerUp[] boatPowerUps;
     public float powerUpTimer;
     private boolean isInvincible;
     private int invCounter;
     private float reductions;
-
+    
+ // "ASSESSMENT2:END"
     /**
      * Creates a Boat instance in a specified Lane.
      *
@@ -62,10 +65,12 @@ public class Boat {
         this.textureFrames = new Texture[4];
         frameCounter = 0;
         this.name = name;
+     // "ASSESSMENT2:START"
         this.boatPowerUps = new PowerUp[2];
         this.isInvincible = false;
         this.invCounter = 3;
         this.reductions = 0;
+     // "ASSESSMENT2:END"
     }
 
     /**
@@ -136,8 +141,11 @@ public class Boat {
         // Iterate through obstacles.
 
         ArrayList<Obstacle> obstacles = this.lane.obstacles;
+     // "ASSESSMENT2:START"
         ArrayList<PowerUp> powerUps = this.lane.powerUps;
+     // "ASSESSMENT2:END"
         ArrayList<Integer> obstaclesToRemove = new ArrayList<>();
+     // "ASSESSMENT2:START"
         ArrayList<Integer> powerUpsToRemove = new ArrayList<>();
 
         for (PowerUp p : powerUps) {
@@ -162,28 +170,26 @@ public class Boat {
             }
             return false;
         }
-
+     // "ASSESSMENT2:END"
         for (Obstacle o : obstacles) {
             // new changed so that it accommodates for obstacles with different width
             if (o.getX() < this.xPosition + this.width && this.xPosition < o.getX() + o.getTexture().getWidth()) {
                 // new changed for detection of y as it would not collide on the side of boats
                 if (this.yPosition + this.height > o.getY() + backgroundOffset
                         && this.yPosition < o.getY() + o.texture.getHeight() + backgroundOffset) {
+                	
                     this.ApplyDamage(o.getDamage());
                     obstaclesToRemove.add(obstacles.indexOf(o));
 
                 }
             }
         }
-
         for (int i : obstaclesToRemove) {
             this.lane.RemoveObstacle(obstacles.get(i));
             return true;
         }
-
         return false;
     }
-
 
     /**
      * Decreases the durability of the boat by the obstacle damage divided by the
@@ -197,6 +203,7 @@ public class Boat {
         this.currentSpeed *= 0.9;
         return this.durability <= 0;
     }
+ // "ASSESSMENT2:START"
 
     public void AddPowerUp(PowerUp p) {
         if (boatPowerUps[0] == null){
@@ -225,7 +232,7 @@ public class Boat {
             invCounter = 3;
         }
     }
-
+ // "ASSESSMENT2:END"
     /**
      * Checks if the boat is between the left boundary and the right boundary of the Lane.
      *
@@ -480,7 +487,7 @@ public class Boat {
         this.lane = lane;
         this.xPosition = lane.getRightBoundary() - (lane.getRightBoundary() - lane.getLeftBoundary()) / 2 - width / 2;
     }
-
+ // "ASSESSMENT2:START"
     /**
      *
      * @param ROBUSTNESS an integer representing how resilient to obstacle damage the boat is.
@@ -529,3 +536,4 @@ public class Boat {
         this.tiredness = tiredness;
     }
 }
+//"ASSESSMENT2:END"

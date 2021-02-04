@@ -44,6 +44,7 @@ public class Player extends Boat {
             // Call method associated
             this.SteerRight();
         }
+  //"ASSESSMENT2:START"
         if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             // Call method associated
             if (!(this.boatPowerUps[0] == null)) {
@@ -53,7 +54,7 @@ public class Player extends Boat {
             }
         }
     }
-
+  //"ASSESSMENT2:END"
     /**
      * <p>
      * Assigns the selected boat template to the boat.

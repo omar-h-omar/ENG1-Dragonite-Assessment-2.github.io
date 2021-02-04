@@ -142,7 +142,7 @@ public class ProgressBar {
     public Texture getOpponentIcon() {
         return opponentIcon;
     }
-
+//"ASSESSMENT2:START"
     /**
      * Sets the current timer
      *
@@ -161,3 +161,4 @@ public class ProgressBar {
         this.playerTime = playerTime;
     }
 }
+//"ASSESSMENT2:END"

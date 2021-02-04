@@ -11,7 +11,9 @@ import com.badlogic.gdx.graphics.Texture;
 public class Lane {
     private final int LEFTBOUNDARY, RIGHTBOUNDARY;
     protected ArrayList<Obstacle> obstacles;
+  //"ASSESSMENT2:START"
     protected ArrayList<PowerUp> powerUps;
+  //"ASSESSMENT2:END"
     private int obstacleLimit;
     private int powerUpLimit;
 
@@ -24,11 +26,15 @@ public class Lane {
     public Lane(int leftBoundary, int rightBoundary) {
         this.LEFTBOUNDARY = leftBoundary;
         this.RIGHTBOUNDARY = rightBoundary;
+      //"ASSESSMENT2:START"
         this.obstacleLimit = 20;   // maybe change back to 10
         this.powerUpLimit = 4;
+      //"ASSESSMENT2:END"
 
         obstacles = new ArrayList<>();
+      //"ASSESSMENT2:START"
         powerUps = new ArrayList<>();
+      //"ASSESSMENT2:END"
     }
 
     /**
@@ -42,10 +48,13 @@ public class Lane {
         this.LEFTBOUNDARY = leftBoundary;
         this.RIGHTBOUNDARY = rightBoundary;
         this.obstacleLimit = obstacleLimit;
+      //"ASSESSMENT2:START"
         this.powerUpLimit = 4;
-
+      //"ASSESSMENT2:END"
         obstacles = new ArrayList<>();
+      //"ASSESSMENT2:START"
         powerUps = new ArrayList<>();
+      //"ASSESSMENT2:END"
     }
 
     /**
@@ -100,7 +109,7 @@ public class Lane {
         } else
             System.out.println("Obstacle limit reached.");
     }
-
+  //"ASSESSMENT2:START"
     /**
      * <p>
      * Spawns power-ups in the lane.
@@ -141,8 +150,8 @@ public class Lane {
         } else
             System.out.println("Power-up limit reached.");
     }
-
-
+  //"ASSESSMENT2:END"
+    
     /**
      * <p>
      * Removes obstacle from obstacle list.
@@ -157,7 +166,7 @@ public class Lane {
     public void RemoveObstacle(Obstacle obstacle) {
         this.obstacles.remove(obstacle);
     }
-
+  //"ASSESSMENT2:START"
     /**
      * <p>
      * Removes power-up from powerUps list.
@@ -172,7 +181,7 @@ public class Lane {
     public void RemovePowerUp(PowerUp powerUp) {
         this.powerUps.remove(powerUp);
     }
-
+  //"ASSESSMENT2:END"
     // getters and setters
 
     /**

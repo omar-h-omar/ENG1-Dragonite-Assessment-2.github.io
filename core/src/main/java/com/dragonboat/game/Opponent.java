@@ -15,12 +15,13 @@ public class Opponent extends Boat {
 
     public String steering = "None";
     private ArrayList<Obstacle> sortedIncomingObstacles;
+  //"ASSESSMENT2:START"
     public Rectangle rightBox; // a rectangle on the far right in front of the boat.
     public Rectangle midBox; // a rectangle on the middle in front of the boat.
     public Rectangle leftBox; // a rectangle on the far left in front of the boat.
     public Rectangle rightSideBox; // a rectangle on the right of the boat.
     public Rectangle leftSideBox; // a rectangle on the left of the boat.
-
+  //"ASSESSMENT2:END"
     /**
      * Creates a opponent instance.
      *
@@ -58,7 +59,7 @@ public class Opponent extends Boat {
      * @param backgroundOffset
      */
 
-    // new
+    //"ASSESSMENT2:START"
     public boolean collides(int backgroundOffset, Rectangle box) {
         // Iterate through obstacles.
         ArrayList<Obstacle> obstacles = this.lane.obstacles;
@@ -76,15 +77,16 @@ public class Opponent extends Boat {
         }
         return false;
     }
-
+    //"ASSESSMENT2:END"
     public void aiNew(int backgroundOffset) {
-
+    //"ASSESSMENT2:START"
         rightBox = new Rectangle(xPosition + width, yPosition + getHeight(), width, getHeight());
         midBox = new Rectangle( xPosition, yPosition + getHeight(), width, getHeight());
         leftBox = new Rectangle(xPosition - width, yPosition + getHeight() + backgroundOffset, width, getHeight());
         rightSideBox = new Rectangle(xPosition + width, yPosition, width, getHeight());
         leftSideBox = new Rectangle(xPosition - width, yPosition, width, getHeight());
-
+    //"ASSESSMENT2:END"
+        
         int leftSide = Math.round(xPosition);
         int rightSide = Math.round(xPosition + width);
 
@@ -96,7 +98,7 @@ public class Opponent extends Boat {
             this.steering = "None";
         }
 
-
+     //"ASSESSMENT2:START"
         if (this.CheckIfInLane() == false) {
             // Commence route back into lane.
             if (leftSide - this.lane.getLeftBoundary() <= 0) {
@@ -170,44 +172,8 @@ public class Opponent extends Boat {
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public void ai(int backgroundOffset, String level) {
-
+    //"ASSESSMENT2:END"
         int leftSide = Math.round(xPosition);
         int rightSide = Math.round(xPosition + width);
 
@@ -386,13 +352,14 @@ public class Opponent extends Boat {
         // 3) If nothing, speed up.
         if (this.getTiredness() < 70)
             this.IncreaseSpeed();
-
+  //"ASSESSMENT2:START"
         if (level == "Easy") {
             setCurrentSpeed(getCurrentSpeed()-0.02f);
         }else if (level == "Hard"){
             setCurrentSpeed(getCurrentSpeed() + 0.02f);
         }
     }
+  //"ASSESSMENT2:END"
 
     /**
      * <p>

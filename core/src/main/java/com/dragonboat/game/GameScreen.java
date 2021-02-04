@@ -23,9 +23,10 @@ public class GameScreen implements Screen {
     private final Random rnd;
     private final int MAX_DURABILITY = 50, MAX_TIREDNESS = 100;
     private DragonBoatGame game = null;
+  //"ASSESSMENT2:START"
     private boolean showWhereSaved = false;
     private Integer CurrentSaveNum;
-
+  //"ASSESSMENT2:END"
     // debug booleans
     private boolean debug_speed, debug_positions, debug_norandom, debug_verboseoutput;
 
@@ -50,7 +51,9 @@ public class GameScreen implements Screen {
     private final Texture background;
     private final Texture healthBarFull;
     private final Texture healthBarEmpty;
+  //"ASSESSMENT2:START"
     private final Texture powerUpEmpty;
+  //"ASSESSMENT2:END"
     private final Texture staminaBarFull;
     private final Texture staminaBarEmpty;
     private final FreeTypeFontGenerator generator;

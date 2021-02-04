@@ -1,3 +1,4 @@
+//"ASSESSMENT2:START"
 package com.dragonboat.game;
 
 import com.badlogic.gdx.Gdx;
@@ -11,3 +12,4 @@ public class TimeReduction extends PowerUp{
         this.givenLane = lane;
     }
 }
+//"ASSESSMENT2:END"

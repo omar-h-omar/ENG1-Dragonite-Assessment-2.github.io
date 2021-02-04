@@ -15,5 +15,3 @@ public class Rock extends Obstacle {
         super(20, xPosition, yPosition, texture.getWidth(), texture.getHeight(), texture, "Rock");
     }
 }
-
-
