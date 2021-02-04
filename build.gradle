@@ -65,14 +65,6 @@ project(":core") {
         testCompile('org.junit.jupiter:junit-jupiter-api:5.3.1')
         testCompile('org.junit.jupiter:junit-jupiter-engine:5.3.1')
     }
-
-    test {
-        useJUnitPlatform()
-        testLogging.showStandardStreams = true
-        testLogging {
-            events "passed", "skipped", "failed"
-        }
-    }
 }
 
 
