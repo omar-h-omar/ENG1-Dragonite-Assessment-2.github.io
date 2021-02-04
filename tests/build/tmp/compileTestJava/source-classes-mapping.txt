@@ -1,0 +1,6 @@
+de/tomgrill/gdxtesting/GdxTestRunner.java
+ de.tomgrill.gdxtesting.GdxTestRunner
+de/tomgrill/gdxtesting/examples/UnitTestExample.java
+ de.tomgrill.gdxtesting.examples.UnitTestExample
+de/tomgrill/gdxtesting/examples/AssetExistsExampleTest.java
+ de.tomgrill.gdxtesting.examples.AssetExistsExampleTest

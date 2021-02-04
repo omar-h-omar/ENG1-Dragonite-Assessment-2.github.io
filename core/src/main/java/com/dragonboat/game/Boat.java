@@ -32,7 +32,7 @@ public class Boat {
     private String name;
     private boolean finished;
     private int threshold = 5;
-    
+
  // "ASSESSMENT2:START"
 
     public PowerUp[] boatPowerUps;
@@ -40,7 +40,7 @@ public class Boat {
     private boolean isInvincible;
     private int invCounter;
     private float reductions;
-    
+
  // "ASSESSMENT2:END"
     /**
      * Creates a Boat instance in a specified Lane.
@@ -177,7 +177,7 @@ public class Boat {
                 // new changed for detection of y as it would not collide on the side of boats
                 if (this.yPosition + this.height > o.getY() + backgroundOffset
                         && this.yPosition < o.getY() + o.texture.getHeight() + backgroundOffset) {
-                	
+
                     this.ApplyDamage(o.getDamage());
                     obstaclesToRemove.add(obstacles.indexOf(o));
 
@@ -329,6 +329,7 @@ public class Boat {
     }
 
     /**
+     * 
      * @return Float representing fastest race/leg time.
      */
     public float getFastestTime() {
@@ -336,6 +337,7 @@ public class Boat {
     }
 
     /**
+     * 
      * @return Int representing x-position of boat.
      */
     public int getX() {
@@ -343,6 +345,7 @@ public class Boat {
     }
 
     /**
+     * 
      * @return Int representing y-position of boat.
      */
     public int getY() {
@@ -350,6 +353,7 @@ public class Boat {
     }
 
     /**
+     * 
      * @return Int representing the y coordinate range of the boat (length).
      */
     public int getHeight() {
@@ -357,6 +361,7 @@ public class Boat {
     }
 
     /**
+     * 
      * @return String representing name of the boat.
      */
     public String getName() {
@@ -364,6 +369,7 @@ public class Boat {
     }
 
     /**
+     * 
      * @return Boolean representing if the boat has finished the current race.
      */
     public boolean finished() {
@@ -371,6 +377,7 @@ public class Boat {
     }
 
     /**
+     * 
      * @param f Boolean representing if the boat has finished the race.
      */
     public void setFinished(boolean f) {
@@ -378,6 +385,7 @@ public class Boat {
     }
 
     /**
+     * 
      * @return Float representing the current speed of the boat.
      */
     public float getCurrentSpeed() {
@@ -534,6 +542,14 @@ public class Boat {
      */
     public void setTiredness(float tiredness) {
         this.tiredness = tiredness;
+    }
+
+    public void SteerRightTest() {
+        if (true) {
+            this.xPosition += this.MANEUVERABILITY * this.currentSpeed;
+            this.currentSpeed *= 0.985;
+        }
+
     }
 }
 //"ASSESSMENT2:END"
