@@ -544,6 +544,22 @@ public class Boat {
         this.tiredness = tiredness;
     }
 
+    /**
+     *
+     * @param xPosition A float representing the position of the boat on the x axis.
+     */
+    public void setXPosition(float xPosition) {
+        this.xPosition = xPosition;
+    }
+
+    /**
+     *
+     * @param yPosition A float representing the position of the boat on the y axis.
+     */
+    public void setYPosition(float yPosition) {
+        this.yPosition = yPosition;
+    }
+
     public void SteerRightTest() {
         if (true) {
             this.xPosition += this.MANEUVERABILITY * this.currentSpeed;

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.UnitTests.BoatTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-01-31T23:37:18" hostname="DESKTOP-B01D1BF" time="0.017">
-  <properties/>
-  <testcase name="TestSteerLeft" classname="de.tomgrill.gdxtesting.UnitTests.BoatTests" time="0.008"/>
-  <testcase name="TestSteerRight" classname="de.tomgrill.gdxtesting.UnitTests.BoatTests" time="0.001"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
