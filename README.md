@@ -224,8 +224,8 @@ focused on. This was to ensure a successful completion of the entire project.
 *   <a href="#">Testing</a>
 *   <a href="#">Continous Integration</a>
 *   <a href="#">Self Assessment</a>
-*   <a href=""docs/deliverables2/Manual.pdf"">Manual PDF</a>
-*   <a href=""docs/deliverables2/Editiable Manual.docx"">Editable Manual</a>
+*   <a href="docs/deliverables2/Manual.pdf">Manual PDF</a>
+*   <a href="docs/deliverables2/Editiable Manual.docx">Editable Manual</a>
 
 ### Assessment 1 Edited Documents
 *   <a href="#">Requirements</a>
