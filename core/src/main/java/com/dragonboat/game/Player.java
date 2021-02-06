@@ -25,7 +25,7 @@ public class Player extends Boat {
     /**
      * Moves the player based on key pressed (W, A, S, D).
      */
-    public void GetInput() {
+    public void GetInput(Course course) {
         if (Gdx.input.isKeyPressed(Input.Keys.W)|| Gdx.input.isKeyPressed(Input.Keys.UP)) {
             this.IncreaseSpeed();
             this.IncreaseTiredness();
@@ -38,11 +38,11 @@ public class Player extends Boat {
         }
         if (Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             // Call method associated
-            this.SteerLeft();
+            this.SteerLeft(course);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             // Call method associated
-            this.SteerRight();
+            this.SteerRight(course);
         }
   //"ASSESSMENT2:START"
         if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {

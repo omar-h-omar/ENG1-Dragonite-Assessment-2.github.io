@@ -1,7 +1,6 @@
 package com.dragonboat.game;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 import com.badlogic.gdx.*;
@@ -178,6 +177,7 @@ public class GameScreen implements Screen {
          * Checks the current game state and shows
          * content accordingly.
          */
+        //"ASSESSMENT2:START"
         switch (state) {
             case Paused:
                 // Returns to the game
@@ -276,7 +276,7 @@ public class GameScreen implements Screen {
                 if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
                     state = State.Paused;
                 }
-
+                //"ASSESSMENT2:END"
                 String debug = "";
 
                 Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -325,7 +325,7 @@ public class GameScreen implements Screen {
                 /*
                  * Move player. Advance animation frame.
                  */
-                player.GetInput();
+                player.GetInput(course);
                 player.MoveForward();
                 if (player.getCurrentSpeed() > 0 && !started) {
                     // detect start of game (might change this to a countdown)
@@ -350,7 +350,7 @@ public class GameScreen implements Screen {
                     o.CheckCollisions(backgroundOffset);
 
                     if (Math.round(totalDeltaTime) % 2 == 0) {
-                        o.ai(backgroundOffset, game.level);
+                        o.ai(backgroundOffset, game.level,course);
                     }
                     if (o.getY() % 5 == 2)
                         o.AdvanceTextureFrame();
@@ -517,20 +517,7 @@ public class GameScreen implements Screen {
                         HEIGHT - progressBar.getTexture().getHeight() / 2 - 10);
                 batch.end();
 
-                /*
-                 * Check if player and each opponent has finished, and update their finished
-                 * booleans respectively.
-                 */
-                if (progress[0] == 1 && !player.finished()) {
-                    player.setFinished(true);
-                    player.UpdateFastestTime(progressBar.getPlayerTime());
-                }
-                for (int i = 0; i < opponents.length; i++) {
-                    if (progress[i + 1] == 1 && !opponents[i].finished()) {
-                        opponents[i].setFinished(true);
-                        opponents[i].UpdateFastestTime(progressBar.getTime());
-                    }
-                }
+                UpdateFinishedBoats(progress,progressBar,player,opponents);
 
                 /*
                  * Display player time.
@@ -720,7 +707,7 @@ public class GameScreen implements Screen {
     public void show() {
 
     }
-
+    //"ASSESSMENT2:START"
     /**
      * Defines how to handle mouse inputs for the pause menu.
      */
@@ -927,4 +914,26 @@ public class GameScreen implements Screen {
             }
         });
     }
+
+    /**
+     * Check if player and each opponent has finished, and update their finished
+     * booleans respectively.
+     * @param progress A array of floats that indicates which boats have finished.
+     * @param progressBar A bar which shows the progress of all the boats.
+     * @param player The player's boat.
+     * @param opponents An array of the opponent's boats.
+     */
+    public static void UpdateFinishedBoats(float[] progress,ProgressBar progressBar,Player player, Opponent[] opponents){
+        if (progress[0] == 1 && !player.finished()) {
+            player.setFinished(true);
+            player.UpdateFastestTime(progressBar.getPlayerTime());
+        }
+        for (int i = 0; i < opponents.length; i++) {
+            if (progress[i + 1] == 1 && !opponents[i].finished()) {
+                opponents[i].setFinished(true);
+                opponents[i].UpdateFastestTime(progressBar.getTime());
+            }
+        }
+    }
+    //"ASSESSMENT2:END"
 }

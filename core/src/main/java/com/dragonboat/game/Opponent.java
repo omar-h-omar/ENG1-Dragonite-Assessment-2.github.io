@@ -59,7 +59,7 @@ public class Opponent extends Boat {
      * @param backgroundOffset
      */
 
-    public void ai(int backgroundOffset, String level) {
+    public void ai(int backgroundOffset, String level, Course course) {
 
         int leftSide = Math.round(xPosition);
         int rightSide = Math.round(xPosition + width);
@@ -74,11 +74,11 @@ public class Opponent extends Boat {
         boolean noNewPath = true; // Set to false whenever the Opponent has decided on a new path.
 
         if (this.steering == "Left") {
-            this.SteerLeft();
+            this.SteerLeft(course);
             this.steering = "None";
             noNewPath = false;
         } else if (this.steering == "Right") {
-            this.SteerRight();
+            this.SteerRight(course);
             this.steering = "None";
             noNewPath = false;
         } else {
@@ -93,11 +93,11 @@ public class Opponent extends Boat {
             // Commence route back into lane.
             if (leftSide - this.lane.getLeftBoundary() <= 0) {
                 // Will only be negative if the boat is further left than the left boundary of the lane.
-                this.SteerRight();
+                this.SteerRight(course);
                 this.steering = "Right";
             } else if (rightSide - this.lane.getRightBoundary() >= 0) {
                 // Will only be positive if the boat is further right than the right boundary of the lane.
-                this.SteerLeft();
+                this.SteerLeft(course);
                 this.steering = "Left";
             }
             noNewPath = false;
@@ -150,7 +150,7 @@ public class Opponent extends Boat {
                         // The obstacle is far left of the boat.
 
                         if ((obs.getClass() == Goose.class) && ((Goose) obs).direction == "East") {
-                            this.SteerRight();
+                            this.SteerRight(course);
                             this.steering = "Right";
                         }
 
@@ -165,7 +165,7 @@ public class Opponent extends Boat {
                          */
 
                         if ((obs.getClass() == Goose.class) && ((Goose) obs).direction == "West") {
-                            this.SteerLeft();
+                            this.SteerLeft(course);
                             this.steering = "Left";
                         }
                     } else {
@@ -178,10 +178,10 @@ public class Opponent extends Boat {
                          */
 
                         if ((obs.getClass() == Goose.class) && ((Goose) obs).direction == "East") {
-                            this.SteerLeft();
+                            this.SteerLeft(course);
                             this.steering = "Left";
                         } else if ((obs.getClass() == Goose.class) && ((Goose) obs).direction == "West") {
-                            this.SteerRight();
+                            this.SteerRight(course);
                             this.steering = "Right";
                         } else {
                             // For objects moving vertically, calculate whether steering left of it or right
@@ -203,11 +203,11 @@ public class Opponent extends Boat {
                             if (leftMargin <= rightMargin) {
                                 // If easier to dodge to the left of the obstacle, steer to the left of the
                                 // obstacle.
-                                this.SteerLeft();
+                                this.SteerLeft(course);
                                 this.steering = "Left";
                             } else {
                                 // If not, steer to the right of the obstacle.
-                                this.SteerRight();
+                                this.SteerRight(course);
                                 this.steering = "Right";
                             }
                         }
@@ -228,10 +228,11 @@ public class Opponent extends Boat {
             if (Math.abs(leftSide - middle) < 0.1) {
                 steering = "None";
             } else if (leftSide < middle) {
-                this.SteerRight();
+                this.SteerRight(course);
                 steering = "Right";
             } else {
-                this.SteerLeft();
+                this.SteerLeft(course);
+                this.SteerLeft(course);
                 steering = "Left";
             }
         }

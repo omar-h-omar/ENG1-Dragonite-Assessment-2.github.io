@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="de.tomgrill.gdxtesting.FunctionalRequirements.FR_SPEED_CONTROL" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-02-05T07:48:47" hostname="omar-XPS-13-9360" time="0.026">
-  <properties/>
-  <testcase name="SpeedControlTest" classname="de.tomgrill.gdxtesting.FunctionalRequirements.FR_SPEED_CONTROL" time="0.026"/>
-  <system-out><![CDATA[0.985
-]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

@@ -1,8 +1,10 @@
 package de.tomgrill.gdxtesting.FunctionalRequirements;
 import com.dragonboat.game.Boat;
+import com.dragonboat.game.Course;
 import com.dragonboat.game.Lane;
 import de.tomgrill.gdxtesting.GdxTestRunner;
 import org.junit.Test;
+import static org.mockito.Mockito.*;
 import org.junit.runner.RunWith;
 import static org.junit.Assert.assertTrue;
 
@@ -11,9 +13,12 @@ public class BoatTests {
 
     Lane x = new Lane(5, 10);
     Boat testBoat = new Boat(50, 20, 30, x , "okay");
+    Course course = mock(Course.class);
 
     @Test
     public void TestSteerLeft() {
+        when(course.getLeftBoundary()).thenReturn(0);
+        when(course.getRightBoundary()).thenReturn(1080);
 
         //Need to set values for ACCELERATION and MANEUVERABILITY for tests to work
         testBoat.setACCELERATION(5);
@@ -23,7 +28,7 @@ public class BoatTests {
 
         //Values to be tested and boatsteering test
         float xBefore = testBoat.getX();
-        testBoat.SteerLeft();
+        testBoat.SteerLeft(course);
         float xAfter = testBoat.getX();
         boolean steerLeftResults = xBefore > xAfter;
         assertTrue(steerLeftResults);
@@ -31,6 +36,8 @@ public class BoatTests {
 
     @Test
     public void TestSteerRight() {
+        when(course.getLeftBoundary()).thenReturn(0);
+        when(course.getRightBoundary()).thenReturn(1080);
 
         //Need to add setter for ACCELERATION, MANEUVERABILITY for tests to work
         testBoat.setACCELERATION(5);

@@ -27,7 +27,7 @@ public class Boat {
     protected Lane lane;
 
     private Texture[] textureFrames;
-    private int frameCounter;
+    public int frameCounter;
     public Texture texture;
     private String name;
     private boolean finished;
@@ -77,8 +77,8 @@ public class Boat {
      * Decreases the x-position of the boat respective to the boat's maneuverability
      * and speed, and decreases the speed by 3%.
      */
-    public void SteerLeft() {
-        if (this.xPosition >= 0) {
+    public void SteerLeft(Course course) {
+        if (this.xPosition >= course.getLeftBoundary()) {
             this.xPosition -= this.MANEUVERABILITY * this.currentSpeed;
             this.currentSpeed *= 0.985;
         }
@@ -89,8 +89,8 @@ public class Boat {
      * Increases the x-position of the boat respective to the boat's maneuverability
      * and speed, and decreases the speed by 3%.
      */
-    public void SteerRight() {
-        if (this.xPosition + this.width <= Gdx.graphics.getHeight()) {
+    public void SteerRight(Course course) {
+        if (this.xPosition + this.width <= course.getRightBoundary()) {
             this.xPosition += this.MANEUVERABILITY * this.currentSpeed;
             this.currentSpeed *= 0.985;
         }

@@ -37,4 +37,12 @@ public class Course {
     public int getNoLanes() {
         return lanes.length;
     }
+
+    public int getLeftBoundary() {
+        return leftBoundary;
+    }
+
+    public int getRightBoundary() {
+        return rightBoundary;
+    }
 }
