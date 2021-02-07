@@ -19,7 +19,6 @@ public class PowerUp extends Obstacle{
     private int noOfFrames;
 
 
-
     /**
      * Creates an obstacle instance.
      * @param type      Type of obstacle
