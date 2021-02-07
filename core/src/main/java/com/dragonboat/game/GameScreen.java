@@ -946,5 +946,25 @@ public class GameScreen implements Screen {
             }
         });
     }
-}
+	/**
+ 	* Check if player and each opponent has finished, and update their finished
+ 	* booleans respectively.
+ 	* @param progress A array of floats that indicates which boats have finished.
+ 	* @param progressBar A bar which shows the progress of all the boats.
+ 	* @param player The player's boat.
+ 	* @param opponents An array of the opponent's boats.
+ 	*/
+    public static void UpdateFinishedBoats(float[] progress,ProgressBar progressBar,Player player, Opponent[] opponents){
+    	if (progress[0] == 1 && !player.finished()) {
+    		player.setFinished(true);
+    		player.UpdateFastestTime(progressBar.getPlayerTime());
+    	}
+    	for (int i = 0; i < opponents.length; i++) {
+    		if (progress[i + 1] == 1 && !opponents[i].finished()) {
+    			opponents[i].setFinished(true);
+    			opponents[i].UpdateFastestTime(progressBar.getTime());
+    		}
+    	}
+    }
 //"ASSESSMENT2:END"
+}
