@@ -8,8 +8,6 @@ public class PowerUp extends Obstacle{
     protected float yPosition, xPosition;
     public int width, height;
     public String type;
-    private Texture[] textureFrames;
-    private int frameCounter;
     public Texture texture;
     private final float maxFrameTime; // The maximum time allowed allowed for a frame.
     private float currentFrameTime; // The current time for a frame.
