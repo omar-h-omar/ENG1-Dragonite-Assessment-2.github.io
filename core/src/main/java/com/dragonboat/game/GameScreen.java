@@ -26,6 +26,7 @@ public class GameScreen implements Screen {
     private boolean showWhereSaved = false;
     private Integer CurrentSaveNum;
   //"ASSESSMENT2:END"
+    
     // debug booleans
     private boolean debug_speed, debug_positions, debug_norandom, debug_verboseoutput;
 
@@ -62,15 +63,17 @@ public class GameScreen implements Screen {
     // timing
     private int backgroundOffset;
     private float totalDeltaTime = 0;
+  //"ASSESSMENT2:START"
     private float powerUpTime = 100;
-
+  //"ASSESSMENT2:END"
     // global parameters
     private final int WIDTH = 1080, HEIGHT = 720;
+  //"ASSESSMENT2:START"
     private enum State {
         Paused,Running,Saving
     }
     private State state;
-
+  //"ASSESSMENT2:END"
     /**
      * Sets up everything needed for a race to take place.
      *
@@ -114,7 +117,9 @@ public class GameScreen implements Screen {
         background = course.getTexture();
         backgroundOffset = 0;
         batch = new SpriteBatch();
+      //"ASSESSMENT2:START"
         shapeRenderer = new ShapeRenderer();
+      //"ASSESSMENT2:END"
         generator = game.generator;
         parameter = game.parameter;
         parameter.size = 18;
@@ -127,8 +132,10 @@ public class GameScreen implements Screen {
         staminaBarEmpty = new Texture(Gdx.files.internal("bar stamina grey.png"));
         healthBarFull = new Texture(Gdx.files.internal("bar health yellow.png"));
         healthBarEmpty = new Texture(Gdx.files.internal("bar health grey.png"));
+      //"ASSESSMENT2:START"
         powerUpEmpty = new Texture(Gdx.files.internal("powerUpEmpty.png"));
         state = State.Running;
+      //"ASSESSMENT2:END"
     }
 
     /**
@@ -177,7 +184,7 @@ public class GameScreen implements Screen {
          * Checks the current game state and shows
          * content accordingly.
          */
-        //"ASSESSMENT2:START"
+    	//"ASSESSMENT2:START"
         switch (state) {
             case Paused:
                 // Returns to the game
@@ -276,7 +283,7 @@ public class GameScreen implements Screen {
                 if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
                     state = State.Paused;
                 }
-                //"ASSESSMENT2:END"
+              //"ASSESSMENT2:END"
                 String debug = "";
 
                 Gdx.gl.glClearColor(0, 0, 0, 1);
@@ -302,8 +309,9 @@ public class GameScreen implements Screen {
                         break;
                     if (this.game.obstacleTimes[i].get(0) - player.getY() + player.getHeight() < 1) {
                         // new added rock
-                        String[] obstacleTypes = {"Goose", "OakLog", "OakLogShort", "BirchLog", "BirchLogShort", "Rock1", "Rock2", "Rock3"};
-
+                    	//"ASSESSMENT2:START"
+                        String[] obstacleTypes = {"Goose", "LogBig", "LogSmall", "Rock"};
+                        //"ASSESSMENT2:END"
                         // spawn an obstacle in lane i.
                         int xCoord = lanes[i].getLeftBoundary()
                                 + rnd.nextInt(lanes[i].getRightBoundary() - lanes[i].getLeftBoundary() - 15);
@@ -311,6 +319,7 @@ public class GameScreen implements Screen {
                         // make sure obstacle is only spawned once.
                         this.game.obstacleTimes[i].remove(0);
                     }
+              //"ASSESSMENT2:START"
                     if (!(this.game.powerUpTimes[i].size() == 0)) {
                         if (this.game.powerUpTimes[i].get(0) - player.getY() + player.getHeight() < 1) {
                             String[] powerUpTypes = {"Invincibility", "Maneuverability", "Repair", "SpeedBoost", "TimeReduction"};
@@ -321,7 +330,7 @@ public class GameScreen implements Screen {
                         }
                     }
                 }
-
+              //"ASSESSMENT2:END"
                 /*
                  * Move player. Advance animation frame.
                  */
@@ -330,10 +339,12 @@ public class GameScreen implements Screen {
                 if (player.getCurrentSpeed() > 0 && !started) {
                     // detect start of game (might change this to a countdown)
                     started = true;
+                  //"ASSESSMENT2:START"
                     // detects if the game is being loaded
                     if (!game.save) {
                         progressBar.StartTimer();
                         game.save = false;
+                  //"ASSESSMENT2:END"      
                     }
                 }
                 if (player.getY() % 5 == 2)
@@ -348,9 +359,11 @@ public class GameScreen implements Screen {
                     }
                     o.MoveForward();
                     o.CheckCollisions(backgroundOffset);
-
+                    
                     if (Math.round(totalDeltaTime) % 2 == 0) {
-                        o.ai(backgroundOffset, game.level,course);
+                    	//"ASSESSMENT2:START"
+                    	o.ai(backgroundOffset, game.level,course);
+                    	//"ASSESSMENT2:END"
                     }
                     if (o.getY() % 5 == 2)
                         o.AdvanceTextureFrame();
@@ -370,11 +383,12 @@ public class GameScreen implements Screen {
 
                 player.CheckCollisions(backgroundOffset);
 
-                //new
+              //"ASSESSMENT2:START"
                 if (player.getDurability() <= 0) {
                     game.endGame();
                 }
-
+              //"ASSESSMENT2:END"
+                
                 /*
                  * Display background.
                  */
@@ -393,6 +407,7 @@ public class GameScreen implements Screen {
                         // If the background hasn't started moving yet, or if the player has reached the
                         // top of the course, move obstacle at set speed.
                         // Else add the player speed to the obstacle speed.
+                      //"ASSESSMENT2:START"
                         if (o instanceof Goose) {
                             Goose g = (Goose) o;
                             g.Move(0.4f + (backgroundOffset > 0
@@ -409,7 +424,7 @@ public class GameScreen implements Screen {
                                             : 0),
                                     backgroundOffset);
                         }
-
+                      //"ASSESSMENT2:END"
 
                         if (o.getY() < -o.getHeight()) {
                             lane.RemoveObstacle(o);
@@ -418,7 +433,7 @@ public class GameScreen implements Screen {
                         batch.draw(o.getTexture(), o.getX(), o.getY());
                         batch.end();
                     }
-
+              //"ASSESSMENT2:START"
                     for (int j = 0; j < lane.powerUps.size(); j++) {
                         PowerUp p = lane.powerUps.get(j);
                         // If the background hasn't started moving yet, or if the player has reached the
@@ -437,7 +452,7 @@ public class GameScreen implements Screen {
                         batch.end();
                     }
                 }
-
+              //"ASSESSMENT2:END"
                 /*
                  * Display player and player UI.
                  */
@@ -476,7 +491,7 @@ public class GameScreen implements Screen {
                 batch.begin();
                 batch.draw(progressBar.getTexture(), WIDTH - progressBar.getTexture().getWidth() - 60,
                         HEIGHT - progressBar.getTexture().getHeight() - 20);
-
+              //"ASSESSMENT2:START"
                 batch.draw(powerUpEmpty, WIDTH - powerUpEmpty.getWidth() - 100,
                         HEIGHT - powerUpEmpty.getHeight() - 85);
 
@@ -493,7 +508,7 @@ public class GameScreen implements Screen {
                     player.boatPowerUps[1].update(deltaTime);batch.draw(player.boatPowerUps[1].getTexture(), WIDTH - powerUpEmpty.getWidth() - 60,
                             HEIGHT - powerUpEmpty.getHeight() - 85);
                 }
-
+              //"ASSESSMENT2:END"
                 batch.end();
 
                 /*
@@ -517,7 +532,20 @@ public class GameScreen implements Screen {
                         HEIGHT - progressBar.getTexture().getHeight() / 2 - 10);
                 batch.end();
 
-                UpdateFinishedBoats(progress,progressBar,player,opponents);
+                /*
+                 * Check if player and each opponent has finished, and update their finished
+                 * booleans respectively.
+                 */
+                if (progress[0] == 1 && !player.finished()) {
+                    player.setFinished(true);
+                    player.UpdateFastestTime(progressBar.getPlayerTime());
+                }
+                for (int i = 0; i < opponents.length; i++) {
+                    if (progress[i + 1] == 1 && !opponents[i].finished()) {
+                        opponents[i].setFinished(true);
+                        opponents[i].UpdateFastestTime(progressBar.getTime());
+                    }
+                }
 
                 /*
                  * Display player time.
@@ -661,12 +689,12 @@ public class GameScreen implements Screen {
         state = State.Paused;
 
     }
-
+  //"ASSESSMENT2:START"
     @Override
     public void resume() {
         state = State.Running;
     }
-
+  //"ASSESSMENT2:END"
     @Override
     public void hide() {
 
@@ -684,9 +712,10 @@ public class GameScreen implements Screen {
             for (int j = 0; j < lane.obstacles.size(); j++) {
                 lane.obstacles.get(j).getTexture().dispose();
             }
-            // new
+          //"ASSESSMENT2:START"
             for (int k = 0; k < lane.powerUps.size(); k++) {
                 lane.powerUps.get(k).getTexture().dispose();
+          //"ASSESSMENT2:END"
             }
         }
         progressBar.getTexture().dispose();
@@ -707,7 +736,7 @@ public class GameScreen implements Screen {
     public void show() {
 
     }
-    //"ASSESSMENT2:START"
+//"ASSESSMENT2:START"
     /**
      * Defines how to handle mouse inputs for the pause menu.
      */
@@ -772,6 +801,8 @@ public class GameScreen implements Screen {
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 int screenHeight = viewport.getScreenHeight();
                 int screenWidth = viewport.getScreenWidth();
+                System.out.println(screenX);
+                System.out.println(screenY);
                 if (screenX >= (0.4 * screenWidth) && screenX <= (0.6 * screenWidth)) {
                     if (screenY >= (0.63 * screenHeight) && screenY <= (0.69 * screenHeight) && !buttonCentered){
                         saveButtonPressed[0] = true;
@@ -908,32 +939,12 @@ public class GameScreen implements Screen {
                     SaveFile.flush();
 
                     SaveLog.putInteger("OldestFile",oldestFile);
+                    System.out.println(oldestFile);
                     showWhereSaved = true;
                 }
                 return super.touchUp(screenX, screenY, pointer, button);
             }
         });
     }
-
-    /**
-     * Check if player and each opponent has finished, and update their finished
-     * booleans respectively.
-     * @param progress A array of floats that indicates which boats have finished.
-     * @param progressBar A bar which shows the progress of all the boats.
-     * @param player The player's boat.
-     * @param opponents An array of the opponent's boats.
-     */
-    public static void UpdateFinishedBoats(float[] progress,ProgressBar progressBar,Player player, Opponent[] opponents){
-        if (progress[0] == 1 && !player.finished()) {
-            player.setFinished(true);
-            player.UpdateFastestTime(progressBar.getPlayerTime());
-        }
-        for (int i = 0; i < opponents.length; i++) {
-            if (progress[i + 1] == 1 && !opponents[i].finished()) {
-                opponents[i].setFinished(true);
-                opponents[i].UpdateFastestTime(progressBar.getTime());
-            }
-        }
-    }
-    //"ASSESSMENT2:END"
 }
+//"ASSESSMENT2:END"

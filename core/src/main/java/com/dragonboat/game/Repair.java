@@ -1,7 +1,6 @@
 //"ASSESSMENT2:START"
 package com.dragonboat.game;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Repair extends PowerUp{
