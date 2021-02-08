@@ -46,7 +46,7 @@ public class BoatTests {
 
         //Values to be tested and boatsteering test
         float xBefore = testBoat.getX();
-        testBoat.SteerRightTest();
+        testBoat.SteerRight(course);
         float xAfter = testBoat.getX();
         boolean steerLeftResults = xBefore < xAfter;
         assertTrue(steerLeftResults);
