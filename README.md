@@ -228,10 +228,10 @@ focused on. This was to ensure a successful completion of the entire project.
 *   <a href="docs/deliverables2/Editiable Manual.docx">Editable Manual</a>
 
 ### Assessment 1 Edited Documents
-*   <a href="docs/deliverables2/Requirements">Requirements</a>
+*   <a href="docs/deliverables2/Requirements.pdf">Requirements</a>
 *   <a href="#">Architecture</a>
 *   <a href="#">Method Selection and Planning</a>
-*   <a href="docs/deliverables2/Risks">Risk Assessment and Mitigation</a>
+*   <a href="docs/deliverables2/Risks.pdf">Risk Assessment and Mitigation</a>
 
 ### Executables
 *   <a href="#">Dragon Boat Z Game</a>
