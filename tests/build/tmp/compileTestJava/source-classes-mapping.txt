@@ -1,27 +1,27 @@
 de/tomgrill/gdxtesting/NonFunctionalRequirements/NFR_INFORMATION_TIME.java
  de.tomgrill.gdxtesting.NonFunctionalRequirements.NFR_INFORMATION_TIME
-de/tomgrill/gdxtesting/NonFunctionalRequirements/NFR_RESPONSIVE.java
- de.tomgrill.gdxtesting.NonFunctionalRequirements.NFR_RESPONSIVE
+de/tomgrill/gdxtesting/UserRequirements/UR_PLAYABLE.java
+ de.tomgrill.gdxtesting.UserRequirements.UR_PLAYABLE
 de/tomgrill/gdxtesting/GdxTestRunner.java
  de.tomgrill.gdxtesting.GdxTestRunner
 de/tomgrill/gdxtesting/UserRequirements/UR_BOATS.java
  de.tomgrill.gdxtesting.UserRequirements.UR_BOATS
+de/tomgrill/gdxtesting/UserRequirements/UR_FINAL_RACE.java
+ de.tomgrill.gdxtesting.UserRequirements.UR_FINAL_RACE
+de/tomgrill/gdxtesting/NonFunctionalRequirements/NFR_RESPONSIVE.java
+ de.tomgrill.gdxtesting.NonFunctionalRequirements.NFR_RESPONSIVE
 de/tomgrill/gdxtesting/UserRequirements/UR_MIN_BOATS.java
  de.tomgrill.gdxtesting.UserRequirements.UR_MIN_BOATS
 de/tomgrill/gdxtesting/FunctionalRequirements/FR_COLLISIONS.java
  de.tomgrill.gdxtesting.FunctionalRequirements.FR_COLLISIONS
 de/tomgrill/gdxtesting/FunctionalRequirements/FR_COURSE_BOUNDARIES.java
  de.tomgrill.gdxtesting.FunctionalRequirements.FR_COURSE_BOUNDARIES
-de/tomgrill/gdxtesting/UserRequirements/UR_PLAYABLE.java
- de.tomgrill.gdxtesting.UserRequirements.UR_PLAYABLE
 de/tomgrill/gdxtesting/FunctionalRequirements/FR_MUSIC.java
  de.tomgrill.gdxtesting.FunctionalRequirements.FR_MUSIC
 de/tomgrill/gdxtesting/FunctionalRequirements/LaneTests.java
  de.tomgrill.gdxtesting.FunctionalRequirements.LaneTests
 de/tomgrill/gdxtesting/FunctionalRequirements/FR_PENALTY.java
  de.tomgrill.gdxtesting.FunctionalRequirements.FR_PENALTY
-de/tomgrill/gdxtesting/UserRequirements/UR_FINAL_RACE.java
- de.tomgrill.gdxtesting.UserRequirements.UR_FINAL_RACE
 de/tomgrill/gdxtesting/FunctionalRequirements/FR_FINISH.java
  de.tomgrill.gdxtesting.FunctionalRequirements.FR_FINISH
 de/tomgrill/gdxtesting/FunctionalRequirements/FR_TIREDNESS.java
