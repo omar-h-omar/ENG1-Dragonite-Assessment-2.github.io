@@ -53,7 +53,6 @@ public class DragonBoatGame extends Game {
     public FreeTypeFontGenerator generator;
     public FreeTypeFontGenerator.FreeTypeFontParameter parameter;
     private SpriteBatch batch;
-    ///***maybe set to public? so it is less memory intensive
     private BitmapFont font28;
     private Texture courseTexture;
     //used for loading a save
@@ -78,7 +77,7 @@ public class DragonBoatGame extends Game {
 
         courseTexture = new Texture(Gdx.files.internal("background sprite.png"));
         lanes = new Lane[7];
-        noOfObstacles = 6;
+        noOfObstacles = 8;
         noOfPowerUps = 4;
 
         obstacleTimes = new ArrayList[lanes.length];
@@ -99,12 +98,12 @@ public class DragonBoatGame extends Game {
             }
             Collections.sort(obstacleTimes[x]);
 
-            // new
+            //"ASSESSMENT2:START"
             for (int z = 0; z < noOfPowerUps; z++) {
                 powerUpTimes[x].add(rnd.nextInt(maxY - 5) + 5 + maxY * z);
             }
             Collections.sort(powerUpTimes[x]);
-
+            //"ASSESSMENT2:END"
             if (debug_verboseoutput) {
                 System.out.println("Lane " + x + " obstacles to spawn: ");
                 for (Integer i : obstacleTimes[x]) {
@@ -139,9 +138,11 @@ public class DragonBoatGame extends Game {
 
         batch = new SpriteBatch();
 
+        //"ASSESSMENT2:START"
         // Display the welcome screen.
         WelcomeScreen welcomeScreen = new WelcomeScreen(this);
         setScreen(welcomeScreen);
+        //"ASSESSMENT2:END"
     }
 
     /**
@@ -155,6 +156,7 @@ public class DragonBoatGame extends Game {
         if (debug_norandom) rnd = new Random(1);
         else rnd = new Random();
 
+        //"ASSESSMENT2:START"
         switch (level) {
             case "Easy":
                 noOfObstacles += difficulty;
@@ -168,6 +170,7 @@ public class DragonBoatGame extends Game {
             default:
                 noOfObstacles = 10;
         }
+        //"ASSESSMENT2:END"
 
         obstacleTimes = new ArrayList[lanes.length];
         for (int x = 0; x < lanes.length; x++) {
@@ -188,7 +191,9 @@ public class DragonBoatGame extends Game {
             }
         }
 
+        //"ASSESSMENT2:START"
         noOfPowerUps = 4;
+
         powerUpTimes = new ArrayList[lanes.length];
         for (int x = 0; x < lanes.length; x++) {
             lanes[x].powerUps = new ArrayList<>();
@@ -199,6 +204,7 @@ public class DragonBoatGame extends Game {
             }
             Collections.sort(powerUpTimes[x]);
         }
+        //"ASSESSMENT2:END"
 
         player.Reset();
 
@@ -254,6 +260,7 @@ public class DragonBoatGame extends Game {
                  * appropriate medal.
                  */
 
+                //"ASSESSMENT2:START"
                 // new for if the boat broke
                 if (player.getDurability() <= 0) {
                     batch.begin();
@@ -261,6 +268,7 @@ public class DragonBoatGame extends Game {
                     batch.end();
                     break;
                 }
+                //"ASSESSMENT2:END"
                 if (podium[i].getName().startsWith("Player")) {
                     playerWon = true;
                     batch.begin();
@@ -318,6 +326,7 @@ public class DragonBoatGame extends Game {
         this.getScreen().resize(width, height);
     }
 
+    //"ASSESSMENT2:START"
     /**
      * Disposes of the current screen when it's no longer needed.
      */
@@ -328,6 +337,7 @@ public class DragonBoatGame extends Game {
         font28.dispose();
 
     }
+    //"ASSESSMENT2:END"
 
     /**
      * Loads the game music and starts playing it on loop

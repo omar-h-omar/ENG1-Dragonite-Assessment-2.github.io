@@ -585,7 +585,7 @@ public class Boat {
 
     /**
      * Sets the y position of the boat
-     * @param yPosition A float representing the position of the boat on the y axis.
+     * @param i A float representing the position of the boat on the y axis.
      */
     public void setYPosition(float yPosition) {
         this.yPosition = yPosition;

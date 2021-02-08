@@ -26,7 +26,7 @@ public class GameScreen implements Screen {
     private boolean showWhereSaved = false;
     private Integer CurrentSaveNum;
   //"ASSESSMENT2:END"
-    
+
     // debug booleans
     private boolean debug_speed, debug_positions, debug_norandom, debug_verboseoutput;
 
@@ -63,9 +63,7 @@ public class GameScreen implements Screen {
     // timing
     private int backgroundOffset;
     private float totalDeltaTime = 0;
-  //"ASSESSMENT2:START"
-    private float powerUpTime = 100;
-  //"ASSESSMENT2:END"
+
     // global parameters
     private final int WIDTH = 1080, HEIGHT = 720;
   //"ASSESSMENT2:START"
@@ -152,17 +150,24 @@ public class GameScreen implements Screen {
      * - Spawns any Obstacles that need spawning.
      * </p>
      * <p>
+     * - Spawns any Power-ups that need spawning.
+     * </p>
+     * <p>
      * - Update Player and Opponent positions.
      * </p>
      * <p>
-     * - Check for collisions with Obstacles.
+     * - Check for collisions with Obstacles and Power-ups.
      * </p>
      * <p>
-     * - Display Background and Obstacles
+     * - Display Background, Obstacles and Power-ups.
      * </p>
      * <p>
      * - Update Obstacle positions.
      * </p>
+     * <p>
+     * - Update Power-up positions.
+     * </p>
+     *
      * <p>
      * - Display Player, Player UI and Opponents.
      * </p>
@@ -308,7 +313,6 @@ public class GameScreen implements Screen {
                     if (!started || player.finished() || this.game.obstacleTimes[i].size() == 0)
                         break;
                     if (this.game.obstacleTimes[i].get(0) - player.getY() + player.getHeight() < 1) {
-                        // new added rock
                     	//"ASSESSMENT2:START"
                         String[] obstacleTypes = {"Goose", "OakLog", "OakLogShort","BirchLog" ,"BirchLogShort" ,"Rock1", "Rock2", "Rock3"};
                         //"ASSESSMENT2:END"
@@ -344,7 +348,7 @@ public class GameScreen implements Screen {
                     if (!game.save) {
                         progressBar.StartTimer();
                         game.save = false;
-                  //"ASSESSMENT2:END"      
+                  //"ASSESSMENT2:END"
                     }
                 }
                 if (player.getY() % 5 == 2)
@@ -359,7 +363,7 @@ public class GameScreen implements Screen {
                     }
                     o.MoveForward();
                     o.CheckCollisions(backgroundOffset);
-                    
+
                     if (Math.round(totalDeltaTime) % 2 == 0) {
                     	//"ASSESSMENT2:START"
                     	o.ai(backgroundOffset, game.level,course);
@@ -388,7 +392,7 @@ public class GameScreen implements Screen {
                     game.endGame();
                 }
               //"ASSESSMENT2:END"
-                
+
                 /*
                  * Display background.
                  */
@@ -417,6 +421,7 @@ public class GameScreen implements Screen {
                                     backgroundOffset,
                                     game.level);
                         }
+                        //"ASSESSMENT2:END"
                         else {
                             o.Move(0.4f + (backgroundOffset > 0
                                             && player.getY() + HEIGHT / 2 + player.getHeight() / 2 < course.getTexture().getHeight()
@@ -424,7 +429,6 @@ public class GameScreen implements Screen {
                                             : 0),
                                     backgroundOffset);
                         }
-                      //"ASSESSMENT2:END"
 
                         if (o.getY() < -o.getHeight()) {
                             lane.RemoveObstacle(o);
@@ -718,9 +722,10 @@ public class GameScreen implements Screen {
           //"ASSESSMENT2:START"
             for (int k = 0; k < lane.powerUps.size(); k++) {
                 lane.powerUps.get(k).getTexture().dispose();
-          //"ASSESSMENT2:END"
             }
         }
+        powerUpEmpty.dispose();
+        //"ASSESSMENT2:END"
         progressBar.getTexture().dispose();
         progressBar.getOpponentIcon().dispose();
         progressBar.getPlayerIcon().dispose();

@@ -115,14 +115,14 @@ public class Lane {
      * Spawns power-ups in the lane.
      * </p>
      * <p>
-     * Spawns specified power-up in the lane. Checks that the obstacle limit hasn't
-     * been reached, if not checks the obstacle type for Invincibility, repair, TimeReduction,
+     * Spawns specified power-up in the lane. Checks that the power-up limit hasn't
+     * been reached, if not checks the obstacle type for Invincibility, Repair, TimeReduction,
      * Maneuverability or Acceleration and instantiates it as the corresponding power-up,
      * with the correct texture. Then adds it to the Lane's power-ups list.
      * </p>
      *
-     * @param x            X-position for the obstacle spawn location.
-     * @param y            Y-position for the obstacle spawn location.
+     * @param x            X-position for the power-up spawn location.
+     * @param y            Y-position for the power-up spawn location.
      * @param powerUpType  Power-up type.
      */
     public void SpawnPowerUp(int x, int y, String powerUpType) {
