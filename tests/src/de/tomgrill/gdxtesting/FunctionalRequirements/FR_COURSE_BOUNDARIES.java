@@ -16,8 +16,8 @@ public class FR_COURSE_BOUNDARIES {
      */
     @Test
     public void courseBoundariesTest(){
-        /*
-        Tests that the boat can't leave the left boundary of the course
+        /**
+        *Tests that the boat can't leave the left boundary of the course
          */
         when(course.getLeftBoundary()).thenReturn(0);
         when(course.getRightBoundary()).thenReturn(1080);
@@ -28,8 +28,8 @@ public class FR_COURSE_BOUNDARIES {
 
         assertTrue(boat.getX() >= 0);
 
-        /*
-        Tests that the boat can't leave the right boundary of the course
+        /**
+        *Tests that the boat can't leave the right boundary of the course
          */
         boat.setXPosition(1080);
         boat.setCurrentSpeed(10);

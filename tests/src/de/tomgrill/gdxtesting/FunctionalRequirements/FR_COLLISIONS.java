@@ -25,7 +25,7 @@ import static org.junit.Assert.*;
 public class FR_COLLISIONS {
 
 
-    /*
+    /**
      * Mocking classes needed for the test
      */
     Lane lane = mock(Lane.class);
