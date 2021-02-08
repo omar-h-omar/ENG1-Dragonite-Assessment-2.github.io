@@ -11,6 +11,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+
 @RunWith(GdxTestRunner.class)
 public class FR_SPEED_CONTROL {
 
@@ -23,15 +24,20 @@ public class FR_SPEED_CONTROL {
     @Test
     public void SpeedControlTest() {
 
-        /*Setting up mock*/
+        /**
+         * Setting up mock
+         * */
         Gdx.input = mock(Input.class);
         Course course = mock(Course.class);
         when(course.getLeftBoundary()).thenReturn(0);
         when(course.getRightBoundary()).thenReturn(1080);
 
 
-        /*tests cases for when increasing speed*/
-        /*creating player to test on and setting test case stats*/
+        /**
+         * tests cases for when increasing speed
+         * creating player to test on and setting test case stats
+         * */
+
         player.setStats(5, 11, 3, 3);
 
         float start = player.getCurrentSpeed();
@@ -41,10 +47,14 @@ public class FR_SPEED_CONTROL {
 
         assertTrue(finish > start);
 
-        /*resetting stat*/
+        /**
+         * resetting stat
+         * */
         player.setCurrentSpeed(2);
 
-        /*test cases for when decreasing speed*/
+        /**
+         * test cases for when decreasing speed
+         * */
         when(Gdx.input.isKeyPressed(Input.Keys.S)).thenReturn(true);
         player.GetInput(course);
 

@@ -199,4 +199,17 @@ public class Lane {
     public int getRightBoundary() {
         return this.RIGHTBOUNDARY;
     }
+
+
+    public int getObstacleLimit(int value) {
+        return this.obstacleLimit;
+    }
+
+    public int getTotalObstacles() {
+        return obstacles.size();
+    }
+
+    public ArrayList<Obstacle> getObstacles() {
+        return obstacles;
+    }
 }
