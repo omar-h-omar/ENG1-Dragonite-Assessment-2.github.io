@@ -90,7 +90,7 @@ Upon completing the final race, the player will be awarded a medal, bronze, silv
 *   <a href="https://github.com/TheWill10m/Dragon-Boat-Z/releases/download/v1.0/DragonBoat.jar">Dragon Boat Z Game</a>
 
 ### Original Javadocs
-*   <a href="https://github.com/TheWill10m/Dragon-Boat-Z/docs/javadoc/index.html">Javadocs HTML Export</a>
+*   <a href="https://thewill10m.github.io/Dragon-Boat-Z/docs/javadoc/com/dragonboat/game/package-summary.html">Javadocs HTML Export</a>
 
 ### Original Weekly Snapshots
 #### Project Gantt Chart
