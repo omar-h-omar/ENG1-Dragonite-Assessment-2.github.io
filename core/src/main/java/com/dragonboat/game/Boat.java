@@ -76,6 +76,7 @@ public class Boat {
     /**
      * Decreases the x-position of the boat respective to the boat's maneuverability
      * and speed, and decreases the speed by 3%.
+     * @param course The current race course
      */
     public void SteerLeft(Course course) {
         if (this.xPosition >= course.getLeftBoundary()) {
@@ -88,6 +89,7 @@ public class Boat {
     /**
      * Increases the x-position of the boat respective to the boat's maneuverability
      * and speed, and decreases the speed by 3%.
+     * @param course The current race course
      */
     public void SteerRight(Course course) {
         if (this.xPosition + this.width <= course.getRightBoundary()) {

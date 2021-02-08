@@ -19,12 +19,13 @@ public class Obstacle {
     /**
      * Creates an obstacle instance.
      *
-     * @param damage    Damage the obstacle can inflict on a boat.
-     * @param xPosition X-position.
-     * @param yPosition Y-position.
-     * @param width     Width of the obstacle.
-     * @param height    Height of the obstacle.
-     * @param texture   Texture asset for the obstacle.
+     * @param damage       Damage the obstacle can inflict on a boat.
+     * @param xPosition    X-position.
+     * @param yPosition    Y-position.
+     * @param width        Width of the obstacle.
+     * @param height       Height of the obstacle.
+     * @param texture      Texture asset for the obstacle.
+     * @param obstacleType The type of obstacle
      */
     public Obstacle(int damage, int xPosition, int yPosition, int width, int height, Texture texture, String obstacleType) {
         this.damage = damage;

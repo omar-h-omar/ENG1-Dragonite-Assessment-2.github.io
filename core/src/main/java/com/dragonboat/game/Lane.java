@@ -200,15 +200,26 @@ public class Lane {
         return this.RIGHTBOUNDARY;
     }
 
-
-    public int getObstacleLimit(int value) {
+    /**
+     * Gets the obstacle limit
+     * @return Int representing the maximum number of obstacles in a lane.
+     */
+    public int getObstacleLimit() {
         return this.obstacleLimit;
     }
 
+    /**
+     * Gets the total number of obstacles
+     * @return Int representing the total number of obstacles in a lane.
+     */
     public int getTotalObstacles() {
         return obstacles.size();
     }
 
+    /**
+     * Gets the list of obstacle in a lane
+     * @return ArrayList containing all the obstacles in a lane.
+     */
     public ArrayList<Obstacle> getObstacles() {
         return obstacles;
     }

@@ -55,7 +55,9 @@ public class Opponent extends Boat {
      * 3) If nothing, speed up.
      * </p>
      *
-     * @param backgroundOffset
+     * @param backgroundOffset Int representing the background offset
+     * @param level            The current difficulty level
+     * @param course           The race course
      */
 
     public void ai(int backgroundOffset, String level, Course course) {

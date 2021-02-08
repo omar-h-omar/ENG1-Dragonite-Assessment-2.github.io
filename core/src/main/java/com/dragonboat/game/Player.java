@@ -24,6 +24,7 @@ public class Player extends Boat {
 
     /**
      * Moves the player based on key pressed (W, A, S, D).
+     * @param course The race course
      */
     public void GetInput(Course course) {
         if (Gdx.input.isKeyPressed(Input.Keys.W)|| Gdx.input.isKeyPressed(Input.Keys.UP)) {
