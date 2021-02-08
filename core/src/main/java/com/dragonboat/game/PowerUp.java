@@ -4,6 +4,15 @@ package com.dragonboat.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
+/**
+ * Represents an obstacle on the course.
+ *
+ * @see Maneuverability
+ * @see Invincibility
+ * @see Repair
+ * @see TimeReduction
+ * @see SpeedBoost
+ */
 public class PowerUp extends Obstacle{
     protected float yPosition, xPosition;
     public int width, height;
@@ -40,9 +49,9 @@ public class PowerUp extends Obstacle{
     }
 
     /**
+     * Gets the current power up texture.
      * @return Texture asset for obstacle.
      */
-
     @Override
     public Texture getTexture() {
         return frames[frameCount];
@@ -51,8 +60,8 @@ public class PowerUp extends Obstacle{
     /**
      * Generates all frames for animating the power-up.
      *
+     * @return a texture array with all the textures of the power up
      */
-
     private Texture[] GenerateTextureFrames(){
         switch (type){
             case "Invincibility":
@@ -81,6 +90,10 @@ public class PowerUp extends Obstacle{
         return frames;
     }
 
+    /**
+     * Updates the current frame time
+     * @param dt A float representing delta time.
+     */
     public void update(float dt) {
         currentFrameTime += dt;
         if (currentFrameTime > maxFrameTime) {
@@ -89,14 +102,18 @@ public class PowerUp extends Obstacle{
         }
     }
 
-
     /**
+     * Gets the type of power up
      * @return String representing type of power-up.
      */
     public String getType() {
         return this.type;
     }
 
+    /**
+     * Gets the texture of the mystery box.
+     * @return A texture of the mystery box
+     */
     public Texture getMysteryTexture(){
         return new Texture(Gdx.files.internal("itemBox.png"));
     }

@@ -299,6 +299,9 @@ public class DragonBoatGame extends Game {
         }
     }
 
+    /**
+     * Sets ended to true
+     */
     public void endGame() {
         this.ended = true;
 
@@ -326,6 +329,9 @@ public class DragonBoatGame extends Game {
 
     }
 
+    /**
+     * Loads the game music and starts playing it on loop
+     */
     public void setMusic(){
         music = Gdx.audio.newMusic(Gdx.files.internal("cantgobackwards.mp3"));
         music.setLooping(true);

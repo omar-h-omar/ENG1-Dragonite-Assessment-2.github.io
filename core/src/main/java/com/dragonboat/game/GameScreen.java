@@ -683,13 +683,16 @@ public class GameScreen implements Screen {
         viewport.update(width, height, true);
         batch.setProjectionMatrix(camera.combined);
     }
-
+    //"ASSESSMENT2:START"
+    /**
+     * Sets the current game state to paused.
+     */
     @Override
     public void pause() {
         state = State.Paused;
 
     }
-  //"ASSESSMENT2:START"
+
     @Override
     public void resume() {
         state = State.Running;
@@ -810,9 +813,9 @@ public class GameScreen implements Screen {
                     }
                 }
                 /*
-                 * Checks which slot is free and uses it.
+                 * Checks which slot is free and uses it to save the game.
                  * If no slots are available, then overwrites
-                 * the oldest slot.
+                 * the oldest slot with a new save.
                  */
                 if (saveButtonPressed[0]){
                     // The file where the current save will be

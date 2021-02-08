@@ -119,9 +119,6 @@ public class MenuScreen implements Screen {
         });
     }
 
-    private void btnLoginClicked() {
-        game.setScreen(new GameScreen(game));
-    }
 
     /**
      * Rendering function for the menu screen.
@@ -134,6 +131,12 @@ public class MenuScreen implements Screen {
         batch.end();
     }
 
+    /**
+     * Resizes the game screen.
+     *
+     * @param width  Width of the screen.
+     * @param height Height of the screen.
+     */
     @Override
     public void resize(int width, int height) {
         viewport.update(width, height, true);

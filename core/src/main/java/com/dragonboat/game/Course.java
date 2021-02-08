@@ -38,10 +38,18 @@ public class Course {
         return lanes.length;
     }
 
+    /**
+     * Gets the course's left boundary.
+     * @return Int representing the left boundary of the course
+     */
     public int getLeftBoundary() {
         return leftBoundary;
     }
 
+    /**
+     * Gets the course's right boundary.
+     * @return Int representing the right boundary of the course
+     */
     public int getRightBoundary() {
         return rightBoundary;
     }

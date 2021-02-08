@@ -2,6 +2,9 @@ package com.dragonboat.game;
 
 import com.badlogic.gdx.graphics.Texture;
 
+/**
+ * Represents a rock obstacle in the game
+ */
 public class Rock extends Obstacle {
 
     /**

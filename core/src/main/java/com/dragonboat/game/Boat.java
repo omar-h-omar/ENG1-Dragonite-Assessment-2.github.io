@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.Texture;
 public class Boat {
     /*
      * Direct representation based off the UML diagram
-     * https://drive.google.com/file/d/15O95umnJIoApnsj8I9ejEtMxrDGYJWAC/view?usp=sharing
+     * https://lucid.app/lucidchart/1722c0c4-170a-41ba-a8ca-cebedb17eab6/edit?shared=true&page=0_0#?folder_id=home&browser=icon
      */
 
     private int ROBUSTNESS, MAXSPEED;
@@ -205,6 +205,10 @@ public class Boat {
     }
  // "ASSESSMENT2:START"
 
+    /**
+     * Adds the power up to one of boat's 2 power up slots if it's empty
+     * @param p A power up which gives boats a perk
+     */
     public void AddPowerUp(PowerUp p) {
         if (boatPowerUps[0] == null){
             boatPowerUps[0] = p;
@@ -214,6 +218,10 @@ public class Boat {
         }
     }
 
+    /**
+     * Checks the type of power up and applies it to the boat
+     * @param p A power up which gives boats a perk
+     */
     public void ApplyPowerUp(PowerUp p){
         if (p.type == "Maneuverability"){
             MANEUVERABILITY += 1;
@@ -315,6 +323,7 @@ public class Boat {
     // getters and setters
 
     /**
+     * Sets the texture
      * @param t Texture to use.
      */
     public void setTexture(Texture t) {
@@ -322,6 +331,7 @@ public class Boat {
     }
 
     /**
+     * Sets textureFrames
      * @param frames Texture frames for animation.
      */
     public void setTextureFrames(Texture[] frames) {
@@ -329,7 +339,7 @@ public class Boat {
     }
 
     /**
-     * 
+     * Gets the fastestLegTime of the boat
      * @return Float representing fastest race/leg time.
      */
     public float getFastestTime() {
@@ -337,7 +347,7 @@ public class Boat {
     }
 
     /**
-     * 
+     * Gets the boat's x position
      * @return Int representing x-position of boat.
      */
     public int getX() {
@@ -345,7 +355,7 @@ public class Boat {
     }
 
     /**
-     * 
+     * Gets the boat's y position
      * @return Int representing y-position of boat.
      */
     public int getY() {
@@ -353,7 +363,7 @@ public class Boat {
     }
 
     /**
-     * 
+     * Gets the height of the boat
      * @return Int representing the y coordinate range of the boat (length).
      */
     public int getHeight() {
@@ -361,7 +371,7 @@ public class Boat {
     }
 
     /**
-     * 
+     * Gets the name of the boat
      * @return String representing name of the boat.
      */
     public String getName() {
@@ -369,7 +379,7 @@ public class Boat {
     }
 
     /**
-     * 
+     * Returns whether a boat has finished or not
      * @return Boolean representing if the boat has finished the current race.
      */
     public boolean finished() {
@@ -377,7 +387,7 @@ public class Boat {
     }
 
     /**
-     * 
+     * Sets whether a boat has finished or not
      * @param f Boolean representing if the boat has finished the race.
      */
     public void setFinished(boolean f) {
@@ -385,7 +395,7 @@ public class Boat {
     }
 
     /**
-     * 
+     * Gets the boat's current speed
      * @return Float representing the current speed of the boat.
      */
     public float getCurrentSpeed() {
@@ -393,6 +403,8 @@ public class Boat {
     }
 
     /**
+     * Gets the current progress of a boat given its current y position
+     *
      * @param finishY Y-position of the finish line.
      * @return Float representing the progress of the boat from 0 to 1.
      */
@@ -433,13 +445,15 @@ public class Boat {
     }
 
     /**
-     * @return Float representing the manouverability of the boat.
+     * Gets the boat's maneuverability
+     * @return Float representing the maneuverability of the boat.
      */
     public float getManeuverability() {
         return this.MANEUVERABILITY;
     }
 
     /**
+     * Gets the boat's acceleration
      * @return Float representing the acceleration of the boat.
      */
     public float getAcceleration() {
@@ -447,6 +461,7 @@ public class Boat {
     }
 
     /**
+     * Gets the boat's robustness
      * @return Int representing the robustness of the boat.
      */
     public int getRobustness() {
@@ -454,6 +469,7 @@ public class Boat {
     }
 
     /**
+     * Gets the boat's durability
      * @return Int representing the durability of the boat.
      */
     public int getDurability() {
@@ -461,6 +477,7 @@ public class Boat {
     }
 
     /**
+     * Gets the boat's maximum speed
      * @return Int representing the maximum speed of the boat.
      */
     public int getMaxSpeed() {
@@ -468,6 +485,7 @@ public class Boat {
     }
 
     /**
+     * Gets the boat's tiredness
      * @return Float representing the tiredness of the boat crew.
      */
     public float getTiredness() {
@@ -475,6 +493,7 @@ public class Boat {
     }
 
     /**
+     * Gets the boat's penalty
      * @return Float representing the time penalty incurred for the current race.
      */
     public float getPenalty() {
@@ -482,6 +501,7 @@ public class Boat {
     }
 
     /**
+     * Applies a time penalty to the boat
      * @param penalty Float to add to the boat's penalty total for the current race.
      */
     public void applyPenalty(float penalty) {
@@ -489,6 +509,7 @@ public class Boat {
     }
 
     /**
+     * Sets a lane to the boat
      * @param lane Lane object for the boat.
      */
     public void setLane(Lane lane) {
@@ -497,7 +518,7 @@ public class Boat {
     }
  // "ASSESSMENT2:START"
     /**
-     *
+     * Sets the robustness of the boat
      * @param ROBUSTNESS an integer representing how resilient to obstacle damage the boat is.
      */
     public void setROBUSTNESS(int ROBUSTNESS) {
@@ -505,7 +526,7 @@ public class Boat {
     }
 
     /**
-     *
+     * Sets the acceleration of the boat
      * @param ACCELERATION A float representing how much the speed increases each frame.
      */
     public void setACCELERATION(float ACCELERATION) {
@@ -513,7 +534,7 @@ public class Boat {
     }
 
     /**
-     *
+     * Sets the maneuverability of the boat
      * @param MANEUVERABILITY A float representing how easily the boat can move left or right.
      */
     public void setMANEUVERABILITY(float MANEUVERABILITY) {
@@ -521,7 +542,7 @@ public class Boat {
     }
 
     /**
-     *
+     * Sets the durability of the boat
      * @param durability an integer representing the current health of the boat.
      */
     public void setDurability(int durability) {
@@ -529,7 +550,7 @@ public class Boat {
     }
 
     /**
-     *
+     * Sets the current speed of the boat
      * @param currentSpeed A float representing the current speed of the boat.
      */
     public void setCurrentSpeed(float currentSpeed) {
@@ -537,7 +558,7 @@ public class Boat {
     }
 
     /**
-     *
+     * Sets the tiredness of the boat
      * @param tiredness A float representing the tiredness of the boat crew.
      */
     public void setTiredness(float tiredness) {
@@ -545,7 +566,7 @@ public class Boat {
     }
 
     /**
-     *
+     * Sets the x position of the boat
      * @param xPosition A float representing the position of the boat on the x axis.
      */
     public void setXPosition(float xPosition) {
@@ -553,24 +574,20 @@ public class Boat {
     }
 
     /**
-     *
-     * @param yPosition A float representing the position of the boat on the y axis.
+     * Sets the penalties of the boat
+     * @param penalties A float representing the penalties of the boat on the y axis.
      */
-
-    public void setPenalties(float i) {
-        this.penalties = i;
+    public void setPenalties(float penalties) {
+        this.penalties = penalties;
     }
 
+    /**
+     * Sets the y position of the boat
+     * @param yPosition A float representing the position of the boat on the y axis.
+     */
     public void setYPosition(float yPosition) {
         this.yPosition = yPosition;
     }
 
-    public void SteerRightTest() {
-        if (true) {
-            this.xPosition += this.MANEUVERABILITY * this.currentSpeed;
-            this.currentSpeed *= 0.985;
-        }
-
-    }
 }
 //"ASSESSMENT2:END"

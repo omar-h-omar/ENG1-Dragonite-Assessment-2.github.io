@@ -56,6 +56,7 @@ public class Goose extends Obstacle {
      *
      * @param moveVal          Distance to move Goose by.
      * @param backgroundOffset Offset from screen to course coordinates.
+     * @param level            The current difficulty level
      */
     public void Move(float moveVal, int backgroundOffset, String level) {
 

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
  * Represents an obstacle on the course.
  *
  * @see Log
+ * @see Rock
  * @see Goose
  */
 public class Obstacle {
@@ -48,6 +49,7 @@ public class Obstacle {
     // getters and setters
 
     /**
+     * Gets the obstacle's damage
      * @return Int representing damage the obstacle inflicts upon collision.
      */
     public int getDamage() {
@@ -55,6 +57,7 @@ public class Obstacle {
     }
 
     /**
+     * Gets the obstacle's x position
      * @return Float representing the x-position.
      */
     public float getX() {
@@ -62,6 +65,7 @@ public class Obstacle {
     }
 
     /**
+     * Gets the obstacle's y position
      * @return Float representing the y-position.
      */
     public float getY() {
@@ -69,6 +73,7 @@ public class Obstacle {
     }
 
     /**
+     * Sets the obstacle's y position
      * @param yPosition Y-position.
      */
     public void setY(float yPosition) {
@@ -76,6 +81,7 @@ public class Obstacle {
     }
 
     /**
+     * Sets the obstacle's y position
      * @param xPosition X-position.
      */
     public void setX(float xPosition) {
@@ -83,6 +89,7 @@ public class Obstacle {
     }
 
     /**
+     * Gets the obstacle's texture
      * @return Texture asset for obstacle.
      */
     public Texture getTexture() {
@@ -90,6 +97,7 @@ public class Obstacle {
     }
 
     /**
+     * Gets the obstacle's x height
      * @return Int representing the height of the obstacle.
      */
     public int getHeight() {

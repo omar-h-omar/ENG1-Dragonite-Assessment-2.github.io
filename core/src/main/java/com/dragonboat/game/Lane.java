@@ -185,6 +185,7 @@ public class Lane {
     // getters and setters
 
     /**
+     * Gets the lane's left boundary.
      * @return Int representing the x-position of the lane's left boundary.
      */
     public int getLeftBoundary() {
@@ -192,6 +193,7 @@ public class Lane {
     }
 
     /**
+     * Gets the lane's right boundary.
      * @return Int representing the x-position of the lane's right boundary.
      */
     public int getRightBoundary() {

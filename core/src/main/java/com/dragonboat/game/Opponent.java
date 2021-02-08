@@ -188,16 +188,6 @@ public class Opponent extends Boat {
                             int leftMargin = Math.round(leftSide - obs.getX());
                             int rightMargin = Math.round(obs.getX()) + obs.width - rightSide;
 
-                            /*
-                            // new removed the slow down
-                            // Check to slow down.
-                            if ((leftMargin <= 0 && rightMargin <= 0) || (leftMargin >= 0 && rightMargin >= 0)) {
-                                // Obstacle is dead ahead. Slow down.
-                                this.DecreaseSpeed();
-                            }
-
-                             */
-
                             // Check to go left or right.
                             if (leftMargin <= rightMargin) {
                                 // If easier to dodge to the left of the obstacle, steer to the left of the
