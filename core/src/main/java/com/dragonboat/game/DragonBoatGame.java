@@ -160,10 +160,11 @@ public class DragonBoatGame extends Game {
                 noOfObstacles += difficulty;
                 break;
             case "Medium":
-                noOfObstacles += 2*difficulty;
+                noOfObstacles += 4*difficulty;
                 break;
             case "Hard":
-                noOfObstacles = 3*difficulty;
+                noOfObstacles = 6*difficulty;
+                break;
             default:
                 noOfObstacles = 10;
         }
