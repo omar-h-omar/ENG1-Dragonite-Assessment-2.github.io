@@ -220,10 +220,9 @@ focused on. This was to ensure a successful completion of the entire project.
 # Assessment 2 Content
 ### Deliverables
 *   <a href="#">Change Report</a>
-*   <a href="#">Implementation</a>
-*   <a href="#">Testing</a>
-*   <a href="#">Continous Integration</a>
-*   <a href="#">Self Assessment</a>
+*   <a href="docs/deliverables2/Impl2.pdf">Implementation</a>
+*   <a href="docs/deliverables2/Test2.pdf">Testing</a>
+*   <a href="docs/deliverables2/CI2.pdf">Continous Integration</a>
 *   <a href="docs/deliverables2/Manual.pdf">Manual PDF</a>
 *   <a href="docs/deliverables2/Editiable Manual.docx">Editable Manual</a>
 
