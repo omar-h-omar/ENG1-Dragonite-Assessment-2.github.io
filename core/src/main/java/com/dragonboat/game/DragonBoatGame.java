@@ -159,13 +159,13 @@ public class DragonBoatGame extends Game {
         //"ASSESSMENT2:START"
         switch (level) {
             case "Easy":
-                noOfObstacles += difficulty;
+                noOfObstacles += 1;
                 break;
             case "Medium":
-                noOfObstacles += 4*difficulty;
+                noOfObstacles += 2;
                 break;
             case "Hard":
-                noOfObstacles = 6*difficulty;
+                noOfObstacles = 3;
                 break;
             default:
                 noOfObstacles = 10;
@@ -314,7 +314,7 @@ public class DragonBoatGame extends Game {
         this.ended = true;
 
     }
-
+    //"ASSESSMENT2:START"
     /**
      * Resizes the game screen.
      *
@@ -325,8 +325,8 @@ public class DragonBoatGame extends Game {
     public void resize(int width, int height) {
         this.getScreen().resize(width, height);
     }
+    //"ASSESSMENT2:END"
 
-    //"ASSESSMENT2:START"
     /**
      * Disposes of the current screen when it's no longer needed.
      */
@@ -337,7 +337,6 @@ public class DragonBoatGame extends Game {
         font28.dispose();
 
     }
-    //"ASSESSMENT2:END"
 
     /**
      * Loads the game music and starts playing it on loop

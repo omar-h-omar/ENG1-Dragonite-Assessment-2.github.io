@@ -18,8 +18,10 @@ public class Boat {
      */
 
     private int ROBUSTNESS, MAXSPEED;
-    private float ACCELERATION, MANEUVERABILITY;
-
+    private float ACCELERATION;
+    //"ASSESSMENT2:START"
+    private float originalMan, maneuverability;
+    //"ASSESSMENT2:END"
     private int durability;
     protected float yPosition, xPosition, penalties;
     protected int width, height;
@@ -34,14 +36,12 @@ public class Boat {
     private int threshold = 5;
 
  // "ASSESSMENT2:START"
-
     public PowerUp[] boatPowerUps;
-    public float powerUpTimer;
     private boolean isInvincible;
     private int invCounter;
     private float reductions;
-
  // "ASSESSMENT2:END"
+
     /**
      * Creates a Boat instance in a specified Lane.
      *
@@ -80,7 +80,7 @@ public class Boat {
      */
     public void SteerLeft(Course course) {
         if (this.xPosition >= course.getLeftBoundary()) {
-            this.xPosition -= this.MANEUVERABILITY * this.currentSpeed;
+            this.xPosition -= this.maneuverability * this.currentSpeed;
             this.currentSpeed *= 0.985;
         }
 
@@ -93,7 +93,7 @@ public class Boat {
      */
     public void SteerRight(Course course) {
         if (this.xPosition + this.width <= course.getRightBoundary()) {
-            this.xPosition += this.MANEUVERABILITY * this.currentSpeed;
+            this.xPosition += this.maneuverability * this.currentSpeed;
             this.currentSpeed *= 0.985;
         }
 
@@ -165,21 +165,21 @@ public class Boat {
             this.lane.RemovePowerUp(powerUps.get(j));
         }
 
-        if (isInvincible == true) {
-            invCounter -= 1;
-            if (invCounter <= 0){
-                isInvincible = false;
-            }
-            return false;
-        }
-     // "ASSESSMENT2:END"
         for (Obstacle o : obstacles) {
             // new changed so that it accommodates for obstacles with different width
             if (o.getX() < this.xPosition + this.width && this.xPosition < o.getX() + o.getTexture().getWidth()) {
                 // new changed for detection of y as it would not collide on the side of boats
                 if (this.yPosition + this.height > o.getY() + backgroundOffset
                         && this.yPosition < o.getY() + o.texture.getHeight() + backgroundOffset) {
+                    if (isInvincible == true) {
+                        invCounter -= 1;
+                        if (invCounter <= 0){
+                            isInvincible = false;
+                        }
+                        return false;
+                    }
 
+                    // "ASSESSMENT2:END"
                     this.ApplyDamage(o.getDamage());
                     obstaclesToRemove.add(obstacles.indexOf(o));
 
@@ -226,7 +226,7 @@ public class Boat {
      */
     public void ApplyPowerUp(PowerUp p){
         if (p.type == "Maneuverability"){
-            MANEUVERABILITY += 1;
+            maneuverability += 1;
         }
         else if (p.type == "Repair"){
             durability = 50;
@@ -312,7 +312,9 @@ public class Boat {
         this.durability = 50;
         this.tiredness = 0f;
         this.finished = false;
-
+        //"ASSESSMENT2:START"
+        this.maneuverability = originalMan;
+        //"ASSESSMENT2:END"
     }
 
     /**
@@ -426,7 +428,10 @@ public class Boat {
         this.MAXSPEED = maxspeed / 2;
         this.ROBUSTNESS = robustness;
         this.ACCELERATION = acceleration / 64;
-        this.MANEUVERABILITY = maneuverability / 8;
+        //"ASSESSMENT2:START"
+        this.originalMan = maneuverability / 8;
+        this.maneuverability = originalMan;
+        //"ASSESSMENT2:END"
     }
 
     /**
@@ -451,7 +456,7 @@ public class Boat {
      * @return Float representing the maneuverability of the boat.
      */
     public float getManeuverability() {
-        return this.MANEUVERABILITY;
+        return this.maneuverability;
     }
 
     /**
@@ -540,7 +545,7 @@ public class Boat {
      * @param MANEUVERABILITY A float representing how easily the boat can move left or right.
      */
     public void setMANEUVERABILITY(float MANEUVERABILITY) {
-        this.MANEUVERABILITY = MANEUVERABILITY;
+        this.maneuverability = MANEUVERABILITY;
     }
 
     /**
@@ -585,7 +590,7 @@ public class Boat {
 
     /**
      * Sets the y position of the boat
-     * @param i A float representing the position of the boat on the y axis.
+     * @param yPosition A float representing the position of the boat on the y axis.
      */
     public void setYPosition(float yPosition) {
         this.yPosition = yPosition;

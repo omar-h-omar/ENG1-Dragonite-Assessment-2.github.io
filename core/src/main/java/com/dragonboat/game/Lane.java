@@ -26,15 +26,15 @@ public class Lane {
     public Lane(int leftBoundary, int rightBoundary) {
         this.LEFTBOUNDARY = leftBoundary;
         this.RIGHTBOUNDARY = rightBoundary;
-      //"ASSESSMENT2:START"
-        this.obstacleLimit = 20;   // maybe change back to 10
+        this.obstacleLimit = 10;
+        // "ASSESSMENT2:START"
         this.powerUpLimit = 4;
-      //"ASSESSMENT2:END"
+        //"ASSESSMENT2:END"
 
         obstacles = new ArrayList<>();
-      //"ASSESSMENT2:START"
+        //"ASSESSMENT2:START"
         powerUps = new ArrayList<>();
-      //"ASSESSMENT2:END"
+        //"ASSESSMENT2:END"
     }
 
     /**
@@ -78,6 +78,7 @@ public class Lane {
                 Goose goose = new Goose(x, y, new Texture(Gdx.files.internal("gooseSouthsprite.png")), this);
                 this.obstacles.add(goose);
 
+                //"ASSESSMENT2:START"
             } else if (obstacleType.equals("OakLog")) {
                 Log log = new Log(x, y, new Texture(Gdx.files.internal("OakLog.png")),"OakLog");
                 this.obstacles.add(log);
@@ -106,6 +107,7 @@ public class Lane {
                 Rock rock = new Rock(x, y, new Texture(Gdx.files.internal("Rock3.png")),"Rock3");
                 this.obstacles.add(rock);
             }
+            //"ASSESSMENT2:START"
         } else
             System.out.println("Obstacle limit reached.");
     }
