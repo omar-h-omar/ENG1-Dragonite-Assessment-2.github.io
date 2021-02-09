@@ -10,8 +10,8 @@ de/tomgrill/gdxtesting/FunctionalRequirements/FR_OBSTACLE_INCREASE.java
  de.tomgrill.gdxtesting.FunctionalRequirements.FR_OBSTACLE_INCREASE
 de/tomgrill/gdxtesting/FunctionalRequirements/FR_UNIQUE_BOATS.java
  de.tomgrill.gdxtesting.FunctionalRequirements.FR_UNIQUE_BOATS
-de/tomgrill/gdxtesting/UserRequirements/UR_MIN_BOATS.java
- de.tomgrill.gdxtesting.UserRequirements.UR_MIN_BOATS
+de/tomgrill/gdxtesting/FunctionalRequirements/FR_TIMER.java
+ de.tomgrill.gdxtesting.FunctionalRequirements.FR_TIMER
 de/tomgrill/gdxtesting/ClassTests/LaneTests.java
  de.tomgrill.gdxtesting.ClassTests.LaneTests
 de/tomgrill/gdxtesting/FunctionalRequirements/FR_COLLISIONS.java
@@ -32,5 +32,5 @@ de/tomgrill/gdxtesting/FunctionalRequirements/FR_FINISH.java
  de.tomgrill.gdxtesting.FunctionalRequirements.FR_FINISH
 de/tomgrill/gdxtesting/FunctionalRequirements/FR_TIREDNESS.java
  de.tomgrill.gdxtesting.FunctionalRequirements.FR_TIREDNESS
-de/tomgrill/gdxtesting/FunctionalRequirements/FR_TIMER.java
- de.tomgrill.gdxtesting.FunctionalRequirements.FR_TIMER
+de/tomgrill/gdxtesting/UserRequirements/UR_MIN_BOATS.java
+ de.tomgrill.gdxtesting.UserRequirements.UR_MIN_BOATS
