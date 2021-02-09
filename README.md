@@ -250,5 +250,8 @@ focused on. This was to ensure a successful completion of the entire project.
 *   <a href="https://drive.google.com/file/d/1fE9bUOzZpsyA8Jf6V2dL58-3sYPpEoIR/view?usp=sharing">lossTest2</a>
 *   <a href="https://drive.google.com/file/d/11ZfilukqzsrelLmkH83TYtXHfQ4lM-q1/view?usp=sharing">PauseScreenTest</a>
 *   <a href="https://drive.google.com/file/d/129sGoDf6_R4ToL4roovvD_yA1qlDihZv/view?usp=sharing">TitleScreenTest</a>
+*   <a href="https://drive.google.com/file/d/10hUcJ6FXW32HjWjEWTf2lw56puNZ8kt-/view?usp=sharing">GameModeEasy</a>
+*   <a href="https://drive.google.com/file/d/16SRjU4R_25ihwKkW58MLmehslHQBpbcW/view?usp=sharing">GameModeMedium</a>
+*   <a href="https://drive.google.com/file/d/1tvJMG3b8T3-Uxtl0Xx4Th8wrJja9mrMQ/view?usp=sharing">GameModeHard</a>
 
 ### Weekly Snapshots
