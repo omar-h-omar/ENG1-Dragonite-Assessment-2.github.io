@@ -254,3 +254,87 @@ focused on. This was to ensure a successful completion of the entire project.
 *   <a href="https://drive.google.com/file/d/1tvJMG3b8T3-Uxtl0Xx4Th8wrJja9mrMQ/view?usp=sharing">GameModeHard</a>
 
 ### Weekly Snapshots
+#### Project Gantt Chart
+<img src="docs/sprint2/gantt chart.png">
+
+#### Sprint Dropdowns
+<details>
+  <summary><strong> Sprint 1 - 17/12/2020 </strong></summary>
+
+Having completed the task of setting up the environment for the project and other resources needed for the project, the focus was on understanding the documents 
+and sending off any questions the team had. We also got started on other tasks that did not require any preparations.
+<br>
+<br>
+<img src="docs/sprint2/sprint1.png">
+
+<br>
+</details>
+
+<details>
+  
+<summary><strong> Sprint 2 - 27/12/2020 </strong></summary>
+
+Having completed the Customer meeting during the last Sprint, we divided more tasks and took the extra time to finish existing ones.
+<br>
+<br>
+<img src="docs/sprint2/sprint2.png">
+
+<br>
+</details>
+
+<details>
+<summary><strong> Sprint 3 - 02/01/2021 </strong></summary>
+
+For this week, we went over the documents finished in the last sprint. More tasks related to the deliverable documents were assigned and 
+Implementation carried on from last week.
+<br>
+<br>
+<img src="docs/sprint2/sprint3.png">
+
+<br>
+</details>
+
+<details>
+<summary><strong> Sprint 4 - 09/01/2021 </strong></summary>
+ 
+For this period, the team focused on getting all assigned tasks done and we decided to take the rest of the period off
+to focus on exams.
+<br>
+<br>
+<img src="docs/sprint2/sprint4.png">
+<br>
+</details> 
+
+
+<details>
+<summary><strong> Sprint 5 - 23/01/2021 </strong></summary>
+
+By the end of the 5th sprint, the implementation of the power ups was complete. The next assigned task for the implementation was working on the pause screen, which would allow us to follow up with the saving, loading and difficulties requirements. The change report was being updated with deliverables content as it was being updated. The continuous integration plan was created along with the user manual.
+<br>
+<br>
+<img src="docs/sprint2/sprint5.png">
+
+<br>
+</details>
+
+<details>
+<summary><strong> Sprint 6 - 30/01/2021 </strong></summary>
+
+The implementation tasks were completed by the begging of this sprint allowing for test of the new updated code to begin. The website was also updated with the new deliverables and many other tasks were completed.
+<br>
+<br>
+<img src="docs/sprint2/sprint6.png">
+
+<br>
+</details>
+
+<details>
+<summary><strong> Sprint 7 - 06/02/2021 </strong></summary>
+
+At the start of the sprint the testing was completed for the functional requirements, however the non functional tests were still in progress. Throughout this sprint all of these tests were complete. This sprint was also used to review all updated devlierables as a group, ensuring that all the specifications were met. The user manual was completed and website was updated and reviewed by the team. 
+<br>
+<br>
+<img src="docs/sprint2/sprint7.png">
+
+<br>
+</details>
