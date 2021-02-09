@@ -234,7 +234,7 @@ focused on. This was to ensure a successful completion of the entire project.
 *   <a href="docs/deliverables2/Risks.pdf">Risk Assessment and Mitigation</a>
 
 ### Executables
-*   <a href="#">Dragon Boat Z Game</a>
+*   <a href="https://github.com/omar-h-omar/ENG1-Dragonite-Assessment-2.github.io/releases/download/2.0/desktop-2.0.jar">Dragon Boat Z Assessment 2 Game</a>
 
 ### Javadocs
 *   <a href="docs/javadoc/index.html">Javadocs HTML Export</a>
