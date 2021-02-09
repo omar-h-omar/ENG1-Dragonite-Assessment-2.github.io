@@ -507,6 +507,18 @@ public class Boat {
         return this.penalties;
     }
 
+    public float getTimeReduction() { return this.reductions; }
+
+    public boolean getInvincible() { return this.isInvincible; }
+
+    public PowerUp[] getPowerUpSlot() { return this.boatPowerUps; }
+
+    public Float[] getStats() {
+
+        Float[] stats = {(float) this.MAXSPEED, (float) this.ROBUSTNESS, this.ACCELERATION, this.maneuverability};
+        return stats;
+    }
+
     /**
      * Applies a time penalty to the boat
      * @param penalty Float to add to the boat's penalty total for the current race.
