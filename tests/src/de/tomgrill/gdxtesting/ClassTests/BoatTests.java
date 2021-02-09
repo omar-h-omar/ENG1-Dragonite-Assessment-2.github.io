@@ -1,4 +1,4 @@
-package de.tomgrill.gdxtesting.FunctionalRequirements;
+package de.tomgrill.gdxtesting.ClassTests;
 import com.dragonboat.game.Boat;
 import com.dragonboat.game.Course;
 import com.dragonboat.game.Lane;
