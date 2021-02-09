@@ -228,10 +228,10 @@ focused on. This was to ensure a successful completion of the entire project.
 *   <a href="docs/deliverables2/Editiable Manual.docx">Editable Manual</a>
 
 ### Assessment 1 Edited Documents
-*   <a href="docs/deliverables2/Requirements.pdf">Requirements</a>
-*   <a href="#">Architecture</a>
-*   <a href="#">Method Selection and Planning</a>
-*   <a href="docs/deliverables2/Risks.pdf">Risk Assessment and Mitigation</a>
+*   <a href="docs/deliverables2/Req1.pdf">Requirements</a>
+*   <a href="docs/deliverables2/Arch1.pdf">Architecture</a>
+*   <a href="docs/deliverables2/Plan1.pdf">Method Selection and Planning</a>
+*   <a href="docs/deliverables2/Risk1.pdf">Risk Assessment and Mitigation</a>
 
 ### Executables
 *   <a href="https://github.com/omar-h-omar/ENG1-Dragonite-Assessment-2.github.io/releases/download/2.0/desktop-2.0.jar">Dragon Boat Z Assessment 2 Game</a>
