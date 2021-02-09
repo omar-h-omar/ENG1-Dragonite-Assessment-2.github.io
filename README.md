@@ -240,6 +240,7 @@ focused on. This was to ensure a successful completion of the entire project.
 *   <a href="docs/javadoc/index.html">Javadocs HTML Export</a>
 
 ### Testing Content
+*   <a href="docs/deliverables2/Testing.pdf">Testing Table</a>
 *   <a href="docs/deliverables2/Traceability Matrix.pdf">Traceability Matrix</a>
 *   <a href="https://drive.google.com/file/d/1Z40W5EGmP1z-CrYO3SMFUAfms1kF1jEk/view?usp=sharing">animationTest</a>
 *   <a href="https://drive.google.com/file/d/1vYBJqsw-IelFq-VL3l8dbfYN1NvA0scF/view?usp=sharing">GameLengthTest</a>
