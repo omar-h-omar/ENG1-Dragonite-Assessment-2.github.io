@@ -242,6 +242,7 @@ focused on. This was to ensure a successful completion of the entire project.
 ### Testing Content
 *   <a href="docs/deliverables2/Testing.pdf">Testing Table</a>
 *   <a href="docs/deliverables2/Traceability Matrix.pdf">Traceability Matrix</a>
+*   <a href="tests/build/reports/tests/test/index.html">Automated Tests</a>
 *   <a href="https://drive.google.com/file/d/1Z40W5EGmP1z-CrYO3SMFUAfms1kF1jEk/view?usp=sharing">animationTest</a>
 *   <a href="https://drive.google.com/file/d/1vYBJqsw-IelFq-VL3l8dbfYN1NvA0scF/view?usp=sharing">GameLengthTest</a>
 *   <a href="https://drive.google.com/file/d/18zbvhOotlZxy3vwk1QbMPCt6oR6D8M4o/view?usp=sharing">laneWarningTest</a>
