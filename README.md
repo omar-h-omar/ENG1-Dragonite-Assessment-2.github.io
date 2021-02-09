@@ -219,7 +219,7 @@ focused on. This was to ensure a successful completion of the entire project.
 
 # Assessment 2 Content
 ### Deliverables
-*   <a href="#">Change Report</a>
+*   <a href="docs/deliverables2/Change2.pdf">Change Report</a>
 *   <a href="docs/deliverables2/Impl2.pdf">Implementation</a>
 *   <a href="docs/deliverables2/Test2.pdf">Testing</a>
 *   <a href="docs/deliverables2/CI2.pdf">Continous Integration</a>
